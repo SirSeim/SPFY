@@ -27,5 +27,5 @@ Start server with `npm start`
 
 
 
-[version-img]: https://img.shields.io/badge/version-planning%20phase-red.svg
+[version-img]: https://img.shields.io/badge/version-in%20development-red.svg
 [version-url]: https://github.com/SirSeim/SPFY
