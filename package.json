@@ -1,0 +1,86 @@
+{
+  "name": "spfy",
+  "version": "0.0.0",
+  "description": "Safe Place for Youth Database Solution",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirSeim/SPFY.git"
+  },
+  "keywords": [
+    "Safe",
+    "Place",
+    "Youth",
+    "Database",
+    "Webapp"
+  ],
+  "author": {
+    "name": "Edward Seim",
+    "email": "sirseim@gmail.com",
+    "url": "https://github.com/SirSeim"
+  },
+  "contributors": [
+    {
+      "name": "Chris Franco",
+      "url": "https://github.com/cf7"
+    },
+    {
+      "name": "Nicole Anguiano",
+      "url": "https://github.com/NAnguiano"
+    },
+    {
+      "name": "Josh Kuroda",
+      "email": "jkkealii@gmail.com",
+      "url": "https://github.com/jkkealii"
+    },
+    {
+      "name": "Mary Kate Reid",
+      "url": "https://github.com/mreid10"
+    },
+    {
+      "name": "Lauren Konchan",
+      "url": "https://github.com/lkonchan"
+    },
+    {
+      "name": "Irakli Khizanishvili",
+      "url": "https://github.com/IrakliK"
+    },
+    {
+      "name": "Christopher Dellomes",
+      "email": "cdellome@lion.lmu.edu",
+      "url": "https://github.com/cjdellomes"
+    },
+    {
+      "name": "Mondo Yamaguchi",
+      "url": "https://github.com/myamagu1"
+    }
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SirSeim/SPFY/issues"
+  },
+  "homepage": "https://github.com/SirSeim/SPFY#readme",
+  "dependencies": {
+    "config": "^1.21.0",
+    "good": "^7.0.2",
+    "good-console": "^6.1.2",
+    "good-squeeze": "^5.0.0",
+    "hapi": "^15.0.3",
+    "inert": "^4.0.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "codecov": "^1.0.1",
+    "istanbul": "^0.4.5",
+    "jslint": "^0.10.3",
+    "mocha": "^3.0.2",
+    "mocha-istanbul": "^0.3.0"
+  }
+}
