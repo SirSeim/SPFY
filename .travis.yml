@@ -3,7 +3,7 @@ node_js:
 - '0.12'
 script:
 - npm test
-- npm run coffeelint -silent
+- npm run jshint
 after_script:
 - npm run codecov
 notifications:
