@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- '0.12'
+script:
+- npm test
+- npm run jshint
+after_script:
+- npm run codecov
+notifications:
+  email: false
+  slack:
+    secure: CepJM0G3cUvYdbglWpLqE8PoE4tmqk7yLxwfJ5Uk2esdWkTqJ6APbdXFlDQCxLq8YzESbXK1abDc0zCUrSdLwPPVXvEp/niTTo+KmXMfGcoKrmROobr9njeLO6djIQ4NrnMAtwRcEsuhLmxNWQo8hFtjrVAeiGcx3ZpWs8LezGPlhGYucvyPRD6oGZcbC76wSxm1qeAxxIc4VOgl2qjI5bLsEq/rwIFCw7ZLedUDMaq3AaQkAb0IpI6sPnxwOmMjIoen+Za/ZV0Q2+gdlBKydq9TLNgFpcWwRr8H7E1s9jkpBlqnAPG+uEA2TVPmXVEdu5ypl7luIyKj22N1A35XWENJZ++OwxMExR7//f9niZLoQJQZ3EmLhieMvu2HU+5nlExob6AQA3Uc2jig53PqZSGrGeVfGb6l6ND7Xc+Zu5s/7+T8vnqUIbu/npz4K4tbutg2KmaVupU9bHKwXz5ivgltg4as1oTzbJYpXPt7ltDsix6CWhESLjyGALs/fpO4QAF1+WtaCx5Z7SFppmgEZczDsGZbjwl518SsMvRLzInyXePZQ7LmvpwWQe9HFZlJvWL9AYRY3BHncueQY5jTQyWX/wI196XgEKJ5zYUdXj3VVG0niaXyerQtqpGp29daIloYPujZCwLnH0tLTgLT18ZLyqSevSJMiozYVncB5F4=

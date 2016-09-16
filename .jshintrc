@@ -1,0 +1,14 @@
+{
+    "bitwise": false,
+    "curly": true,
+    "eqeqeq": true,
+    "strict": false,
+    "undef": true,
+    "unused": true,
+    "predef": [
+        "module",
+        "require",
+        "__dirname",
+        "console"
+    ]
+}

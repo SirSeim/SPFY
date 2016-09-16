@@ -7,8 +7,12 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
+    "jshint": "jshint --reporter $(npm bin)/../jshint-stylish-ex/stylish.js server.js **/*.js",
+    "report": "istanbul report",
+    "report-summary": "istanbul report text-summary lcov",
+    "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov"
   },
   "repository": {
     "type": "git",
@@ -79,7 +83,8 @@
     "chai": "^3.5.0",
     "codecov": "^1.0.1",
     "istanbul": "^0.4.5",
-    "jslint": "^0.10.3",
+    "jshint": "^2.9.3",
+    "jshint-stylish-ex": "^0.2.0",
     "mocha": "^3.0.2",
     "mocha-istanbul": "^0.3.0"
   }
