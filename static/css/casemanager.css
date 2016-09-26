@@ -39,6 +39,19 @@ body {
     height: 35px;
 }
 
+.dot {
+  display: inline-block
+  border-radius: 50%
+  width: 50%
+  background-color: grey
+  height: 15px
+  width: 15px
+  margin: 0 2px
+}
+.dot-success {
+  background-color: green
+}
+
 #clientname {
   font-size: 20px;
 }
