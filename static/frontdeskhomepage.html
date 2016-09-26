@@ -80,13 +80,151 @@
         </div>
 
         <div class="row">
-          <p>Front Desk Homepage!</p>
+          <h1>Front Desk Homepage!</h1>
         </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4>
+                    Intake Needed 
+                  </h4>
+                </div>
+                <table id="intakeneeded" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>First Visit</th>
+                      <th>Name(First Last)</th>
+                      <th>Nickname</th>
+                      <th>DOB</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>09/23/16</td>
+                      <td>Steven Brown</td>
+                      <td>Steve</td>
+                      <td>09/02/94</td>
+                    </tr>
+                    <tr>
+                      <td>09/23/16</td>
+                      <td>John Doe</td>
+                      <td>Johnny</td>
+                      <td>05/21/93</td>
+                    </tr>
+                    <tr>
+                      <td>09/20/16</td>
+                      <td>Carly Johnson</td>
+                      <td>Johns</td>
+                      <td>03/29/93</td>
+                    </tr>
+                    <tr>
+                      <td>09/20/16</td>
+                      <td>Jamie Johnson</td>
+                      <td>Jams</td>
+                      <td>03/29/95</td>
+                    </tr>
+                    <tr>
+                      <td>09/20/16</td>
+                      <td>Jeremiah Halestrom</td>
+                      <td>JJ</td>
+                      <td>02/29/94</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          
+
+            <div class="col-sm-8">
+
+            <div class="row">
+              <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
+                <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
+                <li><a class="tablinks" href="#drop-inenrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+              </ul>
+              <div id="my-tab-content" class="tab-content">
+                <div class="tab-pane active" id="newdrop-in">
+                    <h1>New Drop In</h1>
+                    <form class="drop-in details">
+                        <div class="form-group">
+                        <input type="text" placeholder="Date" size="30">
+                        <button type="create" class="btn btn-default" align="right">Create</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="viewdrop-in">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h1>Past Drop-In Sessions</h1>
+                      <form class="casenotes-form casenotes-right" align="right">
+                        <div class="form-group">
+                        <input type="text" placeholder="Search Past Drop-In" size="30">
+                        <button type="search" class="btn btn-default" align="right">Search</button>
+                        </div>
+                      </form>
+                    </div>
+                    <table id="pastdropins" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th class="col-xs-2">Date</th>
+                          <th class="col-xs-2">Number of Attendees</th>
+                          <th class="col-xs-2">New Youth</th>
+                          <th class="col-xs-2">Edit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="col-xs-2">2/10/15</td>
+                          <td class="col-xs-2">50</td>
+                          <td class="col-xs-2">5</td>
+                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                        </tr>
+                        <tr>
+                          <td class="col-xs-2">2/9/15</td>
+                          <td class="col-xs-2">60</td>
+                          <td class="col-xs-2">10</td>
+                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                        </tr>
+                        <tr>
+                          <td class="col-xs-2">2/8/15</td>
+                          <td class="col-xs-2">20</td>
+                          <td class="col-xs-2">17</td>
+                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                        </tr>
+                        <tr>
+                          <td class="col-xs-2">2/7/15</td>
+                          <td class="col-xs-2">30</td>
+                          <td class="col-xs-2">13</td>
+                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="drop-inenrollment">
+
+                    
+                </div>
+              </div>
+            </div>
+
+            </div> <!--col-sm-10-->
+
+          </div> <!--row with col-sm-2 and col-sm-10-->
+
+          <div class="row">
+        
+          </div>
+        </div> <!--container-->
+     
     </div>
 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="crossorigin="anonymous"></script>
 
-        <script src="js/main.js"></script>
+        <script src="js/frontdesk.js"></script>
 
     </body>
 
