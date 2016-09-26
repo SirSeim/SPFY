@@ -39,18 +39,34 @@ body {
     height: 35px;
 }
 
-.table-fixed thead {
+/*#clients thead {
   width: 97%;
-}
-.table-fixed tbody {
+}*/
+#clients tbody {
   height: 230px;
   overflow-y: auto;
   width: 100%;
 }
-.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+#clients thead, #clients tbody, #clients tr, #clients td, #clients th {
   display: block;
 }
-.table-fixed tbody td, .table-fixed thead > tr> th {
+/*#clients tbody td, #clients thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}*/
+
+/*#casenotes thead {
+  width: 97%;
+}*/
+#casenotes tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+#casenotes thead, #casenotes tbody, #casenotes tr, #casenotes td, #casenotes th {
+  display: block;
+}
+#casenotes tbody td, #casenotes thead > tr> th {
   float: left;
   border-bottom-width: 0;
 }
