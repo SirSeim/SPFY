@@ -57,6 +57,10 @@ body {
   content: "• ";
   color: red;
 }
+#mike-dot:before {
+  content: "• ";
+  color: blue;
+}
 #andre-dot:before {
   content: "• ";
   color: gold;
