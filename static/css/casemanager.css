@@ -48,8 +48,22 @@ body {
   width: 15px
   margin: 0 2px
 }
-.dot-success {
-  background-color: green
+
+#steven-dot:before {
+  content: "• ";
+  color: gold;
+}
+#carlie-dot:before {
+  content: "• ";
+  color: red;
+}
+#andre-dot:before {
+  content: "• ";
+  color: gold;
+}
+.bullet:before {
+    content: "• ";
+    color: green;
 }
 
 #clientname {

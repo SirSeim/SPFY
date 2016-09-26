@@ -12,18 +12,4 @@ $(function (event) {
         event.preventDefault();
     });
 
-
-    // var tabcontent = $(".tab-pane");
-    // console.log(tabcontent);
-    // for (var index = 0; index < tabcontent.length; index++) {
-    //     tabcontent[index].style.display = "none";
-    // }
-
-    // var tablinks = $(".tablinks");
-    // console.log(tablinks);
-    // for (var index = 0; index < tablinks.length; index++) {
-    //     tablinks[index].class = tablinks[index].class.replace(" active", "");
-    // }
-
-    // event.currentTarget.class += " active";
 });
