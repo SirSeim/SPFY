@@ -39,6 +39,9 @@ body {
     height: 35px;
 }
 
+#clientname {
+  font-size: 20px;
+}
 /*#clients thead {
   width: 97%;
 }*/

@@ -125,9 +125,42 @@
                 </table>
               </div>
             </div>
-        
+          
 
             <div class="col-sm-10">
+
+            <div class="row">
+              <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#client-info" data-toggle="tab">Red</a></li>
+                <li><a href="#case-management" data-toggle="tab">Orange</a></li>
+                <li><a href="#yellow" data-toggle="tab">Yellow</a></li>
+                <li><a href="#green" data-toggle="tab">Green</a></li>
+                <li><a href="#blue" data-toggle="tab">Blue</a></li>
+              </ul>
+              <div id="my-tab-content" class="tab-content">
+                <div class="tab-pane active" id="client-info">
+                    <h1>Red</h1>
+                    <p>red red red red red red</p>
+                </div>
+                <div class="tab-pane" id="case-management">
+                    <h1>Orange</h1>
+                    <p>orange orange orange orange orange</p>
+                </div>
+                <div class="tab-pane" id="yellow">
+                    <h1>Yellow</h1>
+                    <p>yellow yellow yellow yellow yellow</p>
+                </div>
+                <div class="tab-pane" id="green">
+                    <h1>Green</h1>
+                    <p>green green green green green</p>
+                </div>
+                <div class="tab-pane" id="blue">
+                    <h1>Blue</h1>
+                    <p>blue blue blue blue blue</p>
+                </div>
+              </div>
+            </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4>
@@ -250,14 +283,16 @@
                 </table>
               </div>
               <button id="addcasenote" type="button" class="btn btn-default">Add New Case Note</button>
-            </div>
-            </div>
+            </div> <!--col-sm-10-->
 
-        </div>
+          </div> <!--row with col-sm-2 and col-sm-10-->
 
-        <div class="row">
+          <div class="row">
         
-        </div>
+          </div>
+        </div> <!--container-->
+
+        
 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="crossorigin="anonymous"></script>
 
