@@ -43,7 +43,7 @@ body {
   width: 97%;
 }*/
 #clients tbody {
-  height: 230px;
+  height: 300px;
   overflow-y: auto;
   width: 100%;
 }

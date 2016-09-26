@@ -39,8 +39,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="frontdeskhomepage.html">Front Desk<span class="sr-only">(current)</span></a></li>
+                <li><a href="casemanagerhomepage.html">Case Management</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -130,8 +130,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4>
-                    Case Notes
+                    Steven's Case Notes
                   </h4>
+                  <form class="casenotes-form casenotes-right" align="right">
+                    <div class="form-group">
+                    <input type="text" placeholder="Search Steven's Case Notes" size="30">
+                    <button type="search" class="btn btn-default" align="right">Search</button>
+                    </div>
+                  </form>
                 </div>
                 <table id="casenotes" class="table table-hover">
                   <thead>
@@ -157,7 +163,7 @@
                     </tr>
                     <tr>
                       <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">P&P</td>
+                      <td class="col-xs-2">CM</td>
                       <td class="col-xs-3">Rebecca McGuire</td>
                       <td class="col-xs-4">This is the beginning of a case note.</td>
                     </tr>
@@ -181,7 +187,7 @@
                     </tr>
                     <tr>
                       <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">P&P</td>
+                      <td class="col-xs-2">CM</td>
                       <td class="col-xs-3">Rebecca McGuire</td>
                       <td class="col-xs-4">This is the beginning of a case note.</td>
                     </tr>
@@ -205,7 +211,7 @@
                     </tr>
                     <tr>
                       <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">P&P</td>
+                      <td class="col-xs-2">CM</td>
                       <td class="col-xs-3">Rebecca McGuire</td>
                       <td class="col-xs-4">This is the beginning of a case note.</td>
                     </tr>
@@ -229,7 +235,7 @@
                     </tr>
                     <tr>
                       <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">P&P</td>
+                      <td class="col-xs-2">CM</td>
                       <td class="col-xs-3">Rebecca McGuire</td>
                       <td class="col-xs-4">This is the beginning of a case note.</td>
                     </tr>
@@ -242,7 +248,8 @@
                   </tbody>
                 </table>
               </div>
-                </div>
+              <button type="button" class="btn btn-default">Add New Case Note</button>
+            </div>
             </div>
 
         </div>
