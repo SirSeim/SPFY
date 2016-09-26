@@ -1,8 +1,8 @@
 $(function () {
 
-    console.log("hello world");
-    $(".menuButton").on("click", function (event) {
-        $(".sideBar").toggleClass("hidden");
-    })
+    $("#addcasenote").click(function () {
+        console.log("added new case note");
+        window.location.href = "casenotepage.html";
+    });
 
-})
+});
