@@ -5,7 +5,9 @@ This Software Requirements Specification (SRS) documents the requirements for th
 The SPY Database is a cloud-based web application that will allow users to store and retrieve data over the Internet from any platform, be it a desktop computer, tablet, or smartphone. This system will be uniquely customized to suit the needs of Safe Place for Youth, a nonprofit organization that serves homeless youth, and will allow SPY staff to securely store and retrieve client information for each youth enrolled in their programs. Thus, at the heart of this system lives the youth profile, which contains a youth’s important health, legal, and participation information. Additionally, the SPY staff will have user profiles, and each of SPY’s programs will have a “program profile.”
 The SPY Database system architecture is comprised of a client-side, browser-based interface (frontend), a cloud-hosted server (backend), and the database itself that will store, send, and query data. The frontend will consist of various web-pages that will allow users to easily input, request, and query information stored in the database. The server backend and database will be configured to optimize concurrent access as well as comply with HIPAA security rules to protect confidential client information.
 
+<p align="center">
 ![High-Level Diagram of System](../resources/spec_01.png "High-Level Diagram of System")
+</p>
 
 ## Outline of Requirements Specifications
 - 5.2	CSCI Component Breakdown
@@ -149,7 +151,7 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.4.27	The system shall provide a means for storing document files.
 	- 5.3.4.28	The system shall provide a means for storing image files.
 	- 5.3.4.29	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
-	- 5.3.4.30	
+	- 5.3.4.30	. . .
 
 ### 5.4	Performance Requirements
 
