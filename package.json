@@ -77,7 +77,8 @@
     "good-console": "^6.1.2",
     "good-squeeze": "^5.0.0",
     "hapi": "^15.0.3",
-    "inert": "^4.0.2"
+    "inert": "^4.0.2",
+    "joi": "^9.0.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
