@@ -2,10 +2,44 @@ var Hapi = require('hapi');
 var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
+var MySQL = require('mysql');
 
 var setup = Config.get('Node-Server');
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
+
+var mysqlConnection = {
+    register: function (server, options, next) {
+        var dbconfig = Config.get('MySQL-Server');
+        var connection = MySQL.createConnection(dbconfig);
+        connection.connect(function (err) {
+            if (err) {
+                server.log(['MySQL', 'error'], err);
+                return next(err);
+            }
+            server.log(['MySQL', 'info'], 'Connected to MySQL server at '
+                + dbconfig.host + ':' + dbconfig.port);
+
+            server.decorate('server', 'mysql', connection);
+            server.decorate('request', 'mysql', connection);
+            server.on('stop', function () {
+                connection.end(function (err) {
+                    if (err) {
+                        server.log(['MySQL', 'error'], err);
+                    }
+                    server.log(['MySQL', 'info'], 'Graceful disconnect from MySQL');
+                });
+            });
+            next();
+        });
+    }
+};
+mysqlConnection.register.attributes = {
+    name: "MySQL-Connection",
+    version: "0.0.0"
+};
+
+
 
 var SPFY = new Hapi.Server({
     connections: {
@@ -21,6 +55,7 @@ SPFY.connection({
     port: setup.port
 });
 
+SPFY.register(mysqlConnection, function () {});
 SPFY.register(Api, {
     routes: {
         prefix: '/api'
