@@ -1,3 +1,7 @@
+var Path = require('path');
+var Api = require(Path.join(__dirname, '../api/api.js'));
+var Schema = require(Path.join(__dirname, '../api/schema.js'));
+
 var apiRoutes = [
     {
         method: 'GET',
@@ -10,4 +14,12 @@ var apiRoutes = [
     }
 ];
 
-module.exports = apiRoutes;
+module.exports.register = function (server, options, next) {
+    server.route(apiRoutes);
+    next();
+};
+
+module.exports.register.attributes = {
+    name: "api",
+    version: "0.0.0"
+};
