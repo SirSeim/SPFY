@@ -17,8 +17,8 @@ var mysqlConnection = {
                 server.log(['MySQL', 'error'], err);
                 return next(err);
             }
-            server.log(['MySQL', 'info'], 'Connected to MySQL server at '
-                + dbconfig.host + ':' + dbconfig.port);
+            server.log(['MySQL', 'info'], 'Connected to MySQL server at ' +
+                dbconfig.host + ':' + dbconfig.port);
 
             server.decorate('server', 'mysql', connection);
             server.decorate('request', 'mysql', connection);
