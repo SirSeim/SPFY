@@ -14,8 +14,8 @@ The SPY Database system architecture is comprised of a client-side, browser-base
 - 5.3	Functional Requirements by CSC
 - 5.4	Performance Requirements by CSC
 - 5.5	Project Environment Requirements
-- 5.5.1	Development Environment Requirements
-- 5.5.2	Execution Environment Requirements
+	- 5.5.1	Development Environment Requirements
+	- 5.5.2	Execution Environment Requirements
 
 
 	
