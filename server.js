@@ -9,6 +9,7 @@ var BasicAuth = require('hapi-auth-basic');
 var setup = Config.get('Node-Server');
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
+var loginRoutes = require(Path.join(__dirname, 'routers/login_routes.js'));
 
 var mysqlConnection = {
     register: function (server, options, next) {
@@ -82,16 +83,7 @@ SPFY.register(BasicAuth, function(err){
 
     SPFY.auth.strategy('basic','basic', { validateFunc: basicValidation });
 
-    SPFY.route({
-        method: 'GET',
-        path: '/private-route',
-        config: {
-            auth: 'simple',
-            handler: function(req ,reply){
-                reply('Yeah! This message is only available for authenticated users!');
-            }
-        }
-    });
+    SPFY.route(loginRoutes);
 });
 
 SPFY.register(mysqlConnection, function () {});
