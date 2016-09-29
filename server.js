@@ -3,6 +3,8 @@ var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
 var MySQL = require('mysql');
+var Bcrypt = require('bcrypt');
+var BasicAuth = require('hapi-auth-basic');
 
 var setup = Config.get('Node-Server');
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
@@ -39,7 +41,13 @@ mysqlConnection.register.attributes = {
     version: "0.0.0"
 };
 
-
+var users = {
+    SPFY: {
+        id: '1',
+        username: 'SPFYstaff',
+        password: '$2a$04$YPy8WdAtWswed8b9MfKixebJkVUhEZxQCrExQaxzhcdR2xMmpSJiG'
+    }
+};
 
 var SPFY = new Hapi.Server({
     connections: {
@@ -53,6 +61,37 @@ var SPFY = new Hapi.Server({
 SPFY.connection({
     host: setup.host,
     port: setup.port
+});
+
+SPFY.register(BasicAuth, function(err){
+    if (err) {
+        throw err;
+    }
+
+    var basicValidation = function (request, username, password, callback) {
+        var user = users[ username ];
+
+        if (!user) {
+            return callback(null, false);
+        }
+
+        Bcrypt.compare(password, user.password, function (err, isValid) {
+            callback(err, isValid, {id: user.id, name: user.name});
+        });
+    };
+
+    SPFY.auth.strategy('basic','basic', { validateFunc: basicValidation });
+
+    SPFY.route({
+        method: 'GET',
+        path: '/private-route',
+        config: {
+            auth: 'simple',
+            handler: function(req ,reply){
+                reply('Yeah! This message is only available for authenticated users!');
+            }
+        }
+    });
 });
 
 SPFY.register(mysqlConnection, function () {});
@@ -95,6 +134,6 @@ if (setup.logToConsole) {
 
 SPFY.start(function () {
     console.log("Server started on %s:%s", setup.host, setup.port);
-}); 
+});
 
 module.exports = SPFY;
