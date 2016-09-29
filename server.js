@@ -27,7 +27,7 @@ SPFY.register(Api, {
     }
 });
 
-SPFY.register(Inert, function (err) {});
+SPFY.register(Inert, function () {});
 SPFY.route(viewRoutes);
 
 if (setup.logToConsole) {
