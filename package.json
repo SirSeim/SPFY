@@ -12,7 +12,9 @@
     "jshint": "jshint --reporter $(npm bin)/../jshint-stylish-ex/stylish.js server.js **/*.js",
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
-    "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov"
+    "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
+    "db-start": "mysql.server start --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db",
+    "db-stop": "mysql.server stop"
   },
   "repository": {
     "type": "git",
@@ -78,7 +80,8 @@
     "good-squeeze": "^5.0.0",
     "hapi": "^15.0.3",
     "inert": "^4.0.2",
-    "joi": "^9.0.4"
+    "joi": "^9.0.4",
+    "mysql": "^2.11.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
