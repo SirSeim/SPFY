@@ -6,7 +6,7 @@ The SPY Database is a cloud-based web application that will allow users to store
 The SPY Database system architecture is comprised of a client-side, browser-based interface (frontend), a cloud-hosted server (backend), and the database itself that will store, send, and query data. The frontend will consist of various web-pages that will allow users to easily input, request, and query information stored in the database. The server backend and database will be configured to optimize concurrent access as well as comply with HIPAA security rules to protect confidential client information.
 
 <p align="center">
-![High-Level Diagram of System](../resources/spec_01.png "High-Level Diagram of System")
+	<img src="../resources/spec_01.png" alt="High-Level Diagram of System">
 </p>
 
 ## Outline of Requirements Specifications
