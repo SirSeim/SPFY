@@ -9,6 +9,8 @@
 
 [Read our Project Proposal](docs/Project_Proposal.md)
 
+[Read our Requirements Specification](docs/Requirements_Specification.md)
+
 ### Installation
 download and install packages
 ```
