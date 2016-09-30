@@ -104,3 +104,14 @@ body {
   float: left;
   border-bottom-width: 0;
 }
+
+.steven-photo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+#clientInfoTable td {
+  width: 150px;
+}
+

@@ -92,6 +92,14 @@ $(function (event) {
             $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
         });
     });
-
+    
+    $("input[name='idProvided']").on("click", function (event) {
+        var selected = $("input[name='idProvided']:checked").val();
+        if (selected === "idYes" && $(".newID").hasClass("hidden")) {
+            $(".newID").removeClass("hidden");
+        } else if (selected === "idNo" && !$(".newID").hasClass("hidden")) {
+            $(".newID").addClass("hidden");
+        }
+    });
 
 });

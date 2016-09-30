@@ -133,7 +133,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> 
             </div>
           
 
@@ -200,10 +200,10 @@
                               </ul>
                           </div>
                         </div>
-                    </form>                   
-                </div>
-                <div class="col-xs-12">
-                  <button type="create" class="btn btn-default" align="center">Create</button>
+                    </form>   
+                    <div class="col-xs-12">
+                      <button type="create" class="btn btn-default" align="center">Create</button>
+                    </div>                
                 </div>
                 <div class="tab-pane" id="viewdrop-in">
                     <div class="panel panel-default">
@@ -255,8 +255,51 @@
                   </div>
                 </div>
                 <div class="tab-pane" id="drop-inenrollment">
-
-                    
+                    <table>
+                      <tr>
+                        <td><h4>First Name: </h4></td>
+                        <td><input type="text" class="newFirstName"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Last Name: </h4></td>
+                        <td><input type="text" class="newLastName"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Nickname:</h4></td>
+                        <td><input type="text" class="newNickname"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Phone Number: </h4></td>
+                        <td><input type="text" class="newPhoneNum"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Email: </h4></td>
+                        <td><input type="text" class="newEmail"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Date of Birth: </h4></td>
+                        <td><input type="text" class="newBirthday"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Age: </h4></td>
+                        <td><input type="text" class="newAge"></td>
+                      </tr>
+                      <tr>
+                        <td><h4>ID Provided?</h4></td>
+                        <td>
+                          <label class="radio-inline">
+                            <input type="radio" name="idProvided" id="idYes" value="idYes"> Yes
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="idProvided" id="idNo" value="idNo"> No
+                          </label>
+                        </td>
+                      </tr>
+                      <tr class="newID hidden">
+                        <td><h4>ID State</h4></td>
+                        <td><input type="text" class="newIdState"></td>
+                      </tr>
+                    </table>
                 </div>
               </div>
             </div>
