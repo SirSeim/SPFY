@@ -21,7 +21,7 @@ var query = {
         });
     },
     createClient: function (mysql, payload, callback) {
-        var queryString = 'CALL spfy.sp_insert_client(';
+        var queryString = 'CALL spfy.insert_client(';
 
         queryString += parseProperty(payload.firstName) + ',';
         queryString += parseProperty(payload.lastName) + ',';
@@ -31,6 +31,7 @@ var query = {
         queryString += parseProperty(payload.HMISConsent) + ',';
         queryString += parseProperty(payload.firstTime) + ',';
         queryString += parseProperty(payload.caseManager) + ',';
+        queryString += parseProperty(payload.caseManagerID) + ',';
         queryString += parseProperty(payload.phoneNumber) + ',';
         queryString += parseProperty(payload.email) + ',';
         queryString += parseProperty(payload.dob) + ',';
@@ -109,15 +110,56 @@ var query = {
         queryString += parseProperty(payload.immediateNeedsConfirmation) + ',';
         queryString += parseProperty(payload.documentsSigned) + ',';
         queryString += parseProperty(payload.sleepingBag) + ',';
-        queryString += parseProperty(payload.backpack);
+        queryString += parseProperty(payload.backpack) + ')';
 
-        queryString += ')';
-
-        mysql.query(queryString , function (err, rows, fields) {
+        mysql.query(queryString, function (err, rows, fields) {
             if (err) {
                 return callback(err);
             }
             callback(undefined, rows);
+        });
+    },
+    createProfile: function (mysql, payload, callback) {
+        var queryString = 'CALL spfy.insert_profile(';
+
+        queryString += parseProperty(payload.username) + ',';
+        queryString += parseProperty(payload.password) + ',';
+        queryString += parseProperty(payload.firstName) + ',';
+        queryString += parseProperty(payload.lastName) + ',';
+        queryString += parseProperty(payload.position);
+
+        queryString += ')';
+
+        mysql.query(queryString, function (err, rows, fields) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, rows);
+        }); 
+    },
+    getCaseManagerClients: function (mysql, payload, callback) {
+        var queryString = 'CALL spfy.get_case_manager_clients(';
+
+        queryString += parseProperty(payload.caseManagerID) + ')';
+
+        mysql.query(queryString, function (err, rows, fields) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, rows);
+        });
+    },
+    searchCaseManagerClients: function (mysql, payload, callback) {
+        var queryString = 'CALL spfy.search_case_manager_clients(';
+
+        queryString += parseProperty(payload.caseManagerID) + ',';
+        queryString += parseProperty(payload.clientID) + ')';
+
+        mysql.query(queryString, function (err, rows, fields) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefiend, rows);
         });
     }
 };
