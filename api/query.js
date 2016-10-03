@@ -21,7 +21,7 @@ var query = {
         });
     },
     createClient: function (mysql, payload, callback) {
-        var queryString = 'CALL spfy.sp_insert(';
+        var queryString = 'CALL spfy.sp_insert_client(';
 
         queryString += parseProperty(payload.firstName) + ',';
         queryString += parseProperty(payload.lastName) + ',';
