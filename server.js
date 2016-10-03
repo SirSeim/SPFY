@@ -64,14 +64,14 @@ SPFY.register(Api, {
 });
 
 SPFY.register(Inert, function () {});
-Service_App.register(Vision, function (err) {
-    Service_App.views({
+SPFY.register(Vision, function (err) {
+    SPFY.views({
         engines: {
             html: require('nunjucks-hapi')
         },
         path: Path.join(__dirname, 'templates')
     });
-    Service_App.route(viewRoutes);
+    SPFY.route(viewRoutes);
 });
 
 if (setup.logToConsole) {
