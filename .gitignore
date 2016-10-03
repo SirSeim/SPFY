@@ -2,7 +2,7 @@ node_modules
 config
 coverage
 *.log
+db
 log
 .DS_Store
-*.DS_Store
-**/.DS_Store
+
