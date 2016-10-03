@@ -13,8 +13,9 @@
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
-    "db-start": "mysql.server start --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db",
-    "db-stop": "mysql.server stop"
+    "db-init": "cd $(npm bin)/../..; echo 'Deleting db'; rm -rf db; mkdir db; mkdir log; echo 'initializing db'; mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --initialize --datadir=$(npm bin)/../../db; mysqld stop; mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db --init-file=$(npm bin)/../../config/init.sql --log=$(npm bin)/../../log/mysql.log; mysql --defaults-file=$(npm bin)/../../config/mysql.cnf < $(npm bin)/../../db_setup/db.sql; mysqld stop; exit 0;",
+    "db-start": "mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db --log=$(npm bin)/../../log/mysql.log; exit 0;",
+    "db-stop": "mysqld stop; exit 0;"
   },
   "repository": {
     "type": "git",
