@@ -5,12 +5,17 @@ var Schema = require(Path.join(__dirname, '../api/schema.js')); // jshint ignore
 var apiRoutes = [
     {
         method: 'GET',
-        path: '/api/hello',
+        path: '/hello',
         handler: function (req, res) {
             res({
                 'hello': 'Welcome to the SPFY webapp!'
             }).code(200);
         }
+    },
+    {
+        method: 'POST',
+        path: '/client',
+        handler: Api.createClient
     }
 ];
 
