@@ -2,6 +2,7 @@ var Hapi = require('hapi');
 var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
+var Vision = require('vision');
 var MySQL = require('mysql');
 
 var setup = Config.get('Node-Server');
@@ -63,7 +64,15 @@ SPFY.register(Api, {
 });
 
 SPFY.register(Inert, function () {});
-SPFY.route(viewRoutes);
+Service_App.register(Vision, function (err) {
+    Service_App.views({
+        engines: {
+            html: require('nunjucks-hapi')
+        },
+        path: Path.join(__dirname, 'templates')
+    });
+    Service_App.route(viewRoutes);
+});
 
 if (setup.logToConsole) {
     SPFY.register({
