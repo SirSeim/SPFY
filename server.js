@@ -39,8 +39,6 @@ mysqlConnection.register.attributes = {
     version: "0.0.0"
 };
 
-
-
 var SPFY = new Hapi.Server({
     connections: {
         routes: {
