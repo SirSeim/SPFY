@@ -1,0 +1,50 @@
+#clientname {
+  font-size: 20px;
+}
+/*#clients thead {
+  width: 97%;
+}*/
+#clients tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+#clients thead, #clients tbody, #clients tr, #clients td, #clients th {
+  display: block;
+}
+/*#clients tbody td, #clients thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}*/
+
+/*these are temporary*/
+#steven-dot:before {
+  content: "• ";
+  color: gold;
+}
+#carlie-dot:before {
+  content: "• ";
+  color: red;
+}
+#mike-dot:before {
+  content: "• ";
+  color: blue;
+}
+#andre-dot:before {
+  content: "• ";
+  color: gold;
+}
+.bullet:before {
+    content: "• ";
+    color: green;
+}
+
+.steven-photo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+#clientInfoTable td {
+  width: 150px;
+}
