@@ -13,9 +13,9 @@
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
-    "db-init": "cd $(npm bin)/../..; echo 'Deleting db'; rm -rf db; mkdir db; mkdir log; echo 'initializing db'; mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --initialize --datadir=$(npm bin)/../../db; mysqld stop; mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db --init-file=$(npm bin)/../../config/init.sql --log=$(npm bin)/../../log/mysql.log; mysql --defaults-file=$(npm bin)/../../config/mysql.cnf < $(npm bin)/../../db_setup/db.sql; mysqld stop; exit 0;",
-    "db-start": "mysqld --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db --log=$(npm bin)/../../log/mysql.log; exit 0;",
-    "db-stop": "mysqld stop; exit 0;"
+    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db;",
+    "db-start": "pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start",
+    "db-stop": "pg_ctl -D $(npm bin)/../../db stop -s -m fast"
   },
   "repository": {
     "type": "git",
@@ -82,7 +82,7 @@
     "hapi": "^15.0.3",
     "inert": "^4.0.2",
     "joi": "^9.0.4",
-    "mysql": "^2.11.1"
+    "pg": "^6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
