@@ -20,7 +20,7 @@ var query = {
             }
         });
     },
-    createClient: function (mysql, payload, callback) {
+    createClient: function (postgres, payload, callback) {
         var queryString = 'CALL spfy.insert_client(';
 
         queryString += parseProperty(payload.firstName) + ',';
@@ -119,7 +119,7 @@ var query = {
             callback(undefined, rows);
         });
     },
-    createProfile: function (mysql, payload, callback) {
+    createProfile: function (postgres, payload, callback) {
         var queryString = 'CALL spfy.insert_profile(';
 
         queryString += parseProperty(payload.username) + ',';
@@ -137,7 +137,7 @@ var query = {
             callback(undefined, rows);
         }); 
     },
-    getCaseManagerClients: function (mysql, payload, callback) {
+    getCaseManagerClients: function (postgres, payload, callback) {
         var queryString = 'CALL spfy.get_case_manager_clients(';
 
         queryString += parseProperty(payload.caseManagerID) + ')';
@@ -149,7 +149,7 @@ var query = {
             callback(undefined, rows);
         });
     },
-    searchCaseManagerClients: function (mysql, payload, callback) {
+    searchCaseManagerClients: function (postgres, payload, callback) {
         var queryString = 'CALL spfy.search_case_manager_clients(';
 
         queryString += parseProperty(payload.caseManagerID) + ',';

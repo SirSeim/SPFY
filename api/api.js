@@ -4,7 +4,7 @@ var Respond = require(Path.join(__dirname, 'respond.js')); // jshint ignore:line
 
 var api = {
     createClient: function (req, res) {
-        Service.createClient(req.mysql, req.payload, function (err, result) {
+        Service.createClient(req.postgres, req.payload, function (err, result) {
             if (err) {
                 Respond.failedToCreateClient(res, err);
             } else {
