@@ -9,12 +9,13 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
-    "jshint": "jshint --reporter $(npm bin)/../jshint-stylish-ex/stylish.js server.js **/*.js",
+    "lint": "eslint server.js **/*.js",
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
-    "db-start": "mysql.server start --defaults-file=$(npm bin)/../../config/mysql.cnf --datadir=$(npm bin)/../../db",
-    "db-stop": "mysql.server stop"
+    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db;",
+    "db-start": "pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start",
+    "db-stop": "pg_ctl -D $(npm bin)/../../db stop -s -m fast"
   },
   "repository": {
     "type": "git",
@@ -81,17 +82,60 @@
     "hapi": "^15.0.3",
     "inert": "^4.0.2",
     "joi": "^9.0.4",
-    "mysql": "^2.11.1",
     "nunjucks-hapi": "^2.1.0",
-    "vision": "^4.1.0"
+    "vision": "^4.1.0",
+    "pg": "^6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "codecov": "^1.0.1",
+    "eslint": "^3.7.1",
     "istanbul": "^0.4.5",
-    "jshint": "^2.9.3",
-    "jshint-stylish-ex": "^0.2.0",
     "mocha": "^3.0.2",
     "mocha-istanbul": "^0.3.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "jquery": true,
+      "node": true,
+      "es6": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+      
+    },
+    "rules": {
+      "no-extra-parens": 2,
+      "curly": 2,
+      "eqeqeq": 2,
+      "no-eval": 2,
+      "no-global-assign": 2,
+      "no-lone-blocks": 2,
+      "no-multi-spaces": 2,
+      "no-return-assign": 2,
+      "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+      "camelcase": [2, { "properties": "never" }],
+      "func-style": [2, "expression"],
+      "comma-spacing": 2,
+      "computed-property-spacing": 2,
+      "func-call-spacing": 2,
+      "indent": 2,
+      "key-spacing": 2,
+      "keyword-spacing": 2,
+      "semi-spacing": 2,
+      "space-in-parens": 2,
+      "space-infix-ops": 2,
+      "space-unary-ops": 2,
+      "spaced-comment": 2,
+      "lines-around-comment": 2,
+      "max-len": [2, 128],
+      "new-parens": 2,
+      "no-tabs": 2,
+      "operator-linebreak": [2, "after"],
+      "no-console": 1,
+      "semi": [2, "always"]
+    }
   }
 }
