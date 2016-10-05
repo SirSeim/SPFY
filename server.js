@@ -53,7 +53,7 @@ SPFY.register(Api, {
 });
 
 SPFY.register(Inert, function () {});
-SPFY.register(Vision, function (err) {
+SPFY.register(Vision, function () {
     SPFY.views({
         engines: {
             html: require('nunjucks-hapi')
