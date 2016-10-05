@@ -54,13 +54,13 @@ mysql> SELECT * FROM client;
 mysql>
 
 */
-DROP TABLE IF EXISTS client
+DROP TABLE IF EXISTS client;
 
 CREATE TABLE client (
-    id          integer SERIAL PRIMARY KEY,
-    first_name  varchar(45) NOT NULL,
-    last_name   varchar(45) NOT NULL,
-    email       varchar(60)
+    id          SERIAL PRIMARY KEY,
+    first_name  VARCHAR(45) NOT NULL,
+    last_name   VARCHAR(45) NOT NULL,
+    email       VARCHAR(60)
 );
 
 INSERT INTO client (
@@ -68,7 +68,7 @@ INSERT INTO client (
     last_name,
     email
 ) VALUES (
-    "Bob",
-    "Stevens",
-    "email@email.com"
-)
+    'Bob',
+    'Stevens',
+    'email@email.com'
+);
