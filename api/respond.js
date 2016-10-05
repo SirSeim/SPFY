@@ -2,7 +2,8 @@ var respond = {
     failedToCreateClient: function (res, err) {
         res({
             statusCode: 500,
-            message: "Unable to create client!"
+            message: "Unable to create client!",
+            error: err
         }).code(500);
     },
     createdClient: function (res, result) {

@@ -1,6 +1,6 @@
 var Path = require('path');
-var Api = require(Path.join(__dirname, '../api/api.js')); // jshint ignore:line
-var Schema = require(Path.join(__dirname, '../api/schema.js')); // jshint ignore:line
+var Api = require(Path.join(__dirname, '../api/api.js'));
+var Schema = require(Path.join(__dirname, '../api/schema.js')); // eslint-disable-line
 
 var apiRoutes = [
     {
