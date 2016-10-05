@@ -2,43 +2,35 @@ var Hapi = require('hapi');
 var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
-var MySQL = require('mysql');
 var Bcrypt = require('bcrypt');
 var BasicAuth = require('hapi-auth-basic');
+var Vision = require('vision');
+var PostgreSQL = require('pg');
 
-var setup = Config.get('Node-Server');
+var setup = Config.get('Node');
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
 var loginRoutes = require(Path.join(__dirname, 'routes/login_routes.js'));
 
-var mysqlConnection = {
+var postgresqlPool = {
     register: function (server, options, next) {
-        var dbconfig = Config.get('MySQL-Server');
-        var connection = MySQL.createConnection(dbconfig);
-        connection.connect(function (err) {
-            if (err) {
-                server.log(['MySQL', 'error'], err);
-                return next(err);
-            }
-            server.log(['MySQL', 'info'], 'Connected to MySQL server at ' +
-                dbconfig.host + ':' + dbconfig.port);
+        var dbconfig = Config.get('PostgreSQL');
 
-            server.decorate('server', 'mysql', connection);
-            server.decorate('request', 'mysql', connection);
-            server.on('stop', function () {
-                connection.end(function (err) {
-                    if (err) {
-                        server.log(['MySQL', 'error'], err);
-                    }
-                    server.log(['MySQL', 'info'], 'Graceful disconnect from MySQL');
-                });
-            });
-            next();
+        var pool = new PostgreSQL.Pool(dbconfig);
+
+        server.decorate('server', 'postgres', pool);
+        server.decorate('request', 'postgres', pool);
+
+        pool.on('error', function (err, client) {
+            server.log(['error', 'PostgreSQL'], err);
+            server.log(['error', 'PostgreSQL'], client);
         });
+
+        next();
     }
 };
-mysqlConnection.register.attributes = {
-    name: "MySQL-Connection",
+postgresqlPool.register.attributes = {
+    name: "PostgreSQL",
     version: "0.0.0"
 };
 
@@ -86,7 +78,7 @@ SPFY.register(BasicAuth, function(err){
     SPFY.route(loginRoutes);
 });
 
-SPFY.register(mysqlConnection, function () {});
+SPFY.register(postgresqlPool, function () {});
 SPFY.register(Api, {
     routes: {
         prefix: '/api'
@@ -94,7 +86,15 @@ SPFY.register(Api, {
 });
 
 SPFY.register(Inert, function () {});
-SPFY.route(viewRoutes);
+SPFY.register(Vision, function (err) {
+    SPFY.views({
+        engines: {
+            html: require('nunjucks-hapi')
+        },
+        path: Path.join(__dirname, 'templates')
+    });
+    SPFY.route(viewRoutes);
+});
 
 if (setup.logToConsole) {
     SPFY.register({
@@ -118,14 +118,13 @@ if (setup.logToConsole) {
         }
     }, function (err) {
         if (err) {
-            console.error(err);
-            throw err;
+            SPFY.log(['error', 'good'], err);
         }
     });
 }
 
 SPFY.start(function () {
-    console.log("Server started on %s:%s", setup.host, setup.port);
+    SPFY.log(['info', 'SPFY'], "Server started on " + setup.host + ":" + setup.port);
 });
 
 module.exports = SPFY;
