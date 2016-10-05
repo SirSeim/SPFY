@@ -54,11 +54,21 @@ mysql> SELECT * FROM client;
 mysql>
 
 */
+DROP TABLE IF EXISTS client
 
-DROP TABLE IF EXISTS spfy.client;
+CREATE TABLE client (
+    id          integer SERIAL PRIMARY KEY,
+    first_name  varchar(45) NOT NULL,
+    last_name   varchar(45) NOT NULL,
+    email       varchar(60)
+);
 
-
-CREATE TABLE spfy.client (id INT NOT NULL AUTO_INCREMENT, firstName VARCHAR(45), lastName VARCHAR(45), email VARCHAR(45), PRIMARY KEY(id));
-INSERT INTO spfy.client (firstName, lastName, email) VALUES ("Bob", "Stevens", "email@email.com");
-
-
+INSERT INTO client (
+    first_name,
+    last_name,
+    email
+) VALUES (
+    "Bob",
+    "Stevens",
+    "email@email.com"
+)
