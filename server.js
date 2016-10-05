@@ -19,7 +19,10 @@ var postgresqlPool = {
 
         pool.on('error', function (err, client) {
             server.log(['error', 'PostgreSQL'], err);
+            server.log(['error', 'PostgreSQL'], client);
         });
+
+        next();
 
         // var connection = MySQL.createConnection(dbconfig);
         // connection.connect(function (err) {
@@ -95,14 +98,13 @@ if (setup.logToConsole) {
         }
     }, function (err) {
         if (err) {
-            console.error(err);
-            throw err;
+            SPFY.log(['error', 'good'], err);
         }
     });
 }
 
 SPFY.start(function () {
-    console.log("Server started on %s:%s", setup.host, setup.port);
+    SPFY.log(['info', 'SPFY'], "Server started on " + setup.host + ":" + setup.port);
 }); 
 
 module.exports = SPFY;

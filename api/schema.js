@@ -1,4 +1,4 @@
-var Joi = require('joi'); // jshint ignore:line
+var Joi = require('joi'); // eslint-disable-line
 
 var schema = {
     

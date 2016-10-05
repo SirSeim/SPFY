@@ -1,25 +1,18 @@
 var Path = require('path');
-var Queries = require(Path.join(__dirname, 'queries.js')); // jshint ignore:line
+var Queries = require(Path.join(__dirname, 'queries.js')); // eslint-disable-line
 
 var parseProperty = function(property) {
-    if (typeof(property) === boolean) {
+    if (typeof property === 'boolean') {
         property = property === true ? '1' : '0';
     }
     if (property === undefined) {
         property = 'null';
     }
-    property = mysql.escape(property);
+    property = mysql.escape(property); // eslint-disable-line
     return property;
-}
+};
 
 var query = {
-    getEvent: function() {
-        connection.query(Queries.getEvent(), function(err, rows, fields) {
-            if (err) {
-                throw err;
-            }
-        });
-    },
     createClient: function (postgres, payload, callback) {
         var queryString = 'CALL spfy.insert_client(';
 
@@ -112,7 +105,7 @@ var query = {
         queryString += parseProperty(payload.sleepingBag) + ',';
         queryString += parseProperty(payload.backpack) + ')';
 
-        mysql.query(queryString, function (err, rows, fields) {
+        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
             if (err) {
                 return callback(err);
             }
@@ -130,7 +123,7 @@ var query = {
 
         queryString += ')';
 
-        mysql.query(queryString, function (err, rows, fields) {
+        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
             if (err) {
                 return callback(err);
             }
@@ -142,7 +135,7 @@ var query = {
 
         queryString += parseProperty(payload.caseManagerID) + ')';
 
-        mysql.query(queryString, function (err, rows, fields) {
+        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
             if (err) {
                 return callback(err);
             }
@@ -155,11 +148,11 @@ var query = {
         queryString += parseProperty(payload.caseManagerID) + ',';
         queryString += parseProperty(payload.clientID) + ')';
 
-        mysql.query(queryString, function (err, rows, fields) {
+        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
             if (err) {
                 return callback(err);
             }
-            callback(undefiend, rows);
+            callback(undefined, rows);
         });
     }
 };
