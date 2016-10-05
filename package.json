@@ -13,7 +13,7 @@
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
-    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db;",
+    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db; pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start; sleep 4; psql -f config/create_spfy.sql -d postgres; psql -f db_setup/db.sql -d spfy; pg_ctl -D $(npm bin)/../../db stop -s -m fast",
     "db-start": "pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start",
     "db-stop": "pg_ctl -D $(npm bin)/../../db stop -s -m fast"
   },
