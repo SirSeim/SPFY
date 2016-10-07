@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /*
 DROP TABLE IF EXISTS client;
