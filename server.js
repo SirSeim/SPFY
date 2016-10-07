@@ -1,20 +1,35 @@
 var Hapi = require('hapi');
-var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
 var Bcrypt = require('bcrypt');
 var BasicAuth = require('hapi-auth-basic');
 var Vision = require('vision');
 var PostgreSQL = require('pg');
+var url = require('url');
 
-var setup = Config.get('Node');
+var setup = {
+    host: process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",
+    port: process.env.PORT || "8080"
+};
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
 var loginRoutes = require(Path.join(__dirname, 'routes/login_routes.js'));
 
 var postgresqlPool = {
     register: function (server, options, next) {
-        var dbconfig = Config.get('PostgreSQL');
+        var params = url.parse(process.env.DATABASE_URL);
+        var auth = params.auth.split(':');
+
+        var dbconfig = {
+            user: auth[0],
+            password: auth[1],
+            host: params.hostname,
+            port: params.port,
+            database: params.pathname.split('/')[1],
+            ssl: true,
+            max: 20,
+            min: 4
+        };
 
         var pool = new PostgreSQL.Pool(dbconfig);
 
@@ -22,8 +37,10 @@ var postgresqlPool = {
         server.decorate('request', 'postgres', pool);
 
         pool.on('error', function (err, client) {
-            server.log(['error', 'PostgreSQL'], err);
-            server.log(['error', 'PostgreSQL'], client);
+            if ("" + err) {
+                server.log(['warning', 'PostgreSQL'], "" + err);
+                server.log(['warning', 'PostgreSQL'], client);
+            }
         });
 
         next();
@@ -96,35 +113,34 @@ SPFY.register(Vision, function () {
     SPFY.route(viewRoutes);
 });
 
-if (setup.logToConsole) {
-    SPFY.register({
-        register: require('good'),
-        options: {
-            ops: {
-                interval: 1000
-            },
-            reporters: {
-                console: [{
-                    module: 'good-squeeze',
-                    name: 'Squeeze',
-                    args: [{
-                        log: '*',
-                        response: '*'
-                    }]
-                }, {
-                    module: 'good-console'
-                }, 'stdout']
-            }
+SPFY.register({
+    register: require('good'),
+    options: {
+        ops: {
+            interval: 1000
+        },
+        reporters: {
+            console: [{
+                module: 'good-squeeze',
+                name: 'Squeeze',
+                args: [{
+                    log: '*',
+                    response: '*'
+                }]
+            }, {
+                module: 'good-console'
+            }, 'stdout']
         }
-    }, function (err) {
-        if (err) {
-            SPFY.log(['error', 'good'], err);
-        }
-    });
-}
+    }
+}, function (err) {
+    if (err) {
+        SPFY.log(['error', 'good'], err);
+    }
+});
 
 SPFY.start(function () {
     SPFY.log(['info', 'SPFY'], "Server started on " + setup.host + ":" + setup.port);
+    SPFY.log(['info', 'SPFY'], process.env.DATABASE_URL);
 });
 
 module.exports = SPFY;

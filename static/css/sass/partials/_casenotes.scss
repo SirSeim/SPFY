@@ -1,0 +1,15 @@
+/*#casenotes thead {
+  width: 97%;
+}*/
+#casenotes tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+#casenotes thead, #casenotes tbody, #casenotes tr, #casenotes td, #casenotes th {
+  display: block;
+}
+#casenotes tbody td, #casenotes thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
