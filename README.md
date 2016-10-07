@@ -11,9 +11,18 @@
 
 [Read our Requirements Specification](docs/Requirements_Specification.md)
 
+### Requirements
+Install `npm` and `postgres` if you don't already have them installed
+```
+brew install node
+brew install postgresql
+```
+
 ### Installation
 download and install packages
 ```
+git clone https://github.com/SirSeim/SPFY.git
+cd SPFY
 npm install
 ```
 
@@ -30,11 +39,35 @@ configure server with config file to go into `config/default.json`
 ```
 Alternately, get the most recent config folder from Team member/Slack
 
+### Using Database
+
+Initialize PostgreSQL for SPFY
+```
+npm run db-init
+```
+
+Start Database
+```
+npm run db-start
+```
+
+Stop Database
+```
+npm run db-stop
+```
+
 ### Running & Development
 
-Start server with `npm start`
+Start server
+```
+npm start
+```
 
-Run tests with `npm test` and `npm run jshint`
+Run Tests
+```
+npm test
+npm run lint
+```
 
 To view a coverage report, run `npm test`, then `npm run report`, then open up `coverage/lcov-report/index.html` in a webbrowser
 
