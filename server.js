@@ -1,5 +1,4 @@
 var Hapi = require('hapi');
-var Config = require('config');
 var Path = require('path');
 var Inert = require('inert');
 var Vision = require('vision');
