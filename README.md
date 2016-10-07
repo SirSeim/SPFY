@@ -55,6 +55,10 @@ Stop Database
 ```
 npm run db-stop
 ```
+Reset Database (stop, initialize, start)
+```
+npm run db-reset
+```
 
 ### Running & Development
 
