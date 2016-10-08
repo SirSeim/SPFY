@@ -49,7 +49,7 @@ underscores - result in long identifier names
 DROP TABLE IF EXISTS casemanager;
 
 CREATE TABLE casemanager (
-  casemanager_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   username varchar(45) NOT NULL,
   password varchar(45) NOT NULL,
   first_name varchar(45) NOT NULL,
@@ -65,7 +65,7 @@ INSERT INTO casemanager VALUES (3, 'rh@spfy.org','tables','Rob','Hanna','Case Ma
 DROP TABLE IF EXISTS client;
 
 CREATE TABLE client (
-  client_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   first_name varchar(45) DEFAULT NULL,
   last_name varchar(45) DEFAULT NULL
   nickname varchar(45) DEFAULT NULL,
@@ -88,14 +88,14 @@ CREATE TABLE client (
 DROP TABLE IF EXISTS prescreen;
 
 CREATE TABLE prescreen (
-  prescreen_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id)
 );
 
 DROP TABLE IF EXISTS background;
 
 CREATE TABLE background (
-  background_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   -- Disability varchar(45) DEFAULT NULL,
   -- LastGradeCompleted varchar(45) DEFAULT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE background (
 DROP TABLE IF EXISTS housing_history;
 
 CREATE TABLE housing_history (
-  housing_history_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   last_sleeping_location varchar(45) DEFAULT NULL,
   last_sleeping_duration varchar(45) DEFAULT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE housing_history (
 DROP TABLE IF EXISTS natural_connection;
 
 CREATE TABLE natural_connection (
-  natural_connection_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   natural_connection boolean DEFAULT NULL,
   contact_name varchar(45) DEFAULT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE natural_connection (
 DROP TABLE IF EXISTS pregnant_and_parenting; 
 
 CREATE TABLE pregnant_and_parenting (
-  pregnant_and_parenting_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   currently_pregnant boolean DEFAULT NULL,
   first_pregnancy boolean DEFAULT NULL,
@@ -163,7 +163,7 @@ CREATE TABLE pregnant_and_parenting (
 DROP TABLE IF EXISTS substance_abuse;
 
 CREATE TABLE substance_abuse (
-  substance_abuse_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   substance_abuse boolean DEFAULT NULL,
   choice_substance varchar(45) DEFAULT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE substance_abuse (
 DROP TABLE IF EXISTS mental_health;
 
 CREATE TABLE mental_health (
-  mental_health_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id)
   -- MentalServicesReceived boolean DEFAULT NULL,
   -- MentalServicesLocation varchar(45) DEFAULT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE mental_health (
 DROP TABLE IF EXISTS referrals;
 
 CREATE TABLE referral (
-  referral_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   internal_referral varchar(45) DEFAULT NULL,
   external_referral varchar(45) DEFAULT NULL
@@ -194,7 +194,7 @@ CREATE TABLE referral (
 DROP TABLE IF EXISTS additional_info;
 
 CREATE TABLE additional_info (
-  additional_info_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
   income varchar(45) DEFAULT NULL,
   birth_city varchar(45) DEFAULT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE additional_info (
 DROP TABLE IF EXISTS forms;
 
 CREATE TABLE forms (
-  forms_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   client_id integer  REFERENCES client (client_id),
   good_neighbor_contract varchar(45) DEFAULT NULL,
   story_photo_video_audio_form boolean DEFAULT NULL,
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS match;
 -- matching case managers with their clients
 
 CREATE TABLE match (
-  match_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   casemanager_id integer REFERENCES casemanager (casemanager_id),
   client_id integer REFERENCES client (client_id)
 );
@@ -257,7 +257,7 @@ Is an activity a subprogram?
 DROP TABLE IF EXISTS program;
 
 CREATE TABLE program (
-  program_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   program_name varchar(45) DEFAULT NULL
 );
 
@@ -266,7 +266,7 @@ INSERT INTO program VALUES (1, 'Education & Employment');
 DROP TABLE IF EXISTS subprogram;
 
 CREATE TABLE subprogram (
-  subprogram_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   subprogram_name varchar(45) DEFAULT NULL,
   program_id integer REFERENCES program (program_id)
 );
@@ -276,7 +276,7 @@ INSERT INTO subprogram (subprogram_id, subprogram_name, program_id) VALUES (1, '
 DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
-  activity_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   activity_name varchar(45) DEFAULT NULL,
   subprogram_id integer REFERENCES subprogram (subprogram_id)
 );
@@ -286,14 +286,14 @@ INSERT INTO activity VALUES (1, '3D-Printing', 1);
 DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
-  drop_in_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   drop_in_date date
 );
 
 DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE appointment (
-  appointment_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   appointment_date date,
   activity_id integer REFERENCES activity (activity_id)
 );
