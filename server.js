@@ -51,12 +51,10 @@ postgresqlPool.register.attributes = {
     version: "0.0.0"
 };
 
-var users = {
-    SPFY: {
-        id: '1',
-        username: 'SPFYstaff',
-        password: '$2a$04$YPy8WdAtWswed8b9MfKixebJkVUhEZxQCrExQaxzhcdR2xMmpSJiG'
-    }
+var validate = function (decoded, request, callback) {
+    // TODO: Look into what is in decoded & request
+    // query the database for the user
+    return callback(null, true);
 };
 
 var SPFY = new Hapi.Server({
@@ -73,26 +71,36 @@ SPFY.connection({
     port: setup.port
 });
 
-SPFY.register(BasicAuth, function(err){
-    if (err) {
-        throw err;
+SPFY.register(require('hapi-auth-jwt2'), function (err) {
+ 
+    if(err){
+      console.log(err);
     }
-
-    var basicValidation = function (request, username, password, callback) {
-        var user = users[ username ];
-
-        if (!user) {
-            return callback(null, false);
-        }
-
-        Bcrypt.compare(password, user.password, function (err, isValid) {
-            callback(err, isValid, {id: user.id, name: user.name});
-        });
-    };
-
-    SPFY.auth.strategy('basic','basic', { validateFunc: basicValidation });
-
-    SPFY.route(loginRoutes);
+ 
+    server.auth.strategy('jwt', 'jwt',
+    { key: 'NeverShareYourSecret',          // Never Share your secret key 
+      validateFunc: validate,            // validate function defined above 
+      verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm 
+    });
+ 
+    server.auth.default('jwt');
+ 
+    // EXAMPLE ROUTES
+    // server.route([
+    //   {
+    //     method: "GET", path: "/", config: { auth: false },
+    //     handler: function(request, reply) {
+    //       reply({text: 'Token not required'});
+    //     }
+    //   },
+    //   {
+    //     method: 'GET', path: '/restricted', config: { auth: 'jwt' },
+    //     handler: function(request, reply) {
+    //       reply({text: 'You used a Token!'})
+    //       .header("Authorization", request.headers.authorization);
+    //     }
+    //   }
+    // ]);
 });
 
 SPFY.register(postgresqlPool, function () {});
