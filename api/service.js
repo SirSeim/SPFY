@@ -9,6 +9,16 @@ var service = {
             }
             callback(undefined, result);
         });
+    },
+
+    // This gets called in api.js by the Service module
+    getAllCaseManagers: function (postgres, payload, callback) {
+        Query.getAllCaseManagers(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
     }
 };
 

@@ -1,9 +1,22 @@
-$(function (event) {
+$(function () {
 
     // $("#").click(function () {
     //     console.log("You are still on the homepage");
     //     window.location.href = "frondeskhomepage.html";
     // });
+
+    var data = { format: 'json'};
+    $.ajax({
+        url: "api/casemanagers",
+        data: data,
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
@@ -101,5 +114,4 @@ $(function (event) {
             $(".newID").addClass("hidden");
         }
     });
-
 });

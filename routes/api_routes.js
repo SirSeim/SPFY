@@ -16,7 +16,13 @@ var apiRoutes = [
         method: 'POST',
         path: '/client',
         handler: Api.createClient
-    }
+    },
+    {
+        method: 'GET',
+        path: '/casemanagers',
+        handler: Api.getAllCaseManagers
+    },
+
 ];
 
 module.exports.register = function (server, options, next) {

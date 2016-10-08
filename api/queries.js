@@ -1,3 +1,5 @@
+
+
 var parseProperty = function(property) {
     if (typeof property === 'boolean') {
         property = property === true ? '1' : '0';
@@ -12,6 +14,7 @@ var queries = {
     createClient: function (payload) {
         var queryString = 'INSERT INTO client VALUES (';
 
+        // frontend people are using this for naming standards in their JSON
         queryString += parseProperty(payload.firstName) + ',';
         queryString += parseProperty(payload.lastName) + ',';
         queryString += parseProperty(payload.nickname) + ',';
@@ -102,7 +105,14 @@ var queries = {
         queryString += parseProperty(payload.backpack) + ')';
 
         return queryString;
+    },
+
+    // This gets called in query.js by Queries module
+    getAllCaseManagers: function () {
+        var queryString = 'SELECT first_name, last_name FROM casemanager';
+        return queryString;
     }
+
 };
 
 module.exports = queries;
