@@ -1,8 +1,6 @@
 var Hapi = require('hapi');
 var Path = require('path');
 var Inert = require('inert');
-var Bcrypt = require('bcrypt');
-var BasicAuth = require('hapi-auth-basic');
 var Vision = require('vision');
 var PostgreSQL = require('pg');
 var url = require('url');
@@ -13,7 +11,6 @@ var setup = {
 };
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
-var loginRoutes = require(Path.join(__dirname, 'routes/login_routes.js'));
 
 var postgresqlPool = {
     register: function (server, options, next) {
@@ -73,20 +70,20 @@ SPFY.connection({
 
 SPFY.register(require('hapi-auth-jwt2'), function (err) {
  
-    if(err){
-      console.log(err);
+    if (err) {
+        SPFY.log(['error', 'hapi-auth-jwt2'], err);
     }
- 
-    server.auth.strategy('jwt', 'jwt',
+
+    SPFY.auth.strategy('jwt', 'jwt',
     { key: 'NeverShareYourSecret',          // Never Share your secret key 
       validateFunc: validate,            // validate function defined above 
       verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm 
     });
  
-    server.auth.default('jwt');
+    SPFY.auth.default('jwt');
  
     // EXAMPLE ROUTES
-    // server.route([
+    // SPFY.route([
     //   {
     //     method: "GET", path: "/", config: { auth: false },
     //     handler: function(request, reply) {
