@@ -68,45 +68,21 @@ CREATE TABLE client (
   client_id integer PRIMARY KEY,
   first_name varchar(45) DEFAULT NULL,
   last_name varchar(45) DEFAULT NULL
-  -- nickname varchar(45) DEFAULT NULL,
-  -- person_completing_intake varchar(65) DEFAULT NULL,
-  -- IntakeDate date DEFAULT NULL,
-  -- HMISConsent boolean DEFAULT NULL,
-  -- FirstTime boolean DEFAULT NULL,
-  -- CaseManager varchar(65) DEFAULT NULL,
-  -- CaseManagerID integer DEFAULT NULL,
-  -- PhoneNumber varchar(45) DEFAULT NULL,
-  -- Email varchar(65) DEFAULT NULL,
-  -- DOB date DEFAULT NULL,
-  -- IntakeAge integer DEFAULT NULL,
-  -- ProvidedID boolean DEFAULT NULL,
-  -- StateID varchar(45) DEFAULT NULL,
-  -- Reference varchar(45) DEFAULT NULL,
-  -- Services varchar(45) DEFAULT NULL
-  -- InternalReferral varchar(45) DEFAULT NULL,
-  -- ExternalReferral varchar(45) DEFAULT NULL,
-  -- Income varchar(45) DEFAULT NULL,
-  -- BirthCity varchar(45) DEFAULT NULL,
-  -- BirthState varchar(45) DEFAULT NULL,
-  -- BirthCountry varchar(45) DEFAULT NULL,
-  -- Employed varchar(45) DEFAULT NULL,
-  -- LookingForEmployment boolean DEFAULT NULL,
-  -- FosterCare boolean DEFAULT NULL,
-  -- SocialSecurityNumber varchar(45) DEFAULT NULL,
-  -- CaringForAnimals boolean DEFAULT NULL,
-  -- ChronicallyHomeless boolean DEFAULT NULL,
-  -- GoodNeighborContract varchar(45) DEFAULT NULL,
-  -- StoryPhotoVideoAudioForm boolean DEFAULT NULL,
-  -- InformationReleaseAuthrorized boolean DEFAULT NULL,
-  -- ServicesConsent boolean DEFAULT NULL,
-  -- ShowerInstructions boolean DEFAULT NULL,
-  -- ShowerGuidelines boolean DEFAULT NULL,
-  -- DropInGuidelines boolean DEFAULT NULL,
-  -- IntakeConfirmation boolean DEFAULT NULL,
-  -- ImmediateNeedsTransportation boolean DEFAULT NULL,
-  -- DocumentsSigned boolean DEFAULT NULL,
-  -- SleepingBag boolean DEFAULT NULL,
-  -- Backpack boolean DEFAULT NULL
+  nickname varchar(45) DEFAULT NULL,
+  person_completing_intake varchar(65) DEFAULT NULL,
+  IntakeDate date DEFAULT NULL,
+  HMISConsent boolean DEFAULT NULL,
+  FirstTime boolean DEFAULT NULL,
+  CaseManager varchar(65) DEFAULT NULL,
+  CaseManagerID integer DEFAULT NULL,
+  PhoneNumber varchar(45) DEFAULT NULL,
+  Email varchar(65) DEFAULT NULL,
+  DOB date DEFAULT NULL,
+  IntakeAge integer DEFAULT NULL,
+  ProvidedID boolean DEFAULT NULL,
+  StateID varchar(45) DEFAULT NULL,
+  Reference varchar(45) DEFAULT NULL,
+  Services varchar(45) DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS prescreen;
@@ -121,21 +97,21 @@ DROP TABLE IF EXISTS background;
 CREATE TABLE background (
   background_id integer PRIMARY KEY,
   client_id integer REFERENCES client (client_id),
-  Disability varchar(45) DEFAULT NULL,
-  LastGradeCompleted varchar(45) DEFAULT NULL,
-  SomeCompleted varchar(45) DEFAULT NULL,
-  CurrentlyAttending varchar(45) DEFAULT NULL,
-  Graduated varchar(45) DEFAULT NULL,
-  FirstLanguage varchar(45) DEFAULT NULL,
-  PreferredLanguage varchar(45) DEFAULT NULL,
-  MaritalStatus varchar(45) DEFAULT NULL,
-  MilitaryService varchar(45) DEFAULT NULL,
-  HealthInsurance varchar(45) DEFAULT NULL,
-  Gender varchar(45) DEFAULT NULL,
-  GenderIdentification varchar(45) DEFAULT NULL,
-  PreferredPronoun varchar(45) DEFAULT NULL,
-  Ethnicity varchar(45) DEFAULT NULL,
-  Race varchar(45) DEFAULT NULL
+  -- Disability varchar(45) DEFAULT NULL,
+  -- LastGradeCompleted varchar(45) DEFAULT NULL,
+  -- SomeCompleted varchar(45) DEFAULT NULL,
+  -- CurrentlyAttending varchar(45) DEFAULT NULL,
+  -- Graduated varchar(45) DEFAULT NULL,
+  -- FirstLanguage varchar(45) DEFAULT NULL,
+  -- PreferredLanguage varchar(45) DEFAULT NULL,
+  -- MaritalStatus varchar(45) DEFAULT NULL,
+  -- MilitaryService varchar(45) DEFAULT NULL,
+  -- HealthInsurance varchar(45) DEFAULT NULL,
+  -- Gender varchar(45) DEFAULT NULL,
+  -- GenderIdentification varchar(45) DEFAULT NULL,
+  -- PreferredPronoun varchar(45) DEFAULT NULL,
+  -- Ethnicity varchar(45) DEFAULT NULL,
+  -- Race varchar(45) DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS housing_history;
@@ -206,6 +182,50 @@ CREATE TABLE mental_health (
   -- HelpAcquiringMedicine boolean DEFAULT NULL
 );
 
+DROP TABLE IF EXISTS referrals;
+
+CREATE TABLE referral (
+  referral_id integer PRIMARY KEY,
+  client_id integer REFERENCES client (client_id),
+  InternalReferral varchar(45) DEFAULT NULL,
+  ExternalReferral varchar(45) DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS additional_info;
+
+CREATE TABLE additional_info (
+  additional_info_id integer PRIMARY KEY,
+  client_id integer REFERENCES client (client_id),
+  Income varchar(45) DEFAULT NULL,
+  BirthCity varchar(45) DEFAULT NULL,
+  BirthState varchar(45) DEFAULT NULL,
+  BirthCountry varchar(45) DEFAULT NULL,
+  Employed varchar(45) DEFAULT NULL,
+  LookingForEmployment boolean DEFAULT NULL,
+  FosterCare boolean DEFAULT NULL,
+  SocialSecurityNumber varchar(45) DEFAULT NULL,
+  CaringForAnimals boolean DEFAULT NULL,
+  ChronicallyHomeless boolean DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS forms;
+
+CREATE TABLE forms (
+  forms_id integer PRIMARY KEY,
+  client_id integer  REFERENCES client (client_id),
+  GoodNeighborContract varchar(45) DEFAULT NULL,
+  StoryPhotoVideoAudioForm boolean DEFAULT NULL,
+  InformationReleaseAuthrorized boolean DEFAULT NULL,
+  ServicesConsent boolean DEFAULT NULL,
+  ShowerInstructions boolean DEFAULT NULL,
+  ShowerGuidelines boolean DEFAULT NULL,
+  DropInGuidelines boolean DEFAULT NULL,
+  IntakeConfirmation boolean DEFAULT NULL,
+  ImmediateNeedsTransportation boolean DEFAULT NULL,
+  DocumentsSigned boolean DEFAULT NULL,
+  SleepingBag boolean DEFAULT NULL,
+  Backpack boolean DEFAULT NULL
+);
 
 INSERT INTO client VALUES (1, 'Steven', 'Brown');
 
@@ -251,7 +271,7 @@ CREATE TABLE subprogram (
   program_id integer REFERENCES program (program_id)
 );
 
-INSERT INTO subprogram VALUES (1, 'Digital Arts Lab', 1);
+INSERT INTO subprogram (subprogram_id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
 
 DROP TABLE IF EXISTS activity;
 
@@ -277,10 +297,4 @@ CREATE TABLE appointment (
   appointment_date date,
   activity_id integer REFERENCES activity (activity_id)
 );
-
--- CREATE FUNCTION distribute_info() RETURNS trigger AS 'filename' LANGUAGE C;
-
--- CREATE TRIGGER add_client_info AFTER 
--- INSERT ON client EXECUTE PROCEDURE
--- INSERT INTO mental_health VALUES (1,1);
 
