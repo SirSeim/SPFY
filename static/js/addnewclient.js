@@ -29,7 +29,7 @@ var IntakeForm = React.createClass({
             maritalStatus: "Unmarried",
             militaryService: "",
             healthInsurance: false,
-            gender: "Male",
+            gender: "Male", 
             genderIdentification: "Male",
             preferredPronoun: "",
             ethnicity: "White",
