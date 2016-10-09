@@ -109,9 +109,14 @@ var queries = {
 
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
-        var queryString = 'SELECT first_name, last_name FROM casemanager';
+        var queryString = 'SELECT first_name, last_name FROM casemanager;';
         return queryString;
-    }
+    },
+
+    // getClient: function (payload) {
+    //     var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = '
+    //                         + payload.firstName + ' AND last_name = ' + payload.lastName + ';';
+    // }
 
 };
 

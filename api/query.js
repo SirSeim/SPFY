@@ -14,7 +14,7 @@ var parseProperty = function(property) {
 
 var query = {
 
-    /* use this as standard example */
+    // *** use this as standard example *** 
     createClient: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -32,32 +32,69 @@ var query = {
         });
     },
 
+    // gets called in service.js by Query module
     getAllCaseManagers: function (postgres, payload, callback) {
+
+        // generally, this function and everything in it acquires a client
+        // runs a query on the client, and then returns the client to the pool
         postgres.connect(function (err, client, done) {
             if (err) {
-                return callback(err);
+                return callback(err); // this is basically the function that is
+                // carried all the way down the pipeline from api.js
+                // it is now used at the very bottom 
             }
 
             // retrieves the queryString from getAllCaseManagers function in queries.js
             // err and result are coming from the database response
-            client.query(Queries.getAllCaseManagers(payload), function (err, result) {
-                done();
+            // this is where the database connects to the backend, but we don't know
+            // what the database is returning
+            // query is executed once connection is established and
+            // PostgreSQL server is ready for a query
+            client.query(Queries.getAllCaseManagers(), function (err, result) {
+                done(); // releases the client back to the pool
                 if (err) {
                     return callback(err);
                 }
-                var rows = [];
-
-                // fires once for each row returned
-                this.on('row', function (row, result) {
-                    rows.push(row);
-                });
-                this.on('end', function (result) {
-                    console.log(result.rowCount + ' rows were received');
-                });
+                // 'result' contains a property 'rows' which has the returned
+                // table rows from the query
                 return callback(undefined, result);
+                // sending result all the way back up the pipeline
+                // eventually gets to respond.js
             });
+
+            /* the 'callback' function above is really
+
+                    function (err, result) {
+                        if (err) {
+                            Respond.failedToGetAllCaseManagers(reply, err);
+                        } else {
+                            Respond.getAllCaseManagers(reply, result);
+                        }
+                    }
+                    
+                from api.js
+            */
         });
-    }
+    },
+
+    // getClient: function (postgres, payload, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+
+    //         client.query(Queries.getClient(payload), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
+
+
     // createProfile: function (postgres, payload, callback) {
     //     var queryString = 'CALL spfy.insert_profile(';
 

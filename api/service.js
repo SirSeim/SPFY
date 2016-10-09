@@ -17,7 +17,7 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            callback(undefined, result);
+            return callback(undefined, result);
         });
     }
 };

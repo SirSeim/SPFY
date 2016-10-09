@@ -5,18 +5,33 @@ $(function () {
     //     window.location.href = "frondeskhomepage.html";
     // });
 
-    var data = { format: 'json'};
+    /** /
     $.ajax({
         url: "api/casemanagers",
-        data: data,
         method: "GET",
         success: function (data) {
             console.log(data);
         },
         error: function (data) {
-            console.error(data);
+            console.log(data);
         }
     });
+    /**/
+
+    /**/
+    $.ajax({
+        url: "api/getclients",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+            console.log("result");
+            console.log(data.result);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+    /**/
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
