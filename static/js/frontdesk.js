@@ -33,6 +33,27 @@ $(function () {
     });
     /**/
 
+    var data = {
+        firstName: 'Amy',
+        lastName: 'Williams'
+    }
+
+    /**/
+    $.ajax({
+        url: "api/createclient",
+        method: "POST",
+        data: data,
+        success: function (data) {
+            console.log(data);
+            console.log("result");
+            console.log(data.result);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+    /**/
+
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();

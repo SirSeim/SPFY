@@ -27,8 +27,10 @@ DROP TABLE IF EXISTS client;
 -- Where are the rest of the intake fields for a client profile?
 -- They are broken up into subsequent tables that follow this one
 -- (this structure is still being decided upon)
+
+
 CREATE TABLE client (
-  client_id integer PRIMARY KEY,
+  client_id SERIAL PRIMARY KEY,
   first_name varchar(45) DEFAULT NULL,
   last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
@@ -48,8 +50,8 @@ CREATE TABLE client (
   Services varchar(45) DEFAULT NULL
 );
 
-INSERT INTO client VALUES (1, 'Steven', 'Brown');
-INSERT INTO client VALUES (2, 'John', 'Smith');
+INSERT INTO client (first_name, last_name) VALUES ('Steven', 'Brown');
+INSERT INTO client (first_name, last_name) VALUES ('John', 'Smith');
 
 DROP TABLE IF EXISTS prescreen;
 
