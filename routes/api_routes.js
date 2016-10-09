@@ -40,7 +40,7 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/client',
+        path: '/createclient',
         handler: Api.createClient
     },
     {
@@ -49,78 +49,10 @@ var apiRoutes = [
         handler: Api.getAllCaseManagers // this goes to api/api.js
     },
 
-    { // ** testing connection to database, flattened the pipeline
-      // ** results of this request go to ajax call in frontdeskhomepage.js
-        method: 'GET',
-        path: '/getclients',
-        handler: function (request, reply) {
-            pool.connect(function (err, client, done) {
-                if (err) {
-                    return reply({ // apparently need to make sure to return reply to avoid
-                        // reply interface being called twice in same request
-                        statusCode: 500,
-                        message: "Unable to get case managers! connection",
-                        error: err
-                    }).code(500);
-                }
-
-                client.query('SELECT * FROM client;', function (err, result) {
-                    done();
-                    if (err) {
-                        return reply({
-                            statusCode: 500,
-                            message: "Unable to get clients! query",
-                            error: err
-                        }).code(500);
-                    }
-
-                    return reply({
-                        statusCode: 200,
-                        message: "Success getting clients!",
-                        result: result
-                    }).code(200);
-
-                });
-            });
-        }
-    },
-
     {
         method: 'POST',
-        path: '/createclient',
-        handler: function (request, reply) {
-            var payload = request.payload;
-            var queryString = 'INSERT INTO client (first_name, last_name ) VALUES (' 
-                    + '\'' + payload.firstName + '\'' + ', ' 
-                    + '\'' + payload.lastName + '\'' + ');';
-            pool.connect(function (err, client, done) {
-                if (err) {
-                    return reply({ // apparently need to make sure to return reply to avoid
-                        // reply interface being called twice in same request
-                        statusCode: 500,
-                        message: "Unable to add client! connection",
-                        error: err
-                    }).code(500);
-                }
-                client.query(queryString, function (err, result) {
-                    done();
-                    if (err) {
-                        return reply({
-                            statusCode: 500,
-                            message: "Unable to add client! query",
-                            error: err,
-                            test: queryString
-                        }).code(500);
-                    }
-                    return reply({
-                        statusCode: 200,
-                        message: "Success adding client!",
-                        result: result
-                    }).code(200);
-
-                });
-            });
-        }
+        path: '/getclient',
+        handler: Api.getClient
     }
 ];
 

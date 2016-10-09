@@ -5,7 +5,7 @@ $(function () {
     //     window.location.href = "frondeskhomepage.html";
     // });
 
-    /** /
+    /**/
     $.ajax({
         url: "api/casemanagers",
         method: "GET",
@@ -13,32 +13,37 @@ $(function () {
             console.log(data);
         },
         error: function (data) {
-            console.log(data);
+            console.error(data);
         }
     });
     /**/
 
+    var data = {
+        firstName: 'Steven',
+        lastName: 'Brown'
+    }
     /**/
     $.ajax({
-        url: "api/getclients",
-        method: "GET",
+        url: "api/getclient",
+        method: "POST",
+        data: data,
         success: function (data) {
             console.log(data);
             console.log("result");
             console.log(data.result);
         },
         error: function (data) {
-            console.log(data);
+            console.error(data);
         }
     });
     /**/
 
-    var data = {
+    data = {
         firstName: 'Amy',
         lastName: 'Williams'
     }
 
-    /**/
+    /** /
     $.ajax({
         url: "api/createclient",
         method: "POST",

@@ -20,10 +20,24 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotAllCaseManagers: function (reply, result) {
+    getAllCaseManagers: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting case managers!",
+            result: result
+        }).code(200);
+    },
+    failedToGetClient: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get clients!",
+            error: err
+        }).code(500);
+    },
+    getClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting clients!",
             result: result
         }).code(200);
     }

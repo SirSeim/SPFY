@@ -32,8 +32,14 @@ var api = {
         });
     },
 
-    getClients: function (request, reply) {
-        
+    getClient: function (request, reply) {
+        Service.getClient(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToGetClient(reply, err);
+            } else {
+                Respond.getClient(reply, result);
+            }
+        });
     }
 };
 
