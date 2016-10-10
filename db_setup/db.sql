@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS client;
 CREATE TABLE client (
   id SERIAL PRIMARY KEY,
   first_name varchar(45) DEFAULT NULL,
-  last_name varchar(45) DEFAULT NULL
+  last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
   person_completing_intake varchar(65) DEFAULT NULL,
   intake_date date DEFAULT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE natural_connection (
   contact_relationship varchar(45) DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS pregnant_and_parenting; 
+DROP TABLE IF EXISTS pregnant_and_parenting;
 
 CREATE TABLE pregnant_and_parenting (
   id integer PRIMARY KEY,
@@ -213,7 +213,7 @@ CREATE TABLE match (
 
 
 /* should we use inheritance here?
-Programs definitely "contain" subprograms, 
+Programs definitely "contain" subprograms,
 but is a subprogram also a program?
 Is an activity a subprogram?
 */
@@ -261,4 +261,3 @@ CREATE TABLE appointment (
   appointment_date date,
   activity_id integer REFERENCES activity (activity_id)
 );
-
