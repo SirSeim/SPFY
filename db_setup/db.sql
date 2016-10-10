@@ -250,8 +250,8 @@ INSERT INTO activity VALUES (1, '3D-Printing', 1);
 DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
-  id integer PRIMARY KEY,
-  drop_in_date date
+  id SERIAL PRIMARY KEY,
+  date date
 );
 
 DROP TABLE IF EXISTS appointment;
