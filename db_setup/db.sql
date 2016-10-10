@@ -49,6 +49,8 @@ CREATE TABLE client (
   services varchar(45) DEFAULT NULL
 );
 
+INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
+
 DROP TABLE IF EXISTS prescreen;
 
 CREATE TABLE prescreen (
