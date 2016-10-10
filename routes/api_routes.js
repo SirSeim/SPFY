@@ -43,6 +43,11 @@ var apiRoutes = [
         method: 'POST',
         path: '/getclient',
         handler: Api.getClient
+    },
+    {
+        method: 'GET',
+        path: '/searchClient',
+        handler: Api.searchClient
     }
 ];
 
