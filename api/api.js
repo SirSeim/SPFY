@@ -59,7 +59,7 @@ var api = {
             } else {
                 Respond.gotDropIns(reply, result);
             }
-        })
+        });
     }
 };
 
