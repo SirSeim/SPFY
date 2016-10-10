@@ -83,12 +83,12 @@ var query = {
         });
     },
 
-    searchClient: function (postgres, first_name, last_name, callback) {
+    searchClient: function (postgres, firstName, lastName, callback) {
         postgres.connect(function (err, client, done){
-            if(err) {
+            if (err) {
                 return callback(err);
             }
-            client.query(Queries.searchClient(first_name,last_name), function (err, result) {
+            client.query(Queries.searchClient(firstName, lastName), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
