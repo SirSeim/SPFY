@@ -40,6 +40,20 @@ var respond = {
             message: "Success getting clients!",
             result: result
         }).code(200);
+    },
+    searchClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success searching clients",
+            result: result
+        }).code(200);
+    },
+    failedToSearchClient: function (reply, result) {
+        reply({
+            statusCode: 500,
+            message: "Unable to search client!",
+            error: err
+        }).code(500);
     }
 };
 

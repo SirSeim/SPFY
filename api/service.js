@@ -28,6 +28,14 @@ var service = {
             }
             return callback(undefined, result);
         });
+    },
+    searchClient: function (postgres, payload, callback) {
+        Query.searchClient(postgres, paylaod, function(err, result){
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        })
     }
 };
 
