@@ -44,7 +44,7 @@ var api = {
 
     searchClient: function (request, reply) {
         Service.searchClient(request.postgres, request.query.firstName, request.query.lastName, function (err, result) {
-            if(err) {
+            if (err) {
                 Respond.failedToSearchClient(reply, err);
             } else {
                 Respond.searchClient(reply, result);
