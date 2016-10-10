@@ -40,6 +40,17 @@ var api = {
                 Respond.getClient(reply, result);
             }
         });
+    },
+
+    searchClient : function (request, reply) {
+        Service.searchClient(request.postgres, request.payload, function (err, result) {
+            if(err){
+                Respond.failedToSearchClient(reply, err);
+            } else {
+                Respond.searchClient(reply, result);
+            }
+            
+        });
     }
 };
 
