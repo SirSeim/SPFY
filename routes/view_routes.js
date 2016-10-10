@@ -10,7 +10,17 @@ var viewRoutes = [
     },
 
     {
-        path: '/casemanagerhomepage',
+        path: '/',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('index.html', {
+
+            });
+        }
+    },
+
+    {
+        path: '/case_manager',
         method: 'GET',
         handler: function (req, res) {
             res.view('casemanagerhomepage.html', {
@@ -20,7 +30,7 @@ var viewRoutes = [
     },
 
     {
-        path: '/casenotepage',
+        path: '/case_notes',
         method: 'GET',
         handler: function (req, res) {
             res.view('casenotepage.html', {
@@ -30,7 +40,7 @@ var viewRoutes = [
     },
 
     {
-        path: '/frontdeskhomepage',
+        path: '/frontdesk',
         method: 'GET',
         handler: function (req, res) {
             res.view('frontdeskhomepage.html', {
@@ -40,7 +50,7 @@ var viewRoutes = [
     },
 
     {
-        path: '/outreachhomepage',
+        path: '/outreach',
         method: 'GET',
         handler: function (req, res) {
             res.view('outreachhomepage.html', {
@@ -50,7 +60,7 @@ var viewRoutes = [
     },
 
     {
-        path: '/addnewclient',
+        path: '/add_client',
         method: 'GET',
         handler: function (req, res) {
             res.view('addnewclient.html', {

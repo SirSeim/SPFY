@@ -68,6 +68,52 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
+/* line 1, ../sass/partials/_index.scss */
+img {
+  width: 90%;
+  height: auto;
+}
+
+/* line 6, ../sass/partials/_index.scss */
+#bubbles {
+  padding: 80px 0;
+}
+
+/* line 10, ../sass/partials/_index.scss */
+.space {
+  margin-top: 40px;
+}
+
+/* line 14, ../sass/partials/_index.scss */
+#bubbles i.fa {
+  font-size: 40px;
+  border: 4px solid #02aef0;
+  width: 100px;
+  height: 100px;
+  padding: 27px 25px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+
+/* line 25, ../sass/partials/_index.scss */
+#bubbles i.fa.fa-mobile {
+  font-size: 50px;
+  padding: 20px 25px;
+}
+
+/* line 30, ../sass/partials/_index.scss */
+#bubbles .bubble:hover > i.fa {
+  background: #02aef0;
+  color: #ffffff;
+}
+
+/* line 35, ../sass/partials/_index.scss */
+#bubbles i.fa:hover {
+  background: #02aef0;
+  color: #ffffff;
+}
+
 /* line 3, ../sass/partials/_base.scss */
 body {
   font-family: "brandon-grotesque", sans-serif;
