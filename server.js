@@ -23,7 +23,7 @@ var postgresqlPool = {
             host: params.hostname,
             port: params.port,
             database: params.pathname.split('/')[1],
-            ssl: true,
+            ssl: false,
             max: 20,
             min: 4
         };

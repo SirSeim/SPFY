@@ -1,0 +1,81 @@
+{% include "helpers/_header.html" %}
+
+  <div class="container">
+
+    {% include "helpers/_navbar.html" %}
+
+    <div class="row">
+      <h1>Safe Place for Youth</h1>
+    </div>
+
+    <div class="row">
+      <div>
+        <img src="/static/img/SPFY-logo.jpg" class="center-block" alt="SPFY">
+      </div>
+    </div>
+
+    <div id="bubbles" class="text-center">
+      <div class="container">
+        <div class="section-title center">
+          <h2>What <strong>would you like to do?</strong></h2>
+          <div class="line">
+              <hr>
+          </div>
+          <div class="clearfix"></div>
+          <small><em>Welcome to the SPFY adminstrative hub.</em></small>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-3 col-sm-5 col-sm-offset-1 col-md-offset-0 bubble">
+                <a href="frontdesk"><i class="fa fa-keyboard-o"></i></a>
+                <h4><strong>Front Desk</strong></h4>
+                <p>Front desk operations</p>
+            </div>
+
+            <div class="col-md-3 col-sm-5 bubble">
+                <a href="case_manager"><i class="fa fa-street-view"></i></a>
+                <h4><strong>Case Manager</strong></h4>
+                <p>Case manager hub</p>
+            </div>
+            
+            <div class="col-md-3 col-sm-5 col-sm-offset-1 col-md-offset-0 bubble">
+                <a href="case_notes"><i class="fa fa-folder-open-o"></i></a>
+                <h4><strong>Case Notes</strong></h4>
+                <p>Access all case notes and related documents</p>
+            </div>
+
+            <div class="col-md-3 col-sm-5 bubble">
+                <a href="outreach"><i class="fa fa-hand-lizard-o"></i></a>
+                <h4><strong>Outreach</strong></h4>
+                <p>All things outreach</p>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4 bubble">
+                <a href="add_client"><i class="fa fa-user-plus"></i></a>
+                <h4><strong>Add a client</strong></h4>
+                <p>Add a new youth</p>
+            </div>
+            
+            <div class="col-md-4 bubble">
+                <a href="#"><i class="fa fa-globe"></i></a>
+                <h4><strong>N/A</strong></h4>
+                <p>description goes here</p>
+            </div>
+
+            <div class="col-md-4 bubble">
+                <a href="#"><i class="fa fa-yahoo"></i></a>
+                <h4><strong>N/A</strong></h4>
+                <p>description goes here</p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% include "helpers/_basescript.html" %}
+
+
+{% include "helpers/_footer.html" %}
