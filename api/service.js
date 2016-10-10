@@ -1,5 +1,5 @@
 var Path = require('path');
-var Query = require(Path.join(__dirname, 'query.js')); // jshint ignore:line
+var Query = require(Path.join(__dirname, 'query.js'));
 
 var service = {
     createClient: function (postgres, payload, callback) {

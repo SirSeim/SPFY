@@ -1,16 +1,5 @@
 var Path = require('path');
-var Queries = require(Path.join(__dirname, 'queries.js')); // eslint-disable-line
-
-var parseProperty = function(property) {
-    if (typeof property === 'boolean') {
-        property = property === true ? '1' : '0';
-    }
-    if (property === undefined) {
-        property = 'null';
-    }
-    property = mysql.escape(property); // eslint-disable-line
-    return property;
-};
+var Queries = require(Path.join(__dirname, 'queries.js'));
 
 var query = {
 

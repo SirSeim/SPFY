@@ -1,5 +1,3 @@
-
-
 var parseProperty = function(property) {
     if (typeof property === 'boolean') {
         property = property === true ? '1' : '0';
