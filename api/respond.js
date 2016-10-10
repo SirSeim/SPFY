@@ -48,7 +48,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotClients: function (reply, err) {
+    gotClients: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting clients!",

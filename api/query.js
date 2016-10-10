@@ -90,7 +90,6 @@ var query = {
             }
 
             client.query(Queries.getClients(), function (err, result) {
-                console.log(result);
                 done();
                 if (err) {
                     return callback(err);

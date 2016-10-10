@@ -49,7 +49,7 @@ var api = {
             } else {
                 Respond.gotClients(reply, result);
             }
-        })
+        });
     }
 };
 
