@@ -82,13 +82,27 @@ var query = {
             });
         });
     },
-
+    
     searchClient: function (postgres, firstName, lastName, callback) {
         postgres.connect(function (err, client, done){
             if (err) {
                 return callback(err);
             }
             client.query(Queries.searchClient(firstName, lastName), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    getClients: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getClients(), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
