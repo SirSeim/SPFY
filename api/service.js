@@ -29,8 +29,8 @@ var service = {
             return callback(undefined, result);
         });
     },
-    searchClient: function (postgres, payload, callback) {
-        Query.searchClient(postgres, payload, function(err, result){
+    searchClient: function (postgres, first_name, last_name, callback) {
+        Query.searchClient(postgres, first_name, last_name, function(err, result){
             if (err) {
                 return callback(err);
             }

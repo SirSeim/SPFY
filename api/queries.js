@@ -116,10 +116,10 @@ var queries = {
                             '\'' + payload.id + '\'' + ';';
         return queryString;
     },
-    searchClient: function (payload) {
+    searchClient: function (first_name,last_name) {
         var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
-                            '\'' + payload.firstName + '\'' + ' AND last_name = ' +
-                            '\'' + payload.lastName + '\'' + ';';
+                            '\'' + first_name + '\'' + ' AND last_name = ' +
+                            '\'' + last_name + '\'' + ';';
         return queryString;
     }
 
