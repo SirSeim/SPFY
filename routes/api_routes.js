@@ -1,17 +1,7 @@
 var Path = require('path');
 var Api = require(Path.join(__dirname, '../api/api.js'));
 var Schema = require(Path.join(__dirname, '../api/schema.js')); // eslint-disable-line
-var Pool = require('pg').Pool;
-var pool = new Pool({
-    user: 'spfyuser',
-    password: 'E77PyP8P9LwwpPuB6pPixCw73vf3amVV',
-    host: 'localhost',
-    port: '5432',
-    database: 'spfy',
-    ssl: false,
-    max: 20,
-    min: 4
-});
+
 /* ajax calls from frontend js files use the path properties
     Example:
     $.ajax({
