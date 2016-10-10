@@ -1,3 +1,5 @@
+// basic building block of ReactJS is a 'component'
+// a 'component' is basically a React class
 var IntakeForm = React.createClass({
   getInitialState: function () {
     return {firstName: "",
@@ -92,7 +94,7 @@ var IntakeForm = React.createClass({
             backpack: ""
             };
   },
-  handleSubmit: function (e) {
+  handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
     var data = this.state;
     console.log(data)
@@ -109,6 +111,26 @@ var IntakeForm = React.createClass({
       console.log("I was missing a critical piece.");
     } else {
       // Ajax will go here
+      var data = {
+        firstName: firstName,
+        nickname: nickname,
+        lastName: lastName
+      }
+      /**/
+      $.ajax({
+          url: "api/createclient",
+          method: "POST",
+          data: data,
+          success: function (data) {
+              console.log(data);
+              console.log("result");
+              console.log(data.result);
+          },
+          error: function (data) {
+              console.log(data);
+          }
+      });
+      /**/
     };
   },
   handleHMISConsentChange: function (e) {
@@ -167,6 +189,9 @@ var IntakeForm = React.createClass({
   handleReferenceOtherChange: function (e) {
     this.setState({referenceOther: e.target.value});
   },
+
+  // every React component is required to have a 'render' function
+  // to display the html
   render: function () {
     var currentYear = new Date().getFullYear(),
         todaysDate = moment();
@@ -402,7 +427,96 @@ var GetOption = React.createClass({
   }
 })
 
+// calls the render function of the given component to display
+// takes two parameters: 1) component to display 2) where to display it
 ReactDOM.render(
   <IntakeForm />,
-  document.getElementById('content')
+  document.getElementById('content') // html has a div with id='content'
 );
+
+// to display multiple components with same render function
+// need to place them inside another div
+/*
+ReactDOM.render(
+    <div>
+        <IntakeForm />
+        <IntakeForm />
+        <IntakeForm />
+    </div>,
+    document.getEleementByID('content')
+);
+*/
+
+// *** When the state of a component changes, it's render function is called
+// again to re-render its new state
+
+// every component has
+// this.props
+// this.props.children
+// this.state
+// when a function is defined within a component, it is accessed as
+// this.functionName
+
+// every component has a this.state property
+// getInitialState is a React built-in function just like render()
+// returns an object of key-value pairs with initial states
+/*
+    getInitialState: function () {
+      return {
+        checked: false
+      }
+    }
+*/
+
+// this.setState is another React built-in function
+// takes in object with same key-value pair state values
+// (put inside a handler)
+/*
+  handleCheck: function () {
+    this.setState({ checked: !this.state.checked });
+  }
+*/
+
+// Sample code for changing state
+/*
+  <!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://fb.me/react-15.2.1.js"></script>
+        <script src="https://fb.me/react-dom-15.2.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+        <title>Intro to State</title>
+    </head>
+    <body>
+        <div id='react-container'></div>
+        <script type="text/babel">
+
+        var Checkbox = React.createClass({
+            getInitialState() {
+                return {checked: true}
+            },
+            handleCheck() {
+                this.setState({checked: !this.state.checked})
+            },
+            render() {
+                var msg
+                if(this.state.checked) {
+                    msg = "checked"
+                } else {
+                    msg = "unchecked"
+                }
+                return ( <div>
+                        <input type="checkbox" 
+                               onChange={this.handleCheck}
+                               defaultChecked={this.state.checked}/>
+                        <p>This box is {msg}</p>
+                    </div>)
+            }
+        })
+        ReactDOM.render(<Checkbox/>, 
+            document.getElementById('react-container'))
+        </script>
+    </body>
+</html>
+*/
+ 
