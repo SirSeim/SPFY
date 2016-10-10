@@ -78,10 +78,10 @@ $(function () {
                 style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
                 settings = {
                     on: {
-                        icon: 'glyphicon glyphicon-check'
+                        icon: 'fa fa-check'
                     },
                     off: {
-                        icon: 'glyphicon glyphicon-unchecked'
+                        icon: 'fa fa-unchecked'
                     }
                 };
                 
