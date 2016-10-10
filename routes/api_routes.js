@@ -47,6 +47,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/clients',
         handler: Api.getClients
+    },
+    {
+        method: 'GET',
+        path: '/dropins',
+        handler: Api.getDropIns
     }
 ];
 

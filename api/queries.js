@@ -122,6 +122,12 @@ var queries = {
         var queryString = 'SELECT id, first_name, last_name FROM client;';
 
         return queryString;
+    },
+
+    getDropIns: function () {
+        var queryString = 'SELECT id, date FROM drop_in;';
+
+        return queryString;
     }
 
 };

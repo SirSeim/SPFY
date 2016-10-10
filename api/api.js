@@ -50,6 +50,16 @@ var api = {
                 Respond.gotClients(reply, result);
             }
         });
+    },
+
+    getDropIns: function (request, reply) {
+        Service.getDropIns(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropIns(reply, err);
+            } else {
+                Respond.gotDropIns(reply, result);
+            }
+        })
     }
 };
 
