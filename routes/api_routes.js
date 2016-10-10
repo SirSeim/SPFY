@@ -49,7 +49,7 @@ var apiRoutes = [
         handler: Api.searchClient
     },
     {
-        method: 'GET'
+        method: 'GET',
         path: '/clients',
         handler: Api.getClients
     }
