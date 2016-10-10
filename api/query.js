@@ -3,7 +3,7 @@ var Queries = require(Path.join(__dirname, 'queries.js'));
 
 var query = {
 
-    // *** use this as standard example *** 
+    // *** use this as standard example ***
     createClient: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -30,7 +30,7 @@ var query = {
             if (err) {
                 return callback(err); // this is basically the function that is
                 // carried all the way down the pipeline from api.js
-                // it is now used at the very bottom 
+                // it is now used at the very bottom
             }
 
             // retrieves the queryString from getAllCaseManagers function in queries.js
@@ -60,7 +60,7 @@ var query = {
                             Respond.getAllCaseManagers(reply, result);
                         }
                     }
-                    
+
                 from api.js
             */
         });
@@ -73,6 +73,22 @@ var query = {
             }
 
             client.query(Queries.getClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    searchClient: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done){
+            if(err) {
+                return callback(err);
+            }
+            client.query(Queries.searchClient(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

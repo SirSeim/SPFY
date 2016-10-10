@@ -30,7 +30,7 @@ var service = {
         });
     },
     searchClient: function (postgres, payload, callback) {
-        Query.searchClient(postgres, paylaod, function(err, result){
+        Query.searchClient(postgres, payload, function(err, result){
             if (err) {
                 return callback(err);
             }

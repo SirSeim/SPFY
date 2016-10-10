@@ -48,7 +48,7 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToSearchClient: function (reply, result) {
+    failedToSearchClient: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to search client!",
