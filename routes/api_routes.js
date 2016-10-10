@@ -38,11 +38,15 @@ var apiRoutes = [
         path: '/casemanagers',
         handler: Api.getAllCaseManagers // this goes to api/api.js
     },
-
     {
         method: 'POST',
         path: '/getclient',
         handler: Api.getClient
+    },
+    {
+        method: 'GET',
+        path: '/clients',
+        handler: Api.getClients
     }
 ];
 

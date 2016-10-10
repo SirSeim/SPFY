@@ -28,6 +28,15 @@ var service = {
             }
             return callback(undefined, result);
         });
+    },
+
+    getClients: function (postgres, callback) {
+        Query.getClients(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     }
 };
 

@@ -40,6 +40,16 @@ var api = {
                 Respond.getClient(reply, result);
             }
         });
+    },
+
+    getClients: function (request, reply) {
+        Service.getClients(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetClients(reply, err);
+            } else {
+                Respond.gotClients(reply, result);
+            }
+        })
     }
 };
 

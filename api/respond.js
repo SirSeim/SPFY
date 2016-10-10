@@ -40,6 +40,20 @@ var respond = {
             message: "Success getting clients!",
             result: result
         }).code(200);
+    },
+    failedToGetClients: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get clients!",
+            error: err
+        }).code(500);
+    },
+    gotClients: function (reply, err) {
+        reply({
+            statusCode: 200,
+            message: "Success getting clients!",
+            result: result
+        }).code(200);
     }
 };
 
