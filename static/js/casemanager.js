@@ -31,6 +31,16 @@ $(function (event) {
 
     $("#searchbutton").click(function (){
         console.log("Searching for clients... Please wait.")
+        $.ajax({
+            url: "api/searchClient",
+            method: "GET",
+            success: function () {
+
+            }
+            error: function () {
+                
+            }
+        });
     })
 
     $("#addcasenote").click(function () {
