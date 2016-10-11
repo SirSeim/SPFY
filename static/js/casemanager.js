@@ -29,6 +29,10 @@ $(function (event) {
         });
     };
 
+    $("#searchbutton").click(function (){
+        console.log("Searching for clients... Please wait.")
+    })
+
     $("#addcasenote").click(function () {
         console.log("added new case note");
         window.location.href = "casenotepage.html";
