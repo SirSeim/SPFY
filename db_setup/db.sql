@@ -55,14 +55,14 @@ DROP TABLE IF EXISTS prescreen;
 
 CREATE TABLE prescreen (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id)
+  client_id integer REFERENCES client (id)
 );
 
 DROP TABLE IF EXISTS background;
 
 CREATE TABLE background (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id)
   -- Disability varchar(45) DEFAULT NULL,
   -- LastGradeCompleted varchar(45) DEFAULT NULL,
   -- SomeCompleted varchar(45) DEFAULT NULL,
@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS housing_history;
 
 CREATE TABLE housing_history (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   last_sleeping_location varchar(45) DEFAULT NULL,
   last_sleeping_duration varchar(45) DEFAULT NULL,
   first_day_first_time_homeless date DEFAULT NULL,
@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS natural_connection;
 
 CREATE TABLE natural_connection (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   natural_connection boolean DEFAULT NULL,
   contact_name varchar(45) DEFAULT NULL,
   contact_phone_number varchar(45) DEFAULT NULL,
@@ -113,7 +113,7 @@ DROP TABLE IF EXISTS pregnant_and_parenting;
 
 CREATE TABLE pregnant_and_parenting (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   currently_pregnant boolean DEFAULT NULL,
   first_pregnancy boolean DEFAULT NULL,
   pre_natal_carereceived boolean DEFAULT NULL,
@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS substance_abuse;
 
 CREATE TABLE substance_abuse (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   substance_abuse boolean DEFAULT NULL,
   choice_substance varchar(45) DEFAULT NULL,
   injected_drugs boolean DEFAULT NULL,
@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS mental_health;
 
 CREATE TABLE mental_health (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id)
+  client_id integer REFERENCES client (id)
   -- MentalServicesReceived boolean DEFAULT NULL,
   -- MentalServicesLocation varchar(45) DEFAULT NULL,
   -- MentalMedication boolean DEFAULT NULL,
@@ -152,7 +152,7 @@ DROP TABLE IF EXISTS referrals;
 
 CREATE TABLE referral (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   internal_referral varchar(45) DEFAULT NULL,
   external_referral varchar(45) DEFAULT NULL
 );
@@ -161,7 +161,7 @@ DROP TABLE IF EXISTS additional_info;
 
 CREATE TABLE additional_info (
   id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
+  client_id integer REFERENCES client (id),
   income varchar(45) DEFAULT NULL,
   birth_city varchar(45) DEFAULT NULL,
   birth_state varchar(45) DEFAULT NULL,
@@ -178,7 +178,7 @@ DROP TABLE IF EXISTS forms;
 
 CREATE TABLE forms (
   id integer PRIMARY KEY,
-  client_id integer  REFERENCES client (client_id),
+  client_id integer  REFERENCES client (id),
   good_neighbor_contract varchar(45) DEFAULT NULL,
   story_photo_video_audio_form boolean DEFAULT NULL,
   information_release_authrorized boolean DEFAULT NULL,
@@ -207,8 +207,8 @@ DROP TABLE IF EXISTS match;
 
 CREATE TABLE match (
   id integer PRIMARY KEY,
-  casemanager_id integer REFERENCES casemanager (casemanager_id),
-  client_id integer REFERENCES client (client_id)
+  casemanager_id integer REFERENCES casemanager (id),
+  client_id integer REFERENCES client (id)
 );
 
 /* INSERT INTO match VALUES (1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 1, 4); */
@@ -234,20 +234,21 @@ DROP TABLE IF EXISTS subprogram;
 CREATE TABLE subprogram (
   id integer PRIMARY KEY,
   subprogram_name varchar(45) DEFAULT NULL,
-  program_id integer REFERENCES program (program_id)
+  program_id integer REFERENCES program (id)
 );
 
-INSERT INTO subprogram (subprogram_id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
+INSERT INTO subprogram (id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
 
 DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id integer PRIMARY KEY,
   activity_name varchar(45) DEFAULT NULL,
-  subprogram_id integer REFERENCES subprogram (subprogram_id)
+  subprogram_id integer REFERENCES subprogram (id)
 );
 
 INSERT INTO activity VALUES (1, '3D-Printing', 1);
+
 
 DROP TABLE IF EXISTS drop_in;
 
@@ -261,5 +262,5 @@ DROP TABLE IF EXISTS appointment;
 CREATE TABLE appointment (
   id integer PRIMARY KEY,
   appointment_date date,
-  activity_id integer REFERENCES activity (activity_id)
+  activity_id integer REFERENCES activity (id)
 );
