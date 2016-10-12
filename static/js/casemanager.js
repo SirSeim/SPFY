@@ -31,16 +31,12 @@ $(function (event) {
 
     $("#searchbutton").click(function (){
         console.log("Searching for clients... Please wait.")
-        $.ajax({
-            url: "api/searchClient",
-            method: "GET",
-            success: function () {
-
-            }
-            error: function () {
-                
-            }
-        });
+        var searchstring  = $("#namebox").val();
+        if (searchstring ==  ) {
+            //list in the box below.
+        } else {
+            // Alert: No youths found.
+        }
     })
 
     $("#addcasenote").click(function () {
