@@ -6,6 +6,7 @@ $(function (event) {
                 '</td></tr>';
     };
 
+
     var populateClients = function () {
         var status = $('.dot');
         var table = $('#clients tbody');
@@ -28,6 +29,15 @@ $(function (event) {
             }
         });
     };
+
+    $("#searchbutton").click(function (){
+        console.log("Searching for clients... Please wait.")
+        var searchstring  = $("#namebox").val();
+        var table = $('#clients tbody');
+        table.children().children().hide().filter(function (index, element) {
+            return $(element).text().toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
+        }).show()
+    });
 
     $("#addcasenote").click(function () {
         console.log("added new case note");

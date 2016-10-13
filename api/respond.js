@@ -41,6 +41,21 @@ var respond = {
             result: result
         }).code(200);
     },
+    searchClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success searching clients",
+            result: result
+        }).code(200);
+    },
+    failedToSearchClient: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to search client!",
+            error: err
+        }).code(500);
+    },
+
     failedToGetClients: function (reply, err) {
         reply({
             statusCode: 500,
@@ -48,6 +63,7 @@ var respond = {
             error: err
         }).code(500);
     },
+
     gotClients: function (reply, result) {
         reply({
             statusCode: 200,

@@ -45,6 +45,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/searchClient',
+        handler: Api.searchClient
+    },
+    {
+        method: 'GET',
         path: '/clients',
         handler: Api.getClients
     },

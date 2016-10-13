@@ -42,6 +42,16 @@ var api = {
         });
     },
 
+    searchClient: function (request, reply) {
+        Service.searchClient(request.postgres, request.query.firstName, request.query.lastName, function (err, result) {
+            if (err) {
+                Respond.failedToSearchClient(reply, err);
+            } else {
+                Respond.searchClient(reply, result);
+            }
+        });
+    },
+
     getClients: function (request, reply) {
         Service.getClients(request.postgres, function (err, result) {
             if (err) {

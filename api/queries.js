@@ -112,9 +112,14 @@ var queries = {
     },
 
     getClient: function (payload) {
+        var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
+                            '\'' + payload.id + '\'' + ';';
+        return queryString;
+    },
+    searchClient: function (firstName, lastName) {
         var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
-                            '\'' + payload.firstName + '\'' + ' AND last_name = ' +
-                            '\'' + payload.lastName + '\'' + ';';
+                            '\'' + firstName + '\'' + ' AND last_name = ' +
+                            '\'' + lastName + '\'' + ';';
         return queryString;
     },
 
