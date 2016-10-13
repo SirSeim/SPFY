@@ -28,22 +28,22 @@ SPY - Safe Place for Youth Non-Profit Organization
 
   Resource           | Development   | Execution
   ------------------ | ------------- | -----------
-  Macbook Computer   | X             | X
-  Windows Computer   | X             | X
-  Linux Server       |               | X
+  Macbook Computer   | ✓             | ✓
+  Windows Computer   | ✓             | ✓
+  Linux Server       |               | ✓
 
 ###4.2.2 Software Resources
 
   Resource              | Development   | Execution
   --------------------- | ------------- | -----------
-  Google Chrome         | X             | X
-  Sublime Text Editor   | X             |  
-  PostgreSQL            | X             | X
-  Node.js               | X             | X
-  macOS                 | X             | X
-  Windows OS            | X             | X
-  Heroku                | X             | X
-  GitHub                | X             | 
+  Google Chrome         | ✓             | ✓
+  Sublime Text Editor   | ✓             |  
+  PostgreSQL            | ✓             | ✓
+  Node.js               | ✓             | ✓
+  macOS                 | ✓             | ✓
+  Windows OS            | ✓             | ✓
+  Heroku                | ✓             | ✓
+  GitHub                | ✓             | 
 
 ##4.3 Project Organization
 
