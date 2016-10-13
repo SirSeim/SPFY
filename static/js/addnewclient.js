@@ -4,13 +4,13 @@ var IntakeForm = React.createClass({
   getInitialState: function () {
     return {
         firstName: "",
-        lastName: "", 
+        lastName: "",
         nickname: "",
-        personCompletingIntake: "", 
-        intakeDate: moment().toISOString(), 
-        HMISConsent: false, 
-        firstTime: true, 
-        caseManager: "", 
+        personCompletingIntake: "",
+        intakeDate: moment().toISOString(),
+        HMISConsent: false,
+        firstTime: true,
+        caseManager: "",
         caseManagerID: 0,
         phoneNumber: "",
         email: "",
@@ -18,7 +18,7 @@ var IntakeForm = React.createClass({
         intakeAge: 0,
         providedID: true,
         stateID: "CA",
-        otherID: "", 
+        otherID: "",
         reference: "",
         referenceOther: "",
         services: "",
@@ -32,66 +32,66 @@ var IntakeForm = React.createClass({
         maritalStatus: "Unmarried",
         militaryService: "",
         healthInsurance: false,
-        gender: "Male", 
+        gender: "Male",
         genderIdentification: "Male",
         preferredPronoun: "",
         ethnicity: "White",
         race: "",
-        lastSleepingLocation: "", 
-        lastSleepingDuration: "", 
-        firstDayFirstTimeHomeless: "", 
-        currentHomelessStartDate: "", 
-        currentHomelessLength: "", 
-        homelessEpisodeCount: "", 
-        locationBeforeWestLA: "", 
-        durationInWestLA: "", 
-        housingInstabilityCause: "", 
-        stableHousingObstacle: "", 
-        housingInterest: "", 
-        naturalConnection: "", 
-        contactName: "", 
-        contactPhoneNumber: "", 
-        contactRelationship: "", 
-        currentlyPregnant: "", 
-        firstPregnancy: "", 
-        preNatalCareReceived: "", 
-        preNatalCareLocation: "", 
-        preNatalCareDesired: "", 
-        trimester: "", 
-        babyDueDate: "", 
-        hasOtherChildren: "", 
-        dcfsOpenCase: "", 
-        childrenWithFamilyOrFriends: "", 
-        substanceAbuse: "", 
-        choiceSubstance: "", 
-        injectedDrugs: "", 
-        treatmentInterest: "", 
-        mentalServicesReceived: "", 
-        mentalServicesLocation: "", 
-        mentalMedication: "", 
-        helpAcquiringMedicine: "", 
-        internalReferral: "", 
-        externalReferral: "", 
-        income: "", 
-        birthCity: "", 
-        birthState: "", 
-        birthCountry: "", 
-        employed: "", 
-        lookingForEmployment: "", 
-        fosterCare: "", 
-        socialSecurityNumber: "", 
-        caringForAnimals: "", 
-        goodNeighborContract: "", 
-        storyPhotoVideoAudioForm: "", 
-        informationReleaseAuthorized: "", 
-        servicesConsent: "", 
-        showerInstructions: "", 
-        showerGuidelines: "", 
-        dropInGuidelines: "", 
-        intakeConfirmation: "", 
-        immediateNeedsConfirmation: "", 
-        documentsSigned: "", 
-        sleepingBag: "", 
+        lastSleepingLocation: "",
+        lastSleepingDuration: "",
+        firstDayFirstTimeHomeless: "",
+        currentHomelessStartDate: "",
+        currentHomelessLength: "",
+        homelessEpisodeCount: "",
+        locationBeforeWestLA: "",
+        durationInWestLA: "",
+        housingInstabilityCause: "",
+        stableHousingObstacle: "",
+        housingInterest: "",
+        naturalConnection: "",
+        contactName: "",
+        contactPhoneNumber: "",
+        contactRelationship: "",
+        currentlyPregnant: "",
+        firstPregnancy: "",
+        preNatalCareReceived: "",
+        preNatalCareLocation: "",
+        preNatalCareDesired: "",
+        trimester: "",
+        babyDueDate: "",
+        hasOtherChildren: "",
+        dcfsOpenCase: "",
+        childrenWithFamilyOrFriends: "",
+        substanceAbuse: "",
+        choiceSubstance: "",
+        injectedDrugs: "",
+        treatmentInterest: "",
+        mentalServicesReceived: "",
+        mentalServicesLocation: "",
+        mentalMedication: "",
+        helpAcquiringMedicine: "",
+        internalReferral: "",
+        externalReferral: "",
+        income: "",
+        birthCity: "",
+        birthState: "",
+        birthCountry: "",
+        employed: "",
+        lookingForEmployment: "",
+        fosterCare: "",
+        socialSecurityNumber: "",
+        caringForAnimals: "",
+        goodNeighborContract: "",
+        storyPhotoVideoAudioForm: "",
+        informationReleaseAuthorized: "",
+        servicesConsent: "",
+        showerInstructions: "",
+        showerGuidelines: "",
+        dropInGuidelines: "",
+        intakeConfirmation: "",
+        immediateNeedsConfirmation: "",
+        documentsSigned: "",
+        sleepingBag: "",
         backpack: "",
         responseData: {}
       };
@@ -121,8 +121,8 @@ var IntakeForm = React.createClass({
       var data = {
         firstName: firstName,
         nickname: nickname,
-        lastName: lastName
-        // personCompletingIntake: personCompletingIntake,
+        lastName: lastName,
+        personCompletingIntake: personCompletingIntake,
         // HMISConsent: HMISConsent,
         // firstTime: firstTime,
         // providedID: providedID,
@@ -245,25 +245,25 @@ var IntakeForm = React.createClass({
         <form className="intakeForm" onSubmit={this.handleSubmit}>
             Person Filling out this form: <input type="text"
                                             onChange={this.handlePersonCompletingIntakeChange} />
-            HMIS Consent: <input type="radio" name="HMIS" value="true" 
+            HMIS Consent: <input type="radio" name="HMIS" value="true"
                                   checked={this.state.HMISConsent === true}
                                   onChange={this.handleHMISConsentChange} /> Yes
-                          <input type="radio" name="HMIS" value="false" 
-                                  checked={this.state.HMISConsent === false} 
+                          <input type="radio" name="HMIS" value="false"
+                                  checked={this.state.HMISConsent === false}
                                   onChange={this.handleHMISConsentChange} /> No
             <br />
-            First Time Attending? <input type="radio" name="firstTime" value="true" 
+            First Time Attending? <input type="radio" name="firstTime" value="true"
                                     checked={this.state.firstTime === true}
                                     onChange={this.handleHMISConsentChange} /> Yes
-                                  <input type="radio" name="firstTime" value="false" 
-                                    checked={this.state.firstTime === false} 
+                                  <input type="radio" name="firstTime" value="false"
+                                    checked={this.state.firstTime === false}
                                     onChange={this.handleHMISConsentChange} /> No
             {/*Assigned Case Manager:  TO DO */}
             <br />
             Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
             First Name: <input type="text"
                           onChange={this.handleFirstNameChange} />
-            Nickname: <input type="text" 
+            Nickname: <input type="text"
                         onChange={this.handleNicknameChange} />
             Last Name: <input type="text"
                         onChange={this.handleLastNameChange} />
@@ -272,13 +272,13 @@ var IntakeForm = React.createClass({
             Email: <input type="text"
                     onChange={this.handleEmailChange} />
             <br />
-            ID Provided? <input type="radio" name="idProvided" value="true" 
+            ID Provided? <input type="radio" name="idProvided" value="true"
                                   checked={this.state.providedID === true}
                                   onChange={this.handleProvidedIDChange} /> Yes
-                          <input type="radio" name="idProvided" value="false" 
-                                  checked={this.state.providedID === false} 
+                          <input type="radio" name="idProvided" value="false"
+                                  checked={this.state.providedID === false}
                                   onChange={this.handleProvidedIDChange} /> No
-            <IdInfo display={this.state.providedID} 
+            <IdInfo display={this.state.providedID}
                     stateID={this.state.stateID}
                     changeState={this.handleStateIDChange}
                     changeOtherID={this.handleOtherIDChange} />
@@ -291,7 +291,7 @@ var IntakeForm = React.createClass({
               <option value="other">Other</option>
             </select>
             {/* Not included: Services */}
-            <br /> 
+            <br />
             <input type="submit" value="Submit" />
           </form>
           <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
@@ -301,7 +301,7 @@ var IntakeForm = React.createClass({
 });
 
 // This isn't working properly for some reason...
-var DateDropdown = React.createClass({ 
+var DateDropdown = React.createClass({
   getInitialState: function () {
     var todaysDate = moment(),
         month = todaysDate.format("MM"),
@@ -322,7 +322,7 @@ var DateDropdown = React.createClass({
     var newDate = moment([this.state.year, this.state.month, this.state.day]);
     this.props.handleChange(newDate);
   },
-  render: function () { 
+  render: function () {
     var monthSelect = [];
     for (var i = 0; i < 12; i++) {
       monthSelect.push(
@@ -368,7 +368,7 @@ var DateOfBirthDropdown = React.createClass({
     this.setState({birthyear: e.target.value});
     this.props.changeYear({birthYear: e.target.value});
   },
-  render: function () {  
+  render: function () {
     var yearOptions = [];
     for (var j = this.props.currentYear; j > 1975; j--) {
       yearOptions.push(
@@ -407,7 +407,7 @@ var IdInfo = React.createClass({
     var display = (this.props.display) ? "" : "hidden";
     return (
       <div className={display}>
-        ID State: 
+        ID State:
         <select name="state" defaultValue={this.props.stateID} onChange={this.props.changeState}>
           <option value="AK">AK</option>
           <option value="AL">AL</option>
@@ -569,18 +569,18 @@ ReactDOM.render(
                     msg = "unchecked"
                 }
                 return ( <div>
-                        <input type="checkbox" 
+                        <input type="checkbox"
                                onChange={this.handleCheck}
                                defaultChecked={this.state.checked}/>
                         <p>This box is {msg}</p>
                     </div>)
             }
         })
-        ReactDOM.render(<Checkbox/>, 
+        ReactDOM.render(<Checkbox/>,
             document.getElementById('react-container'))
         </script>
     </body>
 </html>
 */
- 
+
 {/* JSX comment */} // must be wrapped in curly braces

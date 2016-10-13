@@ -7,7 +7,7 @@ var parseProperty = function(property) {
     }
     if (typeof property === 'string' && property === '') {
         property = 'null';
-    } 
+    }
     if (property === 'null') {
         return property;
     } else {
@@ -133,7 +133,7 @@ var queries = {
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ');';
         // var queryString = 'INSERT INTO client (first_name, last_name, nickname,'
-        //                 +   'person_completing_intake, hmis_consent, first_time,' 
+        //                 +   'person_completing_intake, hmis_consent, first_time,'
         //                 +   'email, provided_id, state_id) VALUES (';
 
 
