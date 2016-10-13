@@ -107,7 +107,8 @@ var profileProperties = [
 ];
 
 var queries = {
-    // with this implementation, the order of the properties
+
+    // *** with this implementation, the order of the properties
     // in payload determines the order of the specified column names
     // in the queryString   INSERT INTO client (firstname, nickname, lastname) VALUES ...
     //                                          ^^^^^^^^^  ^^^^^^^^  ^^^^^^^^
@@ -127,11 +128,17 @@ var queries = {
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') VALUES (';
 
-        for (var prop in payload) {
-            queryString += parseProperty(payload[prop]) + ', ';
+        for (var i = 0; i < props.length; i++) {
+            queryString += parseProperty(payload[props[i]]) + ', ';
         }
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
-        queryString += ');';
+        queryString += ') RETURNING ';
+        
+        for (var i = 0; i < payload.returning.length; i++) {
+            queryString += payload.returning[i] + ', ';
+        }
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ';';
         // var queryString = 'INSERT INTO client (first_name, last_name, nickname,'
         //                 +   'person_completing_intake, hmis_consent, first_time,'
         //                 +   'email, provided_id, state_id) VALUES (';
@@ -237,8 +244,10 @@ var queries = {
     },
 
     getClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
+        /* have to use id to search because could be multiple youth with same name */
+        var queryString = 'SELECT firstname, lastname FROM client WHERE id = ' +
                             '\'' + payload.id + '\'' + ';';
+            // should this number  ^^^^^^^^^^ be a string or int when passed into postgres?
         return queryString;
     },
     searchClient: function (firstName, lastName) {

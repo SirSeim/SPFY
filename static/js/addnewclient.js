@@ -127,9 +127,15 @@ var IntakeForm = React.createClass({
         // firstTime: firstTime,
         // providedID: providedID,
         // stateID: stateID
+        returning: ['id', 'firstname', 'lastname']
       }
-      var response = {};
+
       /**/
+
+      // because ajax is asynchronous, any return statements
+      // will return before the callbacks (success, error) run
+      // the return runs before the request is complete essentially
+
       $.ajax({
           url: "api/createclient",
           method: "POST",
@@ -139,38 +145,15 @@ var IntakeForm = React.createClass({
               console.log("result");
               console.log(data.result);
               var rows = data.result.rows;
-              $("#display-area").append('<div><h3>New Client Added</h3></div>');
+              $("#display-area").append('<div><h3>New Client Added ID' 
+                    + '</h3><p id=\'id-field\'>' +  data.result.rows[0].id + '</p></div>');
           },
           error: function (data) {
               console.log(data);
           }
       });
       /**/
-      var data2 = {
-        firstName: this.state.firstName.trim(),
-        nickname: this.state.nickname.trim(),
-        lastName: this.state.lastName.trim()
-      }
-      /**/
-      $.ajax({
-        url: "api/getclient",
-        method: "POST",
-        data: data2,
-        success: function (data) {
-              console.log(data);
-              console.log("result");
-              console.log(data.result);
-              var rows = data.result.rows;
-              $("#display-area").append('<div><h3>First Name</h3>'
-                + '<p>' + rows[0].firstname + '</p>'
-                + '<h3>Last Name</h3><p>' + rows[0].lastname + '</p>'
-                + '</div>');
-        },
-        error: function (data) {
-            console.log(data);
-        }
-      });
-      /**/
+
       console.log("handleSubmit");
     };
   },
