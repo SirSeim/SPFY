@@ -72,13 +72,13 @@ demonstrate current functionality and discuss dream-design.
   Name                        | Team        | Role
   --------------------------- | ----------- | ------------------
   Chris Franco                | Database    | Project Manager
-  Chris Dellomes              | Database    | Database De
-  Lauren Konchan              | Database    | Beautify
+  Chris Dellomes              | Database    | Database Dev
   Nicole Anguiano             | Front-end   | Front-end Lead
   Josh Kuroda                 | Front-end   | Front-end Design
+  Lauren Konchan              | Front-end   | Front-end Beautify
   Mary Kate Reid              | Front-end   | Front-end Design
   Edward Seim                 | Back-end    | Back-end Lead
-  Iraki Khizanishvili (Eko)   | Back-end    | Back-end Support
+  Irakli Khizanishvili (Eko)  | Back-end    | Back-end Support
   Mondo Yamaguchi             | Back-end    | Back-end Support
 
 ##4.4 Project Schedule
@@ -98,8 +98,8 @@ demonstrate current functionality and discuss dream-design.
   New Drop In                                        | Lauren         | Macbook            | Node.js, Chrome, PostgreSQL, macOS, GitHub
   Edit Drop In                                       | Chris F        | Macbook            | Node.js, Chrome, PostgreSQL, macOS, GitHub
   List Drop Ins                                      | Ed             | Macbook            | Nodejs, PostgreSQL, macOS, Chrome, GitHub
-  Add Client                                         | Chris F        | Macbook            | Node.js,Chrome, PostgreSQL, macOS,GitHub
-  View Client Profile                                | Chris D        | Windows computer   | Node.js,GitHub, PostgreSQL, windowsOS,Chrome
+  Add Client                                         | Chris F        | Macbook            | Node.js, Chrome, PostgreSQL, macOS,GitHub
+  View Client Profile                                | Chris D        | Windows computer   | Node.js, GitHub, PostgreSQL, windowsOS,Chrome
   Search Client                                      | Eko            | Macbook            | Node.js, Chrome, PostgreSQL, macOS, GitHub
   Look & Feel                                        | Josh, Lauren   | Macbook            | Node.js, Chrome, PostgreSQL, macOS, GitHub
   Client/Appointments/Drop-In Session Filter Table   | Nicole         | Macbook            | Node.js, Chrome, PostgreSQL, macOS, GitHub
