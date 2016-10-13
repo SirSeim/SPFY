@@ -35,7 +35,7 @@ $(function (event) {
         var searchstring  = $("#namebox").val();
         var table = $('#clients tbody');
         table.children().children().hide().filter(function (index, element) {
-            return $(element).text() === searchstring;
+            return $(element).text().toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
         }).show()
     });
 
