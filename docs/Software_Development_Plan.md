@@ -44,6 +44,8 @@ SPY - Safe Place for Youth Non-Profit Organization
   Windows OS            | ✓             | ✓
   Heroku                | ✓             | ✓
   GitHub                | ✓             | 
+  Postico               | ✓             |
+  Postman               | ✓             |
 
 ##4.3 Project Organization
 
