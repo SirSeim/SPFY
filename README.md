@@ -11,6 +11,8 @@
 
 [Read our Requirements Specification](docs/Requirements_Specification.md)
 
+[Read our Software Development Plan](docs/Software_Development_Plan.md)
+
 ### Requirements
 Install `npm` and `postgres` if you don't already have them installed
 ```
