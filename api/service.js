@@ -28,6 +28,63 @@ var service = {
             }
             return callback(undefined, result);
         });
+    },
+
+    searchClient: function (postgres, firstName, lastName, callback) {
+        Query.searchClient(postgres, firstName, lastName, function(err, result){
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    firstName: local.first_name,
+                    lastName: local.last_name
+                });
+            }
+
+            return callback(undefined, arr);
+        });
+    },
+
+    getClients: function (postgres, callback) {
+        Query.getClients(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    firstName: local.first_name,
+                    lastName: local.last_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getDropIns: function(postgres, callback) {
+        Query.getDropIns(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
+        });
     }
 };
 

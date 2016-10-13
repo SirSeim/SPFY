@@ -75,16 +75,26 @@ img {
 }
 
 /* line 6, ../sass/partials/_index.scss */
+h2 {
+  font-size: 200%;
+}
+
+/* line 10, ../sass/partials/_index.scss */
+h4 {
+  font-weight: bold;
+}
+
+/* line 14, ../sass/partials/_index.scss */
 #bubbles {
   padding: 80px 0;
 }
 
-/* line 10, ../sass/partials/_index.scss */
+/* line 18, ../sass/partials/_index.scss */
 .space {
   margin-top: 40px;
 }
 
-/* line 14, ../sass/partials/_index.scss */
+/* line 22, ../sass/partials/_index.scss */
 #bubbles i.fa {
   font-size: 40px;
   border: 4px solid #02aef0;
@@ -96,19 +106,19 @@ img {
   transition: all 0.5s;
 }
 
-/* line 25, ../sass/partials/_index.scss */
+/* line 33, ../sass/partials/_index.scss */
 #bubbles i.fa.fa-mobile {
   font-size: 50px;
   padding: 20px 25px;
 }
 
-/* line 30, ../sass/partials/_index.scss */
+/* line 38, ../sass/partials/_index.scss */
 #bubbles .bubble:hover > i.fa {
   background: #02aef0;
   color: #ffffff;
 }
 
-/* line 35, ../sass/partials/_index.scss */
+/* line 43, ../sass/partials/_index.scss */
 #bubbles i.fa:hover {
   background: #02aef0;
   color: #ffffff;
