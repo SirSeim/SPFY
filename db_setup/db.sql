@@ -49,6 +49,8 @@ CREATE TABLE client (
   -- services varchar(45) DEFAULT NULL
 );
 
+INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
+
 DROP TABLE IF EXISTS prescreen;
 
 CREATE TABLE prescreen (
@@ -107,7 +109,7 @@ CREATE TABLE natural_connection (
   contact_relationship varchar(45) DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS pregnant_and_parenting; 
+DROP TABLE IF EXISTS pregnant_and_parenting;
 
 CREATE TABLE pregnant_and_parenting (
   id integer PRIMARY KEY,
@@ -213,7 +215,7 @@ CREATE TABLE match (
 
 
 /* should we use inheritance here?
-Programs definitely "contain" subprograms, 
+Programs definitely "contain" subprograms,
 but is a subprogram also a program?
 Is an activity a subprogram?
 */
@@ -251,8 +253,8 @@ INSERT INTO activity VALUES (1, '3D-Printing', 1);
 DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
-  id integer PRIMARY KEY,
-  drop_in_date date
+  id SERIAL PRIMARY KEY,
+  date date
 );
 
 DROP TABLE IF EXISTS appointment;
@@ -262,4 +264,3 @@ CREATE TABLE appointment (
   appointment_date date,
   activity_id integer REFERENCES activity (id)
 );
-

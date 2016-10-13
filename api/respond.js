@@ -40,6 +40,50 @@ var respond = {
             message: "Success getting client!",
             result: result
         }).code(200);
+    },
+    searchClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success searching clients",
+            result: result
+        }).code(200);
+    },
+    failedToSearchClient: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to search client!",
+            error: err
+        }).code(500);
+    },
+
+    failedToGetClients: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get clients!",
+            error: err
+        }).code(500);
+    },
+
+    gotClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting clients!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropIns: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get dropins!",
+            error: err
+        }).code(500);
+    },
+    gotDropIns: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting dropins!",
+            result: result
+        }).code(200);
     }
 };
 

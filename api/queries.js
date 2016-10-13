@@ -237,9 +237,26 @@ var queries = {
     },
 
     getClient: function (payload) {
-        var queryString = 'SELECT \"firstname\", \"lastname\" FROM client WHERE \"firstname\" = ' +
-                            '\'' + payload.firstName + '\'' + ' AND \"lastname\" = ' +
-                            '\'' + payload.lastName + '\'' + ';';
+        var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
+                            '\'' + payload.id + '\'' + ';';
+        return queryString;
+    },
+    searchClient: function (firstName, lastName) {
+        var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
+                            '\'' + firstName + '\'' + ' AND last_name = ' +
+                            '\'' + lastName + '\'' + ';';
+        return queryString;
+    },
+
+    getClients: function () {
+        var queryString = 'SELECT id, first_name, last_name FROM client;';
+
+        return queryString;
+    },
+
+    getDropIns: function () {
+        var queryString = 'SELECT id, date FROM drop_in;';
+
         return queryString;
     }
 

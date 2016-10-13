@@ -67,7 +67,33 @@ $(function () {
         event.preventDefault();
     });
 
+    var createPastDropIn = function (dropin) {
+        return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
+                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+                '<td class="col-xs-2">' +
+                '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+    };
 
+    var populateViewDropIn = function () {
+        var table = $('#pastdropins tbody');
+
+        $.ajax({
+            url: "api/dropins",
+            method: "GET",
+            success: function (data) {
+                table.empty()
+                data.result.forEach(function (element) {
+                    table.append(createPastDropIn(element));
+                });
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    };
+
+    populateViewDropIn();
 // From:http://bootsnipp.com/snippets/featured/checked-list-group
     $(function () {
         $('.list-group.checked-list-box .list-group-item').each(function () {
