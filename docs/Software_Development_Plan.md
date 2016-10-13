@@ -83,11 +83,11 @@ demonstrate current functionality and discuss dream-design.
 
 ###4.4.1 GANTT Chart
 
-![Gantt1](images/Gantt1.png){width="6.5in" height="3.6527777777777777in"}
+![Gantt1](images/Gantt1.png)
 
-![Gantt2](images/Gantt2.png){width="6.5in" height="3.6527777777777777in"}
+![Gantt2](images/Gantt2.png)
 
-![Gantt](images/Gantt3.png){width="6.5in" height="3.6527777777777777in"}
+![Gantt](images/Gantt3.png)
 
 ###4.4.2 Task / Resource Table
 
