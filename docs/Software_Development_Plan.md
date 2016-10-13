@@ -3,13 +3,7 @@
 ##4.1 Plan Introduction
 ###4.1.1 Purpose
 
-The purpose of this Software Development Plan is to describe and
-explicitly list any and all resources necessary for the completion of
-the Safe Place for Youth database as described in the [Requirements
-Specification](https://github.com/SirSeim/SPFY/blob/master/docs/Requirements_Specification.md).
-The Software Development Plan will also provide a timeline of events
-that must be completed in the appropriate order. A GANTT chart will
-detail this timeline.
+The purpose of this Software Development Plan is to describe and explicitly list any and all resources necessary for the completion of the Safe Place for Youth database as described in the [Requirements Specification](Requirements_Specification.md). The Software Development Plan will also provide a timeline of events that must be completed in the appropriate order. A GANTT chart will detail this timeline.
 
 ###4.1.3 Definitions, Abbreviations, Acronyms
 SPY - Safe Place for Youth Non-Profit Organization
@@ -51,23 +45,15 @@ SPY - Safe Place for Youth Non-Profit Organization
 
 ###4.3.1 Organization Structure
 
-The project demands integration between database, front end, and back
-end. Because of this, the organization of our teams follows each
-concept. There are three teams, one for each division, and Chris Franco
-manages overall compatibility and success.
+The project demands integration between database, front end, and back end. Because of this, the organization of our teams follows each concept. There are three teams, one for each division, and Chris Franco manages overall compatibility and success.
 
 ###4.3.2 External Interfaces
 
-Chris, the project instigator, is the main connection to SPY. He has set
-up communicative applications to allow SPY staff to access our team
-discussions and decisions. Additionally, our team records and outlines
-our in-person meetings.
+Chris, the project instigator, is the main connection to SPY. He has set up communicative applications to allow SPY staff to access our team discussions and decisions. Additionally, our team records and outlines our in-person meetings.
 
 ###4.3.3 Roles and Responsibilities
 
-Each week the development team meets 6-7:30 on Friday evenings. On
-Mondays, the development team meets with SPY staff at 3:30 to
-demonstrate current functionality and discuss dream-design.
+Each week the development team meets 6-7:30 on Friday evenings. On Mondays, the development team meets with SPY staff at 3:30 to demonstrate current functionality and discuss dream-design.
 
   Name                        | Team        | Role
   --------------------------- | ----------- | ------------------
@@ -85,11 +71,11 @@ demonstrate current functionality and discuss dream-design.
 
 ###4.4.1 GANTT Chart
 
-![Gantt1](images/Gantt1.png)
+![Gantt1](../resources/Gantt1.png)
 
-![Gantt2](images/Gantt2.png)
+![Gantt2](../resources/Gantt2.png)
 
-![Gantt](images/Gantt3.png)
+![Gantt](../resources/Gantt3.png)
 
 ###4.4.2 Task / Resource Table
 
