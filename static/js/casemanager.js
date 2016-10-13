@@ -34,11 +34,9 @@ $(function (event) {
         console.log("Searching for clients... Please wait.")
         var searchstring  = $("#namebox").val();
         var table = $('#clients tbody');
-        if (searchstring == table.children().children()) {
-            
-        } else {
-            // Alert: No youths found.
-        }
+        table.children().children().hide().filter(function (index, element) {
+            return $(element).text() === searchstring;
+        }).show()
     });
 
     $("#addcasenote").click(function () {
