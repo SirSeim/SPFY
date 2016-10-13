@@ -30,14 +30,14 @@ var respond = {
     failedToGetClient: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get clients!",
+            message: "Unable to get client!",
             error: err
         }).code(500);
     },
     getClient: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success getting clients!",
+            message: "Success getting client!",
             result: result
         }).code(200);
     }

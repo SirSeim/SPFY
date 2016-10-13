@@ -19,8 +19,9 @@ $(function () {
     /**/
 
     var data = {
-        firstName: 'Steven',
-        lastName: 'Brown'
+        firstName: 'John',
+        nickname:"",
+        lastName: 'Doe'
     }
     /**/
     $.ajax({

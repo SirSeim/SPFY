@@ -2,108 +2,115 @@
 // a 'component' is basically a React class
 var IntakeForm = React.createClass({
   getInitialState: function () {
-    return {firstName: "",
-            lastName: "", 
-            nickname: "", 
-            personCompletingIntake: "", 
-            intakeDate: moment().toISOString(), 
-            HMISConsent: false, 
-            firstTime: true, 
-            caseManager: "", 
-            caseManagerID: 0,
-            phoneNumber: "",
-            email: "",
-            dob: "",
-            intakeAge: 0,
-            providedID: true,
-            stateID: "CA",
-            otherID: "", 
-            reference: "",
-            referenceOther: "",
-            services: "",
-            disability: false,
-            lastGradeCompleted: "",
-            someCompleted: "",
-            currentlyAttending: [],
-            graduated: false,
-            firstLanguage: "English",
-            preferredLanguage: "English",
-            maritalStatus: "Unmarried",
-            militaryService: "",
-            healthInsurance: false,
-            gender: "Male", 
-            genderIdentification: "Male",
-            preferredPronoun: "",
-            ethnicity: "White",
-            race: "",
-            lastSleepingLocation: "", 
-            lastSleepingDuration: "", 
-            firstDayFirstTimeHomeless: "", 
-            currentHomelessStartDate: "", 
-            currentHomelessLength: "", 
-            homelessEpisodeCount: "", 
-            locationBeforeWestLA: "", 
-            durationInWestLA: "", 
-            housingInstabilityCause: "", 
-            stableHousingObstacle: "", 
-            housingInterest: "", 
-            naturalConnection: "", 
-            contactName: "", 
-            contactPhoneNumber: "", 
-            contactRelationship: "", 
-            currentlyPregnant: "", 
-            firstPregnancy: "", 
-            preNatalCareReceived: "", 
-            preNatalCareLocation: "", 
-            preNatalCareDesired: "", 
-            trimester: "", 
-            babyDueDate: "", 
-            hasOtherChildren: "", 
-            dcfsOpenCase: "", 
-            childrenWithFamilyOrFriends: "", 
-            substanceAbuse: "", 
-            choiceSubstance: "", 
-            injectedDrugs: "", 
-            treatmentInterest: "", 
-            mentalServicesReceived: "", 
-            mentalServicesLocation: "", 
-            mentalMedication: "", 
-            helpAcquiringMedicine: "", 
-            internalReferral: "", 
-            externalReferral: "", 
-            income: "", 
-            birthCity: "", 
-            birthState: "", 
-            birthCountry: "", 
-            employed: "", 
-            lookingForEmployment: "", 
-            fosterCare: "", 
-            socialSecurityNumber: "", 
-            caringForAnimals: "", 
-            goodNeighborContract: "", 
-            storyPhotoVideoAudioForm: "", 
-            informationReleaseAuthorized: "", 
-            servicesConsent: "", 
-            showerInstructions: "", 
-            showerGuidelines: "", 
-            dropInGuidelines: "", 
-            intakeConfirmation: "", 
-            immediateNeedsConfirmation: "", 
-            documentsSigned: "", 
-            sleepingBag: "", 
-            backpack: ""
-            };
+    return {
+        firstName: "",
+        lastName: "", 
+        nickname: "",
+        personCompletingIntake: "", 
+        intakeDate: moment().toISOString(), 
+        HMISConsent: false, 
+        firstTime: true, 
+        caseManager: "", 
+        caseManagerID: 0,
+        phoneNumber: "",
+        email: "",
+        dob: "",
+        intakeAge: 0,
+        providedID: true,
+        stateID: "CA",
+        otherID: "", 
+        reference: "",
+        referenceOther: "",
+        services: "",
+        disability: false,
+        lastGradeCompleted: "",
+        someCompleted: "",
+        currentlyAttending: [],
+        graduated: false,
+        firstLanguage: "English",
+        preferredLanguage: "English",
+        maritalStatus: "Unmarried",
+        militaryService: "",
+        healthInsurance: false,
+        gender: "Male", 
+        genderIdentification: "Male",
+        preferredPronoun: "",
+        ethnicity: "White",
+        race: "",
+        lastSleepingLocation: "", 
+        lastSleepingDuration: "", 
+        firstDayFirstTimeHomeless: "", 
+        currentHomelessStartDate: "", 
+        currentHomelessLength: "", 
+        homelessEpisodeCount: "", 
+        locationBeforeWestLA: "", 
+        durationInWestLA: "", 
+        housingInstabilityCause: "", 
+        stableHousingObstacle: "", 
+        housingInterest: "", 
+        naturalConnection: "", 
+        contactName: "", 
+        contactPhoneNumber: "", 
+        contactRelationship: "", 
+        currentlyPregnant: "", 
+        firstPregnancy: "", 
+        preNatalCareReceived: "", 
+        preNatalCareLocation: "", 
+        preNatalCareDesired: "", 
+        trimester: "", 
+        babyDueDate: "", 
+        hasOtherChildren: "", 
+        dcfsOpenCase: "", 
+        childrenWithFamilyOrFriends: "", 
+        substanceAbuse: "", 
+        choiceSubstance: "", 
+        injectedDrugs: "", 
+        treatmentInterest: "", 
+        mentalServicesReceived: "", 
+        mentalServicesLocation: "", 
+        mentalMedication: "", 
+        helpAcquiringMedicine: "", 
+        internalReferral: "", 
+        externalReferral: "", 
+        income: "", 
+        birthCity: "", 
+        birthState: "", 
+        birthCountry: "", 
+        employed: "", 
+        lookingForEmployment: "", 
+        fosterCare: "", 
+        socialSecurityNumber: "", 
+        caringForAnimals: "", 
+        goodNeighborContract: "", 
+        storyPhotoVideoAudioForm: "", 
+        informationReleaseAuthorized: "", 
+        servicesConsent: "", 
+        showerInstructions: "", 
+        showerGuidelines: "", 
+        dropInGuidelines: "", 
+        intakeConfirmation: "", 
+        immediateNeedsConfirmation: "", 
+        documentsSigned: "", 
+        sleepingBag: "", 
+        backpack: "",
+        responseData: {}
+      };
   },
   handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
-    var data = this.state;
+    // var data = this.state;
     console.log(data)
     var firstName = this.state.firstName.trim();
     var nickname = this.state.nickname.trim();
     var lastName = this.state.lastName.trim();
-    //var birthDate = this.state.birthDate.trim();
-    //var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
-    //birthday.toISOString();
+    var personCompletingIntake = this.state.personCompletingIntake.trim();
+    var HMISConsent = this.state.HMISConsent;
+    var firstTime = this.state.firstTime;
+    var providedID = this.state.providedID;
+    var stateID = this.state.stateID;
+    // var birthDate = this.state.birthDate.trim();
+    // var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
+    // birthday.toISOString();
     //if (isNaN(birthDate)) {
     //  console.log("this is false.");
     //  return
@@ -115,7 +122,13 @@ var IntakeForm = React.createClass({
         firstName: firstName,
         nickname: nickname,
         lastName: lastName
+        // personCompletingIntake: personCompletingIntake,
+        // HMISConsent: HMISConsent,
+        // firstTime: firstTime,
+        // providedID: providedID,
+        // stateID: stateID
       }
+      var response = {};
       /**/
       $.ajax({
           url: "api/createclient",
@@ -125,13 +138,44 @@ var IntakeForm = React.createClass({
               console.log(data);
               console.log("result");
               console.log(data.result);
+              var rows = data.result.rows;
+              $("#display-area").append('<div><h3>New Client Added</h3></div>');
           },
           error: function (data) {
               console.log(data);
           }
       });
       /**/
+      var data2 = {
+        firstName: this.state.firstName.trim(),
+        nickname: this.state.nickname.trim(),
+        lastName: this.state.lastName.trim()
+      }
+      /**/
+      $.ajax({
+        url: "api/getclient",
+        method: "POST",
+        data: data2,
+        success: function (data) {
+              console.log(data);
+              console.log("result");
+              console.log(data.result);
+              var rows = data.result.rows;
+              $("#display-area").append('<div><h3>First Name</h3>'
+                + '<p>' + rows[0].firstname + '</p>'
+                + '<h3>Last Name</h3><p>' + rows[0].lastname + '</p>'
+                + '</div>');
+        },
+        error: function (data) {
+            console.log(data);
+        }
+      });
+      /**/
+      console.log("handleSubmit");
     };
+  },
+  handlePersonCompletingIntakeChange: function (e) {
+    this.setState({personCompletingIntake: e.target.value});
   },
   handleHMISConsentChange: function (e) {
     var getVal = e.currentTarget.value,
@@ -152,6 +196,7 @@ var IntakeForm = React.createClass({
   handleIntakeDateChange: function (e) {
     console.log("Handling...");
     var date = moment(e).toISOString();
+    console.log(date);
     this.setState({intakeDate: date});
   },
   handleFirstNameChange: function (e) {
@@ -198,6 +243,8 @@ var IntakeForm = React.createClass({
     return (
       <div>
         <form className="intakeForm" onSubmit={this.handleSubmit}>
+            Person Filling out this form: <input type="text"
+                                            onChange={this.handlePersonCompletingIntakeChange} />
             HMIS Consent: <input type="radio" name="HMIS" value="true" 
                                   checked={this.state.HMISConsent === true}
                                   onChange={this.handleHMISConsentChange} /> Yes
@@ -213,7 +260,7 @@ var IntakeForm = React.createClass({
                                     onChange={this.handleHMISConsentChange} /> No
             {/*Assigned Case Manager:  TO DO */}
             <br />
-            {/*Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />*/}
+            Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
             First Name: <input type="text"
                           onChange={this.handleFirstNameChange} />
             Nickname: <input type="text" 
@@ -221,7 +268,7 @@ var IntakeForm = React.createClass({
             Last Name: <input type="text"
                         onChange={this.handleLastNameChange} />
             <br />
-            {/*Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />*/}
+            Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />
             Email: <input type="text"
                     onChange={this.handleEmailChange} />
             <br />
@@ -247,6 +294,7 @@ var IntakeForm = React.createClass({
             <br /> 
             <input type="submit" value="Submit" />
           </form>
+          <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
       </div>
     );
   }
@@ -353,6 +401,7 @@ var DateOfBirthDropdown = React.createClass({
   }
 });
 
+// this is being used inside the intake form component
 var IdInfo = React.createClass({
   render: function () {
     var display = (this.props.display) ? "" : "hidden";
@@ -419,6 +468,7 @@ var IdInfo = React.createClass({
   }
 });
 
+// this is being used inside the IdInfo component
 var GetOption = React.createClass({
   render: function () {
     return (
@@ -427,10 +477,23 @@ var GetOption = React.createClass({
   }
 })
 
+var DisplayArea = React.createClass({
+  render: function () {
+    return (
+      <div id="display-area">
+        <h1>{this.props.text}</h1>
+      </div>
+    )
+  }
+});
 // calls the render function of the given component to display
 // takes two parameters: 1) component to display 2) where to display it
+// React only tries to display one component, so can display
+// multiple components as long as they are encased in a div
 ReactDOM.render(
-  <IntakeForm />,
+    <div>
+      <IntakeForm />
+    </div>,
   document.getElementById('content') // html has a div with id='content'
 );
 
@@ -520,3 +583,4 @@ ReactDOM.render(
 </html>
 */
  
+{/* JSX comment */} // must be wrapped in curly braces
