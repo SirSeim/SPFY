@@ -6,6 +6,7 @@ $(function (event) {
                 '</td></tr>';
     };
 
+
     var populateClients = function () {
         var status = $('.dot');
         var table = $('#clients tbody');
@@ -32,12 +33,13 @@ $(function (event) {
     $("#searchbutton").click(function (){
         console.log("Searching for clients... Please wait.")
         var searchstring  = $("#namebox").val();
-        if (searchstring ==  ) {
-            //list in the box below.
+        var table = $('#clients tbody');
+        if (searchstring == table.children().children()) {
+            
         } else {
             // Alert: No youths found.
         }
-    })
+    });
 
     $("#addcasenote").click(function () {
         console.log("added new case note");
