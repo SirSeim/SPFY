@@ -1,9 +1,10 @@
 var respond = {
-    failedToCreateClient: function (reply, err) {
+    failedToCreateClient: function (reply, err, string) {
         reply({
             statusCode: 500,
             message: "Unable to create client!",
-            error: err
+            error: err,
+            queryString: string
         }).code(500);
     },
     createdClient: function (reply, result) {

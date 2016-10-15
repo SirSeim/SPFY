@@ -99,7 +99,6 @@ var IntakeForm = React.createClass({
   handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
     // var data = this.state;
-    console.log(data)
     var firstName = this.state.firstName.trim();
     var nickname = this.state.nickname.trim();
     var lastName = this.state.lastName.trim();
@@ -118,6 +117,12 @@ var IntakeForm = React.createClass({
       console.log("I was missing a critical piece.");
     } else {
       // Ajax will go here
+
+      // apparently ajax doesn't let us send in arrays
+      // would have to be array of name-value objects
+      // [ {name:'x', value: '1'}, {name: 'y', value: '2'}]
+      // setting traditional serializing to false keeps
+      // other data from serializing correctly
       var data = {
         firstName: firstName,
         nickname: nickname,
@@ -127,8 +132,24 @@ var IntakeForm = React.createClass({
         // firstTime: firstTime,
         // providedID: providedID,
         // stateID: stateID
-        returning: ['id', 'firstname', 'lastname']
-      }
+        returning: {id:'', firstname:'', lastname:''}
+      } // ajax doesn't take nested objects when passing data
+      // so have to JSON stringify it on this end and unstringify
+      // it on the other end
+      
+      console.log("data sent");
+      console.log(data);
+
+      /*
+          After HTTP request goes through, payload will look like this:
+          firstName: "Jane"
+          lastName: "Smith"
+          nickname: ""
+          personCompletingIntake: ""
+          returning[firstname]: ""
+          returning[id]: ""
+          returning[lastname]: ""
+      */
 
       /**/
 
@@ -139,14 +160,18 @@ var IntakeForm = React.createClass({
       $.ajax({
           url: "api/createclient",
           method: "POST",
-          data: data,
+          data: { expression: JSON.stringify(data) },
           success: function (data) {
               console.log(data);
               console.log("result");
               console.log(data.result);
               var rows = data.result.rows;
-              $("#display-area").append('<div><h3>New Client Added ID' 
-                    + '</h3><p id=\'id-field\'>' +  data.result.rows[0].id + '</p></div>');
+              $("#display-area").append('<div>'
+                    + '<h3>New Client Added</h3>' 
+                    + '<h4>ID</h4>' + rows[0].id
+                    + '<h4>First Name</h4>' + rows[0].firstname
+                    + '<h4> Last Name</h4>' + rows[0].lastname
+                    + '</div>');
           },
           error: function (data) {
               console.log(data);

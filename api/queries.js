@@ -19,7 +19,7 @@ var profileProperties = [
     'firstName',
     'nickname',
     'lastName',
-    // 'personCompletingIntake',
+    'personCompletingIntake',
     // 'intakeDate',
     // 'HMISConsent',
     // 'firstTime',
@@ -134,8 +134,8 @@ var queries = {
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') RETURNING ';
         
-        for (var i = 0; i < payload.returning.length; i++) {
-            queryString += payload.returning[i] + ', ';
+        for (var ret in payload.returning) {
+            queryString += ret + ', ';
         }
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
@@ -236,6 +236,9 @@ var queries = {
         // queryString += ');';
         return queryString;
     },
+
+    // ** parameterize queries!!! Taking user input and using it 
+    // directly in the query makes the code vulnerable to SQL injection
 
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
