@@ -14,8 +14,9 @@ var api = {
     // send data as a JSON back to the frontend
     createClient: function (request, reply) {
         Service.createClient(request.postgres, request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToCreateClient(reply, err, JSON.parse(request.payload.expression)); // for debugging SQL syntax
+            if (err) { 
+                var payload = JSON.parse(request.payload.expression);
+                Respond.failedToCreateClient(reply, err, Queries.createClient(payload)); // for debugging SQL syntax
             } else {
                 Respond.createdClient(reply, result);
             }

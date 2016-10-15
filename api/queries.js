@@ -1,7 +1,7 @@
 var parseProperty = function(property) {
-    if (typeof property === 'boolean') {
-        property = property === true ? '1' : '0';
-    }
+    // if (typeof property === 'boolean') {
+    //     property = property === true ? '1' : '0';
+    // }
     if (property === undefined) {
         property = 'null';
     }
@@ -9,9 +9,9 @@ var parseProperty = function(property) {
         property = 'null';
     }
     if (property === 'null') {
-        return property;
+        return null;
     } else {
-        return '\'' + property + '\'';
+        return property;
     }
 };
 
@@ -117,6 +117,8 @@ var queries = {
     createClient: function (payload) {
         var queryString = 'INSERT INTO client (';
         var props = [];
+        var params = [];
+
         for (var property in payload) {
             if (profileProperties.indexOf(property) !== -1) {
                 props.push(property);
@@ -131,16 +133,26 @@ var queries = {
         queryString += ') VALUES (';
 
         for (var i = 0; i < props.length; i++) {
-            queryString += parseProperty(payload[props[i]]) + ', ';
+            queryString +=  '$' + (i + 1) + ', ';
+            params.push(parseProperty(payload[props[i]]));
         }
+
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') RETURNING ';
-        
+
         for (var ret in payload.returning) {
             queryString += ret + ', ';
         }
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
+
+        var queryData = {
+            string: queryString,
+            params: params
+        }
+
+        return queryData;
+
         // var queryString = 'INSERT INTO client (first_name, last_name, nickname,'
         //                 +   'person_completing_intake, hmis_consent, first_time,'
         //                 +   'email, provided_id, state_id) VALUES (';
@@ -236,11 +248,11 @@ var queries = {
         // // queryString += parseProperty(payload.sleepingBag) + ',';
         // // queryString += parseProperty(payload.backpack) + ')';
         // queryString += ');';
-        return queryString;
     },
 
     // ** parameterize queries!!! Taking user input and using it 
     // directly in the query makes the code vulnerable to SQL injection
+    // also, apostraphies in names could throw off syntax
 
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
