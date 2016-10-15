@@ -15,22 +15,24 @@ var parseProperty = function(property) {
     }
 };
 
+// order of these properties
+// must match order of payload properties
 var profileProperties = [
     'firstName',
     'nickname',
     'lastName',
     'personCompletingIntake',
-    // 'intakeDate',
+    'intakeDate',
     // 'HMISConsent',
-    // 'firstTime',
+    'firstTime',
     // 'caseManager',
     // 'caseManagerID',
     // 'phoneNumber',
-    // 'email',
-    // 'dob',
+    'email',
+    'dob',
     // 'intakeAge',
-    // 'providedID',
-    // 'stateID'
+    'providedID',
+    'IDstate',
     // reference,
     // services,
     // disability,

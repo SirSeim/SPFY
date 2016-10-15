@@ -17,7 +17,7 @@ var IntakeForm = React.createClass({
         dob: "",
         intakeAge: 0,
         providedID: true,
-        stateID: "CA",
+        IDstate: "CA",
         otherID: "",
         reference: "",
         referenceOther: "",
@@ -98,15 +98,9 @@ var IntakeForm = React.createClass({
   },
   handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
-    // var data = this.state;
+
     var firstName = this.state.firstName.trim();
-    var nickname = this.state.nickname.trim();
     var lastName = this.state.lastName.trim();
-    var personCompletingIntake = this.state.personCompletingIntake.trim();
-    var HMISConsent = this.state.HMISConsent;
-    var firstTime = this.state.firstTime;
-    var providedID = this.state.providedID;
-    var stateID = this.state.stateID;
     // var birthDate = this.state.birthDate.trim();
     // var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
     // birthday.toISOString();
@@ -118,38 +112,36 @@ var IntakeForm = React.createClass({
     } else {
       // Ajax will go here
 
-      // apparently ajax doesn't let us send in arrays
-      // would have to be array of name-value objects
-      // [ {name:'x', value: '1'}, {name: 'y', value: '2'}]
-      // setting traditional serializing to false keeps
-      // other data from serializing correctly
-      var data = {
-        firstName: firstName,
-        nickname: nickname,
-        lastName: lastName,
-        personCompletingIntake: personCompletingIntake,
-        // HMISConsent: HMISConsent,
-        // firstTime: firstTime,
-        // providedID: providedID,
-        // stateID: stateID
-        returning: {id:'', firstname:'', lastname:''}
-      } // ajax doesn't take nested objects when passing data
+      // ajax doesn't take nested objects when passing data
       // so have to JSON stringify it on this end and unstringify
       // it on the other end
+      var data = {
+        firstName: firstName,
+        nickname: this.state.nickname.trim(),
+        lastName: lastName,
+        personCompletingIntake: this.state.personCompletingIntake.trim(),
+        intakeDate: this.state.intakeDate,
+        HMISConsent: this.state.HMISConsent,
+        firstTime: this.state.firstTime,
+        providedID: this.state.providedID,
+        IDstate: this.state.IDstate,
+        returning: {
+            id:"", 
+            firstname:"", 
+            nickname: "", 
+            lastname:"",
+            personcompletingintake: "",
+            hmisconsent: "",
+            firsttime: "",
+            providedid: "",
+            idstate: ""
+          }
+      }
       
       console.log("data sent");
       console.log(data);
 
-      /*
-          After HTTP request goes through, payload will look like this:
-          firstName: "Jane"
-          lastName: "Smith"
-          nickname: ""
-          personCompletingIntake: ""
-          returning[firstname]: ""
-          returning[id]: ""
-          returning[lastname]: ""
-      */
+      
 
       /**/
 
@@ -166,11 +158,19 @@ var IntakeForm = React.createClass({
               console.log("result");
               console.log(data.result);
               var rows = data.result.rows;
+              var string = "";
+              for (var property in rows[0]) {
+                string += '<h4>' + property + '</h4>' + rows[0][property]; 
+              }
               $("#display-area").append('<div>'
-                    + '<h3>New Client Added</h3>' 
-                    + '<h4>ID</h4>' + rows[0].id
-                    + '<h4>First Name</h4>' + rows[0].firstname
-                    + '<h4> Last Name</h4>' + rows[0].lastname
+                    // + '<h3>New Client Added</h3>' 
+                    // + '<h4>ID</h4>' + rows[0].id
+                    // + '<h4>First Name</h4>' + rows[0].firstname
+                    // + '<h4>Nickname</h4>' + rows[0].nickname
+                    // + '<h4>personCompletingIntake</h4>' + rows[0].personcompletingintake
+                    // + '<h4>intakeDate</h4>' + rows[0]
+                    // + '<h4> Last Name</h4>' + rows[0].lastname
+                    + string
                     + '</div>');
           },
           error: function (data) {

@@ -15,7 +15,7 @@ var api = {
     createClient: function (request, reply) {
         Service.createClient(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateClient(reply, err, request.payload); // for debugging SQL syntax
+                Respond.failedToCreateClient(reply, err, JSON.parse(request.payload.expression)); // for debugging SQL syntax
             } else {
                 Respond.createdClient(reply, result);
             }

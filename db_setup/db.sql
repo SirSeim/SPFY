@@ -34,19 +34,19 @@ CREATE TABLE client (
   nickname varchar(45) DEFAULT NULL,
   lastname varchar(45) DEFAULT NULL,
   personcompletingintake varchar(65) DEFAULT NULL,
-  -- intake_date date DEFAULT NULL,
+  intakedate date DEFAULT NULL,
   hmisconsent boolean DEFAULT NULL,
   firsttime boolean DEFAULT NULL,
-  -- case_manager varchar(65) DEFAULT NULL,
-  -- case_manager_id integer DEFAULT NULL,
-  -- phone_number varchar(45) DEFAULT NULL,
-  email varchar(65) DEFAULT NULL,
-  -- date_of_birth date DEFAULT NULL,
-  -- intake_age integer DEFAULT NULL,
   providedid boolean DEFAULT NULL,
-  stateid varchar(45) DEFAULT NULL
-  -- reference varchar(45) DEFAULT NULL,
-  -- services varchar(45) DEFAULT NULL
+  idstate varchar(45) DEFAULT NULL,
+  case_manager varchar(65) DEFAULT NULL,
+  case_manager_id integer DEFAULT NULL,
+  phone_number varchar(45) DEFAULT NULL,
+  email varchar(65) DEFAULT NULL,
+  date_of_birth date DEFAULT NULL,
+  intake_age integer DEFAULT NULL,
+  reference varchar(45) DEFAULT NULL,
+  services varchar(45) DEFAULT NULL
 );
 
 INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
