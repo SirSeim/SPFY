@@ -119,7 +119,7 @@ var queries = {
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
-        var queryString = 'SELECT first_name, last_name FROM client WHERE';
+        var queryString = 'SELECT id, first_name, last_name FROM client WHERE';
         var setFirstName = false;
         if (firstName) {
             queryString += ' first_name = \'' + firstName + '\'';
@@ -132,8 +132,6 @@ var queries = {
             queryString += ' last_name = \'' + lastName + '\'';
         }
         queryString += ';';
-
-        console.log(queryString);
 
         return queryString;
     },
