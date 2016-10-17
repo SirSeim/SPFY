@@ -40,17 +40,20 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="add_client">Add Client</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Drop <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Drop In<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="dropin" data-rel="popup" id="addPopup"><i class="fa fa-plus" aria-hidden="true"></i> New </a></li>
+              <li><a href="dropin"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a></li>
+              <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
             </ul>
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
+        <div data-role="popup" id="addPopup" class="ui-content" style="min-width:250px;">
+          Hello World!
+        </div>
     </div><!-- /.container-fluid -->
   </nav>
 </div>

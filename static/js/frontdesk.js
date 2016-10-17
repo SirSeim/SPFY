@@ -2,7 +2,7 @@ $(function () {
 
     // $("#").click(function () {
     //     console.log("You are still on the homepage");
-    //     window.location.href = "frondeskhomepage.html";
+    //     window.location.href = "frontdeskhomepage.html";
     // });
 
     /**/
