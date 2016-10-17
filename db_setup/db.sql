@@ -257,6 +257,18 @@ CREATE TABLE drop_in (
   date date
 );
 
+DROP TABLE IF EXISTS match_drop_in_activities;
+
+CREATE TABLE match_drop_in_activities (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  activity_id integer REFERENCES activity (id),
+  room varchar(30),
+  comments varchar(128),
+  start time,
+  end time
+);
+
 DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE appointment (
