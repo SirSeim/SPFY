@@ -130,13 +130,30 @@ var query = {
         });
     },
 
-    editClient: function(postgres, payload, callback) {
+    getEditClient: function(postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.editClient(payload), function (err, result) {
+            client.query(Queries.getEditClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    postEditClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client,done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.postEditClient(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -146,6 +163,8 @@ var query = {
             });
         });
     }
+
+    postEditClient
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

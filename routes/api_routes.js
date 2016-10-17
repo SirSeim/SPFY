@@ -57,6 +57,16 @@ var apiRoutes = [
         method: 'GET',
         path: '/dropins',
         handler: Api.getDropIns
+    },
+    {
+        method: 'GET',
+        path: '/editclient',
+        handler: Api.getEditclient
+    },
+    {
+        method: 'POST',
+        path: '/editclient',
+        handler: Api.postEditClient
     }
 ];
 

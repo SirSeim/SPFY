@@ -116,6 +116,7 @@ var queries = {
                             '\'' + payload.id + '\'' + ';';
         return queryString;
     },
+
     searchClient: function (firstName, lastName) {
         var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
                             '\'' + firstName + '\'' + ' AND last_name = ' +
@@ -134,7 +135,15 @@ var queries = {
 
         return queryString;
     },
-    editClient: function (payload) {
+
+    getEditClient: function (payload) {
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time,
+            email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+
+        return queryString;
+    }
+
+    postEditClient: function (payload) {
         var queryString = 'UPDATE client SET ';
 
         queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';

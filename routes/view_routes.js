@@ -68,6 +68,26 @@ var viewRoutes = [
             });
         }
     },
+
+    {
+        path: '/edit_client',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('editclient.html', {
+                
+            });
+        }
+    },
+
+    {
+        path: 'edit/client',
+        method: 'POST',
+        handler: function (req, res) {
+            res.view('frontdeskhomepage.html', {
+
+            });
+        }
+    }
 ];
 
 module.exports = viewRoutes;
