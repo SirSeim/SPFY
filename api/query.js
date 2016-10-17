@@ -147,13 +147,13 @@ var query = {
         });
     },
 
-    getActivities: function (postgres, dropin, callback) {
+    getDropinActivities: function (postgres, dropin, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getActivities(dropin), function (err, result) {
+            client.query(Queries.getDropinActivities(dropin), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

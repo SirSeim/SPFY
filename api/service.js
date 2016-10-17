@@ -101,8 +101,8 @@ var service = {
         });
     },
 
-    getActivities: function (postgres, dropin, callback) {
-        Query.getActivities(postgres, dropin, function (err, result) {
+    getDropinActivities: function (postgres, dropin, callback) {
+        Query.getDropinActivities(postgres, dropin, function (err, result) {
             if (err) {
                 return callback(err);
             }

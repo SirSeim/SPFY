@@ -85,14 +85,14 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetActivities: function (reply, err) {
+    failedToGetDropinActivities: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get activities!",
             error: err
         }).code(500);
     },
-    getActivities: function (reply, result) {
+    gotDropinActivities: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activities!",

@@ -58,13 +58,10 @@ var apiRoutes = [
         path: '/dropins/{dropin}',
         handler: Api.getDropIn
     },
-
-    // path for get activities of dropin
-    // '/dropins/{dropin}/activities'
     {
         method: 'GET',
         path: '/dropins/{dropin}/activities',
-        handler: Api.getActivities
+        handler: Api.getDropinActivities
     }
 ];
 

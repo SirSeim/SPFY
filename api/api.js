@@ -82,12 +82,12 @@ var api = {
         });
     },
 
-    getActivities: function (request, reply) {
-        Service.getActivities(request.postgres, request.params.dropin, function (err, result) {
+    getDropinActivities: function (request, reply) {
+        Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
-                Respond.failedToGetActivities(reply, err);
+                Respond.failedToGetDropinActivities(reply, err);
             } else {
-                Respond.getActivities(reply, result);
+                Respond.gotDropinActivities(reply, result);
             }
         });
     }
