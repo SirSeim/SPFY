@@ -52,7 +52,15 @@ var apiRoutes = [
         method: 'GET',
         path: '/dropins',
         handler: Api.getDropIns
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropin}',
+        handler: Api.getDropIn
     }
+
+    // path for get activities of dropin
+    // '/dropins/{dropin}/activities'
 ];
 
 // api in this case is a plugin run by the Hapi node package

@@ -70,6 +70,16 @@ var api = {
                 Respond.gotDropIns(reply, result);
             }
         });
+    },
+
+    getDropIn: function (request, reply) {
+        Service.getDropIn(request.postgres, request.params.dropin, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropIn(reply, err);
+            } else {
+                Respond.gotDropIns(reply, result);
+            }
+        });
     }
 };
 
