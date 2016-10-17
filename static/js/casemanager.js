@@ -30,14 +30,18 @@ $(function (event) {
         });
     };
 
-    $("#searchbutton").click(function (){
-        console.log("Searching for clients... Please wait.")
-        var searchstring  = $("#namebox").val();
-        var table = $('#clients tbody');
-        table.children().children().hide().filter(function (index, element) {
-            return $(element).text().toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
-        }).show()
-    });
+    $('#client-search').keyup(function () {
+        var search = $('#client-search');
+        var clients = $('#clients td');
+        if (search.val() === '') {
+            clients.show();
+        } else {
+            console.log(clients);
+            clients.hide().filter(function (i, e) {
+                return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+            }).show();
+        }
+    })
 
     $("#addcasenote").click(function () {
         console.log("added new case note");

@@ -66,13 +66,13 @@ var query = {
         });
     },
 
-    getClient: function (postgres, payload, callback) {
+    getClient: function (postgres, client, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getClient(payload), function (err, result) {
+            client.query(Queries.getClient(client), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
