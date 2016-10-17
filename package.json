@@ -104,7 +104,7 @@
     },
     "extends": "eslint:recommended",
     "globals": {
-      
+
     },
     "rules": {
       "no-extra-parens": 2,
