@@ -135,7 +135,6 @@ var query = {
             if (err) {
                 return callback(err);
             }
-            console.log(Queries.getDropIn(dropin));
             client.query(Queries.getDropIn(dropin), function (err, result) {
                 done();
                 if (err) {
