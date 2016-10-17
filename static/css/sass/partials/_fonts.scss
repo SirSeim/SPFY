@@ -1,0 +1,54 @@
+@import "../modules/_sizing";
+@import "../modules/_colors";
+
+body {
+    font-family: "brandon-grotesque", sans-serif;
+    margin: 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+h1 {
+    font-family: 'uDIN1451MittelschriftRegular';
+    font-weight: bold;
+    font-style: normal;
+    font-size: $h1-size;
+}
+
+h2 {
+  font-size: $h2-size;
+}
+
+h3 {
+  font-size: $h3-size;
+}
+
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+}
+
+h2, h3, h4, h5 {
+  font-family: 'uDIN1451MittelschriftRegular';
+  font-weight: normal;
+  font-style: normal;
+}
+
+p, td, a, button, label, input, li, textarea { //aka ptdablilit
+  font-family: 'KildeSansRegular';
+  font-weight: normal;
+  font-style: normal;
+  font-size: $ptdablilit-size;
+}
+
+th {
+  font-family: 'KildeSansRegular';
+  font-weight: normal;
+  font-style: normal;
+  font-size: $th-size;
+}
