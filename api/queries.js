@@ -124,7 +124,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name FROM client;';
+        var queryString = 'SELECT first_name, last_name FROM client;';
 
         return queryString;
     },
