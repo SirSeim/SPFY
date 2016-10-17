@@ -50,6 +50,11 @@ CREATE TABLE client (
 );
 
 INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
+INSERT INTO client (first_name, last_name) VALUES ('Steven','Brown');
+INSERT INTO client (first_name, last_name) VALUES ('Carly','Johnson');
+INSERT INTO client (first_name, last_name) VALUES ('Jamie','Johnson');
+INSERT INTO client (first_name, last_name) VALUES ('Jeremiah','Halestrom');
+
 
 DROP TABLE IF EXISTS prescreen;
 
@@ -238,6 +243,7 @@ CREATE TABLE subprogram (
 );
 
 INSERT INTO subprogram (id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
+
 
 DROP TABLE IF EXISTS activity;
 
