@@ -69,7 +69,7 @@ var service = {
         });
     },
 
-    getDropIns: function(postgres, callback) {
+    getDropIns: function (postgres, callback) {
         Query.getDropIns(postgres, function (err, result) {
             if (err) {
                 return callback(err);
@@ -84,6 +84,20 @@ var service = {
                 });
             }
             return callback(undefined, arr);
+        });
+    },
+
+    getDropIn: function (postgres, dropin, callback) {
+        Query.getDropIn(postgres, dropin, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            console.log(result);
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                date: local.date
+            });
         });
     }
 };
