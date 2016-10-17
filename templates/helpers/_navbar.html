@@ -42,7 +42,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Drop In<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="dropin" data-rel="popup" id="addPopup"><i class="fa fa-plus" aria-hidden="true"></i> New </a></li>
+              <li><a href="#addPopup" data-rel="popup" id="addPopup"><i class="fa fa-plus" aria-hidden="true"></i> New </a></li>
               <li><a href="dropin"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a></li>
               <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
               <li role="separator" class="divider"></li>
@@ -52,7 +52,66 @@
         </ul>
       </div><!-- /.navbar-collapse -->
         <div data-role="popup" id="addPopup" class="ui-content" style="min-width:250px;">
-          Hello World!
+          <form class="drop-in details">
+              <div class="form-group">
+                <input type="text" placeholder="Date" size="30">
+                
+              </div>
+              <div class="col-xs-12">
+                <h3 class="text-center">Health & Wellness Programs</h3>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                 <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                 <!-- SHOWERS EXAMPLE: add, allow time slot -->
+                <ul class="list-group checked-list-box">
+                      <li class="list-group-item">Medical</li>
+                      <li class="list-group-item">Dental</li>
+                      <li class="list-group-item">HIV Testing</li>
+                      <li class="list-group-item">Medi-Cal Registration</li>
+                      <li class="list-group-item">Counseling</li>
+                      <li class="list-group-item">Creative Expression</li>
+                      <li class="list-group-item">Mindfulness</li>
+                      <li class="list-group-item">Yoga</li>
+                      <li class="list-group-item">Creative Writing</li>
+                      <li class="list-group-item">Drumming</li>
+                      <li class="list-group-item">Music</li>
+                      <li class="list-group-item">Substance Abuse Support</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h3 class="text-center">Education & Employment</h3>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                  <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                <ul class="list-group checked-list-box">
+                      <li class="list-group-item">Digital Arts Lab</li>
+                      <li class="list-group-item">Experiential Learning</li>
+                      <li class="list-group-item">Five Keys Charter School</li>
+                      <li class="list-group-item">West LA College Tour</li>
+                      <li class="list-group-item">East LA School Fair</li>
+                      <li class="list-group-item">Resume Development</li>
+                      <li class="list-group-item">Job Search</li>
+                      <li class="list-group-item">Career Assessment</li>
+                      <li class="list-group-item">Mock Interviews</li>
+                      <li class="list-group-item">Job Certification</li>
+                      <li class="list-group-item">Job Fair</li>
+                      <li class="list-group-item">Life Skills Program</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h3 class="text-center">Other</h3>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                  <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                <ul class="list-group checked-list-box">
+                      <li class="list-group-item">Legal</li>
+                      <li class="list-group-item">Case Management</li>
+                    </ul>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-default">Create</button>
+              <!-- needs to just close instead of submit -->
+              <button type="button" class="btn btn-default">Cancel</button>
+          </form> 
         </div>
     </div><!-- /.container-fluid -->
   </nav>
