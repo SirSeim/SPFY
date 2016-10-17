@@ -15,7 +15,7 @@ $(function (event) {
             url: "api/clients",
             method: "GET",
             success: function (data) {
-                table.empty()
+                table.empty();
                 status.removeClass('dot-pending').addClass('dot-success');
                 data.result.forEach(function (element) {
                     table.append(createClient(element));

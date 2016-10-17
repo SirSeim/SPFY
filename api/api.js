@@ -80,6 +80,16 @@ var api = {
                 Respond.gotDropIns(reply, result);
             }
         });
+    },
+
+    getActivities: function (request, reply) {
+        Service.getActivities(request.postgres, request.params.dropin, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivities(reply, err);
+            } else {
+                Respond.getActivities(reply, result);
+            }
+        });
     }
 };
 

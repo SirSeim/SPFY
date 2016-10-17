@@ -99,6 +99,16 @@ var service = {
                 date: local.date
             });
         });
+    },
+
+    getActivities: function (postgres, dropin, callback) {
+        Query.getActivities(postgres, dropin, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            console.log(result);
+            return callback(undefined, result);
+        });
     }
 };
 

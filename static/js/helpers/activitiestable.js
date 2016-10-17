@@ -1,46 +1,71 @@
 $(function (event) {
-    // var createActivity = function (activity) {
-    //     return '<tr><td><span class="bullet"></span>' +
-    //             activity + 
-    //             '</td></tr>';
-    // };
+    var createActivity = function (activity) {
+        return '<tr><td><span class="bullet"></span>' 
+            + activity.activity_name 
+            + '</td></tr>';
+    };
 
 
-    // var populateClients = function () {
-    //     var status = $('.dot');
-    //     var table = $('#clients tbody');
+    var populateActivities = function (dropins) {
+        var status = $('.dot');
+        var table = $('#activities tbody');
 
-    //     status.removeClass('dot-success').addClass('dot-pending');
-    //     $.ajax({
-    //         url: "api/clients",
-    //         method: "GET",
-    //         success: function (data) {
-    //             table.empty()
-    //             status.removeClass('dot-pending').addClass('dot-success');
-    //             data.result.forEach(function (element) {
-    //                 table.append(createClient(element));
-    //             });
-    //             console.log(data);
-    //         },
-    //         error: function (data) {
-    //             status.removeClass('dot-pending').addClass('dot-error');
-    //             console.error(data);
-    //         }
-    //     });
-    // };
+        status.removeClass('dot-success').addClass('dot-pending');
+        
+        console.log("inside populateActivities");
+        console.log(dropins);
 
-    // populateClients();
+        var currentDropIn = dropins.result[dropins.result.length - 1];
+        console.log(currentDropIn.id);
 
-    // $('#client-search').keyup(function () {
-    //     var search = $('#client-search');
-    //     var clients = $('#clients td');
-    //     if (search.val() === '') {
-    //         clients.show();
-    //     } else {
-    //         console.log(clients);
-    //         clients.hide().filter(function (i, e) {
-    //             return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
-    //         }).show();
-    //     }
-    // });
+        $.ajax({
+            url: "api/dropins/" + currentDropIn.id + "/activities",
+            method: "GET",
+            success: function (data) {
+                table.empty()
+                status.removeClass('dot-pending').addClass('dot-success');
+
+                console.log("inside activities success");
+                console.log(data);
+                data.result.rows.forEach(function (element) {
+                    table.append(createActivity(element));
+                });
+                console.log(data);
+            },
+            error: function (data) {
+                status.removeClass('dot-pending').addClass('dot-error');
+                console.error(data);
+            }
+        });
+    };
+
+    var getDropins = function () {
+        $.ajax({
+            url: "api/dropins",
+            method: "GET",
+            success: function (data) {
+                populateActivities(data);
+                console.log("drop-ins");
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        })
+    };
+
+    getDropins();
+
+    $('#activity-search').keyup(function () {
+        var search = $('#activity-search');
+        var activities = $('#activities td');
+        if (search.val() === '') {
+            activities.show();
+        } else {
+            console.log(activities);
+            activities.hide().filter(function (i, e) {
+                return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+            }).show();
+        }
+    });
 });

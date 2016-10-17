@@ -153,17 +153,17 @@ var queries = {
                             dropin + ';';
 
         return queryString;
-    }
+    },
 
     // for Query for selecting activities tied to a drop_in
-    // getDropIn: function (dropin) {
-    //     var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room,' +
-    //                     'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
-    //                     'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
-    //                     'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
-    //                     'match_drop_in_activity.drop_in_id = ' + dropin + ';';
-    //     return queryString;
-    // }
+    getActivities: function (dropin) {
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room,' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
+                        'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
+                        'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+        return queryString;
+    }
 
     // Query for selecting activities tied to a drop_in
     // SELECT activity.id, activity.activity_name, match_drop_in_activity.room, match_drop_in_activity.comments, match_drop_in_activity.start_time, match_drop_in_activity.end_time FROM activity, match_drop_in_activity WHERE activity.id = match_drop_in_activity.activity_id AND match_drop_in_activity.drop_in_id = 2;
