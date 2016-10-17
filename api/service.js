@@ -21,8 +21,8 @@ var service = {
         });
     },
 
-    getClient: function (postgres, payload, callback) {
-        Query.getClient(postgres, payload, function (err, result) {
+    getClient: function (postgres, client, callback) {
+        Query.getClient(postgres, client, function (err, result) {
             if (err) {
                 return callback(err);
             }
