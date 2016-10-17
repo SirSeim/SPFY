@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "if [ -f $(npm bin)/../../config/set_env.sh ]; then DATABASE_URL=$($(npm bin)/../../config/set_env.sh) node server.js; else node server.js; fi;",
-    "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) nodemon server.js",
+    "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) nodemon -e js,json,html,css server.js",
     "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
     "lint": "eslint server.js **/*.js",
     "report": "istanbul report",
