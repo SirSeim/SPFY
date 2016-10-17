@@ -9,8 +9,12 @@ var query = {
             if (err) {
                 return callback(err);
             }
+            
+            payload = JSON.parse(payload.expression);
+            var data = Queries.createClient(payload);
 
-            client.query(Queries.createClient(payload), function (err, result) {
+            // unstringify the data passed in
+            client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
