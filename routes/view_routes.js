@@ -83,7 +83,7 @@ var viewRoutes = [
         path: 'edit/client',
         method: 'POST',
         handler: function (req, res) {
-            res.view('frontdeskhomepage.html', {
+            res.view('editclient.html', {
 
             });
         }
