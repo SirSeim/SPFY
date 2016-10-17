@@ -133,6 +133,23 @@ var queries = {
         var queryString = 'SELECT id, date FROM drop_in;';
 
         return queryString;
+    },
+    editClient: function (payload) {
+        var queryString = 'UPDATE client SET ';
+
+        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
+        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
+        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
+        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
+        queryString += 'email = ' + parseProperty(payload.email) + ',';
+        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
+        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
+        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
+
+        queryString += 'WHERE id = ' + payload.id; 
+
+        return queryString;
     }
 
 };
