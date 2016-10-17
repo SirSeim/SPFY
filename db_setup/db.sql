@@ -254,12 +254,12 @@ DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
   id SERIAL PRIMARY KEY,
-  date date
+  date date DEFAULT CURRENT_DATE
 );
 
-DROP TABLE IF EXISTS match_drop_in_activities;
+DROP TABLE IF EXISTS match_drop_in_activity;
 
-CREATE TABLE match_drop_in_activities (
+CREATE TABLE match_drop_in_activity (
   id SERIAL PRIMARY KEY,
   drop_in_id integer REFERENCES drop_in (id),
   activity_id integer REFERENCES activity (id),
