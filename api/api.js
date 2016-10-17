@@ -110,6 +110,16 @@ var api = {
                 Respond.gotActivity(reply, result);
             }
         });
+    },
+
+    getActivityDropIns: function (request, reply) {
+        Service.getActivityDropIns(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivityDropIns(reply, err);
+            } else {
+                Respond.gotActivityDropIns(reply, result);
+            }
+        });
     }
 };
 

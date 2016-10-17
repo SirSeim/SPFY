@@ -156,7 +156,7 @@ var queries = {
     },
 
     getDropinActivities: function (dropin) {
-        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room,' +
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
                         'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
@@ -172,6 +172,16 @@ var queries = {
 
     getActivity: function (activity) {
         var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+
+        return queryString;
+    },
+
+    getActivityDropIns: function (activity) {
+        var queryString = 'SELECT drop_in.id, drop_in.date, match_drop_in_activity.room, ' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM drop_in, match_drop_in_activity ' +
+                        'WHERE drop_in.id = match_drop_in_activity.drop_in_id ' +
+                        'AND match_drop_in_activity.activity_id = ' + activity + ';';
 
         return queryString;
     }

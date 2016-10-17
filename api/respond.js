@@ -126,6 +126,20 @@ var respond = {
             message: "Success getting activity!",
             result: result
         }).code(200);
+    },
+    failedToGetActivityDropIns: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity dropins!",
+            error: err
+        }).code(500);
+    },
+    gotActivityDropIns: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting activity dropins!",
+            result: result
+        }).code(200);
     }
 };
 
