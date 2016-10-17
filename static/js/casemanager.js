@@ -21,7 +21,6 @@ $(function (event) {
                 data.result.forEach(function (element) {
                     table.append(createClient(element));
                 });
-                console.log(data);
             },
             error: function (data) {
                 status.removeClass('dot-pending').addClass('dot-error');
@@ -36,7 +35,6 @@ $(function (event) {
         if (search.val() === '') {
             clients.show();
         } else {
-            console.log(clients);
             clients.hide().filter(function (i, e) {
                 return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
             }).show();
