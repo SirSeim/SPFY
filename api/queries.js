@@ -111,15 +111,30 @@ var queries = {
         return queryString;
     },
 
-    getClient: function (payload) {
+    getClient: function (client) {
         var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
-                            '\'' + payload.id + '\'' + ';';
+                            '\'' + client + '\'' + ';';
         return queryString;
     },
     searchClient: function (firstName, lastName) {
-        var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
-                            '\'' + firstName + '\'' + ' AND last_name = ' +
-                            '\'' + lastName + '\'' + ';';
+        // console.log(firstName);
+        // console.log(lastName);
+        var queryString = 'SELECT first_name, last_name FROM client WHERE';
+        var setFirstName = false;
+        if (firstName) {
+            queryString += ' first_name = \'' + firstName + '\'';
+            setFirstName = true;
+        }
+        if (lastName) {
+            if (setFirstName) {
+                queryString += ' AND';
+            }
+            queryString += ' last_name = \'' + lastName + '\'';
+        }
+        queryString += ';';
+
+        console.log(queryString);
+
         return queryString;
     },
 
