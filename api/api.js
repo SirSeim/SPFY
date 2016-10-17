@@ -90,6 +90,26 @@ var api = {
                 Respond.gotDropinActivities(reply, result);
             }
         });
+    },
+
+    getActivities: function (request, reply) {
+        Service.getAllActivities(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivities(reply, err);
+            } else {
+                Respond.gotActivities(reply, result);
+            }
+        });
+    },
+
+    getActivity: function (request, reply) {
+        Service.getActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivity(reply, err);
+            } else {
+                Respond.gotActivity(reply, result);
+            }
+        });
     }
 };
 

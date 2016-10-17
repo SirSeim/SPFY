@@ -162,6 +162,18 @@ var queries = {
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
+    },
+
+    getAllActivities: function () {
+        var queryString = 'SELECT id, activity_name FROM activity;';
+
+        return queryString;
+    },
+
+    getActivity: function (activity) {
+        var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+
+        return queryString;
     }
 };
 

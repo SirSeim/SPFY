@@ -92,7 +92,6 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            console.log(result);
             var local = result.rows[0];
             return callback(undefined, {
                 id: local.id,
@@ -106,8 +105,37 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            console.log(result);
             return callback(undefined, result);
+        });
+    },
+
+    getAllActivities: function (postgres, callback) {
+        Query.getAllActivities(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.activity_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getActivity: function (postgres, activity, callback) {
+        Query.getActivity(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                name: local.activity_name
+            });
         });
     }
 };
