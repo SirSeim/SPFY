@@ -7,12 +7,6 @@ $(function (event) {
     // and the ID's for each activity during that drop-in are stored
     // in the frontend somwhere) - reduces ajax calls to retrieve information
     // var selecteditems = [];
-
-    // $(".list-group-item.activity").click(function (event) {
-    //     alert("clicked");
-    //     selecteditems.push(this);
-    //     console.log(selecteditems);
-    // });
     
     var selectedclients = [];
 
@@ -36,7 +30,7 @@ $(function (event) {
         }
     };
 
-    var refreshSelected = function () {
+    var refreshSelectedClients = function () {
         console.log("inside refreshSelected");
         console.log(selectedclients);
         $.ajax({
@@ -44,6 +38,7 @@ $(function (event) {
             method: "GET",
             success: function (data) {
                 console.log(data);
+                $('#selected-clients').empty();
                 getClientsByID(data.result);
             },
             error: function (data) {
@@ -52,17 +47,14 @@ $(function (event) {
         });
     };
 
-    $(".list-group-item.client").click(function (event) {
-        alert("clicked");
-        selectedclients.push(this);
-        console.log(selectedclients);
-    });
-
     $('#clients').delegate("td", "click", function () {
-        alert("client selected here");
+        // alert("client selected here");
         console.log($(this)[0].innerText.match(/[0-9]+/));
+        // need a better way of doing this
+        // How will we know which client id this name corresponds
+        // to without making another request and building a separate query?
         selectedclients.push($(this)[0].innerText.match(/[0-9]+/));
-        refreshSelected();
+        refreshSelectedClients();
     });
 
     // $.ajax({
@@ -89,5 +81,10 @@ $(function (event) {
     //     }
     // });
     
-    
+    // $(".list-group-item.activity").click(function (event) {
+    //     alert("clicked");
+    //     selecteditems.push(this);
+    //     console.log(selecteditems);
+    // });
+
 });

@@ -1,8 +1,8 @@
 $(function (event) {
     var createActivity = function (activity) {
-        return '<li class="list-group-item">' 
-            + activity.activity_name 
-            + '</li>';
+        return '<tr><td>' 
+                + activity.activity_name
+                + '</td></tr>';
     };
 
 
@@ -58,7 +58,7 @@ $(function (event) {
 
     $('#activity-search').keyup(function () {
         var search = $('#activity-search');
-        var activities = $('#activities li');
+        var activities = $('#activities td');
         if (search.val() === '') {
             activities.show();
         } else {
