@@ -249,6 +249,8 @@ CREATE TABLE activity (
 INSERT INTO activity (activity_name) VALUES ('Medical');
 INSERT INTO activity (activity_name) VALUES ('Dental');
 INSERT INTO activity (activity_name) VALUES ('3D-Printing');
+INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
+
 
 DROP TABLE IF EXISTS drop_in;
 
@@ -273,6 +275,8 @@ CREATE TABLE match_drop_in_activity (
 );
 
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 3, 'DA Lab', '13:30:00', '15:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Courtyard', '12:30:00', '13:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 2, 'Clinic', '12:30:00', '13:30:00');
 
 DROP TABLE IF EXISTS appointment;
 

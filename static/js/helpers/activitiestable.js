@@ -1,17 +1,17 @@
 $(function (event) {
     var createActivity = function (activity) {
-        return '<tr><td><span class="bullet"></span>' 
+        return '<li class="list-group-item">' 
             + activity.activity_name 
-            + '</td></tr>';
+            + '</li>';
     };
 
 
     var populateActivities = function (dropins) {
-        var status = $('.dot');
-        var table = $('#activities tbody');
+        // var status = $('.dot');
+        var table = $('#activities');
 
-        status.removeClass('dot-success').addClass('dot-pending');
-        
+        // status.removeClass('dot-success').addClass('dot-pending');
+
         console.log("inside populateActivities");
         console.log(dropins);
 
@@ -22,8 +22,8 @@ $(function (event) {
             url: "api/dropins/" + currentDropIn.id + "/activities",
             method: "GET",
             success: function (data) {
-                table.empty()
-                status.removeClass('dot-pending').addClass('dot-success');
+                table.empty();
+                // status.removeClass('dot-pending').addClass('dot-success');
 
                 console.log("inside activities success");
                 console.log(data);
@@ -51,14 +51,14 @@ $(function (event) {
             error: function (data) {
                 console.error(data);
             }
-        })
+        });
     };
 
     getDropins();
 
     $('#activity-search').keyup(function () {
         var search = $('#activity-search');
-        var activities = $('#activities td');
+        var activities = $('#activities li');
         if (search.val() === '') {
             activities.show();
         } else {

@@ -1,12 +1,10 @@
 <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4>
-                Activities
-              </h4>
-              <span class="dot dot-success"></span>
-              <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
-              <!-- We need a `dot-pending` class for when the client list is still loading -->
-            </div>
+        <div class="panel-heading">
+          <h3 class="text-center">Activities</h3>
+          <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
+          <!-- We need a `dot-pending` class for when the client list is still loading -->
+        </div>
+            <!--
             <table id="activities" class="table table-hover">
               <thead>
                 <tr>
@@ -43,4 +41,23 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+            -->
+        <div class="well" style="max-height: 300px;overflow: auto;">
+         <!-- <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a> -->
+         <!-- SHOWERS EXAMPLE: add, allow time slot -->
+        <ul id="activities" class="list-group checked-list-box">
+              <li class="list-group-item">Medical</li>
+              <li class="list-group-item">Dental</li>
+              <li class="list-group-item">HIV Testing</li>
+              <li class="list-group-item">Medi-Cal Registration</li>
+              <li class="list-group-item">Counseling</li>
+              <li class="list-group-item">Creative Expression</li>
+              <li class="list-group-item">Mindfulness</li>
+              <li class="list-group-item">Yoga</li>
+              <li class="list-group-item">Creative Writing</li>
+              <li class="list-group-item">Drumming</li>
+              <li class="list-group-item">Music</li>
+              <li class="list-group-item">Substance Abuse Support</li>
+            </ul>
+        </div>
+  </div>
