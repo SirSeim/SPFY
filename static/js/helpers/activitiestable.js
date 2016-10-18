@@ -33,7 +33,7 @@ $(function (event) {
                 console.log(data);
             },
             error: function (data) {
-                status.removeClass('dot-pending').addClass('dot-error');
+                // status.removeClass('dot-pending').addClass('dot-error');
                 console.error(data);
             }
         });

@@ -278,10 +278,14 @@ INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, e
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Courtyard', '12:30:00', '13:30:00');
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 2, 'Clinic', '12:30:00', '13:30:00');
 
-DROP TABLE IF EXISTS appointment;
+DROP TABLE IF EXISTS enrollment;
 
-CREATE TABLE appointment (
-  id integer PRIMARY KEY,
-  appointment_date date,
-  activity_id integer REFERENCES activity (id)
+CREATE TABLE enrollment (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id),
+  activity_id integer REFERENCES activity (id),
+  enrollment_time time DEFAULT '00:00:00'
 );
+
+INSERT INTO enrollment (drop_in_id, client_id, activity_id, enrollment_time) VALUES (2, 2, 3, '13:35:24');

@@ -111,11 +111,12 @@ var queries = {
         return queryString;
     },
 
-    getClient: function (client) {
+    getClient: function (clientID) {
         var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
-                            '\'' + client + '\'' + ';';
+                            '\'' + clientID + '\'' + ';';
         return queryString;
     },
+    
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -137,7 +138,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT first_name, last_name FROM client;';
+        var queryString = 'SELECT id, first_name, last_name FROM client;';
 
         return queryString;
     },

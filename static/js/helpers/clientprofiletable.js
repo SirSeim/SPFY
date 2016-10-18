@@ -1,8 +1,10 @@
 $(function (event) {
     var createClient = function (client) {
-        return '<tr><td><span class="bullet"></span>' +
-                client.firstName + ' ' + client.lastName +
-                '</td></tr>';
+        return '<tr><td><span class="bullet"></span>' 
+                + client.firstName + ' ' 
+                + client.lastName + ' '
+                + 'id: ' + client.id
+                + '</td></tr>';
     };
 
 
