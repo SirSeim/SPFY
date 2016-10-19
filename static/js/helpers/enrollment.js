@@ -7,129 +7,92 @@ $(function (event) {
     // and the ID's for each activity during that drop-in are stored
     // in the frontend somwhere) - reduces ajax calls to retrieve information
     // var selecteditems = [];
+
+    // var getDropins = function () {
+    //     $.ajax({
+    //         url: "api/dropins",
+    //         method: "GET",
+    //         success: function (data) {
+    //             console.log("drop-ins");
+    //             console.log(data);
+    //         },
+    //         error: function (data) {
+    //             console.error(data);
+    //         }
+    //     });
+    // };
+
+    // getDropins();
     
     var selectedclients = [];
-
-    var getClientsByID = function (clients) {
-        var ids = [];
-        for (var i = 0; i < selectedclients.length; i++) {
-            ids.push(parseInt(selectedclients[i][0]));
-        }
-        console.log("ids");
-        console.log(ids);
-        console.log("clients");
-        console.log(clients);
-        for (var i = 0; i < clients.length; i++) {
-            if (ids.indexOf(clients[i].id) !== -1) {
-                $('#selected-clients').append('<li class="list-group-item client">' 
-                        + clients[i].firstName + ' ' 
-                        + clients[i].lastName + ' '
-                        + 'id: ' + clients[i].id 
-                        + '</li>');
-            }
-        }
-    };
-
-    var refreshSelectedClients = function () {
-        console.log("inside refreshSelected");
-        console.log(selectedclients);
-        $.ajax({
-            url: "api/clients",
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                $('#selected-clients').empty();
-                getClientsByID(data.result);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        });
-    };
+    var currentDropIn = {};
 
     $('#clients').delegate("td", "click", function () {
         // alert("client selected here");
-        console.log($(this)[0].innerText.match(/[0-9]+/));
-        // need a better way of doing this
-        // How will we know which client id this name corresponds
-        // to without making another request and building a separate query?
-        selectedclients.push($(this)[0].innerText.match(/[0-9]+/));
-        refreshSelectedClients();
+        var client = $(this)[0].innerText;
+        if (!selectedclients.includes(client)) {
+            selectedclients.push(client);
+        }
+        $('#selected-clients').empty();
+        for (var i = 0; i < selectedclients.length; i++) {
+            $('#selected-clients').append('<li class="list-group-item client">' 
+                    + selectedclients[i]
+                    + '</li>');
+            
+        }
     });
 
     var selectedActivities = [];
 
-    var addActivities = function (activities) {
-        var names = [];
+    $('#activities').delegate("td", "click", function (event) {
+        var name = $(this)[0].innerText;
+        console.log(name);
+        if (!selectedActivities.includes(name)) {
+            selectedActivities.push(name);
+        }
+        // refreshSelectedActivities();
+        $('#selected-activities').empty();
         for (var i = 0; i < selectedActivities.length; i++) {
-            names.push(selectedActivities[i]);
+            $('#selected-activities').append('<li class="list-group-item activity">' 
+                    + selectedActivities[i]
+                    + '</li>');
         }
-        console.log("activity names");
-        console.log(names);
-        console.log(activities);
-        for (var i = 0; i < activities.length; i++) {
-            if (names.indexOf(activities[i].activity_name) !== -1) {
-                console.log(activities[i].activity_name);
-                $('#selected-activities').append('<li class="list-group-item activity">' 
-                        + activities[i].activity_name
-                        + '</li>');
-            }
-        }
-    };
+    });
 
-    var refreshSelectedActivities = function () {
+    $('#enroll-button').click(function (event) {
+        alert("enroll button clicked");
+        // var signups = [];
+        // var activityids = [];
 
+        // for (var i = 0; i < allActivities.length; i++) {
+        //     console.log(allActivities[i]);
+        //     if (selectedActivities.includes(allActivities[i].activity_name)) {
+        //         activityids.push(allActivities[i].id);
+        //     }
+        // }
+        // console.log("activityids");
+        // console.log(activityids);
+        // for (var i = 0; i < selectedclients.length; i++) {
+        //     for (var j = 0; j < activityids; j++) {
+        //         signups.push({
+        //             dropinID: currentDropIn.id,
+        //             clientID: selectedclients[i],
+        //             activityID: activityids[j]
+        //         });
+        //     }
+        // }
 
-        var populateActivities = function (dropins) {
-            var currentDropIn = dropins.result[dropins.result.length - 1];
-            console.log(currentDropIn.id);
-
-            $.ajax({
-                url: "api/dropins/" + currentDropIn.id + "/activities",
-                method: "GET",
-                success: function (data) {
-                    console.log("refreshSelectedActivities");
-                    console.log(data);
-                    $('#selected-activities').empty();
-                    var activities = [];
-                    for (var i = 0; i < data.result.rows.length; i++) {
-                        var local = data.result.rows[i];
-                        activities.push({
-                            id: local.id,
-                            activity_name: local.activity_name
-                        });
-                    }
-                    addActivities(activities);
-                },
-                error: function (data) {
-                    console.error(data);
-                }
-            });
-        };
-
-        var getDropins = function () {
-            $.ajax({
-                url: "api/dropins",
-                method: "GET",
-                success: function (data) {
-                    populateActivities(data);
-                    console.log("drop-ins");
-                    console.log(data);
-                },
-                error: function (data) {
-                    console.error(data);
-                }
-            });
-        };
-
-        getDropins();
-
-    };
-
-    $('#activities').delegate("td", "click", function () {
-        console.log($(this)[0].innerText);
-        selectedActivities.push($(this)[0].innerText);
-        refreshSelectedActivities();
+        // $.ajax({
+        //     url: "api/enroll",
+        //     method: "POST",
+        //     data: { expression: JSON.stringify(signups) },
+        //     success: function (data) {
+        //         console.log(data);
+        //     },
+        //     error: function (data) {
+        //         console.error(data);
+        //     }
+        // });
     });
 
     // $.ajax({

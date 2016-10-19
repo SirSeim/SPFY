@@ -109,6 +109,15 @@ var service = {
             console.log(result);
             return callback(undefined, result);
         });
+    },
+
+    enroll: function (postgres, payload, callback) {
+        Query.enroll(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     }
 };
 

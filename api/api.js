@@ -90,6 +90,15 @@ var api = {
                 Respond.gotDropinActivities(reply, result);
             }
         });
+    },
+    enroll: function (request, reply) {
+        Service.enroll(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEnroll(reply, err);
+            } else {
+                Respond.enroll(reply, result);
+            }
+        });
     }
 };
 

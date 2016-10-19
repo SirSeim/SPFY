@@ -8,6 +8,9 @@ var parseProperty = function(property) {
     return property;
 };
 
+// *** Postgres allows rows with duplicate data, so currently
+// same data inserted twice will be stored in two separate rows
+// need to figure out how to "only insert if not exists" implementation
 var queries = {
     createClient: function (payload) {
         var queryString = 'INSERT INTO client VALUES (';
@@ -105,6 +108,8 @@ var queries = {
         return queryString;
     },
 
+    // ** TODO: paramaterize all of these functions
+
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
         var queryString = 'SELECT first_name, last_name FROM casemanager;';
@@ -162,6 +167,20 @@ var queries = {
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+        return queryString;
+    },
+
+    enroll: function (payload) {
+        var queryString = "";
+
+        for (var i = 0; i < payload.length; i++) {
+            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( '
+                            + payload[i].dropinID + ', '
+                            + payload[i].clientID + ', '
+                            + payload[i].activityID
+                            + '); ';
+        }
+
         return queryString;
     }
 };

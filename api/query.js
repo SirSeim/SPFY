@@ -162,7 +162,27 @@ var query = {
                 return callback(undefined, result);
             });
         });
+    },
+
+    enroll: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            var parsedPayload = JSON.parse(payload.expression);
+            console.log(parsedPayload);
+            client.query(Queries.enroll(parsedPayload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
     }
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

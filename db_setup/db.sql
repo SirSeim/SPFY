@@ -284,8 +284,9 @@ CREATE TABLE enrollment (
   id SERIAL PRIMARY KEY,
   drop_in_id integer REFERENCES drop_in (id),
   client_id integer REFERENCES client (id),
-  activity_id integer REFERENCES activity (id),
-  enrollment_time time DEFAULT '00:00:00'
+  activity_id integer REFERENCES activity (id)
 );
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id, enrollment_time) VALUES (2, 2, 3, '13:35:24');
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+
+
