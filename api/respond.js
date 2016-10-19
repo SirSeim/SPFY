@@ -99,7 +99,7 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToEnroll: function (err, result) {
+    failedToEnroll: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to enroll!",

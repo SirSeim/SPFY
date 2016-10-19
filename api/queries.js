@@ -174,11 +174,10 @@ var queries = {
         var queryString = "";
 
         for (var i = 0; i < payload.length; i++) {
-            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( '
-                            + payload[i].dropinID + ', '
-                            + payload[i].clientID + ', '
-                            + payload[i].activityID
-                            + '); ';
+            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( ' +
+                            payload[i].dropinID + ', ' +
+                            payload[i].clientID + ', ' +
+                            payload[i].activityID + '); ';
         }
 
         return queryString;
