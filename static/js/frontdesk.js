@@ -52,7 +52,7 @@ $(function () {
             url: "api/dropins",
             method: "GET",
             success: function (data) {
-                table.empty()
+                table.empty();
                 data.result.forEach(function (element) {
                     table.append(createPastDropIn(element));
                 });
