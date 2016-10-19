@@ -31,8 +31,7 @@ $(function (event) {
         data.result.rows.forEach(function (activity) {
             table.append('<tr><td>' +
                 activity.activity_name +
-                '</td></tr>'
-            );
+                '</td></tr>');
         });
     });
 
