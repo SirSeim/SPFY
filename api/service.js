@@ -92,7 +92,6 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            console.log(result);
             var local = result.rows[0];
             return callback(undefined, {
                 id: local.id,
@@ -106,7 +105,6 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            console.log(result);
             return callback(undefined, result);
         });
     },

@@ -35,15 +35,12 @@ $(function (event) {
             }
         });
     }).done(function (data) {
-        console.log("done");
-        console.log(data);
         allActivities = data.result.rows.slice();
     });
 
     var selectedclients = [];
 
     $('#clients').delegate("td", "click", function () {
-        // alert("client selected here");
         var client = $(this)[0].innerText;
         if (!selectedclients.includes(client)) {
             selectedclients.push(client);
@@ -61,7 +58,6 @@ $(function (event) {
 
     $('#activities').delegate("td", "click", function (event) {
         var name = $(this)[0].innerText;
-        console.log(name);
         if (!selectedActivities.includes(name)) {
             selectedActivities.push(name);
         }
@@ -76,12 +72,10 @@ $(function (event) {
 
 
     $('#enroll-button').click(function (event) {
-        alert("enroll button clicked");
         var signups = [];
         var activityids = [];
 
         for (var i = 0; i < allActivities.length; i++) {
-            console.log(allActivities[i]);
             if (selectedActivities.includes(allActivities[i].activity_name)) {
                 activityids.push(allActivities[i].id);
             }
@@ -97,19 +91,35 @@ $(function (event) {
             }
         }
 
-        console.log("signups");
-        console.log(signups);
-
         $.ajax({
             url: "api/enroll",
             method: "POST",
             data: { expression: JSON.stringify(signups) },
             success: function (data) {
                 console.log(data);
+
             },
             error: function (data) {
                 console.error(data);
             }
+        }).done(function (data) {
+            var clientString = "";
+            for (var i = 0; i < selectedclients.length; i++) {
+                clientString += selectedclients[i] + '<br>';
+            }
+            var activityString = "";
+            for (var i = 0; i < selectedActivities.length; i++) {
+                activityString += selectedActivities[i] + '<br>';
+            }
+
+            $('#enrollment-feedback').empty().append(
+                '<div><h4>Clients Successfully Enrolled</h4>' +
+                '<h4>Clients</h4>' + clientString +
+                '<h4>Activities</h4>' + activityString +
+                '</div>');
+
+            $('#selected-clients').empty();
+            $('#selected-activities').empty();
         });
     });
 
