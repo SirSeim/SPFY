@@ -288,7 +288,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name FROM client;';
+        var queryString = 'SELECT first_name, last_name FROM client;';
 
         return queryString;
     },
@@ -297,8 +297,45 @@ var queries = {
         var queryString = 'SELECT id, date FROM drop_in;';
 
         return queryString;
-    }
+    },
 
+    getDropIn: function (dropin) {
+        var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
+                            dropin + ';';
+
+        return queryString;
+    },
+
+    getDropinActivities: function (dropin) {
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
+                        'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
+                        'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+        return queryString;
+    },
+
+    getAllActivities: function () {
+        var queryString = 'SELECT id, activity_name FROM activity;';
+
+        return queryString;
+    },
+
+    getActivity: function (activity) {
+        var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+
+        return queryString;
+    },
+
+    getActivityDropIns: function (activity) {
+        var queryString = 'SELECT drop_in.id, drop_in.date, match_drop_in_activity.room, ' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM drop_in, match_drop_in_activity ' +
+                        'WHERE drop_in.id = match_drop_in_activity.drop_in_id ' +
+                        'AND match_drop_in_activity.activity_id = ' + activity + ';';
+
+        return queryString;
+    }
 };
 
 module.exports = queries;

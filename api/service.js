@@ -69,7 +69,7 @@ var service = {
         });
     },
 
-    getDropIns: function(postgres, callback) {
+    getDropIns: function (postgres, callback) {
         Query.getDropIns(postgres, function (err, result) {
             if (err) {
                 return callback(err);
@@ -81,6 +81,79 @@ var service = {
                 arr.push({
                     id: local.id,
                     date: local.date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getDropIn: function (postgres, dropin, callback) {
+        Query.getDropIn(postgres, dropin, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                date: local.date
+            });
+        });
+    },
+
+    getDropinActivities: function (postgres, dropin, callback) {
+        Query.getDropinActivities(postgres, dropin, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getAllActivities: function (postgres, callback) {
+        Query.getAllActivities(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.activity_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getActivity: function (postgres, activity, callback) {
+        Query.getActivity(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                name: local.activity_name
+            });
+        });
+    },
+
+    getActivityDropIns: function (postgres, activity, callback) {
+        Query.getActivityDropIns(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    date: local.date,
+                    room: local.room,
+                    comments: local.comments,
+                    startTime: local.start_time,
+                    endTime: local.end_time
                 });
             }
             return callback(undefined, arr);
