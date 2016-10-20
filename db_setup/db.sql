@@ -49,11 +49,11 @@ CREATE TABLE client (
   services varchar(45) DEFAULT NULL
 );
 
-INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
-INSERT INTO client (first_name, last_name) VALUES ('Steven','Brown');
-INSERT INTO client (first_name, last_name) VALUES ('Carly','Johnson');
-INSERT INTO client (first_name, last_name) VALUES ('Jamie','Johnson');
-INSERT INTO client (first_name, last_name) VALUES ('Jeremiah','Halestrom');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
 
 
 DROP TABLE IF EXISTS prescreen;
