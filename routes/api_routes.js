@@ -30,7 +30,7 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/client',
+        path: '/clients',
         handler: Api.createClient
     },
     {

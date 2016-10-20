@@ -38,22 +38,6 @@ $(function (event) {
         allActivities = data.result.rows.slice();
     });
 
-    var selectedclients = [];
-
-    $('#clients').delegate("td", "click", function () {
-        var client = $(this)[0].innerText;
-        if (!selectedclients.includes(client)) {
-            selectedclients.push(client);
-        }
-        $('#selected-clients').empty();
-        for (var i = 0; i < selectedclients.length; i++) {
-            $('#selected-clients').append('<li class="list-group-item client">' 
-                    + selectedclients[i]
-                    + '</li>');
-            
-        }
-    });
-
     var selectedActivities = [];
 
     $('#activities').delegate("td", "click", function (event) {
@@ -67,6 +51,22 @@ $(function (event) {
             $('#selected-activities').append('<li class="list-group-item activity">' 
                     + selectedActivities[i]
                     + '</li>');
+        }
+    });
+
+    var selectedclients = [];
+
+    $('#clients').delegate("td", "click", function () {
+        var client = $(this)[0].innerText;
+        if (!selectedclients.includes(client)) {
+            selectedclients.push(client);
+        }
+        $('#selected-clients').empty();
+        for (var i = 0; i < selectedclients.length; i++) {
+            $('#selected-clients').append('<li class="list-group-item client">' 
+                    + selectedclients[i]
+                    + '</li>');
+            
         }
     });
 
@@ -85,7 +85,7 @@ $(function (event) {
             for (var j = 0; j < activityids.length; j++) {
                 signups.push({
                     dropinID: currentDropIn.id,
-                    clientID: selectedclients[i].match(/[0-9]+/),
+                    clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
                     activityID: activityids[j]
                 });
             }
