@@ -150,7 +150,7 @@ var IntakeForm = React.createClass({
       // the return runs before the request is complete essentially
 
       $.ajax({
-          url: "api/client",
+          url: "api/clients",
           method: "POST",
           data: { expression: JSON.stringify(data) },
           success: function (data) {
