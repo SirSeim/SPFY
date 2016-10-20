@@ -137,11 +137,10 @@ var queries = {
     },
 
     getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time,
-            email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
 
         return queryString;
-    }
+    },
 
     postEditClient: function (payload) {
         var queryString = 'UPDATE client SET ';

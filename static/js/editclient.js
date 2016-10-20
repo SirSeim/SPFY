@@ -302,7 +302,7 @@ var IntakeForm = React.createClass({
             <br />
             <input type="submit" value="Submit" />
           </form>
-          <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
+          <DisplayArea ref={(da) => {this.displayarea = da;}} />
       </div>
     );
   }

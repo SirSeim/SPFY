@@ -80,7 +80,7 @@ var viewRoutes = [
     },
 
     {
-        path: 'edit/client',
+        path: '/edit_client',
         method: 'POST',
         handler: function (req, res) {
             res.view('editclient.html', {

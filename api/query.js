@@ -164,7 +164,6 @@ var query = {
         });
     }
 
-    postEditClient
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {
