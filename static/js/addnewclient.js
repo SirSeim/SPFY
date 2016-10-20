@@ -1,107 +1,109 @@
+// basic building block of ReactJS is a 'component'
+// a 'component' is basically a React class
 var IntakeForm = React.createClass({
   getInitialState: function () {
-    return {firstName: "",
-            lastName: "", 
-            nickname: "", 
-            personCompletingIntake: "", 
-            intakeDate: moment().toISOString(), 
-            HMISConsent: false, 
-            firstTime: true, 
-            caseManager: "", 
-            caseManagerID: 0,
-            phoneNumber: "",
-            email: "",
-            dob: "",
-            intakeAge: 0,
-            providedID: true,
-            stateID: "CA",
-            otherID: "", 
-            reference: "",
-            referenceOther: "",
-            services: "",
-            disability: false,
-            lastGradeCompleted: "",
-            someCompleted: "",
-            currentlyAttending: [],
-            graduated: false,
-            firstLanguage: "English",
-            preferredLanguage: "English",
-            maritalStatus: "Unmarried",
-            militaryService: "",
-            healthInsurance: false,
-            gender: "Male", 
-            genderIdentification: "Male",
-            preferredPronoun: "",
-            ethnicity: "White",
-            race: "",
-            lastSleepingLocation: "", 
-            lastSleepingDuration: "", 
-            firstDayFirstTimeHomeless: "", 
-            currentHomelessStartDate: "", 
-            currentHomelessLength: "", 
-            homelessEpisodeCount: "", 
-            locationBeforeWestLA: "", 
-            durationInWestLA: "", 
-            housingInstabilityCause: "", 
-            stableHousingObstacle: "", 
-            housingInterest: "", 
-            naturalConnection: "", 
-            contactName: "", 
-            contactPhoneNumber: "", 
-            contactRelationship: "", 
-            currentlyPregnant: "", 
-            firstPregnancy: "", 
-            preNatalCareReceived: "", 
-            preNatalCareLocation: "", 
-            preNatalCareDesired: "", 
-            trimester: "", 
-            babyDueDate: "", 
-            hasOtherChildren: "", 
-            dcfsOpenCase: "", 
-            childrenWithFamilyOrFriends: "", 
-            substanceAbuse: "", 
-            choiceSubstance: "", 
-            injectedDrugs: "", 
-            treatmentInterest: "", 
-            mentalServicesReceived: "", 
-            mentalServicesLocation: "", 
-            mentalMedication: "", 
-            helpAcquiringMedicine: "", 
-            internalReferral: "", 
-            externalReferral: "", 
-            income: "", 
-            birthCity: "", 
-            birthState: "", 
-            birthCountry: "", 
-            employed: "", 
-            lookingForEmployment: "", 
-            fosterCare: "", 
-            socialSecurityNumber: "", 
-            caringForAnimals: "", 
-            goodNeighborContract: "", 
-            storyPhotoVideoAudioForm: "", 
-            informationReleaseAuthorized: "", 
-            servicesConsent: "", 
-            showerInstructions: "", 
-            showerGuidelines: "", 
-            dropInGuidelines: "", 
-            intakeConfirmation: "", 
-            immediateNeedsConfirmation: "", 
-            documentsSigned: "", 
-            sleepingBag: "", 
-            backpack: ""
-            };
+    return {
+        firstName: "",
+        lastName: "",
+        nickname: "",
+        personCompletingIntake: "",
+        intakeDate: moment().toISOString(),
+        HMISConsent: false,
+        firstTime: true,
+        caseManager: "",
+        caseManagerID: 0,
+        phoneNumber: "",
+        email: "",
+        dateOfBirth: "",
+        intakeAge: 0,
+        providedID: true,
+        IDstate: "CA",
+        otherID: "",
+        reference: "",
+        referenceOther: "",
+        services: "",
+        disability: false,
+        lastGradeCompleted: "",
+        someCompleted: "",
+        currentlyAttending: [],
+        graduated: false,
+        firstLanguage: "English",
+        preferredLanguage: "English",
+        maritalStatus: "Unmarried",
+        militaryService: "",
+        healthInsurance: false,
+        gender: "Male",
+        genderIdentification: "Male",
+        preferredPronoun: "",
+        ethnicity: "White",
+        race: "",
+        lastSleepingLocation: "",
+        lastSleepingDuration: "",
+        firstDayFirstTimeHomeless: "",
+        currentHomelessStartDate: "",
+        currentHomelessLength: "",
+        homelessEpisodeCount: "",
+        locationBeforeWestLA: "",
+        durationInWestLA: "",
+        housingInstabilityCause: "",
+        stableHousingObstacle: "",
+        housingInterest: "",
+        naturalConnection: "",
+        contactName: "",
+        contactPhoneNumber: "",
+        contactRelationship: "",
+        currentlyPregnant: "",
+        firstPregnancy: "",
+        preNatalCareReceived: "",
+        preNatalCareLocation: "",
+        preNatalCareDesired: "",
+        trimester: "",
+        babyDueDate: "",
+        hasOtherChildren: "",
+        dcfsOpenCase: "",
+        childrenWithFamilyOrFriends: "",
+        substanceAbuse: "",
+        choiceSubstance: "",
+        injectedDrugs: "",
+        treatmentInterest: "",
+        mentalServicesReceived: "",
+        mentalServicesLocation: "",
+        mentalMedication: "",
+        helpAcquiringMedicine: "",
+        internalReferral: "",
+        externalReferral: "",
+        income: "",
+        birthCity: "",
+        birthState: "",
+        birthCountry: "",
+        employed: "",
+        lookingForEmployment: "",
+        fosterCare: "",
+        socialSecurityNumber: "",
+        caringForAnimals: "",
+        goodNeighborContract: "",
+        storyPhotoVideoAudioForm: "",
+        informationReleaseAuthorized: "",
+        servicesConsent: "",
+        showerInstructions: "",
+        showerGuidelines: "",
+        dropInGuidelines: "",
+        intakeConfirmation: "",
+        immediateNeedsConfirmation: "",
+        documentsSigned: "",
+        sleepingBag: "",
+        backpack: "",
+        responseData: {}
+      };
   },
-  handleSubmit: function (e) {
+  handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
-    var data = this.state;
-    console.log(data)
+
     var firstName = this.state.firstName.trim();
-    var nickname = this.state.nickname.trim();
     var lastName = this.state.lastName.trim();
-    //var birthDate = this.state.birthDate.trim();
-    //var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
-    //birthday.toISOString();
+    // var birthDate = this.state.birthDate.trim();
+    // var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
+    // birthday.toISOString();
     //if (isNaN(birthDate)) {
     //  console.log("this is false.");
     //  return
@@ -109,7 +111,79 @@ var IntakeForm = React.createClass({
       console.log("I was missing a critical piece.");
     } else {
       // Ajax will go here
+
+      // ajax doesn't take nested objects when passing data
+      // so have to JSON stringify it on this end and unstringify
+      // it on the other end
+      var data = {
+        firstName: firstName,
+        lastName: lastName,
+        nickname: this.state.nickname.trim(),
+        personCompletingIntake: this.state.personCompletingIntake.trim(),
+        intakeDate: this.state.intakeDate,
+        HMISConsent: this.state.HMISConsent,
+        firstTime: this.state.firstTime,
+        providedID: this.state.providedID,
+        IDstate: this.state.IDstate,
+        returning: {
+            id:"", 
+            firstname:"", 
+            nickname: "", 
+            lastname:"",
+            personcompletingintake: "",
+            hmisconsent: "",
+            firsttime: "",
+            providedid: "",
+            idstate: ""
+          }
+      }
+      
+      console.log("data sent");
+      console.log(data);
+
+      
+
+      /**/
+
+      // because ajax is asynchronous, any return statements
+      // will return before the callbacks (success, error) run
+      // the return runs before the request is complete essentially
+
+      $.ajax({
+          url: "api/client",
+          method: "POST",
+          data: { expression: JSON.stringify(data) },
+          success: function (data) {
+              console.log(data);
+              console.log("result");
+              console.log(data.result);
+              var rows = data.result.rows;
+              var string = "";
+              for (var property in rows[0]) {
+                string += '<h4>' + property + '</h4>' + rows[0][property]; 
+              }
+              $("#display-area").append('<div>'
+                    // + '<h3>New Client Added</h3>' 
+                    // + '<h4>ID</h4>' + rows[0].id
+                    // + '<h4>First Name</h4>' + rows[0].firstname
+                    // + '<h4>Nickname</h4>' + rows[0].nickname
+                    // + '<h4>personCompletingIntake</h4>' + rows[0].personcompletingintake
+                    // + '<h4>intakeDate</h4>' + rows[0]
+                    // + '<h4> Last Name</h4>' + rows[0].lastname
+                    + string
+                    + '</div>');
+          },
+          error: function (data) {
+              console.error(data);
+          }
+      });
+      /**/
+
+      console.log("handleSubmit");
     };
+  },
+  handlePersonCompletingIntakeChange: function (e) {
+    this.setState({personCompletingIntake: e.target.value});
   },
   handleHMISConsentChange: function (e) {
     var getVal = e.currentTarget.value,
@@ -130,6 +204,7 @@ var IntakeForm = React.createClass({
   handleIntakeDateChange: function (e) {
     console.log("Handling...");
     var date = moment(e).toISOString();
+    console.log(date);
     this.setState({intakeDate: date});
   },
   handleFirstNameChange: function (e) {
@@ -142,7 +217,7 @@ var IntakeForm = React.createClass({
     this.setState({lastName: e.target.value});
   },
   handleBirthdayChange: function (e) {
-    this.setState({dob: e.target.value}); // will not work right now
+    this.setState({dateOfBirth: e.target.value}); // will not work right now
   },
   handleEmailChange: function (e) {
     this.setState({email: e.target.value});
@@ -167,46 +242,51 @@ var IntakeForm = React.createClass({
   handleReferenceOtherChange: function (e) {
     this.setState({referenceOther: e.target.value});
   },
+
+  // every React component is required to have a 'render' function
+  // to display the html
   render: function () {
     var currentYear = new Date().getFullYear(),
         todaysDate = moment();
     return (
       <div>
         <form className="intakeForm" onSubmit={this.handleSubmit}>
-            HMIS Consent: <input type="radio" name="HMIS" value="true" 
+            Person Filling out this form: <input type="text"
+                                            onChange={this.handlePersonCompletingIntakeChange} />
+            HMIS Consent: <input type="radio" name="HMIS" value="true"
                                   checked={this.state.HMISConsent === true}
                                   onChange={this.handleHMISConsentChange} /> Yes
-                          <input type="radio" name="HMIS" value="false" 
-                                  checked={this.state.HMISConsent === false} 
+                          <input type="radio" name="HMIS" value="false"
+                                  checked={this.state.HMISConsent === false}
                                   onChange={this.handleHMISConsentChange} /> No
             <br />
-            First Time Attending? <input type="radio" name="firstTime" value="true" 
+            First Time Attending? <input type="radio" name="firstTime" value="true"
                                     checked={this.state.firstTime === true}
                                     onChange={this.handleHMISConsentChange} /> Yes
-                                  <input type="radio" name="firstTime" value="false" 
-                                    checked={this.state.firstTime === false} 
+                                  <input type="radio" name="firstTime" value="false"
+                                    checked={this.state.firstTime === false}
                                     onChange={this.handleHMISConsentChange} /> No
             {/*Assigned Case Manager:  TO DO */}
             <br />
-            {/*Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />*/}
+            Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
             First Name: <input type="text"
                           onChange={this.handleFirstNameChange} />
-            Nickname: <input type="text" 
+            Nickname: <input type="text"
                         onChange={this.handleNicknameChange} />
             Last Name: <input type="text"
                         onChange={this.handleLastNameChange} />
             <br />
-            {/*Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />*/}
+            Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />
             Email: <input type="text"
                     onChange={this.handleEmailChange} />
             <br />
-            ID Provided? <input type="radio" name="idProvided" value="true" 
+            ID Provided? <input type="radio" name="idProvided" value="true"
                                   checked={this.state.providedID === true}
                                   onChange={this.handleProvidedIDChange} /> Yes
-                          <input type="radio" name="idProvided" value="false" 
-                                  checked={this.state.providedID === false} 
+                          <input type="radio" name="idProvided" value="false"
+                                  checked={this.state.providedID === false}
                                   onChange={this.handleProvidedIDChange} /> No
-            <IdInfo display={this.state.providedID} 
+            <IdInfo display={this.state.providedID}
                     stateID={this.state.stateID}
                     changeState={this.handleStateIDChange}
                     changeOtherID={this.handleOtherIDChange} />
@@ -219,16 +299,17 @@ var IntakeForm = React.createClass({
               <option value="other">Other</option>
             </select>
             {/* Not included: Services */}
-            <br /> 
+            <br />
             <input type="submit" value="Submit" />
           </form>
+          <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
       </div>
     );
   }
 });
 
 // This isn't working properly for some reason...
-var DateDropdown = React.createClass({ 
+var DateDropdown = React.createClass({
   getInitialState: function () {
     var todaysDate = moment(),
         month = todaysDate.format("MM"),
@@ -249,7 +330,7 @@ var DateDropdown = React.createClass({
     var newDate = moment([this.state.year, this.state.month, this.state.day]);
     this.props.handleChange(newDate);
   },
-  render: function () { 
+  render: function () {
     var monthSelect = [];
     for (var i = 0; i < 12; i++) {
       monthSelect.push(
@@ -295,7 +376,7 @@ var DateOfBirthDropdown = React.createClass({
     this.setState({birthyear: e.target.value});
     this.props.changeYear({birthYear: e.target.value});
   },
-  render: function () {  
+  render: function () {
     var yearOptions = [];
     for (var j = this.props.currentYear; j > 1975; j--) {
       yearOptions.push(
@@ -328,12 +409,13 @@ var DateOfBirthDropdown = React.createClass({
   }
 });
 
+// this is being used inside the intake form component
 var IdInfo = React.createClass({
   render: function () {
     var display = (this.props.display) ? "" : "hidden";
     return (
       <div className={display}>
-        ID State: 
+        ID State:
         <select name="state" defaultValue={this.props.stateID} onChange={this.props.changeState}>
           <option value="AK">AK</option>
           <option value="AL">AL</option>
@@ -394,6 +476,7 @@ var IdInfo = React.createClass({
   }
 });
 
+// this is being used inside the IdInfo component
 var GetOption = React.createClass({
   render: function () {
     return (
@@ -402,7 +485,110 @@ var GetOption = React.createClass({
   }
 })
 
+var DisplayArea = React.createClass({
+  render: function () {
+    return (
+      <div id="display-area">
+        <h1>{this.props.text}</h1>
+      </div>
+    )
+  }
+});
+// calls the render function of the given component to display
+// takes two parameters: 1) component to display 2) where to display it
+// React only tries to display one component, so can display
+// multiple components as long as they are encased in a div
 ReactDOM.render(
-  <IntakeForm />,
-  document.getElementById('content')
+    <div>
+      <IntakeForm />
+    </div>,
+  document.getElementById('content') // html has a div with id='content'
 );
+
+// to display multiple components with same render function
+// need to place them inside another div
+/*
+ReactDOM.render(
+    <div>
+        <IntakeForm />
+        <IntakeForm />
+        <IntakeForm />
+    </div>,
+    document.getEleementByID('content')
+);
+*/
+
+// *** When the state of a component changes, it's render function is called
+// again to re-render its new state
+
+// every component has
+// this.props
+// this.props.children
+// this.state
+// when a function is defined within a component, it is accessed as
+// this.functionName
+
+// every component has a this.state property
+// getInitialState is a React built-in function just like render()
+// returns an object of key-value pairs with initial states
+/*
+    getInitialState: function () {
+      return {
+        checked: false
+      }
+    }
+*/
+
+// this.setState is another React built-in function
+// takes in object with same key-value pair state values
+// (put inside a handler)
+/*
+  handleCheck: function () {
+    this.setState({ checked: !this.state.checked });
+  }
+*/
+
+// Sample code for changing state
+/*
+  <!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://fb.me/react-15.2.1.js"></script>
+        <script src="https://fb.me/react-dom-15.2.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+        <title>Intro to State</title>
+    </head>
+    <body>
+        <div id='react-container'></div>
+        <script type="text/babel">
+
+        var Checkbox = React.createClass({
+            getInitialState() {
+                return {checked: true}
+            },
+            handleCheck() {
+                this.setState({checked: !this.state.checked})
+            },
+            render() {
+                var msg
+                if(this.state.checked) {
+                    msg = "checked"
+                } else {
+                    msg = "unchecked"
+                }
+                return ( <div>
+                        <input type="checkbox"
+                               onChange={this.handleCheck}
+                               defaultChecked={this.state.checked}/>
+                        <p>This box is {msg}</p>
+                    </div>)
+            }
+        })
+        ReactDOM.render(<Checkbox/>,
+            document.getElementById('react-container'))
+        </script>
+    </body>
+</html>
+*/
+
+{/* JSX comment */} // must be wrapped in curly braces

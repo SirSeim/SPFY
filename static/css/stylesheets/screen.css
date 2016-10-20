@@ -420,3 +420,15 @@ body {
 #allowScroll {
   overflow: auto;
 }
+
+/* line 1, ../sass/partials/_frontdesk.scss */
+button.badge-button.btn.btn-primary.btn-xs {
+  background-image: none;
+  background-color: #02aef0;
+  border-color: #0076a3;
+}
+
+/* line 7, ../sass/partials/_frontdesk.scss */
+span.badge {
+  color: black !important;
+}
