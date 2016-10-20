@@ -85,7 +85,36 @@ var respond = {
             message: "Success getting dropins!",
             result: result
         }).code(200);
+    },
+    failedToGetDropinActivities: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activities!",
+            error: err
+        }).code(500);
+    },
+    gotDropinActivities: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting activities!",
+            result: result
+        }).code(200);
+    },
+    failedToEnroll: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to enroll!",
+            error: err
+        }).code(500);
+    },
+    enroll: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success enrolling!",
+            result: result
+        }).code(200);
     }
+
 };
 
 module.exports = respond;

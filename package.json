@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "if [ -f $(npm bin)/../../config/set_env.sh ]; then DATABASE_URL=$($(npm bin)/../../config/set_env.sh) node server.js; else node server.js; fi;",
+    "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) nodemon -e js,json,html,css server.js",
     "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
     "lint": "eslint server.js **/*.js",
     "report": "istanbul report",
@@ -92,7 +93,8 @@
     "eslint": "^3.7.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.0.2",
-    "mocha-istanbul": "^0.3.0"
+    "mocha-istanbul": "^0.3.0",
+    "nodemon": "^1.11.0"
   },
   "eslintConfig": {
     "env": {
@@ -103,9 +105,7 @@
       "es6": true
     },
     "extends": "eslint:recommended",
-    "globals": {
-      
-    },
+    "globals": {},
     "rules": {
       "no-extra-parens": 2,
       "curly": 2,
@@ -115,9 +115,23 @@
       "no-lone-blocks": 2,
       "no-multi-spaces": 2,
       "no-return-assign": 2,
-      "brace-style": [2, "1tbs", { "allowSingleLine": true }],
-      "camelcase": [2, { "properties": "never" }],
-      "func-style": [2, "expression"],
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "camelcase": [
+        2,
+        {
+          "properties": "never"
+        }
+      ],
+      "func-style": [
+        2,
+        "expression"
+      ],
       "comma-spacing": 2,
       "computed-property-spacing": 2,
       "func-call-spacing": 2,
@@ -130,12 +144,21 @@
       "space-unary-ops": 2,
       "spaced-comment": 2,
       "lines-around-comment": 2,
-      "max-len": [2, 128],
+      "max-len": [
+        2,
+        128
+      ],
       "new-parens": 2,
       "no-tabs": 2,
-      "operator-linebreak": [2, "after"],
+      "operator-linebreak": [
+        2,
+        "after"
+      ],
       "no-console": 1,
-      "semi": [2, "always"]
+      "semi": [
+        2,
+        "always"
+      ]
     }
   }
 }

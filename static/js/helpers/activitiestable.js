@@ -1,0 +1,50 @@
+$(function (event) {
+    
+    var table = $('#activities');
+
+    $.ajax({
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+            console.log("drop-ins");
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    }).then(function (dropins) {
+        var currentDropIn = dropins.result[dropins.result.length - 1];
+        console.log(currentDropIn.id);
+        return $.ajax({
+            url: "api/dropins/" + currentDropIn.id + "/activities",
+            method: "GET",
+            success: function (data) {
+                console.log("inside activities success");                
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }).done(function (data) {
+        table.empty();
+        data.result.rows.forEach(function (activity) {
+            table.append('<tr><td>' +
+                activity.activity_name +
+                '</td></tr>');
+        });
+    });
+
+    $('#activity-search').keyup(function () {
+        var search = $('#activity-search');
+        var activities = $('#activities td');
+        if (search.val() === '') {
+            activities.show();
+        } else {
+            console.log(activities);
+            activities.hide().filter(function (i, e) {
+                return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+            }).show();
+        }
+    });
+});

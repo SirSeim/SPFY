@@ -35,7 +35,7 @@ var api = {
     },
 
     getClient: function (request, reply) {
-        Service.getClient(request.postgres, request.payload, function (err, result) {
+        Service.getClient(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetClient(reply, err);
             } else {
@@ -44,24 +44,24 @@ var api = {
         });
     },
 
-    searchClient: function (request, reply) {
-        Service.searchClient(request.postgres, request.query.firstName, request.query.lastName, function (err, result) {
-            if (err) {
-                Respond.failedToSearchClient(reply, err);
-            } else {
-                Respond.searchClient(reply, result);
-            }
-        });
-    },
-
     getClients: function (request, reply) {
-        Service.getClients(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetClients(reply, err);
-            } else {
-                Respond.gotClients(reply, result);
-            }
-        });
+        if (request.query.firstName || request.query.lastName) {
+            Service.searchClient(request.postgres, request.query.firstName, request.query.lastName, function (err, result) {
+                if (err) {
+                    Respond.failedToSearchClient(reply, err);
+                } else {
+                    Respond.searchClient(reply, result);
+                }
+            });
+        } else {
+            Service.getClients(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetClients(reply, err);
+                } else {
+                    Respond.gotClients(reply, result);
+                }
+            });
+        }
     },
 
     getDropIns: function (request, reply) {
@@ -70,6 +70,35 @@ var api = {
                 Respond.failedToGetDropIns(reply, err);
             } else {
                 Respond.gotDropIns(reply, result);
+            }
+        });
+    },
+
+    getDropIn: function (request, reply) {
+        Service.getDropIn(request.postgres, request.params.dropin, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropIn(reply, err);
+            } else {
+                Respond.gotDropIns(reply, result);
+            }
+        });
+    },
+
+    getDropinActivities: function (request, reply) {
+        Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivities(reply, err);
+            } else {
+                Respond.gotDropinActivities(reply, result);
+            }
+        });
+    },
+    enroll: function (request, reply) {
+        Service.enroll(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEnroll(reply, err);
+            } else {
+                Respond.enroll(reply, result);
             }
         });
     }

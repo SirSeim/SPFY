@@ -70,13 +70,13 @@ var query = {
         });
     },
 
-    getClient: function (postgres, payload, callback) {
+    getClient: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getClient(payload), function (err, result) {
+            client.query(Queries.getClient(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -132,7 +132,60 @@ var query = {
                 return callback(undefined, result);
             });
         });
+    },
+
+    getDropIn: function (postgres, dropin, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropIn(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinActivities: function (postgres, dropin, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivities(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    enroll: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            var parsedPayload = JSON.parse(payload.expression);
+            client.query(Queries.enroll(parsedPayload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
     }
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

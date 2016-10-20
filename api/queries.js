@@ -18,21 +18,23 @@ var parseProperty = function(property) {
 // order of these properties
 // must match order of payload properties
 var profileProperties = [
-    'firstName',
+    'first_name',
+    'last_name',
     'nickname',
-    'lastName',
-    'personCompletingIntake',
-    'intakeDate',
-    // 'HMISConsent',
-    'firstTime',
-    // 'caseManager',
-    // 'caseManagerID',
-    // 'phoneNumber',
+    'person_completing_intake',
+    'intake_date',
+    'hmis_consent',
+    'first_time',
+    'case_manager',
+    'case_manager_id',
+    'phone_number',
     'email',
-    'dob',
-    // 'intakeAge',
-    'providedID',
-    'IDstate',
+    'date_of_birth',
+    'intake_age',
+    'provided_id',
+    'id_state',
+    // reference,
+    // services,
     // reference,
     // services,
     // disability,
@@ -108,6 +110,10 @@ var profileProperties = [
     // backpack
 ];
 
+// *** Postgres allows rows with duplicate data, so currently
+// same data inserted twice will be stored in two separate rows
+// need to figure out how to "only insert if not exists" implementation
+
 var queries = {
 
     // *** with this implementation, the order of the properties
@@ -116,40 +122,48 @@ var queries = {
     //                                          ^^^^^^^^^  ^^^^^^^^  ^^^^^^^^
     createClient: function (payload) {
         var queryString = 'INSERT INTO client (';
+        var payloadNames = [];
         var props = [];
         var params = [];
 
+        var profilePropNames = profileProperties.map(function (element) {
+            return element.toLowerCase().replace(/_/g, '');
+        });
+
         for (var property in payload) {
-            if (profileProperties.indexOf(property) !== -1) {
-                props.push(property);
+            var index = profilePropNames.indexOf(property.toLowerCase());
+            if (index !== -1) {
+                props.push(profileProperties[index]);
+                payloadNames.push(property);
             }
         }
-
+        console.log(payloadNames);
         for (var i = 0; i < props.length; i++) {
-            queryString += props[i].toLowerCase() + ', ';
+            queryString += props[i] + ', ';
         }
 
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') VALUES (';
 
-        for (var i = 0; i < props.length; i++) {
-            queryString +=  '$' + (i + 1) + ', ';
-            params.push(parseProperty(payload[props[i]]));
+        for (var i = 0; i < payloadNames.length; i++) {
+            queryString += '$' + (i + 1) + ', ';
+            params.push(parseProperty(payload[payloadNames[i]]));
         }
 
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') RETURNING ';
 
-        for (var ret in payload.returning) {
-            queryString += ret + ', ';
-        }
+        props.forEach(function (element) {
+            queryString += element + ', ';
+        });
+        
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
 
         var queryData = {
             string: queryString,
             params: params
-        }
+        };
 
         return queryData;
 
@@ -260,17 +274,29 @@ var queries = {
         return queryString;
     },
 
-    getClient: function (payload) {
-        /* have to use id to search because could be multiple youth with same name */
-        var queryString = 'SELECT firstname, lastname FROM client WHERE id = ' +
-                            '\'' + payload.id + '\'' + ';';
-            // should this number  ^^^^^^^^^^ be a string or int when passed into postgres?
+    getClient: function (clientID) {
+        var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
+                            '\'' + clientID + '\'' + ';';
         return queryString;
     },
+    
     searchClient: function (firstName, lastName) {
-        var queryString = 'SELECT first_name, last_name FROM client WHERE first_name = ' +
-                            '\'' + firstName + '\'' + ' AND last_name = ' +
-                            '\'' + lastName + '\'' + ';';
+        // console.log(firstName);
+        // console.log(lastName);
+        var queryString = 'SELECT id, first_name, last_name FROM client WHERE';
+        var setFirstName = false;
+        if (firstName) {
+            queryString += ' first_name = \'' + firstName + '\'';
+            setFirstName = true;
+        }
+        if (lastName) {
+            if (setFirstName) {
+                queryString += ' AND';
+            }
+            queryString += ' last_name = \'' + lastName + '\'';
+        }
+        queryString += ';';
+
         return queryString;
     },
 
@@ -284,8 +310,36 @@ var queries = {
         var queryString = 'SELECT id, date FROM drop_in;';
 
         return queryString;
-    }
+    },
 
+    getDropIn: function (dropin) {
+        var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
+                            dropin + ';';
+
+        return queryString;
+    },
+
+    getDropinActivities: function (dropin) {
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room,' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
+                        'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
+                        'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+        return queryString;
+    },
+
+    enroll: function (payload) {
+        var queryString = "";
+
+        for (var i = 0; i < payload.length; i++) {
+            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( ' +
+                            payload[i].dropinID + ', ' +
+                            payload[i].clientID + ', ' +
+                            payload[i].activityID + '); ';
+        }
+
+        return queryString;
+    }
 };
 
 module.exports = queries;

@@ -30,26 +30,31 @@ DROP TABLE IF EXISTS client;
 
 CREATE TABLE client (
   id SERIAL PRIMARY KEY,
-  firstname varchar(45) DEFAULT NULL,
+  first_name varchar(45) DEFAULT NULL,
+  last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
-  lastname varchar(45) DEFAULT NULL,
-  personcompletingintake varchar(65) DEFAULT NULL,
-  intakedate date DEFAULT NULL,
-  hmisconsent boolean DEFAULT NULL,
-  firsttime boolean DEFAULT NULL,
-  providedid boolean DEFAULT NULL,
-  idstate varchar(45) DEFAULT NULL,
+  person_completing_intake varchar(65) DEFAULT NULL,
+  intake_date date DEFAULT NULL,
+  hmis_consent boolean DEFAULT NULL,
+  first_time boolean DEFAULT NULL,
   case_manager varchar(65) DEFAULT NULL,
   case_manager_id integer DEFAULT NULL,
   phone_number varchar(45) DEFAULT NULL,
   email varchar(65) DEFAULT NULL,
   date_of_birth date DEFAULT NULL,
   intake_age integer DEFAULT NULL,
+  provided_id boolean DEFAULT NULL,
+  id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL
 );
 
 INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
+INSERT INTO client (first_name, last_name) VALUES ('Steven','Brown');
+INSERT INTO client (first_name, last_name) VALUES ('Carly','Johnson');
+INSERT INTO client (first_name, last_name) VALUES ('Jamie','Johnson');
+INSERT INTO client (first_name, last_name) VALUES ('Jeremiah','Halestrom');
+
 
 DROP TABLE IF EXISTS prescreen;
 
@@ -193,14 +198,6 @@ CREATE TABLE forms (
   backpack boolean DEFAULT NULL
 );
 
--- INSERT INTO client (first_name, last_name) VALUES ('Steven', 'Brown');
--- INSERT INTO client (first_name, last_name) VALUES ('Sara', 'Summers');
-/* INSERT INTO client VALUES (1, 'Bobby','Tables',NULL,NULL,NULL,NULL,NULL,'cjdellomes',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(2, 'Steve','Tables',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(3, 'Bobby','Tables',NULL,NULL,NULL,NULL,NULL,'cjdellomes',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(4, 'Danny','Tables',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-*/
-
 DROP TABLE IF EXISTS match;
 
 -- matching case managers with their clients
@@ -239,28 +236,55 @@ CREATE TABLE subprogram (
 
 INSERT INTO subprogram (id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
 
+
 DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
-  id integer PRIMARY KEY,
-  activity_name varchar(45) DEFAULT NULL,
-  subprogram_id integer REFERENCES subprogram (id)
+  id SERIAL PRIMARY KEY,
+  activity_name varchar(45) DEFAULT NULL
 );
 
-INSERT INTO activity VALUES (1, '3D-Printing', 1);
+INSERT INTO activity (activity_name) VALUES ('Medical');
+INSERT INTO activity (activity_name) VALUES ('Dental');
+INSERT INTO activity (activity_name) VALUES ('3D-Printing');
+INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
 
 
 DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
   id SERIAL PRIMARY KEY,
-  date date
+  date date DEFAULT CURRENT_DATE
 );
 
-DROP TABLE IF EXISTS appointment;
+INSERT INTO drop_in (date) VALUES ('2016-10-16');
+INSERT INTO drop_in (date) VALUES ('2016-10-17');
 
-CREATE TABLE appointment (
-  id integer PRIMARY KEY,
-  appointment_date date,
+DROP TABLE IF EXISTS match_drop_in_activity;
+
+CREATE TABLE match_drop_in_activity (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  activity_id integer REFERENCES activity (id),
+  room varchar(30) DEFAULT NULL,
+  comments varchar(128) DEFAULT NULL,
+  start_time time DEFAULT '00:00:00',
+  end_time time DEFAULT '23:59:59'
+);
+
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 3, 'DA Lab', '13:30:00', '15:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Courtyard', '12:30:00', '13:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 2, 'Clinic', '12:30:00', '13:30:00');
+
+DROP TABLE IF EXISTS enrollment;
+
+CREATE TABLE enrollment (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id),
   activity_id integer REFERENCES activity (id)
 );
+
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+
+
