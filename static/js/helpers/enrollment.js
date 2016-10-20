@@ -97,29 +97,29 @@ $(function (event) {
             data: { expression: JSON.stringify(signups) },
             success: function (data) {
                 console.log(data);
+                var clientString = "";
+                for (var i = 0; i < selectedclients.length; i++) {
+                    clientString += selectedclients[i] + '<br>';
+                }
+                var activityString = "";
+                for (var i = 0; i < selectedActivities.length; i++) {
+                    activityString += selectedActivities[i] + '<br>';
+                }
 
+                $('#enrollment-feedback').empty().append(
+                    '<div><h4>Clients Successfully Enrolled</h4>' +
+                    '<h4>Clients</h4>' + clientString +
+                    '<h4>Activities</h4>' + activityString +
+                    '</div>');
+
+                $('#selected-clients').empty();
+                $('#selected-activities').empty();
             },
             error: function (data) {
                 console.error(data);
+                $('#enrollment-feedback').empty().append(
+                    '<div><h4>Enrollment failed</h4>');
             }
-        }).done(function (data) {
-            var clientString = "";
-            for (var i = 0; i < selectedclients.length; i++) {
-                clientString += selectedclients[i] + '<br>';
-            }
-            var activityString = "";
-            for (var i = 0; i < selectedActivities.length; i++) {
-                activityString += selectedActivities[i] + '<br>';
-            }
-
-            $('#enrollment-feedback').empty().append(
-                '<div><h4>Clients Successfully Enrolled</h4>' +
-                '<h4>Clients</h4>' + clientString +
-                '<h4>Activities</h4>' + activityString +
-                '</div>');
-
-            $('#selected-clients').empty();
-            $('#selected-activities').empty();
         });
     });
 
