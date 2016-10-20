@@ -64,25 +64,9 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
-<<<<<<< HEAD
-        method: 'GET',
-        path: '/activities',
-        handler: Api.getActivities
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}',
-        handler: Api.getActivity
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}/dropins',
-        handler: Api.getActivityDropIns
-=======
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
->>>>>>> cf7/createclient
     }
 ];
 

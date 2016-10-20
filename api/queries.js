@@ -15,101 +15,6 @@ var parseProperty = function(property) {
     }
 };
 
-// order of these properties
-// must match order of payload properties
-var profileProperties = [
-    'first_name',
-    'last_name',
-    'nickname',
-    'person_completing_intake',
-    'intake_date',
-    'hmis_consent',
-    'first_time',
-    'case_manager',
-    'case_manager_id',
-    'phone_number',
-    'email',
-    'date_of_birth',
-    'intake_age',
-    'provided_id',
-    'id_state',
-    // reference,
-    // services,
-    // reference,
-    // services,
-    // disability,
-    // lastGradeCompleted,
-    // someCompleted,
-    // currentlyAttending,
-    // graduated,
-    // firstLanguage,
-    // preferredLanguage,
-    // maritalStatus,
-    // militaryService,
-    // healthInsurance,
-    // gender,
-    // genderIdentification,
-    // preferredPronoun,
-    // ethnicity,
-    // race,
-    // lastSleepingLocation,
-    // lastSleepingDuration,
-    // firstDayFirstTimeHomeless,
-    // currentHomelessStartDate,
-    // currentHomelessLength,
-    // homelessEpisodeCount,
-    // locationBeforeWestLA,
-    // durationInWestLA,
-    // housingInstabilityCause,
-    // stableHousingObstacle,
-    // housingInterest,
-    // naturalConnection,
-    // contactName,
-    // contactPhoneNumber,
-    // contactRelationship,
-    // currentlyPregnant,
-    // firstPregnancy,
-    // preNatalCareReceived,
-    // preNatalCareLocation,
-    // preNatalCareDesired,
-    // trimester,
-    // babyDueDate,
-    // hasOtherChildren,
-    // dcfsOpenCase,
-    // childrenWithFamilyOrFriends,
-    // substanceAbuse,
-    // choiceSubstance,
-    // injectedDrugs,
-    // treatmentInterest,
-    // mentalServicesReceived,
-    // mentalServicesLocation,
-    // mentalMedication,
-    // helpAcquiringMedicine,
-    // internalReferral,
-    // externalReferral,
-    // income,
-    // birthCity,
-    // birthState,
-    // birthCountry,
-    // employed,
-    // lookingForEmployment,
-    // fosterCare,
-    // socialSecurityNumber,
-    // caringForAnimals,
-    // goodNeighborContract,
-    // storyPhotoVideoAudioForm,
-    // informationReleaseAuthorized,
-    // servicesConsent,
-    // showerInstructions,
-    // showerGuidelines,
-    // dropInGuidelines,
-    // intakeConfirmation,
-    // immediateNeedsConfirmation,
-    // documentsSigned,
-    // sleepingBag,
-    // backpack
-];
-
 // *** Postgres allows rows with duplicate data, so currently
 // same data inserted twice will be stored in two separate rows
 // need to figure out how to "only insert if not exists" implementation
@@ -264,9 +169,7 @@ var queries = {
         // queryString += ');';
     },
 
-    // ** parameterize queries!!! Taking user input and using it
-    // directly in the query makes the code vulnerable to SQL injection
-    // also, apostraphies in names could throw off syntax
+    // ** TODO: paramaterize all of these functions
 
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
@@ -279,7 +182,6 @@ var queries = {
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -301,7 +203,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT first_name, last_name FROM client;';
+        var queryString = 'SELECT id, first_name, last_name FROM client;';
 
         return queryString;
     },
@@ -328,13 +230,13 @@ var queries = {
     },
     enroll: function (payload) {
         var queryString = "";
-        payload.forEach(function (element) {
-            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( ' +
-                            element.dropinID + ', ' +
-                            element.clientID + ', ' +
-                            element.activityID + '); ';
-        });
 
+        for (var i = 0; i < payload.length; i++) {
+            queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( ' +
+                            payload[i].dropinID + ', ' +
+                            payload[i].clientID + ', ' +
+                            payload[i].activityID + '); ';
+        }
         return queryString;
     }
 };

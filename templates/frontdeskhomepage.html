@@ -194,7 +194,6 @@
                         </tbody>
                       </table>
                     </div>
-<<<<<<< HEAD
                     <table id="pastdropins" class="table table-hover">
                       <thead>
                         <tr>
@@ -232,33 +231,6 @@
                       </tbody>
                     </table>
                   </div>
-                </div>
-
-                <div class="tab-pane" id="dropin-enrollment">
-
-                    <div class="row">
-
-                      <div class="col-sm-2">
-                        {% include "helpers/_clientprofiletable.html" %}
-                      </div>
-
-                      <div class="col-sm-8">
-
-                      </div>
-
-                      <div class="col-sm-2">
-                        {% include "helpers/_activitiestable.html" %}
-                      </div>
-
-
-
-                    </div>
-
-                    <div class="col-xs-12">
-                      <button type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                    </div>
-=======
->>>>>>> cf7/createclient
                 </div>
 
                   <div class="tab-pane" id="dropin-enrollment">
@@ -325,22 +297,79 @@
                         <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
                       </div>
                     </div>
+                </div>
 
+                  <div class="tab-pane" id="dropin-enrollment">
+
+                    <div class="row">
+
+                      <div class="col-sm-2">
+                        {% include "helpers/_clientprofiletable.html" %}
+                      </div>
+
+                      <div id="enrollment-area" class="col-sm-8">
+
+                          <div class="row">
+
+                                <div class="col-sm-4">
+                                  <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h3 class="text-center">Selected Clients</h3>
+                                      </div>
+                                      <div class="well" style="max-height: 300px;overflow: auto;">
+                                        <ul id="selected-clients" class="list-group checked-list-box">
+
+                                          </ul>
+                                      </div>
+                                </div>
+                              </div>
+
+
+                              <div class="col-sm-4">
+                                <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h3 class="text-center">Selected Activities</h3>
+                                      </div>
+                                      <div class="well" style="max-height: 300px;overflow: auto;">
+                                        <ul id="selected-activities" class="list-group checked-list-box">
+
+                                          </ul>
+                                      </div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-4">
+                                <div id="enrollment-feedback" class="panel panel-default">
+
+                                </div>
+                              </div>
+
+                          </div> <!-- row -->
+
+                        <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
+
+                      </div>  <!-- enrollment area -->
+
+                      <div class="col-sm-2">
+
+                        {% include "helpers/_activitiestable.html" %}
+
+                      </div>
+
+                    </div> <!-- row -->
+
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
+                      </div>
+                    </div>
                   </div> <!-- Drop-In Enrollment Tab pane -->
 
               </div> <!-- Tab container -->
 
             </div> <!-- 3rd row -->
 
-<<<<<<< HEAD
-          <div class="row">
 
-          </div>
-        </div> <!--container-->
-
-  </div>
-=======
->>>>>>> cf7/createclient
 
     </div> <!--container-->
 
@@ -350,10 +379,6 @@
     <script src="/static/js/frontdesk.js"></script>
     <script src="/static/js/helpers/clientprofiletable.js"></script>
     <script src="/static/js/helpers/activitiestable.js"></script>
-<<<<<<< HEAD
-
-=======
     <script src="/static/js/helpers/enrollment.js"></script>
-
->>>>>>> cf7/createclient
+    
 {% include "helpers/_footer.html" %}
