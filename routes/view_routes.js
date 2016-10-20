@@ -58,6 +58,16 @@ var viewRoutes = [
             });
         }
     },
+
+    {
+        path: '/search',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('search.html', {
+
+            });
+        }
+    }
 ];
 
 module.exports = viewRoutes;

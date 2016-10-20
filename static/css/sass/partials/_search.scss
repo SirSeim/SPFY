@@ -1,0 +1,123 @@
+body {
+    overflow: hidden;
+}
+
+#content {
+    position: absolute; 
+    top: 72; 
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.searchMain {
+    width: 100%;
+}
+
+.queryBuilderUI {
+    background-color: $spfy-blue;
+    width: 300px;
+    position: absolute;
+    height: 100%;
+}
+
+.qbAccess {
+    background-color: $spfy-blue;
+    width: 20px;
+    float: left;
+    height: 100%;
+    position: absolute;
+    color: #CCC;
+    text-align: center;
+}
+
+.qbHeader {
+    color: #FFF;
+}
+
+.qbSelect {
+    width: 250px;
+    background-color: #FFF;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.qbBlock {
+    margin: 20px;
+    line-height: 2;
+}
+
+.qbText {
+    width: 250px;
+    height: 25px;
+}
+
+#qbClose {
+    float: right;
+    color: #CFF;
+    opacity: 0.5;
+    padding: 10px;
+}
+
+.filterTable {
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+.detailPane {
+    background-color: $spfy-blue;
+    width: 300px;
+    position: absolute;
+    height: 100%;
+    float: right;
+    right: 0;
+}
+
+.dInset {
+    background-color: #FFF;
+    position: absolute;
+    width: 250px;
+    margin-left: 25px;
+    margin-top: 35px;
+    height: 95%;
+}
+
+#dClose {
+    float: left;
+    color: #CFF;
+    opacity: 0.5;
+    padding: 10px;
+}
+
+#dHeader {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.ftRow {
+    height: 40px;
+    border: 1px solid #CCC;
+}
+
+.ftHead {
+    font-weight: bold;
+    background-color: #BFF;
+    height: 40px;
+}
+
+.ftEven { 
+    background-color: #EFF;
+}
+
+.ftOdd {
+    background-color: #DFF;
+}
+
+.ftCell {
+    padding: 10px;
+}
+
+#allowScroll {
+    overflow: auto;
+}
