@@ -275,7 +275,7 @@ var queries = {
     },
 
     getClient: function (clientID) {
-        var queryString = 'SELECT first_name, last_name FROM client WHERE id = ' +
+        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, date_of_birth FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
