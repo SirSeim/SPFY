@@ -1,21 +1,4 @@
-{% include "helpers/_header.html" %}
-
-<div class="container">
-
-  {% include "helpers/_navbar.html" %}
-
-    <div class="row">
-        <div class="col-sm-2">
-          
-          {% include "helpers/_clientprofiletable.html" %}
-
-        </div>
-
-
-        <div class="col-sm-8">
-
-        <div class="row">
-          <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
             <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
             <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
@@ -23,8 +6,8 @@
           </ul>
           <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="client-info">
-                <h1>Steve (Steven) Brown</h1>
-                <div class="steven-photo">This is a photo</div>
+                <h1 id="client-name">Name Goes here</h1>
+                <div class="client-photo">This is a photo</div>
                 <table id="clientInfoTable">
                   <tr>
                     <td><h4>Birthday</h4></td><td>5/5/16</td>
@@ -172,74 +155,3 @@
                 <h1>Other</h1>
                 <p></p>
             </div>
-          </div> <!-- tab content -->
-
-        </div> <!-- inner row -->
-
-        </div> <!--col-sm-8-->
-
-        <div class="col-sm-2">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4>
-                  Checked-In Today
-                </h4>
-                <span class="dot dot-success"></span>
-                <input id="client-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
-                <!-- We need a `dot-pending` class for when the client list is still loading -->
-              </div> <!-- panel heading -->
-              <table id="clients" class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span id="steven-dot" class="bullet"></span>Steven Brown</td>
-                  </tr>
-                  <tr>
-                    <td><span class="bullet"></span>John Doe</td>
-                  </tr>
-                  <tr>
-                    <td><span class="bullet"></span>Megan McMire</td>
-                  </tr>
-                  <tr>
-                    <td><span id="carlie-dot" class="bullet"></span>Carlie Smith</td>
-                  </tr>
-                  <tr>
-                    <td><span id="mike-dot" class="bullet"></span>Mike Adams</td>
-                  </tr>
-                  <tr>
-                    <td><span class="bullet"></span>Jose Jimenez</td>
-                  </tr>
-                  <tr>
-                    <td><span class="bullet"></span>Amy Scott</td>
-                  </tr>
-                  <tr>
-                    <td><span id="andre-dot" class="bullet"></span>Andre Evans</td>
-                  </tr>
-                  <tr>
-                    <td><span class="bullet"></span>Alex Sandoval</td>
-                  </tr>
-                </tbody>
-              </table>
-          </div> <!-- panel default -->
-        </div>
-      </div> <!--outer row-->
-
-      <div class="row">
-
-      </div>
-    </div> <!--container-->
-
-    <div id="content">
-
-    </div>
-
-{% include "helpers/_basescript.html" %}
-
-    <script src="/static/js/casemanager.js"></script>
-    <script src="/static/js/helpers/clientprofiletable.js"></script>
-
-{% include "helpers/_footer.html" %}

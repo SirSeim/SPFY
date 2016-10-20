@@ -1,60 +1,38 @@
 $(function (event) {
-    var createActivity = function (activity) {
-        return '<tr><td><span class="bullet"></span>' 
-            + activity.activity_name 
-            + '</td></tr>';
-    };
+    var table = $('#activities');
 
-
-    var populateActivities = function (dropins) {
-        var status = $('.dot');
-        var table = $('#activities tbody');
-
-        status.removeClass('dot-success').addClass('dot-pending');
-        
-        console.log("inside populateActivities");
-        console.log(dropins);
-
+    $.ajax({
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+            console.log("drop-ins");
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    }).then(function (dropins) {
         var currentDropIn = dropins.result[dropins.result.length - 1];
         console.log(currentDropIn.id);
-
-        $.ajax({
+        return $.ajax({
             url: "api/dropins/" + currentDropIn.id + "/activities",
             method: "GET",
             success: function (data) {
-                table.empty()
-                status.removeClass('dot-pending').addClass('dot-success');
-
                 console.log("inside activities success");
-                console.log(data);
-                data.result.rows.forEach(function (element) {
-                    table.append(createActivity(element));
-                });
                 console.log(data);
             },
             error: function (data) {
-                status.removeClass('dot-pending').addClass('dot-error');
                 console.error(data);
             }
         });
-    };
-
-    var getDropins = function () {
-        $.ajax({
-            url: "api/dropins",
-            method: "GET",
-            success: function (data) {
-                populateActivities(data);
-                console.log("drop-ins");
-                console.log(data);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        })
-    };
-
-    getDropins();
+    }).done(function (data) {
+        table.empty();
+        data.result.rows.forEach(function (activity) {
+            table.append('<tr><td>' +
+                activity.activity_name +
+                '</td></tr>');
+        });
+    });
 
     $('#activity-search').keyup(function () {
         var search = $('#activity-search');

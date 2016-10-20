@@ -9,7 +9,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-            
+
             payload = JSON.parse(payload.expression);
             var data = Queries.createClient(payload);
 
@@ -70,13 +70,14 @@ var query = {
         });
     },
 
-    getClient: function (postgres, client, callback) {
+
+    getClient: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getClient(client), function (err, result) {
+            client.query(Queries.getClient(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -86,7 +87,7 @@ var query = {
             });
         });
     },
-    
+
     searchClient: function (postgres, firstName, lastName, callback) {
         postgres.connect(function (err, client, done){
             if (err) {
@@ -167,47 +168,13 @@ var query = {
         });
     },
 
-    getAllActivities: function (postgres, callback) {
+    enroll: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-
-            client.query(Queries.getAllActivities(), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    getActivity: function (postgres, activity, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getActivity(activity), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    getActivityDropIns: function (postgres, activity, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getActivityDropIns(activity), function (err, result) {
+            var parsedPayload = JSON.parse(payload.expression);
+            client.query(Queries.enroll(parsedPayload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -217,6 +184,7 @@ var query = {
             });
         });
     }
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

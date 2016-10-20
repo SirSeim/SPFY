@@ -14,7 +14,7 @@ var IntakeForm = React.createClass({
         caseManagerID: 0,
         phoneNumber: "",
         email: "",
-        dob: "",
+        dateOfBirth: "",
         intakeAge: 0,
         providedID: true,
         IDstate: "CA",
@@ -117,8 +117,8 @@ var IntakeForm = React.createClass({
       // it on the other end
       var data = {
         firstName: firstName,
-        nickname: this.state.nickname.trim(),
         lastName: lastName,
+        nickname: this.state.nickname.trim(),
         personCompletingIntake: this.state.personCompletingIntake.trim(),
         intakeDate: this.state.intakeDate,
         HMISConsent: this.state.HMISConsent,
@@ -150,7 +150,7 @@ var IntakeForm = React.createClass({
       // the return runs before the request is complete essentially
 
       $.ajax({
-          url: "api/createclient",
+          url: "api/client",
           method: "POST",
           data: { expression: JSON.stringify(data) },
           success: function (data) {
@@ -174,7 +174,7 @@ var IntakeForm = React.createClass({
                     + '</div>');
           },
           error: function (data) {
-              console.log(data);
+              console.error(data);
           }
       });
       /**/
@@ -217,7 +217,7 @@ var IntakeForm = React.createClass({
     this.setState({lastName: e.target.value});
   },
   handleBirthdayChange: function (e) {
-    this.setState({dob: e.target.value}); // will not work right now
+    this.setState({dateOfBirth: e.target.value}); // will not work right now
   },
   handleEmailChange: function (e) {
     this.setState({email: e.target.value});

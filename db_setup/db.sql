@@ -30,21 +30,21 @@ DROP TABLE IF EXISTS client;
 
 CREATE TABLE client (
   id SERIAL PRIMARY KEY,
-  firstname varchar(45) DEFAULT NULL,
+  first_name varchar(45) DEFAULT NULL,
+  last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
-  lastname varchar(45) DEFAULT NULL,
-  personcompletingintake varchar(65) DEFAULT NULL,
-  intakedate date DEFAULT NULL,
-  hmisconsent boolean DEFAULT NULL,
-  firsttime boolean DEFAULT NULL,
-  providedid boolean DEFAULT NULL,
-  idstate varchar(45) DEFAULT NULL,
+  person_completing_intake varchar(65) DEFAULT NULL,
+  intake_date date DEFAULT NULL,
+  hmis_consent boolean DEFAULT NULL,
+  first_time boolean DEFAULT NULL,
   case_manager varchar(65) DEFAULT NULL,
   case_manager_id integer DEFAULT NULL,
   phone_number varchar(45) DEFAULT NULL,
   email varchar(65) DEFAULT NULL,
   date_of_birth date DEFAULT NULL,
   intake_age integer DEFAULT NULL,
+  provided_id boolean DEFAULT NULL,
+  id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL
 );
@@ -247,6 +247,8 @@ CREATE TABLE activity (
 INSERT INTO activity (activity_name) VALUES ('Medical');
 INSERT INTO activity (activity_name) VALUES ('Dental');
 INSERT INTO activity (activity_name) VALUES ('3D-Printing');
+INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
+
 
 DROP TABLE IF EXISTS drop_in;
 
@@ -271,11 +273,16 @@ CREATE TABLE match_drop_in_activity (
 );
 
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 3, 'DA Lab', '13:30:00', '15:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Courtyard', '12:30:00', '13:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 2, 'Clinic', '12:30:00', '13:30:00');
 
-DROP TABLE IF EXISTS appointment;
+DROP TABLE IF EXISTS enrollment;
 
-CREATE TABLE appointment (
-  id integer PRIMARY KEY,
-  appointment_date date,
+CREATE TABLE enrollment (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id),
   activity_id integer REFERENCES activity (id)
 );
+
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
