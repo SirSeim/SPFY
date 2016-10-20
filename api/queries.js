@@ -137,18 +137,18 @@ var queries = {
                 payloadNames.push(property);
             }
         }
-        console.log(payloadNames);
-        for (var i = 0; i < props.length; i++) {
-            queryString += props[i] + ', ';
-        }
+
+        props.forEach(function (element, index) {
+            queryString += props[index] + ', ';
+        });
 
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') VALUES (';
 
-        for (var i = 0; i < payloadNames.length; i++) {
-            queryString += '$' + (i + 1) + ', ';
-            params.push(parseProperty(payload[payloadNames[i]]));
-        }
+        payloadNames.forEach(function (element, index) {
+            queryString += '$' + (index + 1) + ', ';
+            params.push(parseProperty(payload[payloadNames[index]]));
+        });
 
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ') RETURNING ';
@@ -330,13 +330,12 @@ var queries = {
 
     enroll: function (payload) {
         var queryString = "";
-
-        for (var i = 0; i < payload.length; i++) {
+        payload.forEach(function (element) {
             queryString += 'INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES( ' +
-                            payload[i].dropinID + ', ' +
-                            payload[i].clientID + ', ' +
-                            payload[i].activityID + '); ';
-        }
+                            element.dropinID + ', ' +
+                            element.clientID + ', ' +
+                            element.activityID + '); ';
+        });
 
         return queryString;
     }
