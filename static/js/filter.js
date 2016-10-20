@@ -147,7 +147,6 @@ var FilterTableRow = React.createClass({
 var DetailPane = React.createClass({
   render: function () {
     var classNames = "detailPane " + (this.props.hidden ? "" : "hidden");
-    console.log(this.props.hidden)
     return (
       <div className={classNames}>
         <span id="dClose">Close</span>
