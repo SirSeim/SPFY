@@ -3,15 +3,18 @@
 <div class="container">
 
   {% include "helpers/_navbar.html" %}
-  
+
     <div class="row">
         <div class="col-sm-2">
         <div class="panel panel-default">
             <div class="panel-heading">
               <h4>
-                Client Profiles 
+                Client Profiles
               </h4>
               <span class="dot dot-success"></span>
+              <input id="namebox" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
+              <button id="searchbutton" type="submit" class="btn btn-primary btn-sm"> Search </button>
+              <!-- We need a `dot-pending` class for when the client list is still loading -->
             </div>
             <table id="clients" class="table table-hover">
               <thead>
@@ -51,7 +54,7 @@
             </table>
           </div>
         </div>
-      
+
 
         <div class="col-sm-10">
 
@@ -221,7 +224,7 @@
       </div> <!--row with col-sm-2 and col-sm-10-->
 
       <div class="row">
-    
+
       </div>
     </div> <!--container-->
 

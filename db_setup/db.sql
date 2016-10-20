@@ -1,46 +1,4 @@
 /*
-DROP TABLE IF EXISTS client;
-
-CREATE TABLE client (
-    id          SERIAL PRIMARY KEY,
-    first_name  varchar(45) NOT NULL,
-    last_name   varchar(45) NOT NULL,
-    email       varchar(60)
-);
-
-INSERT INTO client (
-    first_name,
-    last_name,
-    email
-) VALUES (
-    'Bob',
-    'Stevens',
-    'email@email.com'
-);
-*/
-
-
-/* 
-
-Decision to be made for SQL identifiers (i.e. variable names):
-
-Are we using Pascal Case or underscores???
-
-CaseManagerID integer PRIMARY KEY
-[or]
-casemanager_id integer PRIMARY KEY
-
-Pros:
-Pascal - more concise, perhaps more fluid in a way
-underscores - easy to differentiate between SQL keywords like SELECT and identifiers (non-keywords)
-
-Cons:
-Pascal - might confuse them for keywords when reading through code very quickly
-underscores - result in long identifier names
-
-*/
-
-/*
   Syntax Notes:
   • single quotes \' are strings
   • double quotes \" are column identifiers (reference column names)
@@ -49,12 +7,12 @@ underscores - result in long identifier names
 DROP TABLE IF EXISTS casemanager;
 
 CREATE TABLE casemanager (
-  casemanager_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   username varchar(45) NOT NULL,
   password varchar(45) NOT NULL,
   first_name varchar(45) NOT NULL,
-  LastName varchar(45) NOT NULL,
-  Position varchar(45) NOT NULL
+  last_name varchar(45) NOT NULL,
+  position varchar(45) NOT NULL
 );
 
 INSERT INTO casemanager VALUES (1, 'jew@spfy.org','tables','Jeanine','Espejo-Watkins','Case Manager');
@@ -64,148 +22,176 @@ INSERT INTO casemanager VALUES (3, 'rh@spfy.org','tables','Rob','Hanna','Case Ma
 
 DROP TABLE IF EXISTS client;
 
+-- Where are the rest of the intake fields for a client profile?
+-- They are broken up into subsequent tables that follow this one
+-- (this structure is still being decided upon)
+
+
+
 CREATE TABLE client (
-  client_id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   first_name varchar(45) DEFAULT NULL,
-  last_name varchar(45) DEFAULT NULL
-  -- nickname varchar(45) DEFAULT NULL,
-  -- person_completing_intake varchar(65) DEFAULT NULL,
-  -- IntakeDate date DEFAULT NULL,
-  -- HMISConsent boolean DEFAULT NULL,
-  -- FirstTime boolean DEFAULT NULL,
-  -- CaseManager varchar(65) DEFAULT NULL,
-  -- CaseManagerID integer DEFAULT NULL,
-  -- PhoneNumber varchar(45) DEFAULT NULL,
-  -- Email varchar(65) DEFAULT NULL,
-  -- DOB date DEFAULT NULL,
-  -- IntakeAge integer DEFAULT NULL,
-  -- ProvidedID boolean DEFAULT NULL,
-  -- StateID varchar(45) DEFAULT NULL,
-  -- Reference varchar(45) DEFAULT NULL,
-  -- Services varchar(45) DEFAULT NULL
-  -- InternalReferral varchar(45) DEFAULT NULL,
-  -- ExternalReferral varchar(45) DEFAULT NULL,
-  -- Income varchar(45) DEFAULT NULL,
-  -- BirthCity varchar(45) DEFAULT NULL,
-  -- BirthState varchar(45) DEFAULT NULL,
-  -- BirthCountry varchar(45) DEFAULT NULL,
-  -- Employed varchar(45) DEFAULT NULL,
-  -- LookingForEmployment boolean DEFAULT NULL,
-  -- FosterCare boolean DEFAULT NULL,
-  -- SocialSecurityNumber varchar(45) DEFAULT NULL,
-  -- CaringForAnimals boolean DEFAULT NULL,
-  -- ChronicallyHomeless boolean DEFAULT NULL,
-  -- GoodNeighborContract varchar(45) DEFAULT NULL,
-  -- StoryPhotoVideoAudioForm boolean DEFAULT NULL,
-  -- InformationReleaseAuthrorized boolean DEFAULT NULL,
-  -- ServicesConsent boolean DEFAULT NULL,
-  -- ShowerInstructions boolean DEFAULT NULL,
-  -- ShowerGuidelines boolean DEFAULT NULL,
-  -- DropInGuidelines boolean DEFAULT NULL,
-  -- IntakeConfirmation boolean DEFAULT NULL,
-  -- ImmediateNeedsTransportation boolean DEFAULT NULL,
-  -- DocumentsSigned boolean DEFAULT NULL,
-  -- SleepingBag boolean DEFAULT NULL,
-  -- Backpack boolean DEFAULT NULL
+  last_name varchar(45) DEFAULT NULL,
+  nickname varchar(45) DEFAULT NULL,
+  person_completing_intake varchar(65) DEFAULT NULL,
+  intake_date date DEFAULT NULL,
+  hmis_consent boolean DEFAULT NULL,
+  first_time boolean DEFAULT NULL,
+  case_manager varchar(65) DEFAULT NULL,
+  case_manager_id integer DEFAULT NULL,
+  phone_number varchar(45) DEFAULT NULL,
+  email varchar(65) DEFAULT NULL,
+  date_of_birth date DEFAULT NULL,
+  intake_age integer DEFAULT NULL,
+  provided_id boolean DEFAULT NULL,
+  state_id varchar(45) DEFAULT NULL,
+  reference varchar(45) DEFAULT NULL,
+  services varchar(45) DEFAULT NULL
 );
+
+INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
 
 DROP TABLE IF EXISTS prescreen;
 
 CREATE TABLE prescreen (
-  prescreen_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id)
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id)
 );
 
 DROP TABLE IF EXISTS background;
 
 CREATE TABLE background (
-  background_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
-  Disability varchar(45) DEFAULT NULL,
-  LastGradeCompleted varchar(45) DEFAULT NULL,
-  SomeCompleted varchar(45) DEFAULT NULL,
-  CurrentlyAttending varchar(45) DEFAULT NULL,
-  Graduated varchar(45) DEFAULT NULL,
-  FirstLanguage varchar(45) DEFAULT NULL,
-  PreferredLanguage varchar(45) DEFAULT NULL,
-  MaritalStatus varchar(45) DEFAULT NULL,
-  MilitaryService varchar(45) DEFAULT NULL,
-  HealthInsurance varchar(45) DEFAULT NULL,
-  Gender varchar(45) DEFAULT NULL,
-  GenderIdentification varchar(45) DEFAULT NULL,
-  PreferredPronoun varchar(45) DEFAULT NULL,
-  Ethnicity varchar(45) DEFAULT NULL,
-  Race varchar(45) DEFAULT NULL
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id)
+  -- Disability varchar(45) DEFAULT NULL,
+  -- LastGradeCompleted varchar(45) DEFAULT NULL,
+  -- SomeCompleted varchar(45) DEFAULT NULL,
+  -- CurrentlyAttending varchar(45) DEFAULT NULL,
+  -- Graduated varchar(45) DEFAULT NULL,
+  -- FirstLanguage varchar(45) DEFAULT NULL,
+  -- PreferredLanguage varchar(45) DEFAULT NULL,
+  -- MaritalStatus varchar(45) DEFAULT NULL,
+  -- MilitaryService varchar(45) DEFAULT NULL,
+  -- HealthInsurance varchar(45) DEFAULT NULL,
+  -- Gender varchar(45) DEFAULT NULL,
+  -- GenderIdentification varchar(45) DEFAULT NULL,
+  -- PreferredPronoun varchar(45) DEFAULT NULL,
+  -- Ethnicity varchar(45) DEFAULT NULL,
+  -- Race varchar(45) DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS housing_history;
 
 CREATE TABLE housing_history (
-  housing_history_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
-  LastSleepingLocation varchar(45) DEFAULT NULL,
-  LastSleepingDuration varchar(45) DEFAULT NULL,
-  FirstDayFirstTimeHomeless date DEFAULT NULL,
-  CurrentHomelessStartDate date DEFAULT NULL,
-  CurrentHomelessLength varchar(45) DEFAULT NULL,
-  HomelessEpisodeCount varchar(45) DEFAULT NULL,
-  LocationBeforeWestLA varchar(45) DEFAULT NULL,
-  DurationInWestLA varchar(45) DEFAULT NULL,
-  HousingInstabilityCause varchar(45) DEFAULT NULL,
-  StableHousingObstacle varchar(45) DEFAULT NULL,
-  HousingInterest boolean DEFAULT NULL
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  last_sleeping_location varchar(45) DEFAULT NULL,
+  last_sleeping_duration varchar(45) DEFAULT NULL,
+  first_day_first_time_homeless date DEFAULT NULL,
+  current_homeless_start_date date DEFAULT NULL,
+  current_homeless_length varchar(45) DEFAULT NULL,
+  homeless_episode_count varchar(45) DEFAULT NULL,
+  location_before_west_la varchar(45) DEFAULT NULL,
+  duration_in_west_la varchar(45) DEFAULT NULL,
+  housing_instability_cause varchar(45) DEFAULT NULL,
+  stable_housing_obstacle varchar(45) DEFAULT NULL,
+  housing_interest boolean DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS natural_connection;
 
 CREATE TABLE natural_connection (
-  natural_connection_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
-  NaturalConnection boolean DEFAULT NULL,
-  ContactName varchar(45) DEFAULT NULL,
-  ContactPhoneNumber varchar(45) DEFAULT NULL,
-  ContactRelationship varchar(45) DEFAULT NULL
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  natural_connection boolean DEFAULT NULL,
+  contact_name varchar(45) DEFAULT NULL,
+  contact_phone_number varchar(45) DEFAULT NULL,
+  contact_relationship varchar(45) DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS pregnant_and_parenting; 
+DROP TABLE IF EXISTS pregnant_and_parenting;
 
 CREATE TABLE pregnant_and_parenting (
-  pregnant_and_parenting_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
-  CurrentlyPregnant boolean DEFAULT NULL,
-  FirstPregnancy boolean DEFAULT NULL,
-  PreNatalCareReceived boolean DEFAULT NULL,
-  PreNatalCareLocation varchar(45) DEFAULT NULL,
-  PreNatalCareDesired boolean DEFAULT NULL,
-  Trimester varchar(45) DEFAULT NULL,
-  BabyDueDate date DEFAULT NULL,
-  HasOtherChildren boolean DEFAULT NULL,
-  DCFSOpenCase boolean DEFAULT NULL,
-  ChildrenWithFamilyOrFriends varchar(45) DEFAULT NULL
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  currently_pregnant boolean DEFAULT NULL,
+  first_pregnancy boolean DEFAULT NULL,
+  pre_natal_carereceived boolean DEFAULT NULL,
+  pre_natal_carelocation varchar(45) DEFAULT NULL,
+  pre_natal_caredesired boolean DEFAULT NULL,
+  trimester varchar(45) DEFAULT NULL,
+  baby_due_date date DEFAULT NULL,
+  has_other_children boolean DEFAULT NULL,
+  dcfs_open_case boolean DEFAULT NULL,
+  children_with_family_or_friends varchar(45) DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS substance_abuse;
 
 CREATE TABLE substance_abuse (
-  substance_abuse_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id),
-  SubstanceAbuse boolean DEFAULT NULL,
-  ChoiceSubstance varchar(45) DEFAULT NULL,
-  InjectedDrugs boolean DEFAULT NULL,
-  TreatmentInterest boolean DEFAULT NULL
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  substance_abuse boolean DEFAULT NULL,
+  choice_substance varchar(45) DEFAULT NULL,
+  injected_drugs boolean DEFAULT NULL,
+  treatment_interest boolean DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS mental_health;
 
 CREATE TABLE mental_health (
-  mental_health_id integer PRIMARY KEY,
-  client_id integer REFERENCES client (client_id)
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id)
   -- MentalServicesReceived boolean DEFAULT NULL,
   -- MentalServicesLocation varchar(45) DEFAULT NULL,
   -- MentalMedication boolean DEFAULT NULL,
   -- HelpAcquiringMedicine boolean DEFAULT NULL
 );
 
+DROP TABLE IF EXISTS referrals;
+
+CREATE TABLE referral (
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  internal_referral varchar(45) DEFAULT NULL,
+  external_referral varchar(45) DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS additional_info;
+
+CREATE TABLE additional_info (
+  id integer PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  income varchar(45) DEFAULT NULL,
+  birth_city varchar(45) DEFAULT NULL,
+  birth_state varchar(45) DEFAULT NULL,
+  birth_country varchar(45) DEFAULT NULL,
+  employed varchar(45) DEFAULT NULL,
+  looking_for_employment boolean DEFAULT NULL,
+  foster_care boolean DEFAULT NULL,
+  social_security_number varchar(45) DEFAULT NULL,
+  caring_for_animals boolean DEFAULT NULL,
+  chronically_homeless boolean DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS forms;
+
+CREATE TABLE forms (
+  id integer PRIMARY KEY,
+  client_id integer  REFERENCES client (id),
+  good_neighbor_contract varchar(45) DEFAULT NULL,
+  story_photo_video_audio_form boolean DEFAULT NULL,
+  information_release_authrorized boolean DEFAULT NULL,
+  services_consent boolean DEFAULT NULL,
+  shower_instructions boolean DEFAULT NULL,
+  shower_guidelines boolean DEFAULT NULL,
+  drop_in_guidelines boolean DEFAULT NULL,
+  intake_confirmation boolean DEFAULT NULL,
+  immediate_needs_transportation boolean DEFAULT NULL,
+  documents_signed boolean DEFAULT NULL,
+  sleeping_bag boolean DEFAULT NULL,
+  backpack boolean DEFAULT NULL
+);
 
 INSERT INTO client VALUES (1, 'Steven', 'Brown');
 
@@ -220,16 +206,16 @@ DROP TABLE IF EXISTS match;
 -- matching case managers with their clients
 
 CREATE TABLE match (
-  match_id integer PRIMARY KEY,
-  casemanager_id integer REFERENCES casemanager (casemanager_id),
-  client_id integer REFERENCES client (client_id)
+  id integer PRIMARY KEY,
+  casemanager_id integer REFERENCES casemanager (id),
+  client_id integer REFERENCES client (id)
 );
 
 /* INSERT INTO match VALUES (1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 1, 4); */
 
 
 /* should we use inheritance here?
-Programs definitely "contain" subprograms, 
+Programs definitely "contain" subprograms,
 but is a subprogram also a program?
 Is an activity a subprogram?
 */
@@ -237,7 +223,7 @@ Is an activity a subprogram?
 DROP TABLE IF EXISTS program;
 
 CREATE TABLE program (
-  program_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   program_name varchar(45) DEFAULT NULL
 );
 
@@ -246,41 +232,35 @@ INSERT INTO program VALUES (1, 'Education & Employment');
 DROP TABLE IF EXISTS subprogram;
 
 CREATE TABLE subprogram (
-  subprogram_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   subprogram_name varchar(45) DEFAULT NULL,
-  program_id integer REFERENCES program (program_id)
+  program_id integer REFERENCES program (id)
 );
 
-INSERT INTO subprogram VALUES (1, 'Digital Arts Lab', 1);
+INSERT INTO subprogram (id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
 
 DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
-  activity_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   activity_name varchar(45) DEFAULT NULL,
-  subprogram_id integer REFERENCES subprogram (subprogram_id)
+  subprogram_id integer REFERENCES subprogram (id)
 );
 
 INSERT INTO activity VALUES (1, '3D-Printing', 1);
 
+
 DROP TABLE IF EXISTS drop_in;
 
 CREATE TABLE drop_in (
-  drop_in_id integer PRIMARY KEY,
-  drop_in_date date
+  id SERIAL PRIMARY KEY,
+  date date
 );
 
 DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE appointment (
-  appointment_id integer PRIMARY KEY,
+  id integer PRIMARY KEY,
   appointment_date date,
-  activity_id integer REFERENCES activity (activity_id)
+  activity_id integer REFERENCES activity (id)
 );
-
--- CREATE FUNCTION distribute_info() RETURNS trigger AS 'filename' LANGUAGE C;
-
--- CREATE TRIGGER add_client_info AFTER 
--- INSERT ON client EXECUTE PROCEDURE
--- INSERT INTO mental_health VALUES (1,1);
-
