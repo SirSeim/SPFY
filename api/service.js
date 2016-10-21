@@ -35,7 +35,9 @@ var service = {
             if (err) {
                 return callback(err);
             }
-
+            if (!result.rows[0]) {
+                return callback();
+            }
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
