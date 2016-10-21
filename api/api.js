@@ -139,9 +139,9 @@ var api = {
             if (err) {
                 Respond.failedToEditActivity(reply, err);
             } else {
-                Respond.gotEditActivity(reply, err);
+                Respond.gotEditActivity(reply, result);
             }
-        })
+        });
     },
 
     enroll: function (request, reply) {
