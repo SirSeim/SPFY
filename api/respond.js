@@ -169,6 +169,20 @@ var respond = {
             message: "Success enrolling!",
             result: result
         }).code(200);
+    },
+    dataBrowserGetClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got all clients.",
+            result: result
+        }).code(200);
+    },
+    dataBrowserSearchClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client.",
+            result: result
+        }).code(200);
     }
 
 };

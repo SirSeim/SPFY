@@ -84,6 +84,21 @@ var apiRoutes = [
         handler: Api.enroll
     },
     {
+        method: 'GET',
+        path: '/clients/search', 
+        handler: Api.dataBrowserGetClients
+    },
+    {
+        method: 'GET',
+        path: '/clients/search/{data}',
+        handler: Api.dataBrowserSearchClients
+    },
+    {
+        method: 'GET',
+        path: '/editclient',
+        handler: Api.getEditclient
+    },
+    {
         method: 'POST',
         path: '/clients/{clientID}',
         handler: Api.editClient

@@ -77,6 +77,36 @@ var viewRoutes = [
 
             });
         }
+    },
+
+    {
+        path: '/search',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('search.html', {
+
+            });
+        }
+    },
+    
+    {
+        path: '/edit_client',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('editclient.html', {
+                
+            });
+        }
+    },
+
+    {
+        path: '/edit_client',
+        method: 'POST',
+        handler: function (req, res) {
+            res.view('editclient.html', {
+
+            });
+        }
     }
 ];
 
