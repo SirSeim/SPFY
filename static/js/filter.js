@@ -188,12 +188,13 @@ var FilterTable = React.createClass({
    render: function () {
       var tableRows = [];
       for (var i = 0; i < this.props.people.length; i++) {
-        console.log(this.props.people[i]);
         var person = this.props.people[i];
         var isEven = (i % 2 === 0);
+        var keyString = "tRow" + person["id"];
         tableRows.push(
           <FilterTableRow person={person} 
                           isEven={isEven}
+                          key={keyString}
                           displayDetail={this.props.displayDetail} />
         )
       }
@@ -240,11 +241,12 @@ var FilterTableRow = React.createClass({
     var info = [];
     for (var prop in person) {
       if (person.hasOwnProperty(prop)) {
-        info.push(<td key={person[prop]} className={classNames}>{person[prop]}</td>)
+        var keyString = person["id"] + prop + person[prop];
+        info.push(<td key={keyString} className={classNames}>{person[prop]}</td>)
       }
     };
     return (
-      <tr className={classNames} onClick={this.handleClick}>
+      <tr key={person["id"]} className={classNames} onClick={this.handleClick}>
         {info}
       </tr>
     )
@@ -256,7 +258,6 @@ var DetailPane = React.createClass({
     var classNames = "detailPane " + (this.props.hidden ? "" : "hidden");
     var details = [];
     for (var key in this.props.detailData) {
-      console.log(":O");
       if (this.props.detailData.hasOwnProperty(key)) {
         details.push(<p key={key}>{key} : {this.props.detailData[key]}</p>);
       }

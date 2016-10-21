@@ -301,7 +301,9 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, nickname, person_completing_intake, ' +
+                          'intake_date, hmis_consent, first_time, case_manager, case_manager_id, ' +
+                          'phone_number, email, date_of_birth FROM client;';
 
         return queryString;
     },
