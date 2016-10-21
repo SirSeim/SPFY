@@ -10,10 +10,10 @@
           <div class="page-header"><center>
             <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span class="badge">50</span> Drop-Ins Yesterday
+              <span id="total-youth" class="badge">50</span> Total Youth Checked-In
             </button>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span class="badge">14</span> Drop-Ins Today
+              <span id="total-unduplicated" class="badge">14</span> Total Unduplicated
             </button>
             </center>
           </div>
@@ -21,248 +21,229 @@
 
         <div class="row">
             <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4>
-                    Intake Needed
-                  </h4>
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4>
+                      Intake Needed
+                    </h4>
+                  </div>
+                  <table id="intakeneeded" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>First Visit</th>
+                        <th>Name(First Last)</th>
+                        <th>Nickname</th>
+                        <th>DOB</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>09/23/16</td>
+                        <td>Steven Brown</td>
+                        <td>Steve</td>
+                        <td>09/02/94</td>
+                      </tr>
+                      <tr>
+                        <td>09/23/16</td>
+                        <td>John Doe</td>
+                        <td>Johnny</td>
+                        <td>05/21/93</td>
+                      </tr>
+                      <tr>
+                        <td>09/20/16</td>
+                        <td>Carly Johnson</td>
+                        <td>Johns</td>
+                        <td>03/29/93</td>
+                      </tr>
+                      <tr>
+                        <td>09/20/16</td>
+                        <td>Jamie Johnson</td>
+                        <td>Jams</td>
+                        <td>03/29/95</td>
+                      </tr>
+                      <tr>
+                        <td>09/20/16</td>
+                        <td>Jeremiah Halestrom</td>
+                        <td>JJ</td>
+                        <td>02/29/94</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <table id="intakeneeded" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>First Visit</th>
-                      <th>Name(First Last)</th>
-                      <th>Nickname</th>
-                      <th>DOB</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>09/23/16</td>
-                      <td>Steven Brown</td>
-                      <td>Steve</td>
-                      <td>09/02/94</td>
-                    </tr>
-                    <tr>
-                      <td>09/23/16</td>
-                      <td>John Doe</td>
-                      <td>Johnny</td>
-                      <td>05/21/93</td>
-                    </tr>
-                    <tr>
-                      <td>09/20/16</td>
-                      <td>Carly Johnson</td>
-                      <td>Johns</td>
-                      <td>03/29/93</td>
-                    </tr>
-                    <tr>
-                      <td>09/20/16</td>
-                      <td>Jamie Johnson</td>
-                      <td>Jams</td>
-                      <td>03/29/95</td>
-                    </tr>
-                    <tr>
-                      <td>09/20/16</td>
-                      <td>Jeremiah Halestrom</td>
-                      <td>JJ</td>
-                      <td>02/29/94</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
             </div>
-          </div> <!-- 2nd row -->
+        </div> <!-- 2nd row -->
 
-            <div class="row">
-              <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
-                <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
-                <li><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
-              </ul>
-              <div id="my-tab-content" class="tab-content">
-                <div class="tab-pane active" id="newdrop-in">
-                    <h1>New Drop In</h1>
-                    <form class="drop-in details">
+        <div class="row">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+              <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
+              <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
+              <li><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+            </ul>
+
+            <div id="my-tab-content" class="tab-content">
+              <div class="tab-pane active" id="newdrop-in">
+                  <h2>New Drop In</h2>
+                  <form class="drop-in details">
+                      <div class="form-group">
+                        <input type="text" placeholder="Date" size="30">
+                      </div>
+                      <div class="col-xs-12">
+                        <h3 class="text-center">Health & Wellness Programs</h3>
+                        <div class="well" style="max-height: 300px;overflow: auto;">
+                         <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                         <!-- SHOWERS EXAMPLE: add, allow time slot -->
+                          <ul class="list-group checked-list-box">
+                              <li class="list-group-item">Medical</li>
+                              <li class="list-group-item">Dental</li>
+                              <li class="list-group-item">HIV Testing</li>
+                              <li class="list-group-item">Medi-Cal Registration</li>
+                              <li class="list-group-item">Counseling</li>
+                              <li class="list-group-item">Creative Expression</li>
+                              <li class="list-group-item">Mindfulness</li>
+                              <li class="list-group-item">Yoga</li>
+                              <li class="list-group-item">Creative Writing</li>
+                              <li class="list-group-item">Drumming</li>
+                              <li class="list-group-item">Music</li>
+                              <li class="list-group-item">Substance Abuse Support</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="col-xs-12">
+                        <h3 class="text-center">Education & Employment</h3>
+                        <div class="well" style="max-height: 300px;overflow: auto;">
+                          <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                            <ul class="list-group checked-list-box">
+                              <li class="list-group-item">Digital Arts Lab</li>
+                              <li class="list-group-item">Experiential Learning</li>
+                              <li class="list-group-item">Five Keys Charter School</li>
+                              <li class="list-group-item">West LA College Tour</li>
+                              <li class="list-group-item">East LA School Fair</li>
+                              <li class="list-group-item">Resume Development</li>
+                              <li class="list-group-item">Job Search</li>
+                              <li class="list-group-item">Career Assessment</li>
+                              <li class="list-group-item">Mock Interviews</li>
+                              <li class="list-group-item">Job Certification</li>
+                              <li class="list-group-item">Job Fair</li>
+                              <li class="list-group-item">Life Skills Program</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="col-xs-12">
+                        <h3 class="text-center">Other</h3>
+                        <div class="well" style="max-height: 300px;overflow: auto;">
+                          <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                            <ul class="list-group checked-list-box">
+                              <li class="list-group-item">Legal</li>
+                              <li class="list-group-item">Case Management</li>
+                            </ul>
+                        </div>
+                      </div>
+                  </form>   
+                  <div class="col-xs-12">
+                    <button type="create" class="btn btn-default" align="center">Create</button>
+                  </div>                
+              </div> <!-- New Drop-In Tab pane -->
+
+              <div class="tab-pane" id="viewdrop-in">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h2>Past Drop-In Sessions</h2>
+                      <form class="casenotes-form casenotes-right" align="right">
                         <div class="form-group">
-                          <input type="text" placeholder="Date" size="30">
-
-                        </div>
-                        <div class="col-xs-12">
-                          <h3 class="text-center">Health & Wellness Programs</h3>
-                          <div class="well" style="max-height: 300px;overflow: auto;">
-                           <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                           <!-- SHOWERS EXAMPLE: add, allow time slot -->
-                          <ul class="list-group checked-list-box">
-                                <li class="list-group-item">Medical</li>
-                                <li class="list-group-item">Dental</li>
-                                <li class="list-group-item">HIV Testing</li>
-                                <li class="list-group-item">Medi-Cal Registration</li>
-                                <li class="list-group-item">Counseling</li>
-                                <li class="list-group-item">Creative Expression</li>
-                                <li class="list-group-item">Mindfulness</li>
-                                <li class="list-group-item">Yoga</li>
-                                <li class="list-group-item">Creative Writing</li>
-                                <li class="list-group-item">Drumming</li>
-                                <li class="list-group-item">Music</li>
-                                <li class="list-group-item">Substance Abuse Support</li>
-                              </ul>
-                          </div>
-                        </div>
-                        <div class="col-xs-12">
-                          <h3 class="text-center">Education & Employment</h3>
-                          <div class="well" style="max-height: 300px;overflow: auto;">
-                            <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                          <ul class="list-group checked-list-box">
-                                <li class="list-group-item">Digital Arts Lab</li>
-                                <li class="list-group-item">Experiential Learning</li>
-                                <li class="list-group-item">Five Keys Charter School</li>
-                                <li class="list-group-item">West LA College Tour</li>
-                                <li class="list-group-item">East LA School Fair</li>
-                                <li class="list-group-item">Resume Development</li>
-                                <li class="list-group-item">Job Search</li>
-                                <li class="list-group-item">Career Assessment</li>
-                                <li class="list-group-item">Mock Interviews</li>
-                                <li class="list-group-item">Job Certification</li>
-                                <li class="list-group-item">Job Fair</li>
-                                <li class="list-group-item">Life Skills Program</li>
-                              </ul>
-                          </div>
-                        </div>
-                        <div class="col-xs-12">
-                          <h3 class="text-center">Other</h3>
-                          <div class="well" style="max-height: 300px;overflow: auto;">
-                            <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                          <ul class="list-group checked-list-box">
-                                <li class="list-group-item">Legal</li>
-                                <li class="list-group-item">Case Management</li>
-                              </ul>
-                          </div>
-                        </div>
-                    </form>
-                    <div class="col-xs-12">
-                      <button type="create" class="btn btn-default" align="center">Create</button>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="viewdrop-in">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h1>Past Drop-In Sessions</h1>
-                        <form class="casenotes-form casenotes-right" align="right">
-                          <div class="form-group">
                           <input type="text" placeholder="Search Past Drop-In" size="30">
                           <button type="search" class="btn btn-default" align="right">Search</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-xs-12">
+                      <h3 class="text-center">Education & Employment</h3>
+                      <div class="well" style="max-height: 300px;overflow: auto;">
+                        <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                        <ul class="list-group checked-list-box">
+
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-xs-12">
+                      <h3 class="text-center">Other</h3>
+                      <div class="well" style="max-height: 300px;overflow: auto;">
+                        <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                        <ul class="list-group checked-list-box">
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                <button type="create" class="btn btn-default" align="center">Create</button>
+              </div>
+
+              <div class="tab-pane" id="dropin-enrollment">
+
+                <div class="row">
+
+                  <div class="col-sm-2">
+                    {% include "helpers/_clientprofiletable.html" %}
+                  </div>
+
+                  <div id="enrollment-area" class="col-sm-8">
+
+                      <div class="row">
+
+                          <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h3 class="text-center">Selected Clients</h3>
+                                </div>            
+                                <div class="well" style="max-height: 300px;overflow: auto;">
+                                  <ul id="selected-clients" class="list-group checked-list-box">
+                                        
+                                    </ul>
+                                </div>
+                            </div>
                           </div>
-                        </form>
-                      </div>
-                      <table id="pastdropins" class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th class="col-xs-2">Date</th>
-                            <th class="col-xs-2">Number of Attendees</th>
-                            <th class="col-xs-2">New Youth</th>
-                            <th class="col-xs-2">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="col-xs-2">2/10/15</td>
-                            <td class="col-xs-2">50</td>
-                            <td class="col-xs-2">5</td>
-                            <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                          </tr>
-                          <tr>
-                            <td class="col-xs-2">2/9/15</td>
-                            <td class="col-xs-2">60</td>
-                            <td class="col-xs-2">10</td>
-                            <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                          </tr>
-                          <tr>
-                            <td class="col-xs-2">2/8/15</td>
-                            <td class="col-xs-2">20</td>
-                            <td class="col-xs-2">17</td>
-                            <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                          </tr>
-                          <tr>
-                            <td class="col-xs-2">2/7/15</td>
-                            <td class="col-xs-2">30</td>
-                            <td class="col-xs-2">13</td>
-                            <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+
+                          <div class="col-sm-4">
+                              <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="text-center">Selected Activities</h3>
+                                  </div>            
+                                  <div class="well" style="max-height: 300px;overflow: auto;">
+                                    <ul id="selected-activities" class="list-group checked-list-box">
+                                        
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div id="enrollment-feedback" class="panel panel-default">
+                              
+                            </div>
+                          </div>
+
+                      </div> <!-- row -->
+
+                    <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
+
+                  </div>  <!-- enrollment area -->
+
+                  <div class="col-sm-2">
+                    
+                    {% include "helpers/_activitiestable.html" %}
+
+                  </div>
+
+                </div> <!-- row -->
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
+                  </div>
                 </div>
+              </div> <!-- Drop-In Enrollment Tab pane -->
+            </div> <!-- Tab container -->
 
-                  <div class="tab-pane" id="dropin-enrollment">
-
-                    <div class="row">
-
-                      <div class="col-sm-2">
-                        {% include "helpers/_clientprofiletable.html" %}
-                      </div>
-
-                      <div id="enrollment-area" class="col-sm-8">
-
-                          <div class="row">
-
-                                <div class="col-sm-4">
-                                  <div class="panel panel-default">
-                                      <div class="panel-heading">
-                                        <h3 class="text-center">Selected Clients</h3>
-                                      </div>            
-                                      <div class="well" style="max-height: 300px;overflow: auto;">
-                                        <ul id="selected-clients" class="list-group checked-list-box">
-                                              
-                                          </ul>
-                                      </div>
-                                </div>
-                              </div>
-
-                              <div class="col-sm-4">
-                                <div class="panel panel-default">
-                                      <div class="panel-heading">
-                                        <h3 class="text-center">Selected Activities</h3>
-                                      </div>            
-                                      <div class="well" style="max-height: 300px;overflow: auto;">
-                                        <ul id="selected-activities" class="list-group checked-list-box">
-                                            
-                                          </ul>
-                                      </div>
-                                </div>
-                              </div>
-
-                              <div class="col-sm-4">
-                                <div id="enrollment-feedback" class="panel panel-default">
-                                  
-                                </div>
-                              </div>
-
-                          </div> <!-- row -->
-
-                        <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
-
-                      </div>  <!-- enrollment area -->
-
-                      <div class="col-sm-2">
-                        
-                        {% include "helpers/_activitiestable.html" %}
-
-                      </div>
-
-                    </div> <!-- row -->
-
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                      </div>
-                    </div>
-
-                  </div> <!-- Drop-In Enrollment Tab pane -->
-
-              </div> <!-- Tab container -->
-
-            </div> <!-- 3rd row -->
+        </div> <!-- 3rd row -->
 
     </div> <!--container-->
 
