@@ -156,6 +156,13 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToCheckIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to check-in!",
+            error: err
+        }).code(500);
+    },
     checkin: function (reply, result) {
         reply({
             statusCode: 200,

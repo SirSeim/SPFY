@@ -67,10 +67,11 @@ var apiRoutes = [
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
-    }
+    },
+
     {
-      method: 'GET'
-      path: '/checkin'
+      method: 'POST',
+      path: '/checkin',
       handler: Api.checkin
     }
 ];

@@ -135,7 +135,7 @@ var query = {
     },
 
     postEditClient: function(postgres, payload, callback) {
-        postgres.connect(function (err, client,done) {
+        postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
