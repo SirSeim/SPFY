@@ -75,7 +75,7 @@ $(function (event) {
         var activityids = [];
 
         for (var i = 0; i < allActivities.length; i++) {
-            if (selectedActivities.includes(allActivities[i].activity_name)) {
+            if (selectedActivities.includes(allActivities[i].name)) {
                 activityids.push(allActivities[i].id);
             }
         }
@@ -121,5 +121,24 @@ $(function (event) {
             }
         });
     });
+    
+    var activityData = {
+        activityName: "Medical Care",
+        ongoing: false,
+        startDate: '2016-10-20',
+        endDate: '2016-10-22'
+    };
 
+    $.ajax({
+        url: "api/activity",
+        method: "POST",
+        data: { expression: JSON.stringify(activityData) },
+        success: function (data) {
+            console.log()
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 });

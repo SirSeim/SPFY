@@ -142,12 +142,11 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToCreateActivity: function (reply, err, string) {
+    failedToCreateActivity: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to create activity!",
             error: err,
-            queryString: string
         }).code(500);
     },
     createActivity: function (reply, result) {

@@ -79,13 +79,13 @@ var apiRoutes = [
         handler: Api.getActivityDropIns
     },
     {
-        method: 'GET',
-        path: "/createActivity",
+        method: 'POST',
+        path: "/activity",
         handler: Api.createActivity
     },
     {
         method: 'POST',
-        path: "/editActivity",
+        path: "/editactivity",
         handler: Api.editActivity
     },
     {
@@ -93,16 +93,16 @@ var apiRoutes = [
         path: '/enroll',
         handler: Api.enroll
     },
-    {
-        method: 'GET',
-        path: '/editclient',
-        handler: Api.getEditclient
-    },
-    {
-        method: 'POST',
-        path: '/editclient',
-        handler: Api.postEditClient
-    }
+    // {
+    //     method: 'GET',
+    //     path: '/editclient',
+    //     handler: Api.getEditclient
+    // },
+    // {
+    //     method: 'POST',
+    //     path: '/editclient',
+    //     handler: Api.postEditClient
+    // }
 ];
 
 // api in this case is a plugin run by the Hapi node package

@@ -114,6 +114,13 @@ var profileProperties = [
     // backpack
 ];
 
+var activityProperties = [
+    'activity_name',
+    'ongoing',
+    'start_date',
+    'end_date'
+];
+
 // *** Postgres allows rows with duplicate data, so currently
 // same data inserted twice will be stored in two separate rows
 // need to figure out how to "only insert if not exists" implementation
@@ -377,10 +384,53 @@ var queries = {
         return queryString;
     },
 
-    createActivity: function () {
-        var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity';
+    createActivity: function (payload) {
+        var queryString = 'INSERT INTO activity ('
 
-        return queryString;
+        var payloadNames = [];
+        var props = [];
+        var params = [];
+
+        var activityPropNames = activityProperties.map(function (element) {
+            return element.toLowerCase().replace(/_/g, '');
+        });
+
+        for (var property in payload) {
+            var index = activityPropNames.indexOf(property.toLowerCase());
+            if (index !== -1) {
+                props.push(activityProperties[index]);
+                payloadNames.push(property);
+            }
+        }
+
+        props.forEach(function (element, index) {
+            queryString += props[index] + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') VALUES (';
+
+        payloadNames.forEach(function (element, index) {
+            queryString += '$' + (index + 1) + ', ';
+            params.push(parseProperty(payload[payloadNames[index]]));
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') RETURNING ';
+
+        props.forEach(function (element) {
+            queryString += element + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ';';
+
+        var queryData = {
+            string: queryString,
+            params: params
+        };
+
+        return queryData;        
     },
 
     editActivity: function (payload) {
