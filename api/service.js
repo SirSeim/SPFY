@@ -102,6 +102,7 @@ var service = {
             if (!local) {
                 return callback();
             }
+            console.log(result);
             return callback(undefined, {
                 id: local.id,
                 date: local.date

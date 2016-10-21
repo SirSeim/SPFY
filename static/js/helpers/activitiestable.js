@@ -14,24 +14,22 @@ $(function (event) {
         }
     }).then(function (dropins) {
         var currentDropIn = dropins.result[dropins.result.length - 1];
-        console.log(currentDropIn.id);
         return $.ajax({
             url: "api/dropins/" + currentDropIn.id + "/activities",
             method: "GET",
             success: function (data) {
                 console.log("inside activities success");                
                 console.log(data);
+                table.empty();
+                data.result.forEach(function (activity) {
+                    table.append('<tr><td>' +
+                        activity.name +
+                        '</td></tr>');
+                });
             },
             error: function (data) {
                 console.error(data);
             }
-        });
-    }).done(function (data) {
-        table.empty();
-        data.result.forEach(function (activity) {
-            table.append('<tr><td>' +
-                activity.activity_name +
-                '</td></tr>');
         });
     });
 
