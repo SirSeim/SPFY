@@ -310,8 +310,6 @@ var queries = {
         return queryString;
     },
 
-<<<<<<< HEAD
-=======
     getEditClient: function (payload) {
         var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
 
@@ -336,7 +334,6 @@ var queries = {
         return queryString;
     },
 
->>>>>>> checkin
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
 
@@ -437,11 +434,8 @@ var queries = {
         };
         // 16 = bool
         // 1082 = date
-<<<<<<< HEAD
-        var queryString = 'SELECT * FROM client WHERE ' + 
-=======
+
         var queryString = 'SELECT * FROM client WHERE ' +
->>>>>>> checkin
                           data.column +  searchText + ';';
         console.log(queryString);
 

@@ -215,6 +215,11 @@ var service = {
 
     checkin: function (postgres, payload, callback) {
         Query.checkin(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     },
 
     dataBrowserGetClients: function (postgres, callback) {

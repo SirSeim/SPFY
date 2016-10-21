@@ -284,7 +284,15 @@ var query = {
         postgres.connect(function (err, client, done) {
             var parsedPayload = JSON.parse(payload.expression);
             client.query(Queries.checkin(parsedPayload), function (err, result) {
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
     },
+
     dataBrowserGetClients: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
