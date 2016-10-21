@@ -277,12 +277,7 @@ body {
 }
 
 /* line 1, ../sass/partials/_search.scss */
-body {
-  overflow: hidden;
-}
-
-/* line 5, ../sass/partials/_search.scss */
-#content {
+#dataBrowserContent {
   position: absolute;
   top: 72;
   left: 0;
@@ -290,12 +285,12 @@ body {
   right: 0;
 }
 
-/* line 13, ../sass/partials/_search.scss */
+/* line 9, ../sass/partials/_search.scss */
 .searchMain {
   width: 100%;
 }
 
-/* line 17, ../sass/partials/_search.scss */
+/* line 13, ../sass/partials/_search.scss */
 .queryBuilderUI {
   background-color: #02aef0;
   width: 300px;
@@ -303,7 +298,7 @@ body {
   height: 100%;
 }
 
-/* line 24, ../sass/partials/_search.scss */
+/* line 20, ../sass/partials/_search.scss */
 .qbAccess {
   background-color: #02aef0;
   width: 20px;
@@ -314,12 +309,12 @@ body {
   text-align: center;
 }
 
-/* line 34, ../sass/partials/_search.scss */
+/* line 30, ../sass/partials/_search.scss */
 .qbHeader {
   color: #FFF;
 }
 
-/* line 38, ../sass/partials/_search.scss */
+/* line 34, ../sass/partials/_search.scss */
 .qbSelect {
   width: 250px;
   background-color: #FFF;
@@ -327,19 +322,19 @@ body {
   margin-bottom: 10px;
 }
 
-/* line 45, ../sass/partials/_search.scss */
+/* line 41, ../sass/partials/_search.scss */
 .qbBlock {
   margin: 20px;
   line-height: 2;
 }
 
-/* line 50, ../sass/partials/_search.scss */
+/* line 46, ../sass/partials/_search.scss */
 .qbText {
   width: 250px;
   height: 25px;
 }
 
-/* line 55, ../sass/partials/_search.scss */
+/* line 51, ../sass/partials/_search.scss */
 #qbClose {
   float: right;
   color: #CFF;
@@ -347,13 +342,13 @@ body {
   padding: 10px;
 }
 
-/* line 62, ../sass/partials/_search.scss */
+/* line 58, ../sass/partials/_search.scss */
 .filterTable {
   margin-left: 20px;
   white-space: nowrap;
 }
 
-/* line 67, ../sass/partials/_search.scss */
+/* line 63, ../sass/partials/_search.scss */
 .detailPane {
   background-color: #02aef0;
   width: 300px;
@@ -363,7 +358,7 @@ body {
   right: 0;
 }
 
-/* line 76, ../sass/partials/_search.scss */
+/* line 72, ../sass/partials/_search.scss */
 .dInset {
   background-color: #FFF;
   position: absolute;
@@ -373,7 +368,7 @@ body {
   height: 95%;
 }
 
-/* line 85, ../sass/partials/_search.scss */
+/* line 81, ../sass/partials/_search.scss */
 #dClose {
   float: left;
   color: #CFF;
@@ -381,42 +376,42 @@ body {
   padding: 10px;
 }
 
-/* line 92, ../sass/partials/_search.scss */
+/* line 88, ../sass/partials/_search.scss */
 #dHeader {
   text-align: center;
   font-size: 20px;
   padding-top: 10px;
 }
 
-/* line 98, ../sass/partials/_search.scss */
+/* line 94, ../sass/partials/_search.scss */
 .ftRow {
   height: 40px;
   border: 1px solid #CCC;
 }
 
-/* line 103, ../sass/partials/_search.scss */
+/* line 99, ../sass/partials/_search.scss */
 .ftHead {
   font-weight: bold;
   background-color: #BFF;
   height: 40px;
 }
 
-/* line 109, ../sass/partials/_search.scss */
+/* line 105, ../sass/partials/_search.scss */
 .ftEven {
   background-color: #EFF;
 }
 
-/* line 113, ../sass/partials/_search.scss */
+/* line 109, ../sass/partials/_search.scss */
 .ftOdd {
   background-color: #DFF;
 }
 
-/* line 117, ../sass/partials/_search.scss */
+/* line 113, ../sass/partials/_search.scss */
 .ftCell {
   padding: 10px;
 }
 
-/* line 121, ../sass/partials/_search.scss */
+/* line 117, ../sass/partials/_search.scss */
 #allowScroll {
   overflow: auto;
 }

@@ -357,5 +357,5 @@ var CLIENT_FILTER_HEADERS = [
 
 ReactDOM.render(
   <Search headers={CLIENT_FILTER_HEADERS} />,
-  document.getElementById('content')
+  document.getElementById('dataBrowserContent')
 );
