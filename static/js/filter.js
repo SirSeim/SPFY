@@ -1,15 +1,83 @@
 var Search = React.createClass({ 
   getInitialState: function () {
     return {
-      displayDetail: false
+      displayDetail: false,
+      detailData: {},
+      columns: [],
+      currentTable: "",
+      people: {}
     }
+  },
+  displayDetail: function (data) {
+    this.setState({
+      displayDetail: true,
+      detailData: data
+    });
+  },
+  closeDetail: function () {
+    this.setState({displayDetail: false});
+  },
+  writeToTable: function (data) {
+    this.setState({
+      people: data
+    });
+  },
+  changeColumns: function (data) {
+    this.setState({
+      columns: data
+    })
+  },
+  getColumns: function (data) {
+    var handleColumns = this.changeColumns;
+    var writeToTable = this.writeToTable;
+    var url = "api/" + data;
+    this.setState({
+      currentTable: data
+    });
+    $.ajax({
+      url: url,
+      method: "GET",
+      success: function (data) {
+        var fields = data.result.fields;
+        var columnNames = [];
+        for(var i = 0; i < fields.length; i++) {
+          columnNames.push(fields[i].name);
+        };
+        handleColumns(columnNames);
+        writeToTable(data.result.rows);
+      },
+      error: function (data) {
+        console.error(data);
+      }
+    });
+  },
+  search: function (data) {
+    var url = "api/" + this.state.currentTable;
+    var writeToTable = this.writeToTable;
+    $.ajax({
+      url: url,
+      method: "GET",
+      success: function (data) {
+        console.log(data.result.rows);
+        writeToTable(data.result.rows);
+      },
+      error: function (data) {
+        console.error(data);
+      }
+    });
   },
   render: function () {
     return (
       <div className="searchMain">
-        <QueryBuilderInterface />
-        <DetailPane hidden={this.state.displayDetail} />
-        <FilterTable people={this.props.people} headers={this.props.headers} />
+        <QueryBuilderInterface selectTable={this.getColumns} 
+                               columns={this.state.columns}
+                               performSearch={this.search} />
+        <DetailPane hidden={this.state.displayDetail} 
+                    detailData={this.state.detailData}
+                    close={this.closeDetail} />
+        <FilterTable people={this.state.people} 
+                     headers={this.props.headers}
+                     displayDetail={this.displayDetail} />
         {/*<Footer />*/}
       </div>
     )
@@ -19,25 +87,34 @@ var Search = React.createClass({
 var QueryBuilderInterface = React.createClass({
   getInitialState: function () {
     return {
-      displayQueryBuilder: false
+      displayQueryBuilder: true,
+      displaySelector: false
     };
   },
-  toggle: function () {
+  toggleBuilder: function () {
     this.setState({
       displayQueryBuilder: !this.state.displayQueryBuilder
+    })
+  },
+  toggleSelector: function (data) {
+    this.setState({
+      displaySelector: data
     })
   },
   render: function () {
     var classNames = "queryBuilderUI " + (this.state.displayQueryBuilder ? "" : "hidden");
     return (
       <div>
-        <div className="qbAccess" onClick={this.toggle}> 
+        <div className="qbAccess" onClick={this.toggleBuilder}> 
           >
         </div>
         <div className={classNames}>
-          <span id="qbClose" onClick={this.toggle}>Close</span>
-          <ResourceSelector />
-          <QueryBuilder />
+          <span id="qbClose" onClick={this.toggleBuilder}>Close</span>
+          <ResourceSelector handleChange={this.props.selectTable} 
+                            changeDisplay={this.toggleSelector} />
+          <QueryBuilder columns={this.props.columns} 
+                        performSearch={this.props.performSearch}
+                        display={this.state.displaySelector} />
           {/* <ViewManager /> */}
         </div>
       </div>
@@ -46,13 +123,21 @@ var QueryBuilderInterface = React.createClass({
 })
 
 var ResourceSelector = React.createClass({
+  handleChange: function (e) {
+    if (e.target.value != "none") {
+      this.props.handleChange(e.target.value);
+      this.props.changeDisplay(true);
+    } else {
+      this.props.changeDisplay(false);
+    }
+  },
   render: function () {
     return (
       <div className="qbBlock">
         <h4 className="qbHeader">Resource</h4>
-        <select className="qbSelect"> 
-          <option value="An option">One Option</option>
-          <option value="Another option">Another option</option>
+        <select className="qbSelect" onChange={this.handleChange}>
+          <option value="none">Select a Resource.</option> 
+          <option value="clients">Client</option>
         </select>
       </div>
     )
@@ -60,19 +145,30 @@ var ResourceSelector = React.createClass({
 });
 
 var QueryBuilder = React.createClass({
+  handleChange: function (e) {
+    this.props.performSearch(e.target.value);
+  },
   render: function () {
+    var columns = [];
+    this.props.columns.forEach(function (columnName) {
+      columns.push(
+        <option value={columnName} key={columnName}>{columnName}</option>
+      )
+    });
+    var classNames = "qbBlock " + (this.props.display ? "" : "hidden");
     return (
-      <div className="qbBlock">
+      <div className={classNames}>
         <h4 className="qbHeader">Build Search</h4>
         <select className="qbSelect"> 
-          <option value="An option">Searching for</option>
-          <option value="Another option">Here could be another thing</option>
+          <option value="An option">Select an Option to Filter By</option>
+          {columns}
         </select>
         <select className="qbSelect"> 
-          <option value="An option">Strictness</option>
-          <option value="Another option">Here could be another thing</option>
+          <option value="An option">Select a Strictness</option>
+          <option value="Another option">Is Exactly</option>
+          <option value="Another option">Contains</option>
         </select>
-        <input type="text" className="qbText" />
+        <input type="text" className="qbText" onChange={this.handleChange} />
       </div>
     )
   }
@@ -92,10 +188,13 @@ var FilterTable = React.createClass({
    render: function () {
       var tableRows = [];
       for (var i = 0; i < this.props.people.length; i++) {
+        console.log(this.props.people[i]);
         var person = this.props.people[i];
         var isEven = (i % 2 === 0);
         tableRows.push(
-          <FilterTableRow person={person} key={person.firstName} isEven={isEven} />
+          <FilterTableRow person={person} 
+                          isEven={isEven}
+                          displayDetail={this.props.displayDetail} />
         )
       }
       return (
@@ -126,6 +225,9 @@ var FilterTableHeader = React.createClass({
 });
 
 var FilterTableRow = React.createClass({
+  handleClick: function () {
+    this.props.displayDetail(this.props.person);
+  },
   render: function () {
     var colorClass = "";
     if (this.props.isEven) {
@@ -134,11 +236,16 @@ var FilterTableRow = React.createClass({
       colorClass = "ftOdd";
     };
     var classNames = "ftRow " + colorClass;
+    var person = this.props.person;
+    var info = [];
+    for (var prop in person) {
+      if (person.hasOwnProperty(prop)) {
+        info.push(<td key={person[prop]} className={classNames}>{person[prop]}</td>)
+      }
+    };
     return (
-      <tr className={classNames}>
-        <td className="ftCell">{this.props.person.firstName}</td>
-        <td className="ftCell">{this.props.person.lastName}</td>
-        <td className="ftCell">{this.props.person.nickname}</td>
+      <tr className={classNames} onClick={this.handleClick}>
+        {info}
       </tr>
     )
   }
@@ -147,11 +254,19 @@ var FilterTableRow = React.createClass({
 var DetailPane = React.createClass({
   render: function () {
     var classNames = "detailPane " + (this.props.hidden ? "" : "hidden");
+    var details = [];
+    for (var key in this.props.detailData) {
+      console.log(":O");
+      if (this.props.detailData.hasOwnProperty(key)) {
+        details.push(<p key={key}>{key} : {this.props.detailData[key]}</p>);
+      }
+    }
     return (
       <div className={classNames}>
-        <span id="dClose">Close</span>
+        <span id="dClose" onClick={this.props.close}>Close</span>
         <div className="dInset">
           <p id="dHeader"> Details </p>
+          {details}
         </div>
       </div>
     )
@@ -186,6 +301,6 @@ var CLIENT_FILTER_HEADERS = [
 
 
 ReactDOM.render(
-  <Search people={PEOPLE} headers={CLIENT_FILTER_HEADERS} />,
+  <Search headers={CLIENT_FILTER_HEADERS} />,
   document.getElementById('content')
 );

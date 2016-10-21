@@ -56,16 +56,18 @@ var service = {
                 return callback(err);
             }
 
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    firstName: local.first_name,
-                    lastName: local.last_name
-                });
-            }
-            return callback(undefined, arr);
+            // var arr = [];
+            // for (var i = 0; i < result.rows.length; i++) {
+            //     var local = result.rows[i];
+            //     arr.push({
+            //         id: local.id,
+            //         firstName: local.first_name,
+            //         lastName: local.last_name
+            //     });
+            // }
+            // return callback(undefined, arr);
+            
+            return callback(undefined, result);
         });
     },
 
