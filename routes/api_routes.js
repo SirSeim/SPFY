@@ -73,6 +73,24 @@ var apiRoutes = [
       method: 'POST',
       path: '/checkin',
       handler: Api.checkin
+        method: 'GET',
+        path: '/clients/search',
+        handler: Api.dataBrowserGetClients
+    },
+    {
+        method: 'GET',
+        path: '/clients/search/{data}',
+        handler: Api.dataBrowserSearchClients
+    },
+    {
+        method: 'GET',
+        path: '/editclient',
+        handler: Api.getEditclient
+    },
+    {
+        method: 'POST',
+        path: '/editclient',
+        handler: Api.postEditClient
     }
 ];
 

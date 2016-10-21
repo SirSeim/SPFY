@@ -205,9 +205,23 @@ var service = {
 
     checkin: function (postgres, payload, callback) {
         Query.checkin(postgres, payload, function (err, result) {
+    },
+    dataBrowserGetClients: function (postgres, callback) {
+        Query.dataBrowserGetClients(postgres, function (err, result) {
             if (err) {
                 return callback(err);
             }
+            return callback(undefined, result);
+        });
+
+    },
+
+    dataBrowserSearchClients: function (postgres, data, callback) {
+        Query.dataBrowserSearchClients(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
             return callback(undefined, result);
         });
     }

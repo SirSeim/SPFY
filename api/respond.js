@@ -167,6 +167,18 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Success checking in!",
+    },
+    dataBrowserGetClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got all clients.",
+            result: result
+        }).code(200);
+    },
+    dataBrowserSearchClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client.",
             result: result
         }).code(200);
     }
