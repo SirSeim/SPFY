@@ -1,9 +1,10 @@
 var respond = {
-    failedToCreateClient: function (reply, err) {
+    failedToCreateClient: function (reply, err, string) {
         reply({
             statusCode: 500,
             message: "Unable to create client!",
-            error: err
+            error: err,
+            queryString: string
         }).code(500);
     },
     createdClient: function (reply, result) {
@@ -30,14 +31,14 @@ var respond = {
     failedToGetClient: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get clients!",
+            message: "Unable to get client!",
             error: err
         }).code(500);
     },
     getClient: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success getting clients!",
+            message: "Success getting client!",
             result: result
         }).code(200);
     },
@@ -96,6 +97,48 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Success getting activities!",
+            result: result
+        }).code(200);
+    },
+    failedToGetActivities: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activities!",
+            error: err
+        }).code(500);
+    },
+    gotActivities: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting activities!",
+            result: result
+        }).code(200);
+    },
+    failedToGetActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity!",
+            error: err
+        }).code(500);
+    },
+    gotActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting activity!",
+            result: result
+        }).code(200);
+    },
+    failedToGetActivityDropIns: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity dropins!",
+            error: err
+        }).code(500);
+    },
+    gotActivityDropIns: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting activity dropins!",
             result: result
         }).code(200);
     },

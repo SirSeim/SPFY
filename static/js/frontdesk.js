@@ -1,36 +1,5 @@
 $(function () {
 
-    // $("#").click(function () {
-    //     console.log("You are still on the homepage");
-    //     window.location.href = "frondeskhomepage.html";
-    // });
-
-    /** /
-    $.ajax({
-        url: "api/casemanagers",
-        method: "GET",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
-    /**/
-
-    /** /
-    $.ajax({
-        url: "api/getclients",
-        method: "GET",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
-    /**/
-
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();

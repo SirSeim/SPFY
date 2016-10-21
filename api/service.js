@@ -21,8 +21,8 @@ var service = {
         });
     },
 
-    getClient: function (postgres, client, callback) {
-        Query.getClient(postgres, client, function (err, result) {
+    getClient: function (postgres, clientID, callback) {
+        Query.getClient(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -35,7 +35,9 @@ var service = {
             if (err) {
                 return callback(err);
             }
-
+            if (!result.rows[0]) {
+                return callback();
+            }
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -55,7 +57,9 @@ var service = {
             if (err) {
                 return callback(err);
             }
-
+            if (!result.rows[0]) {
+                return callback();
+            }
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -74,7 +78,9 @@ var service = {
             if (err) {
                 return callback(err);
             }
-
+            if (!result.rows[0]) {
+                return callback();
+            }
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -93,6 +99,10 @@ var service = {
                 return callback(err);
             }
             var local = result.rows[0];
+            if (!local) {
+                return callback();
+            }
+            console.log(result);
             return callback(undefined, {
                 id: local.id,
                 date: local.date
@@ -105,7 +115,82 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            return callback(undefined, result);
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.activity_name,
+                    room: local.room,
+                    comments: local.comments,
+                    startTime: local.start_time,
+                    endTime: local.end_time
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getAllActivities: function (postgres, callback) {
+        Query.getAllActivities(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.activity_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getActivity: function (postgres, activity, callback) {
+        Query.getActivity(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
+            if (!local) {
+                return callback();
+            }
+            return callback(undefined, {
+                id: local.id,
+                name: local.activity_name
+            });
+        });
+    },
+
+    getActivityDropIns: function (postgres, activity, callback) {
+        Query.getActivityDropIns(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    date: local.date,
+                    room: local.room,
+                    comments: local.comments,
+                    startTime: local.start_time,
+                    endTime: local.end_time
+                });
+            }
+            return callback(undefined, arr);
         });
     },
 

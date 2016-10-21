@@ -44,16 +44,16 @@ CREATE TABLE client (
   date_of_birth date DEFAULT NULL,
   intake_age integer DEFAULT NULL,
   provided_id boolean DEFAULT NULL,
-  state_id varchar(45) DEFAULT NULL,
+  id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL
 );
 
-INSERT INTO client (first_name, last_name) VALUES ('John','Doe');
-INSERT INTO client (first_name, last_name) VALUES ('Steven','Brown');
-INSERT INTO client (first_name, last_name) VALUES ('Carly','Johnson');
-INSERT INTO client (first_name, last_name) VALUES ('Jamie','Johnson');
-INSERT INTO client (first_name, last_name) VALUES ('Jeremiah','Halestrom');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
 
 
 DROP TABLE IF EXISTS prescreen;
@@ -198,8 +198,6 @@ CREATE TABLE forms (
   backpack boolean DEFAULT NULL
 );
 
-
-
 DROP TABLE IF EXISTS match;
 
 -- matching case managers with their clients
@@ -243,14 +241,16 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
-  activity_name varchar(45) DEFAULT NULL
+  activity_name varchar(45) DEFAULT NULL,
+  ongoing boolean DEFAULT NULL,
+  start_date date DEFAULT NULL,
+  end_date date DEFAULT NULL
 );
 
 INSERT INTO activity (activity_name) VALUES ('Medical');
 INSERT INTO activity (activity_name) VALUES ('Dental');
 INSERT INTO activity (activity_name) VALUES ('3D-Printing');
 INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
-
 
 DROP TABLE IF EXISTS drop_in;
 
@@ -288,5 +288,4 @@ CREATE TABLE enrollment (
 );
 
 INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
-
 
