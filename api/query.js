@@ -12,7 +12,6 @@ var query = {
 
             payload = JSON.parse(payload.expression);
             var data = Queries.createClient(payload);
-
             // unstringify the data passed in
             client.query(data.string, data.params, function (err, result) {
                 done();
@@ -151,6 +150,28 @@ var query = {
         });
     },
 
+    createDropIn: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            payload = JSON.parse(payload.expression);
+            console.log(payload);
+            var data = Queries.createDropIn(payload);
+            console.log(data);
+            // unstringify the data passed in
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropIns: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -191,6 +212,23 @@ var query = {
             }
 
             client.query(Queries.getDropinActivities(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createDropInActivities: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createDropInActivities(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

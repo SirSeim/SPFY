@@ -162,6 +162,8 @@ var IntakeForm = React.createClass({
               for (var property in rows[0]) {
                 string += '<h4>' + property + '</h4>' + rows[0][property]; 
               }
+              // 'display-area' id references a div element in addnewclient.html which is
+              // in reactjs format
               $("#display-area").append('<div>'
                     // + '<h3>New Client Added</h3>' 
                     // + '<h4>ID</h4>' + rows[0].id

@@ -73,6 +73,15 @@ var service = {
         });
     },
 
+    createDropIn: function (postgres, payload, callback) {
+        Query.createDropIn(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
     getDropIns: function (postgres, callback) {
         Query.getDropIns(postgres, function (err, result) {
             if (err) {
@@ -107,6 +116,15 @@ var service = {
                 id: local.id,
                 date: local.date
             });
+        });
+    },
+
+    createDropinActivities: function (postgres, payload, callback) {
+        Query.createDropinActivities(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined,  result);
         });
     },
 
