@@ -40,7 +40,7 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/clients/{clientID}',
+        path: '/clients/{client}',
         handler: Api.getClient
     },
     {
@@ -64,24 +64,23 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
-        method: 'GET',
-        path: '/activities',
-        handler: Api.getActivities
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}',
-        handler: Api.getActivity
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}/dropins',
-        handler: Api.getActivityDropIns
-    },
-    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
+    },
+
+    {
+      method: 'POST',
+      path: '/checkin',
+      handler: Api.checkin
+        method: 'GET',
+        path: '/clients/search',
+        handler: Api.dataBrowserGetClients
+    },
+    {
+        method: 'GET',
+        path: '/clients/search/{data}',
+        handler: Api.dataBrowserSearchClients
     },
     {
         method: 'GET',

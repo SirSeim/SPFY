@@ -280,6 +280,44 @@ var query = {
         });
     },
 
+    checkin: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            var parsedPayload = JSON.parse(payload.expression);
+            client.query(Queries.checkin(parsedPayload), function (err, result) {
+    },
+    dataBrowserGetClients: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.dataBrowserGetClients(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    dataBrowserSearchClients: function (postgres, data, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.dataBrowserSearchClients(data), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

@@ -212,6 +212,11 @@ var service = {
         });
     },
 
+
+    checkin: function (postgres, payload, callback) {
+        Query.checkin(postgres, payload, function (err, result) {
+    },
+
     dataBrowserGetClients: function (postgres, callback) {
         Query.dataBrowserGetClients(postgres, function (err, result) {
             if (err) {

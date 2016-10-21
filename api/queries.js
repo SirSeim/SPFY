@@ -159,7 +159,7 @@ var queries = {
         props.forEach(function (element) {
             queryString += element + ', ';
         });
-        
+
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
 
@@ -268,7 +268,7 @@ var queries = {
     },
 
     // ** TODO: paramaterize all of these functions
-    // ** parameterize queries!!! Taking user input and using it 
+    // ** parameterize queries!!! Taking user input and using it
     // directly in the query makes the code vulnerable to SQL injection
     // also, apostraphies in names could throw off syntax
 
@@ -283,7 +283,7 @@ var queries = {
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-    
+
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -310,6 +310,33 @@ var queries = {
         return queryString;
     },
 
+<<<<<<< HEAD
+=======
+    getEditClient: function (payload) {
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
+    postEditClient: function (payload) {
+        var queryString = 'UPDATE client SET ';
+
+        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
+        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
+        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
+        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
+        queryString += 'email = ' + parseProperty(payload.email) + ',';
+        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
+        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
+        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
+
+        queryString += 'WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
+>>>>>>> checkin
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
 
@@ -383,6 +410,16 @@ var queries = {
         return queryString;
     },
 
+    checkin: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.clientID + ', ' +
+                            '\'' + element.date + '\'' + ');';
+        });
+      },
+
     dataBrowserGetClients: function () {
         var queryString = 'SELECT * FROM client;';
 
@@ -400,7 +437,11 @@ var queries = {
         };
         // 16 = bool
         // 1082 = date
+<<<<<<< HEAD
         var queryString = 'SELECT * FROM client WHERE ' + 
+=======
+        var queryString = 'SELECT * FROM client WHERE ' +
+>>>>>>> checkin
                           data.column +  searchText + ';';
         console.log(queryString);
 

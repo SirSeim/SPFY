@@ -88,7 +88,7 @@ var viewRoutes = [
             });
         }
     },
-    
+
     {
         path: '/edit_client',
         method: 'GET',
