@@ -29,8 +29,10 @@ $(function (event) {
         var lastMeeting = $('#last-meeting')['0'].textContent;
         var caseManager = $('#case-manager')['0'].textContent;
 
-        $('#client-name').replaceWith('<div class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
-        $('#edit-client').replaceWith('<button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm">Submit Edit</button><button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm">Cancel Edit</button>');
+        $('#client-name').replaceWith('<div id="client-name-container" class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
+        $('#edit-client').hide();
+        $('#cancel-edit').show();
+        $('#submit-edit').show();
 
         $('#client-birthday').replaceWith('<input type="text" id="client-birthday" class="form-control" value="' + clientBirthday + '" />');
         $('#client-age').replaceWith('<input type="number" id="client-age" class="form-control" min="1" step="1" value="' + clientAge + '" />');
@@ -41,11 +43,29 @@ $(function (event) {
     });
 
     $('#cancel-edit').click(function () {
-        
+        var clientName = $('#client-name')['0'].value;
+        var clientBirthday = $('#client-birthday')['0'].value;
+        var clientAge = $('#client-age')['0'].value;
+        var clientPhone = $('#client-phonenumber')['0'].value;
+        var clientMail = $('#client-email')['0'].value;
+        var lastMeeting = $('#last-meeting')['0'].value;
+        var caseManager = $('#case-manager')['0'].value;
+
+        $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + clientName + '</h1>');
+        $('#edit-client').show();
+        $('#cancel-edit').hide();
+        $('#submit-edit').hide();
+
+        $('#client-birthday').replaceWith('<td id="client-birthday">' + clientBirthday + '</td>');
+        $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
+        $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
+        $('#client-email').replaceWith('<td id="client-email">' + clientPhone + '</td>');
+        $('#last-meeting').replaceWith('<td id="last-meeting">' + lastMeeting + '</td>');
+        $('#case-manager').replaceWith('<td id="case-manager">' + caseManager + '</td>');
     });
 
     $('#submit-edit').click(function () {
-
+        console.log('')
     });
 
 
