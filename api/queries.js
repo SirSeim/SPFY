@@ -367,7 +367,7 @@ var queries = {
         queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
         queryString += 'reference = ' + parseProperty(payload.reference) + ',';
 
-        queryString += 'WHERE id = ' + payload.id; 
+        queryString += 'WHERE id = ' + payload.id;
 
         return queryString;
     },

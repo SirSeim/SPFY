@@ -16,18 +16,41 @@ $(function (event) {
         });
     }
 
+    var postClientEdit = function (client) {
+        $.ajax({
+            url: "api/clients/" + client.match(/[0-9]+/),
+            method: "POST",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        }).done(function (data) {
+            console.log(data);
+        });
+    }
+
     $('#clients').delegate("td", "click", function () {
         displayClientProfile($(this)[0].innerText);
     });
 
+    var clientName;
+    var clientBirthday;
+    var clientAge;
+    var clientPhone;
+    var clientMail;
+    var lastMeeting;
+    var caseManager;
+
     $('#edit-client').click(function () {
-        var clientName = $('#client-name')['0'].textContent;
-        var clientBirthday = $('#client-birthday')['0'].textContent;
-        var clientAge = $('#client-age')['0'].textContent;
-        var clientPhone = $('#client-phonenumber')['0'].textContent;
-        var clientMail = $('#client-email')['0'].textContent;
-        var lastMeeting = $('#last-meeting')['0'].textContent;
-        var caseManager = $('#case-manager')['0'].textContent;
+        clientName = $('#client-name')['0'].textContent;
+        clientBirthday = $('#client-birthday')['0'].textContent;
+        clientAge = $('#client-age')['0'].textContent;
+        clientPhone = $('#client-phonenumber')['0'].textContent;
+        clientMail = $('#client-email')['0'].textContent;
+        lastMeeting = $('#last-meeting')['0'].textContent;
+        caseManager = $('#case-manager')['0'].textContent;
 
         $('#client-name').replaceWith('<div id="client-name-container" class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
         $('#edit-client').hide();
@@ -43,13 +66,6 @@ $(function (event) {
     });
 
     $('#cancel-edit').click(function () {
-        var clientName = $('#client-name')['0'].value;
-        var clientBirthday = $('#client-birthday')['0'].value;
-        var clientAge = $('#client-age')['0'].value;
-        var clientPhone = $('#client-phonenumber')['0'].value;
-        var clientMail = $('#client-email')['0'].value;
-        var lastMeeting = $('#last-meeting')['0'].value;
-        var caseManager = $('#case-manager')['0'].value;
 
         $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + clientName + '</h1>');
         $('#edit-client').show();
@@ -65,7 +81,35 @@ $(function (event) {
     });
 
     $('#submit-edit').click(function () {
-        console.log('')
+
+        var name = $('#client-name')['0'].value;
+        var firstName = name.substr(0,name.indexOf(' '));
+        var nickname = name.match(/'([^']+)'/)[1];
+        var lastName = name.substr(name.lastIndexOf(' ') + 1);
+        var birthday = $('#client-birthday')['0'].value;
+        var age = $('#client-age')['0'].value;
+        var phoneNumber = $('#client-phonenumber')['0'].value;
+        var email = $('#client-email')['0'].value;
+        var lastMeeting = $('#last-meeting')['0'].value;
+        var caseManager = $('#case-manager')['0'].value;
+
+        var data = {
+            firstName: firstName,
+            lastName: lastName,
+            nickname: nickname,
+            birthday: birthday,
+            age: age,
+            phoneNumber: phoneNumber,
+            email: email,
+            lastMeeting: lastMeeting,
+            caseManager: caseManager
+        };
+
+        console.log(data);
+
+        $('#edit-client').show();
+        $('#cancel-edit').hide();
+        $('#submit-edit').hide();
     });
 
 

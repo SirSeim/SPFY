@@ -135,7 +135,7 @@ var api = {
     },
 
     editClient: function (request, reply) {
-        Service.enroll(request.postgres, request.payload, function (err, result) {
+        Service.editClient(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToEditClient(reply, err);
             } else {

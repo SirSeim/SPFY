@@ -160,7 +160,7 @@ var IntakeForm = React.createClass({
               var rows = data.result.rows;
               var string = "";
               for (var property in rows[0]) {
-                string += '<h4>' + property + '</h4>' + rows[0][property]; 
+                string += '<h4>' + property + '</h4>' + rows[0][property];
               }
               $("#display-area").append('<div>'
                     // + '<h3>New Client Added</h3>' 
