@@ -201,6 +201,15 @@ var service = {
             }
             return callback(undefined, result);
         });
+    },
+
+    checkin: function (postgres, payload, callback) {
+        Query.checkin(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     }
 };
 
