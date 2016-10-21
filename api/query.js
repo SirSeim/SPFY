@@ -9,8 +9,12 @@ var query = {
             if (err) {
                 return callback(err);
             }
+            
+            payload = JSON.parse(payload.expression);
+            var data = Queries.createClient(payload);
 
-            client.query(Queries.createClient(payload), function (err, result) {
+            // unstringify the data passed in
+            client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -66,13 +70,13 @@ var query = {
         });
     },
 
-    getClient: function (postgres, client, callback) {
+    getClient: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getClient(client), function (err, result) {
+            client.query(Queries.getClient(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -103,6 +107,40 @@ var query = {
                 return callback(err);
             }
             client.query(Queries.getClients(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getEditClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getEditClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    postEditClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client,done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.postEditClient(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -212,7 +250,22 @@ var query = {
                 return callback(undefined, result);
             });
         });
-    }
+    },
+
+    enroll: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            var parsedPayload = JSON.parse(payload.expression);
+            client.query(Queries.enroll(parsedPayload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

@@ -117,8 +117,8 @@ var IntakeForm = React.createClass({
       // it on the other end
       var data = {
         firstName: firstName,
-        lastName: lastName,
         nickname: this.state.nickname.trim(),
+        lastName: lastName,
         personCompletingIntake: this.state.personCompletingIntake.trim(),
         intakeDate: this.state.intakeDate,
         HMISConsent: this.state.HMISConsent,
@@ -150,7 +150,7 @@ var IntakeForm = React.createClass({
       // the return runs before the request is complete essentially
 
       $.ajax({
-          url: "api/clients",
+          url: "api/createclient",
           method: "POST",
           data: { expression: JSON.stringify(data) },
           success: function (data) {
@@ -174,7 +174,7 @@ var IntakeForm = React.createClass({
                     + '</div>');
           },
           error: function (data) {
-              console.error(data);
+              console.log(data);
           }
       });
       /**/
@@ -217,7 +217,7 @@ var IntakeForm = React.createClass({
     this.setState({lastName: e.target.value});
   },
   handleBirthdayChange: function (e) {
-    this.setState({dateOfBirth: e.target.value}); // will not work right now
+    this.setState({dob: e.target.value}); // will not work right now
   },
   handleEmailChange: function (e) {
     this.setState({email: e.target.value});
@@ -302,7 +302,7 @@ var IntakeForm = React.createClass({
             <br />
             <input type="submit" value="Submit" />
           </form>
-          <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
+          <DisplayArea ref={(da) => {this.displayarea = da;}} />
       </div>
     );
   }

@@ -17,7 +17,7 @@
             </button>
             </center>
           </div>
-        </div>
+        </div> <!-- 1st row -->
 
         <div class="row">
             <div class="col-xs-12">
@@ -72,22 +72,20 @@
               </div>
             </div>
 
-
-            <div class="col-xs-12">
-
+        </div> <!-- 2nd row -->
             <div class="row">
               <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                 <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
                 <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
-                <li><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+                <li><a class="tablinks" href="#drop-inenrollment" data-toggle="tab">Drop-In Enrollment</a></li>
               </ul>
               <div id="my-tab-content" class="tab-content">
                 <div class="tab-pane active" id="newdrop-in">
-                    <h1>New Drop In</h1>
+                    <h2>New Drop In</h2>
                     <form class="drop-in details">
                         <div class="form-group">
                           <input type="text" placeholder="Date" size="30">
-
+                          
                         </div>
                         <div class="col-xs-12">
                           <h3 class="text-center">Health & Wellness Programs</h3>
@@ -140,15 +138,15 @@
                               </ul>
                           </div>
                         </div>
-                    </form>
+                    </form>   
                     <div class="col-xs-12">
                       <button type="create" class="btn btn-default" align="center">Create</button>
-                    </div>
+                    </div>                
                 </div>
                 <div class="tab-pane" id="viewdrop-in">
                     <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h1>Past Drop-In Sessions</h1>
+                      <h2>Past Drop-In Sessions</h2>
                       <form class="casenotes-form casenotes-right" align="right">
                         <div class="form-group">
                         <input type="text" placeholder="Search Past Drop-In" size="30">
@@ -156,91 +154,158 @@
                         </div>
                       </form>
                     </div>
-                    <table id="pastdropins" class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th class="col-xs-2">Date</th>
-                          <th class="col-xs-2">Number of Attendees</th>
-                          <th class="col-xs-2">New Youth</th>
-                          <th class="col-xs-2">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="col-xs-2">2/10/15</td>
-                          <td class="col-xs-2">50</td>
-                          <td class="col-xs-2">5</td>
-                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                        </tr>
-                        <tr>
-                          <td class="col-xs-2">2/9/15</td>
-                          <td class="col-xs-2">60</td>
-                          <td class="col-xs-2">10</td>
-                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                        </tr>
-                        <tr>
-                          <td class="col-xs-2">2/8/15</td>
-                          <td class="col-xs-2">20</td>
-                          <td class="col-xs-2">17</td>
-                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                        </tr>
-                        <tr>
-                          <td class="col-xs-2">2/7/15</td>
-                          <td class="col-xs-2">30</td>
-                          <td class="col-xs-2">13</td>
-                          <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div class="col-xs-12">
+                      <h3 class="text-center">Education & Employment</h3>
+                      <div class="well" style="max-height: 300px;overflow: auto;">
+                        <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                        <ul class="list-group checked-list-box">
+
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-xs-12">
+                      <h3 class="text-center">Other</h3>
+                      <div class="well" style="max-height: 300px;overflow: auto;">
+                        <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                        <ul class="list-group checked-list-box">
+
+                        </ul>
+                      </div>
+                    </div>
+                </form>
+                <div class="col-xs-12">
+                  <button type="create" class="btn btn-default" align="center">Create</button>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="viewdrop-in">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h1>Past Drop-In Sessions</h1>
+                    <form class="casenotes-form casenotes-right" align="right">
+                      <div class="form-group">
+                      <input type="text" placeholder="Search Past Drop-In" size="30">
+                      <button type="search" class="btn btn-default" align="right">Search</button>
+                      </div>
+                    </form>
+                  </div>
+                  <table id="pastdropins" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th class="col-xs-2">Date</th>
+                        <th class="col-xs-2">Number of Attendees</th>
+                        <th class="col-xs-2">New Youth</th>
+                        <th class="col-xs-2">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="col-xs-2">2/10/15</td>
+                        <td class="col-xs-2">50</td>
+                        <td class="col-xs-2">5</td>
+                        <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                      </tr>
+                      <tr>
+                        <td class="col-xs-2">2/9/15</td>
+                        <td class="col-xs-2">60</td>
+                        <td class="col-xs-2">10</td>
+                        <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                      </tr>
+                      <tr>
+                        <td class="col-xs-2">2/8/15</td>
+                        <td class="col-xs-2">20</td>
+                        <td class="col-xs-2">17</td>
+                        <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                      </tr>
+                      <tr>
+                        <td class="col-xs-2">2/7/15</td>
+                        <td class="col-xs-2">30</td>
+                        <td class="col-xs-2">13</td>
+                        <td class="col-xs-2"><button id="editdrop-inbutton" type="button" class="btn btn-default">View</button><button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+
+              <div class="tab-pane" id="dropin-enrollment">
+
+                <div class="row">
+
+                  <div class="col-sm-2">
+                    {% include "helpers/_clientprofiletable.html" %}
+                  </div>
+
+                  <div id="enrollment-area" class="col-sm-8">
+
+                      <div class="row">
+
+                            <div class="col-sm-4">
+                              <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="text-center">Selected Clients</h3>
+                                  </div>            
+                                  <div class="well" style="max-height: 300px;overflow: auto;">
+                                    <ul id="selected-clients" class="list-group checked-list-box">
+                                          
+                                      </ul>
+                                  </div>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="text-center">Selected Activities</h3>
+                                  </div>            
+                                  <div class="well" style="max-height: 300px;overflow: auto;">
+                                    <ul id="selected-activities" class="list-group checked-list-box">
+                                        
+                                      </ul>
+                                  </div>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div id="enrollment-feedback" class="panel panel-default">
+                              
+                            </div>
+                          </div>
+
+                      </div> <!-- row -->
+
+                    <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
+
+                  </div>  <!-- enrollment area -->
+
+                  <div class="col-sm-2">
+                    
+                    {% include "helpers/_activitiestable.html" %}
+
+                  </div>
+
+                </div> <!-- row -->
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
                   </div>
                 </div>
 
-                <div class="tab-pane" id="dropin-enrollment">
+              </div> <!-- Drop-In Enrollment Tab pane -->
 
-                    <div class="row">
+          </div> <!-- Tab container -->
 
-                      <div class="col-sm-2">
-                        {% include "helpers/_clientprofiletable.html" %}
-                      </div>
+        </div> <!-- 3rd row -->
 
-                      <div class="col-sm-8">
+    </div> <!--container-->
 
-                      </div>
-
-                      <div class="col-sm-2">
-                        {% include "helpers/_activitiestable.html" %}
-                      </div>
-
-
-
-                    </div>
-
-                    <div class="col-xs-12">
-                      <button type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-
-            </div> <!--col-sm-10-->
-
-          </div> <!--row with col-sm-2 and col-sm-10-->
-
-          <div class="row">
-
-          </div>
-        </div> <!--container-->
-
-  </div>
-
-  <div id="content">
-
-  </div>
 
 {% include "helpers/_basescript.html" %}
 
     <script src="/static/js/frontdesk.js"></script>
     <script src="/static/js/helpers/clientprofiletable.js"></script>
     <script src="/static/js/helpers/activitiestable.js"></script>
-    
+    <script src="/static/js/helpers/enrollment.js"></script>
+
 {% include "helpers/_footer.html" %}

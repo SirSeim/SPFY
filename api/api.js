@@ -1,6 +1,7 @@
 var Path = require('path');
 var Service = require(Path.join(__dirname, 'service.js'));
 var Respond = require(Path.join(__dirname, 'respond.js'));
+var Queries = require(Path.join(__dirname, 'queries.js'));
 
 // these functions get called from routes/api_routes.js
 var api = {
@@ -13,8 +14,9 @@ var api = {
     // send data as a JSON back to the frontend
     createClient: function (request, reply) {
         Service.createClient(request.postgres, request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToCreateClient(reply, err);
+            if (err) { 
+                var payload = JSON.parse(request.payload.expression);
+                Respond.failedToCreateClient(reply, err, Queries.createClient(payload)); // for debugging SQL syntax
             } else {
                 Respond.createdClient(reply, result);
             }
@@ -33,7 +35,7 @@ var api = {
     },
 
     getClient: function (request, reply) {
-        Service.getClient(request.postgres, request.params.client, function (err, result) {
+        Service.getClient(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetClient(reply, err);
             } else {
@@ -118,6 +120,16 @@ var api = {
                 Respond.failedToGetActivityDropIns(reply, err);
             } else {
                 Respond.gotActivityDropIns(reply, result);
+            }
+        });
+    },
+
+    enroll: function (request, reply) {
+        Service.enroll(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEnroll(reply, err);
+            } else {
+                Respond.enroll(reply, result);
             }
         });
     }
