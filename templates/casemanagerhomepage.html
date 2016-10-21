@@ -4,236 +4,233 @@
 
   {% include "helpers/_navbar.html" %}
 
-    <div class="row">
-        <div class="col-sm-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-              <h5>
-                Client Profiles
-              </h5>
-              <span class="dot dot-success"></span>
-              <input id="namebox" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
-              <button id="searchbutton" type="submit" class="btn btn-primary btn-sm"> Search </button>
-              <!-- We need a `dot-pending` class for when the client list is still loading -->
-            </div>
-            <table id="clients" class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span id="steven-dot" class="bullet"></span>Steven Brown</td>
-                </tr>
-                <tr>
-                  <td><span class="bullet"></span>John Doe</td>
-                </tr>
-                <tr>
-                  <td><span class="bullet"></span>Megan McMire</td>
-                </tr>
-                <tr>
-                  <td><span id="carlie-dot" class="bullet"></span>Carlie Smith</td>
-                </tr>
-                <tr>
-                  <td><span id="mike-dot" class="bullet"></span>Mike Adams</td>
-                </tr>
-                <tr>
-                  <td><span class="bullet"></span>Jose Jimenez</td>
-                </tr>
-                <tr>
-                  <td><span class="bullet"></span>Amy Scott</td>
-                </tr>
-                <tr>
-                  <td><span id="andre-dot" class="bullet"></span>Andre Evans</td>
-                </tr>
-                <tr>
-                  <td><span class="bullet"></span>Alex Sandoval</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5>
+            Client Profiles
+          </h5>
+          <span class="dot dot-success"></span>
+          <input id="namebox" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
+          <button id="searchbutton" type="submit" class="btn btn-primary btn-sm"> Search </button>
+          <!-- We need a `dot-pending` class for when the client list is still loading -->
         </div>
+        <table id="clients" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span id="steven-dot" class="bullet"></span>Steven Brown</td>
+            </tr>
+            <tr>
+              <td><span class="bullet"></span>John Doe</td>
+            </tr>
+            <tr>
+              <td><span class="bullet"></span>Megan McMire</td>
+            </tr>
+            <tr>
+              <td><span id="carlie-dot" class="bullet"></span>Carlie Smith</td>
+            </tr>
+            <tr>
+              <td><span id="mike-dot" class="bullet"></span>Mike Adams</td>
+            </tr>
+            <tr>
+              <td><span class="bullet"></span>Jose Jimenez</td>
+            </tr>
+            <tr>
+              <td><span class="bullet"></span>Amy Scott</td>
+            </tr>
+            <tr>
+              <td><span id="andre-dot" class="bullet"></span>Andre Evans</td>
+            </tr>
+            <tr>
+              <td><span class="bullet"></span>Alex Sandoval</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
 
-        <div class="col-sm-10">
-
-        <div class="row">
-          <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
-            <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
-            <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
-            <li><a class="tablinks" href="#green" data-toggle="tab">Other</a></li>
-          </ul>
-          <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="client-info">
-                <h1>Steve (Steven) Brown</h1>
-                <div class="steven-photo">This is a photo</div>
-                <table id="clientInfoTable">
-                  <tr>
-                    <td><h5>Birthday</h5></td><td>5/5/16</td>
-                    <td><h5>Age</h5></td><td>1</td>
-                  </tr>
-                  <tr>
-                    <td><h5>Phone Number</h5></td><td>555-555-5555</td>
-                    <td><h5>Email</h5></td><td>Not Given</td>
-                  </tr>
-                  <tr>
-                    <td><h5>Last Meeting</h5></td><td>5/15/16</td>
-                    <td><h5>Case Manager</h5></td><td>Bob Ross</td>
-                  </tr>
-                </table>
-            </div>
-            <div class="tab-pane" id="case-management">
-                <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h5>
-                    Steven's Case Notes
-                  </h5>
-                  <form class="casenotes-form casenotes-right" align="right">
-                    <div class="form-group">
-                    <input type="text" placeholder="Search Steven's Case Notes" size="30">
-                    <button type="search" class="btn btn-default" align="right">Search</button>
-                    </div>
-                  </form>
-                </div>
-                <table id="casenotes" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th class="col-xs-2">Date</th>
-                      <th class="col-xs-2">Category</th>
-                      <th class="col-xs-3">Case Manager</th>
-                      <th class="col-xs-4">Preview</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <button id="addcasenote" type="button" class="btn btn-default">Add New Case Note</button>
-            </div>
-            <div class="tab-pane" id="documents">
-                <h1>Steven's Documents</h1>
-                <p></p>
-            </div>
-            <div class="tab-pane" id="green">
-                <h1>Other</h1>
-                <p></p>
-            </div>
-          </div>
-        </div>
-
-        </div> <!--col-sm-10-->
-
-      </div> <!--row with col-sm-2 and col-sm-10-->
+    <div class="col-sm-10">
 
       <div class="row">
-
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+          <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
+          <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
+          <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
+          <li><a class="tablinks" href="#green" data-toggle="tab">Other</a></li>
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+          <div class="tab-pane active" id="client-info">
+            <h2>Steve (Steven) Brown</h2>
+            <div class="steven-photo">This is a photo</div>
+            <table id="clientInfoTable">
+              <tr>
+                <td><h5>Birthday</h5></td><td>5/5/16</td>
+                <td><h5>Age</h5></td><td>1</td>
+              </tr>
+              <tr>
+                <td><h5>Phone Number</h5></td><td>555-555-5555</td>
+                <td><h5>Email</h5></td><td>Not Given</td>
+              </tr>
+              <tr>
+                <td><h5>Last Meeting</h5></td><td>5/15/16</td>
+                <td><h5>Case Manager</h5></td><td>Bob Ross</td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab-pane" id="case-management">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3>
+                  Steven's Case Notes
+                </h3>
+                <form class="casenotes-form casenotes-right" align="right">
+                  <div class="form-group">
+                  <input type="text" placeholder="Search Steven's Case Notes" size="30">
+                  <button type="search" class="btn btn-default" align="right">Search</button>
+                  </div>
+                </form>
+              </div>
+              <table id="casenotes" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="col-xs-2">Date</th>
+                    <th class="col-xs-2">Category</th>
+                    <th class="col-xs-3">Case Manager</th>
+                    <th class="col-xs-4">Preview</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-xs-2">1/10/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Ben Perkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">2/1/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Jeanine Espejo-Watkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">3/20/16</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Rebecca McGuire</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">5/15/16</td>
+                    <td class="col-xs-2">E&E</td>
+                    <td class="col-xs-3">Chris Beckette</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">1/10/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Ben Perkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">2/1/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Jeanine Espejo-Watkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">3/20/16</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Rebecca McGuire</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">5/15/16</td>
+                    <td class="col-xs-2">E&E</td>
+                    <td class="col-xs-3">Chris Beckette</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">1/10/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Ben Perkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">2/1/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Jeanine Espejo-Watkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">3/20/16</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Rebecca McGuire</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">5/15/16</td>
+                    <td class="col-xs-2">E&E</td>
+                    <td class="col-xs-3">Chris Beckette</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">1/10/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Ben Perkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">2/1/15</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Jeanine Espejo-Watkins</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">3/20/16</td>
+                    <td class="col-xs-2">CM</td>
+                    <td class="col-xs-3">Rebecca McGuire</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-2">5/15/16</td>
+                    <td class="col-xs-2">E&E</td>
+                    <td class="col-xs-3">Chris Beckette</td>
+                    <td class="col-xs-4">This is the beginning of a case note.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button id="addcasenote" type="button" class="btn btn-default">Add New Case Note</button>
+          </div>
+          <div class="tab-pane" id="documents">
+              <h3>Steven's Documents</h3>
+              <p></p>
+          </div>
+          <div class="tab-pane" id="green">
+              <h3>Other</h3>
+              <p></p>
+          </div>
+        </div>
       </div>
-    </div> <!--container-->
+    </div> <!--col-sm-10-->
+  </div> <!--row with col-sm-2 and col-sm-10-->
 
-    <div id="content">
+  <div class="row">
 
-    </div>
+  </div>
+  <div id="content">
+
+  </div>
+</div> <!--container-->
 
 {% include "helpers/_basescript.html" %}
 
-    <script src="/static/js/casemanager.js"></script>
+  <script src="/static/js/casemanager.js"></script>
 
 {% include "helpers/_footer.html" %}
