@@ -80,7 +80,7 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: "/createActivity"
+        path: "/createActivity",
         handler: Api.createActivity
     },
     {

@@ -142,7 +142,7 @@ var api = {
                 Respond.gotEditActivity(reply, err);
             }
         })
-    }
+    },
 
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
