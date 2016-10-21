@@ -123,6 +123,17 @@ var api = {
             }
         });
     },
+    
+    createActivity: function(request, reply){
+        Service.createActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToCreateActivity(reply,err);
+            } else {
+                Respond.gotCreateActivity(reply, result);
+            }
+        });
+    },
+
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
             if (err) {

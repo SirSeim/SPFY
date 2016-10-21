@@ -79,6 +79,11 @@ var apiRoutes = [
         handler: Api.getActivityDropIns
     },
     {
+        method: 'GET',
+        path: "/createActivity"
+        handler: Api.createActivity
+    },
+    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll

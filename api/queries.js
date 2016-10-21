@@ -377,6 +377,12 @@ var queries = {
         return queryString;
     },
 
+    createActivity: function () {
+        var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity'
+
+        return queryString
+    }
+
     enroll: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
