@@ -241,7 +241,10 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
-  activity_name varchar(45) DEFAULT NULL
+  activity_name varchar(45) DEFAULT NULL,
+  ongoing boolean DEFAULT NULL,
+  start_date date DEFAULT NULL,
+  end_date date DEFAULT NULL
 );
 
 INSERT INTO activity (activity_name) VALUES ('Medical');
@@ -286,5 +289,3 @@ CREATE TABLE enrollment (
 );
 
 INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
-
-
