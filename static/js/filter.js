@@ -8,8 +8,9 @@ var Search = React.createClass({
       propsToSearch: 
         {
           column: "",
+          columnType: "",
           strict: false,
-          text: ""
+          searchText: ""
         },
       people: {}
     }
@@ -47,7 +48,7 @@ var Search = React.createClass({
         var fields = data.result.fields;
         var columnNames = [];
         for(var i = 0; i < fields.length; i++) {
-          columnNames.push(fields[i].name);
+          columnNames.push({name: fields[i].name, type: fields[i].dataTypeID});
         };
         handleColumns(columnNames);
         writeToTable(data.result.rows);
@@ -58,28 +59,28 @@ var Search = React.createClass({
     });
   },
   editPropColumn: function (data) {
-    this.state.propsToSearch.column = data; 
+    var jsonData = JSON.parse(data);
+    console.log(jsonData);
+    this.state.propsToSearch.column = jsonData.name;
+    this.state.propsToSearch.columnType = jsonData.type; 
     // not using this.setState because it doesn't play nice
     // with the fact propsToSearch is an object... Look into later
   },
   editPropStrictness: function (data) {
-    this.state.propsToSearch.strictness = data;
+    this.state.propsToSearch.strict = data;
   },
   editPropText: function (data) {
-    this.state.propsToSearch.text = data;
+    this.state.propsToSearch.searchText = data;
     this.search();
   },
   search: function (data) {
     var props = this.state.propsToSearch;
     if (props.column != "") {
-      /*var url = "api/" + this.state.currentTable 
-                       +"/search" 
-                       + ((props.text != "") ? 
-                          "/" + JSON.stringify(this.state.propsToSearch) : 
-                          "");*/
       var url = "api/" + this.state.currentTable 
-                       + "/search" 
-                       + ((props.text === "") ? "" : "/" + props.text);
+                       +"/search" 
+                       + ((props.searchText != "") ? 
+                          "/" + JSON.stringify(this.state.propsToSearch) : 
+                          "");
       console.log(url);
       var writeToTable = this.writeToTable;
       $.ajax({
@@ -213,7 +214,8 @@ var QueryBuilder = React.createClass({
     var columns = [];
     this.props.columns.forEach(function (columnName) {
       columns.push(
-        <option value={columnName} key={columnName}>{columnName}</option>
+        <option value={JSON.stringify(columnName)} 
+                key={JSON.stringify(columnName)}>{columnName.name}</option>
       )
     });
     var classNames = "qbBlock " + (this.props.display ? "" : "hidden");

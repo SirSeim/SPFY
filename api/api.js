@@ -112,7 +112,9 @@ var api = {
         });
     },
     dataBrowserSearchClients: function (request, reply) {
-        Service.dataBrowserSearchClients(request.postgres, request.params.data, function (err, result) {
+        var data = JSON.parse(request.params.data);
+        console.log(data);
+        Service.dataBrowserSearchClients(request.postgres, data, function (err, result) {
             if (err) {
                 Respond.failedToGetClient(reply, err);
             } else {

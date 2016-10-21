@@ -347,7 +347,19 @@ var queries = {
     },
 
     dataBrowserSearchClients: function (data) {
-        var queryString = 'SELECT * FROM client WHERE first_name LIKE ' + '\'%' + data + '%\'' + ';';
+        var searchText = "";
+        if (data.columnType === 1043) { // string
+            searchText = 'LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
+        } else if (data.columnType === 23) { // int
+            searchText = ' = ' + data.searchText;
+        } else {
+            searchText = 'LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
+        };
+        // 16 = bool
+        // 1082 = date
+        var queryString = 'SELECT * FROM client WHERE ' + 
+                          data.column + searchText + ';';
+        console.log(queryString);
 
         return queryString;
     }
