@@ -115,6 +115,24 @@ img#big-logo {
 }
 
 /* line 6, ../sass/partials/_base.scss */
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+/* line 11, ../sass/partials/_base.scss */
+#content {
+  padding-left: 5px;
+}
+
+/* line 15, ../sass/partials/_base.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* line 21, ../sass/partials/_base.scss */
 .header {
   width: 100%;
   margin: 0 auto;
@@ -125,28 +143,28 @@ img#big-logo {
   border-bottom: #EEE solid 1px;
 }
 
-/* line 16, ../sass/partials/_base.scss */
+/* line 31, ../sass/partials/_base.scss */
 .hidden {
   display: none;
 }
 
-/* line 20, ../sass/partials/_base.scss */
+/* line 35, ../sass/partials/_base.scss */
 .sidebar {
   width: 200px;
   height: 300px;
 }
 
-/* line 25, ../sass/partials/_base.scss */
+/* line 40, ../sass/partials/_base.scss */
 .left {
   float: left;
 }
 
-/* line 29, ../sass/partials/_base.scss */
+/* line 44, ../sass/partials/_base.scss */
 .right {
   float: right;
 }
 
-/* line 33, ../sass/partials/_base.scss */
+/* line 48, ../sass/partials/_base.scss */
 .menuButton {
   background-color: #09F;
   border: none;
@@ -156,7 +174,7 @@ img#big-logo {
   height: 35px;
 }
 
-/* line 42, ../sass/partials/_base.scss */
+/* line 57, ../sass/partials/_base.scss */
 .dot {
   display: inline-block;
   border-radius: 50%;
@@ -167,7 +185,7 @@ img#big-logo {
   margin: 0 2px;
 }
 
-/* line 51, ../sass/partials/_base.scss */
+/* line 66, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
 }
