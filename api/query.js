@@ -117,6 +117,40 @@ var query = {
         });
     },
 
+    getEditClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getEditClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    postEditClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client,done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.postEditClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropIns: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -139,7 +173,6 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
             client.query(Queries.getDropIn(dropin), function (err, result) {
                 done();
                 if (err) {
@@ -221,10 +254,6 @@ var query = {
 
     enroll: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
             var parsedPayload = JSON.parse(payload.expression);
             client.query(Queries.enroll(parsedPayload), function (err, result) {
                 done();
@@ -235,7 +264,7 @@ var query = {
                 return callback(undefined, result);
             });
         });
-    }
+    },
 
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
