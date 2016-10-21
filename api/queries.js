@@ -15,6 +15,9 @@ var parseProperty = function(property) {
     }
 };
 
+// *** Postgres allows rows with duplicate data, so currently
+// same data inserted twice will be stored in two separate rows
+// need to figure out how to "only insert if not exists" implementation
 // order of these properties
 // must match order of payload properties
 var profileProperties = [
@@ -264,6 +267,7 @@ var queries = {
         // queryString += ');';
     },
 
+    // ** TODO: paramaterize all of these functions
     // ** parameterize queries!!! Taking user input and using it 
     // directly in the query makes the code vulnerable to SQL injection
     // also, apostraphies in names could throw off syntax
@@ -275,7 +279,7 @@ var queries = {
     },
 
     getClient: function (clientID) {
-        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, date_of_birth FROM client WHERE id = ' +
+        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
@@ -306,6 +310,30 @@ var queries = {
         return queryString;
     },
 
+    getEditClient: function (payload) {
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
+    postEditClient: function (payload) {
+        var queryString = 'UPDATE client SET ';
+
+        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
+        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
+        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
+        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
+        queryString += 'email = ' + parseProperty(payload.email) + ',';
+        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
+        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
+        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
+
+        queryString += 'WHERE id = ' + payload.id; 
+
+        return queryString;
+    },
+
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
 
@@ -320,11 +348,33 @@ var queries = {
     },
 
     getDropinActivities: function (dropin) {
-        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room,' +
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
                         'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+        return queryString;
+    },
+
+    getAllActivities: function () {
+        var queryString = 'SELECT id, activity_name FROM activity;';
+
+        return queryString;
+    },
+
+    getActivity: function (activity) {
+        var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+
+        return queryString;
+    },
+
+    getActivityDropIns: function (activity) {
+        var queryString = 'SELECT drop_in.id, drop_in.date, match_drop_in_activity.room, ' +
+                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                        'match_drop_in_activity.end_time FROM drop_in, match_drop_in_activity ' +
+                        'WHERE drop_in.id = match_drop_in_activity.drop_in_id ' +
+                        'AND match_drop_in_activity.activity_id = ' + activity + ';';
+
         return queryString;
     },
 

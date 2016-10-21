@@ -69,32 +69,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 1, ../sass/partials/_index.scss */
-img {
+img#big-logo {
   width: 90%;
   height: auto;
 }
 
 /* line 6, ../sass/partials/_index.scss */
-h2 {
-  font-size: 200%;
-}
-
-/* line 10, ../sass/partials/_index.scss */
-h4 {
-  font-weight: bold;
-}
-
-/* line 14, ../sass/partials/_index.scss */
 #bubbles {
   padding: 80px 0;
 }
 
-/* line 18, ../sass/partials/_index.scss */
+/* line 10, ../sass/partials/_index.scss */
 .space {
   margin-top: 40px;
 }
 
-/* line 22, ../sass/partials/_index.scss */
+/* line 14, ../sass/partials/_index.scss */
 #bubbles i.fa {
   font-size: 40px;
   border: 4px solid #02aef0;
@@ -106,31 +96,43 @@ h4 {
   transition: all 0.5s;
 }
 
-/* line 33, ../sass/partials/_index.scss */
+/* line 25, ../sass/partials/_index.scss */
 #bubbles i.fa.fa-mobile {
   font-size: 50px;
   padding: 20px 25px;
 }
 
-/* line 38, ../sass/partials/_index.scss */
+/* line 30, ../sass/partials/_index.scss */
 #bubbles .bubble:hover > i.fa {
   background: #02aef0;
   color: #ffffff;
 }
 
-/* line 43, ../sass/partials/_index.scss */
+/* line 35, ../sass/partials/_index.scss */
 #bubbles i.fa:hover {
   background: #02aef0;
   color: #ffffff;
 }
 
-/* line 3, ../sass/partials/_base.scss */
-body {
-  font-family: "brandon-grotesque", sans-serif;
-  margin: 0;
+/* line 6, ../sass/partials/_base.scss */
+#wrapper {
+  min-height: 100%;
+  position: relative;
 }
 
-/* line 8, ../sass/partials/_base.scss */
+/* line 11, ../sass/partials/_base.scss */
+#content {
+  padding-left: 5px;
+}
+
+/* line 15, ../sass/partials/_base.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* line 21, ../sass/partials/_base.scss */
 .header {
   width: 100%;
   margin: 0 auto;
@@ -141,28 +143,28 @@ body {
   border-bottom: #EEE solid 1px;
 }
 
-/* line 18, ../sass/partials/_base.scss */
+/* line 31, ../sass/partials/_base.scss */
 .hidden {
   display: none;
 }
 
-/* line 22, ../sass/partials/_base.scss */
+/* line 35, ../sass/partials/_base.scss */
 .sidebar {
   width: 200px;
   height: 300px;
 }
 
-/* line 27, ../sass/partials/_base.scss */
+/* line 40, ../sass/partials/_base.scss */
 .left {
   float: left;
 }
 
-/* line 31, ../sass/partials/_base.scss */
+/* line 44, ../sass/partials/_base.scss */
 .right {
   float: right;
 }
 
-/* line 35, ../sass/partials/_base.scss */
+/* line 48, ../sass/partials/_base.scss */
 .menuButton {
   background-color: #09F;
   border: none;
@@ -172,7 +174,7 @@ body {
   height: 35px;
 }
 
-/* line 44, ../sass/partials/_base.scss */
+/* line 57, ../sass/partials/_base.scss */
 .dot {
   display: inline-block;
   border-radius: 50%;
@@ -183,9 +185,113 @@ body {
   margin: 0 2px;
 }
 
-/* line 53, ../sass/partials/_base.scss */
+/* line 66, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
+}
+
+/* line 4, ../sass/partials/_fonts.scss */
+body {
+  font-family: "brandon-grotesque", sans-serif;
+  margin: 0;
+}
+
+/* line 9, ../sass/partials/_fonts.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 13, ../sass/partials/_fonts.scss */
+h1 {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 60px;
+}
+
+/* line 20, ../sass/partials/_fonts.scss */
+h2 {
+  font-size: 50px;
+}
+
+/* line 24, ../sass/partials/_fonts.scss */
+h3 {
+  font-size: 37px;
+}
+
+/* line 28, ../sass/partials/_fonts.scss */
+h4 {
+  font-size: 27px;
+}
+
+/* line 32, ../sass/partials/_fonts.scss */
+h5 {
+  font-size: 19px;
+}
+
+/* line 36, ../sass/partials/_fonts.scss */
+h2, h3, h4, h5 {
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 42, ../sass/partials/_fonts.scss */
+p, td, a, button, label, input, li, textarea {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+}
+
+/* line 49, ../sass/partials/_fonts.scss */
+th {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 17px;
+}
+
+/* line 4, ../sass/partials/_footer.scss */
+.footer-block {
+  background: #02aef0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 12, ../sass/partials/_footer.scss */
+#footer-links li {
+  float: right;
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 21, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 65px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 767px) {
+  /* line 28, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 52px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (min-width: 1024px) {
+  /* line 35, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 40px;
+    /* Height of the footer element */
+  }
+}
+/* line 4, ../sass/partials/_navbar.scss */
+.brand-logo {
+  height: 35px;
+  vertical-align: middle;
+  position: relative;
+  top: -9px;
 }
 
 /* line 1, ../sass/partials/_clients.scss */
@@ -421,9 +527,14 @@ button.badge-button.btn.btn-primary.btn-xs {
   background-image: none;
   background-color: #02aef0;
   border-color: #0076a3;
+  border: 2;
+  border-radius: 0.5;
+  padding: 10px 40px;
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
-/* line 7, ../sass/partials/_frontdesk.scss */
+/* line 12, ../sass/partials/_frontdesk.scss */
 span.badge {
   color: black !important;
 }
