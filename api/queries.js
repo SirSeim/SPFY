@@ -301,9 +301,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name, nickname, person_completing_intake, ' +
-                          'intake_date, hmis_consent, first_time, case_manager, case_manager_id, ' +
-                          'phone_number, email, date_of_birth FROM client;';
+        var queryString = 'SELECT id, first_name, last_name FROM client;';
 
         return queryString;
     },
@@ -338,6 +336,18 @@ var queries = {
                             element.clientID + ', ' +
                             element.activityID + '); ';
         });
+
+        return queryString;
+    },
+
+    dataBrowserGetClients: function () {
+        var queryString = 'SELECT * FROM client;';
+
+        return queryString;
+    },
+
+    dataBrowserSearchClients: function (data) {
+        var queryString = 'SELECT * FROM client WHERE first_name LIKE ' + '\'%' + data + '%\'' + ';';
 
         return queryString;
     }

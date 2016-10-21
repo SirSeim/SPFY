@@ -5,6 +5,12 @@ var Search = React.createClass({
       detailData: {},
       columns: [],
       currentTable: "",
+      propsToSearch: 
+        {
+          column: "",
+          strict: false,
+          text: ""
+        },
       people: {}
     }
   },
@@ -30,7 +36,7 @@ var Search = React.createClass({
   getColumns: function (data) {
     var handleColumns = this.changeColumns;
     var writeToTable = this.writeToTable;
-    var url = "api/" + data;
+    var url = "api/" + data + "/search";
     this.setState({
       currentTable: data
     });
@@ -46,32 +52,58 @@ var Search = React.createClass({
         handleColumns(columnNames);
         writeToTable(data.result.rows);
       },
-      error: function (data) {
-        console.error(data);
+      error: function (err) {
+        console.error(err);
       }
     });
   },
+  editPropColumn: function (data) {
+    this.state.propsToSearch.column = data; 
+    // not using this.setState because it doesn't play nice
+    // with the fact propsToSearch is an object... Look into later
+  },
+  editPropStrictness: function (data) {
+    this.state.propsToSearch.strictness = data;
+  },
+  editPropText: function (data) {
+    this.state.propsToSearch.text = data;
+    this.search();
+  },
   search: function (data) {
-    var url = "api/" + this.state.currentTable;
-    var writeToTable = this.writeToTable;
-    $.ajax({
-      url: url,
-      method: "GET",
-      success: function (data) {
-        console.log(data.result.rows);
-        writeToTable(data.result.rows);
-      },
-      error: function (data) {
-        console.error(data);
-      }
-    });
+    var props = this.state.propsToSearch;
+    if (props.column != "") {
+      /*var url = "api/" + this.state.currentTable 
+                       +"/search" 
+                       + ((props.text != "") ? 
+                          "/" + JSON.stringify(this.state.propsToSearch) : 
+                          "");*/
+      var url = "api/" + this.state.currentTable 
+                       + "/search" 
+                       + ((props.text === "") ? "" : "/" + props.text);
+      console.log(url);
+      var writeToTable = this.writeToTable;
+      $.ajax({
+        url: url,
+        method: "GET",
+        success: function (data) {
+          console.log(data.result.rows);
+          writeToTable(data.result.rows);
+        },
+        error: function (data) {
+          console.error(data);
+          writeToTable({});
+        }
+      });
+    };
   },
   render: function () {
     return (
       <div className="searchMain">
         <QueryBuilderInterface selectTable={this.getColumns} 
                                columns={this.state.columns}
-                               performSearch={this.search} />
+                               changeColumn={this.editPropColumn}
+                               changeStrictness={this.editPropStrictness}
+                               changeText={this.editPropText} />
         <DetailPane hidden={this.state.displayDetail} 
                     detailData={this.state.detailData}
                     close={this.closeDetail} />
@@ -88,7 +120,8 @@ var QueryBuilderInterface = React.createClass({
   getInitialState: function () {
     return {
       displayQueryBuilder: true,
-      displaySelector: false
+      displaySelector: false,
+      displayText: false
     };
   },
   toggleBuilder: function () {
@@ -100,6 +133,17 @@ var QueryBuilderInterface = React.createClass({
     this.setState({
       displaySelector: data
     })
+  },
+  showText: function (hasColumn, hasStrictness) {
+    if (hasColumn) {
+      this.setState({
+        displayText: true
+      });
+    } else {
+      this.setState({
+        displayText: false
+      });
+    };
   },
   render: function () {
     var classNames = "queryBuilderUI " + (this.state.displayQueryBuilder ? "" : "hidden");
@@ -113,8 +157,12 @@ var QueryBuilderInterface = React.createClass({
           <ResourceSelector handleChange={this.props.selectTable} 
                             changeDisplay={this.toggleSelector} />
           <QueryBuilder columns={this.props.columns} 
-                        performSearch={this.props.performSearch}
-                        display={this.state.displaySelector} />
+                        display={this.state.displaySelector}
+                        displayText={this.state.displayText}
+                        editTextShowing={this.showText}
+                        changeColumn={this.props.changeColumn}
+                        changeStrictness={this.props.changeStrictness}
+                        changeText={this.props.changeText} />
           {/* <ViewManager /> */}
         </div>
       </div>
@@ -145,8 +193,21 @@ var ResourceSelector = React.createClass({
 });
 
 var QueryBuilder = React.createClass({
-  handleChange: function (e) {
-    this.props.performSearch(e.target.value);
+  handleColumnChange: function (e) {
+    if (e.target.value != "none") {
+      this.props.editTextShowing(true);
+      this.props.changeColumn(e.target.value);
+    };
+  },
+  handleStrictnessChange: function (e) {
+    if (e.target.value === "contains") {
+      this.props.changeStrictness(false);
+    } else if (e.target.value === "exactly") {
+      this.props.changeStrictness(true);
+    }
+  },
+  handleTextChange: function (e) {
+    this.props.changeText(e.target.value);
   },
   render: function () {
     var columns = [];
@@ -156,19 +217,19 @@ var QueryBuilder = React.createClass({
       )
     });
     var classNames = "qbBlock " + (this.props.display ? "" : "hidden");
+    var textClassNames = "qbText " + (this.props.displayText ? "" : "hidden")
     return (
       <div className={classNames}>
         <h4 className="qbHeader">Build Search</h4>
-        <select className="qbSelect"> 
-          <option value="An option">Select an Option to Filter By</option>
+        <select className="qbSelect" onChange={this.handleColumnChange}> 
+          <option value="none">Select an Option to Filter By</option>
           {columns}
         </select>
-        <select className="qbSelect"> 
-          <option value="An option">Select a Strictness</option>
-          <option value="Another option">Is Exactly</option>
-          <option value="Another option">Contains</option>
+        <select className="qbSelect" onChange={this.handleStrictnessChange}> 
+          <option value="contains">Contains</option>
+          <option value="exactly">Is Exactly</option>
         </select>
-        <input type="text" className="qbText" onChange={this.handleChange} />
+        <input type="text" className={textClassNames} onChange={this.handleTextChange} />
       </div>
     )
   }
@@ -283,15 +344,6 @@ var Footer = React.createClass({
     )
   }
 });
-
-var PEOPLE = [
-  {id: 0, firstName: 'John', lastName: 'Doe', nickname: 'JJ'},
-  {id: 1, firstName: 'Carl', lastName: 'A', nickname: ''},
-  {id: 2, firstName: 'Lisa', lastName: 'Wittiker', nickname: 'L'},
-  {id: 3, firstName: 'Joe', lastName: 'Shmoe', nickname: 'JoeJoe'},
-  {id: 4, firstName: 'Bob', lastName: 'Huphalumpicaus', nickname: 'Bobert'},
-  {id: 5, firstName: 'Peter', lastName: 'Mgee', nickname: 'Peep'}
-];
 
 var CLIENT_FILTER_HEADERS = [ 
   "ID", "First Name", "Last Name", "Nickname", "Intake Person", 

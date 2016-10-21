@@ -67,6 +67,16 @@ var apiRoutes = [
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
+    },
+    {
+        method: 'GET',
+        path: '/clients/search', 
+        handler: Api.dataBrowserGetClients
+    },
+    {
+        method: 'GET',
+        path: '/clients/search/{data}',
+        handler: Api.dataBrowserSearchClients
     }
 ];
 
