@@ -194,6 +194,15 @@ var service = {
         });
     },
 
+    editClient: function (postgres, activity, callback) {
+        Query.editClient(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     enroll: function (postgres, payload, callback) {
         Query.enroll(postgres, payload, function (err, result) {
             if (err) {

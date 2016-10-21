@@ -310,30 +310,6 @@ var queries = {
         return queryString;
     },
 
-    getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
-
-        return queryString;
-    },
-
-    postEditClient: function (payload) {
-        var queryString = 'UPDATE client SET ';
-
-        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
-        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
-        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
-        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
-        queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
-        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
-        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
-
-        queryString += 'WHERE id = ' + payload.id; 
-
-        return queryString;
-    },
-
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
 
@@ -374,6 +350,24 @@ var queries = {
                         'match_drop_in_activity.end_time FROM drop_in, match_drop_in_activity ' +
                         'WHERE drop_in.id = match_drop_in_activity.drop_in_id ' +
                         'AND match_drop_in_activity.activity_id = ' + activity + ';';
+
+        return queryString;
+    },
+
+    editClient: function (payload) {
+        var queryString = 'UPDATE client SET ';
+
+        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
+        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
+        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
+        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
+        queryString += 'email = ' + parseProperty(payload.email) + ',';
+        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
+        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
+        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
+
+        queryString += 'WHERE id = ' + payload.id; 
 
         return queryString;
     },

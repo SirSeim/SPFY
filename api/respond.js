@@ -142,6 +142,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToEditClient: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit client!",
+            error: err
+        }).code(500);
+    },
+    editClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing client!",
+            result: result
+        }).code(200);
+    },
     failedToEnroll: function (reply, err) {
         reply({
             statusCode: 500,

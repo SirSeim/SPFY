@@ -84,14 +84,9 @@ var apiRoutes = [
         handler: Api.enroll
     },
     {
-        method: 'GET',
-        path: '/editclient',
-        handler: Api.getEditclient
-    },
-    {
         method: 'POST',
-        path: '/editclient',
-        handler: Api.postEditClient
+        path: '/clients/{clientID}',
+        handler: Api.editClient
     }
 ];
 

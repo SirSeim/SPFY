@@ -132,6 +132,16 @@ var api = {
                 Respond.enroll(reply, result);
             }
         });
+    },
+
+    editClient: function (request, reply) {
+        Service.enroll(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditClient(reply, err);
+            } else {
+                Respond.editClient(reply, result);
+            }
+        });
     }
 };
 
