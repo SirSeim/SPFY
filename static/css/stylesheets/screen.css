@@ -252,6 +252,44 @@ th {
   font-size: 17px;
 }
 
+/* line 4, ../sass/partials/_footer.scss */
+.footer-block {
+  background: #02aef0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 12, ../sass/partials/_footer.scss */
+#footer-links li {
+  float: right;
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 21, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 65px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 767px) {
+  /* line 28, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 52px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (min-width: 1024px) {
+  /* line 35, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 40px;
+    /* Height of the footer element */
+  }
+}
 /* line 4, ../sass/partials/_navbar.scss */
 .brand-logo {
   height: 35px;
