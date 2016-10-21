@@ -23,6 +23,30 @@ $(function (event) {
             }
         });
 
+        var selectedActivities = [];
+
+        $('#activities1').delegate("li", "click", function (event) {
+            var name = $(this)[0].innerText;
+            if (!selectedActivities.includes(name)) {
+                selectedActivities.push(name);
+            }
+        });
+
+        $('#activities2').delegate("li", "click", function (event) {
+            var name = $(this)[0].innerText;
+            if (!selectedActivities.includes(name)) {
+                selectedActivities.push(name);
+            }
+        });
+
+        $('#activities3').delegate("li", "click", function (event) {
+            var name = $(this)[0].innerText;
+            if (!selectedActivities.includes(name)) {
+                selectedActivities.push(name);
+            }
+        });
+
+        console.log(selectedActivities);
 
         var activityData = {
 

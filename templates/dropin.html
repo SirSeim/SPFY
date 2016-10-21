@@ -6,18 +6,16 @@
       {% include "helpers/_navbar.html" %} 
 
         <div class="row">
-            <form class="drop-in details">
-              <center><h3> Create New Drop In </h3>
+              <center><h3> Create New Drop In </h3> <br>
                 <div class="form-group">
-                  <input type="text" placeholder="Enter Drop-In Date" size="30">
-                  <h4> Select Programs Available </h4></center>
-                </form>
+                  <input type="text" placeholder="Enter Drop-In Date YYYY-MM-DD" size="30"> 
+                  <h4> Select Programs </h4></center>
                 <div class="col-xs-4">
                   <h6 class="text-center">Health & Wellness Programs</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
                    <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
                    <!-- SHOWERS EXAMPLE: add, allow time slot -->
-                  <ul class="list-group checked-list-box">
+                  <ul class="list-group checked-list-box" id="activities1">
                         <li class="list-group-item">Medical</li>
                         <li class="list-group-item">Dental</li>
                         <li class="list-group-item">HIV Testing</li>
@@ -37,7 +35,7 @@
                   <h6 class="text-center">Education & Employment</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
                     <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                  <ul class="list-group checked-list-box">
+                  <ul class="list-group checked-list-box" id="activities2">
                         <li class="list-group-item">Digital Arts Lab</li>
                         <li class="list-group-item">Experiential Learning</li>
                         <li class="list-group-item">Five Keys Charter School</li>
@@ -57,7 +55,7 @@
                   <h6 class="text-center">Other</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
                     <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                  <ul class="list-group checked-list-box">
+                  <ul class="list-group checked-list-box" id="activities3">
                         <li class="list-group-item">Legal</li>
                         <li class="list-group-item">Case Management</li>
                       </ul>
