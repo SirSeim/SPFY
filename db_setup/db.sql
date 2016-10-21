@@ -50,7 +50,7 @@ CREATE TABLE client (
 );
 
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
@@ -247,10 +247,10 @@ CREATE TABLE activity (
   end_date date DEFAULT NULL
 );
 
-INSERT INTO activity (activity_name) VALUES ('Medical');
-INSERT INTO activity (activity_name) VALUES ('Dental');
-INSERT INTO activity (activity_name) VALUES ('3D-Printing');
-INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
+INSERT INTO activity (activity_name) VALUES ('Medical Care');
+INSERT INTO activity (activity_name) VALUES ('Medi-Cal Registration');
+INSERT INTO activity (activity_name) VALUES ('HIV Testing');
+INSERT INTO activity (activity_name) VALUES ('Dental Care');
 
 DROP TABLE IF EXISTS drop_in;
 

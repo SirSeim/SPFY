@@ -73,9 +73,9 @@ $(function (event) {
     $('#enroll-button').click(function (event) {
         var signups = [];
         var activityids = [];
-
+        console.log(allActivities);
         for (var i = 0; i < allActivities.length; i++) {
-            if (selectedActivities.includes(allActivities[i].activity_name)) {
+            if (selectedActivities.includes(allActivities[i].name)) {
                 activityids.push(allActivities[i].id);
             }
         }

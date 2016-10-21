@@ -10,10 +10,10 @@
           <div class="page-header"><center>
             <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span class="badge">50</span> Drop-Ins Yesterday
+              <span id="total-youth" class="badge">50</span> Total Youth Checked-In
             </button>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span class="badge">14</span> Drop-Ins Today
+              <span id="total-unduplicated" class="badge">14</span> Total Unduplicated
             </button>
             </center>
           </div>
@@ -75,13 +75,13 @@
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
+              <li class="active"><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
-              <li><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+              <li><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
             </ul>
 
             <div id="my-tab-content" class="tab-content">
-              <div class="tab-pane active" id="newdrop-in">
+              <div class="tab-pane" id="newdrop-in">
                   <h2>New Drop In</h2>
                   <form class="drop-in details">
                       <div class="form-group">
@@ -177,7 +177,7 @@
                 <button type="create" class="btn btn-default" align="center">Create</button>
               </div>
 
-              <div class="tab-pane" id="dropin-enrollment">
+              <div class="tab-pane active" id="dropin-enrollment">
 
                 <div class="row">
 
