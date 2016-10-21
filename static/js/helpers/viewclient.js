@@ -17,24 +17,14 @@ $(function (event) {
     }
 
     var postClientEdit = function (client) {
-        $.ajax({
-            url: "api/clients/" + client.match(/[0-9]+/),
-            method: "POST",
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        }).done(function (data) {
-            console.log(data);
-        });
+        
     }
 
     $('#clients').delegate("td", "click", function () {
         displayClientProfile($(this)[0].innerText);
     });
 
+    var clientID;
     var clientName;
     var clientBirthday;
     var clientAge;
@@ -44,6 +34,7 @@ $(function (event) {
     var caseManager;
 
     $('#edit-client').click(function () {
+        clientID = $('#client-id')['0'].textContent;
         clientName = $('#client-name')['0'].textContent;
         clientBirthday = $('#client-birthday')['0'].textContent;
         clientAge = $('#client-age')['0'].textContent;
@@ -82,6 +73,7 @@ $(function (event) {
 
     $('#submit-edit').click(function () {
 
+        var id = clientID;
         var name = $('#client-name')['0'].value;
         var firstName = name.substr(0,name.indexOf(' '));
         var nickname = name.match(/'([^']+)'/)[1];
@@ -94,6 +86,7 @@ $(function (event) {
         var caseManager = $('#case-manager')['0'].value;
 
         var data = {
+            id: id,
             firstName: firstName,
             lastName: lastName,
             nickname: nickname,
@@ -106,6 +99,20 @@ $(function (event) {
         };
 
         console.log(data);
+
+        $.ajax({
+            data: data,
+            url: "api/clients/" + id,
+            method: "POST",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        }).done(function (data) {
+            console.log(data);
+        });
 
         $('#edit-client').show();
         $('#cancel-edit').hide();

@@ -360,12 +360,11 @@ var queries = {
         queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
         queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
         queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
-        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
+        queryString += 'birthday = ' + parseProperty(payload.birthday) + ',';
+        queryString += 'case_manager = ' + parseProperty(payload.caseManager) + ',';
         queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
-        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
-        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
+        queryString += 'last_meeting = ' + parseProperty(payload.lastMeeting) + ',';
+        queryString += 'phone_number = ' + parseProperty(payload.phoneNumber) + ' ';
 
         queryString += 'WHERE id = ' + payload.id;
 
