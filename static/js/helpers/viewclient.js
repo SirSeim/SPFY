@@ -20,5 +20,9 @@ $(function (event) {
         displayClientProfile($(this)[0].innerText);
     });
 
+    $('#edit-client').click(function () {
+        console.log($('#client-birthday')['0'].textContent);
+    });
+
 
 });
