@@ -1,64 +1,5 @@
 $(function () {
 
-    // $("#").click(function () {
-    //     console.log("You are still on the homepage");
-    //     window.location.href = "frondeskhomepage.html";
-    // });
-
-    /**/
-    $.ajax({
-        url: "api/casemanagers",
-        method: "GET",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
-    /**/
-
-    var data = {
-        firstName: 'Steven',
-        lastName: 'Brown'
-    }
-    /**/
-    $.ajax({
-        url: "api/getclient",
-        method: "POST",
-        data: data,
-        success: function (data) {
-            console.log(data);
-            console.log("result");
-            console.log(data.result);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
-    /**/
-
-    data = {
-        firstName: 'Amy',
-        lastName: 'Williams'
-    }
-
-    /** /
-    $.ajax({
-        url: "api/createclient",
-        method: "POST",
-        data: data,
-        success: function (data) {
-            console.log(data);
-            console.log("result");
-            console.log(data.result);
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
-    /**/
-
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();
@@ -80,7 +21,7 @@ $(function () {
             url: "api/dropins",
             method: "GET",
             success: function (data) {
-                table.empty()
+                table.empty();
                 data.result.forEach(function (element) {
                     table.append(createPastDropIn(element));
                 });
@@ -181,4 +122,6 @@ $(function () {
             $(".newID").addClass("hidden");
         }
     });
+
+    
 });

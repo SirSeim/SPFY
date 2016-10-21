@@ -30,7 +30,7 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/createclient',
+        path: '/clients',
         handler: Api.createClient
     },
     {
@@ -39,14 +39,9 @@ var apiRoutes = [
         handler: Api.getAllCaseManagers // this goes to api/api.js
     },
     {
-        method: 'POST',
-        path: '/getclient',
-        handler: Api.getClient
-    },
-    {
         method: 'GET',
-        path: '/searchClient',
-        handler: Api.searchClient
+        path: '/clients/{clientID}',
+        handler: Api.getClient
     },
     {
         method: 'GET',
@@ -57,6 +52,46 @@ var apiRoutes = [
         method: 'GET',
         path: '/dropins',
         handler: Api.getDropIns
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropin}',
+        handler: Api.getDropIn
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropin}/activities',
+        handler: Api.getDropinActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities',
+        handler: Api.getActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activity}',
+        handler: Api.getActivity
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activity}/dropins',
+        handler: Api.getActivityDropIns
+    },
+    {
+        method: 'POST',
+        path: '/enroll',
+        handler: Api.enroll
+    },
+    {
+        method: 'GET',
+        path: '/editclient',
+        handler: Api.getEditclient
+    },
+    {
+        method: 'POST',
+        path: '/editclient',
+        handler: Api.postEditClient
     }
 ];
 

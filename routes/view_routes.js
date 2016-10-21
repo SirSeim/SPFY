@@ -50,6 +50,16 @@ var viewRoutes = [
     },
 
     {
+        path: '/dropin',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('dropin.html', {
+
+            });
+        }
+    },
+
+    {
         path: '/outreach',
         method: 'GET',
         handler: function (req, res) {
@@ -68,6 +78,26 @@ var viewRoutes = [
             });
         }
     },
+
+    {
+        path: '/edit_client',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('editclient.html', {
+                
+            });
+        }
+    },
+
+    {
+        path: '/edit_client',
+        method: 'POST',
+        handler: function (req, res) {
+            res.view('editclient.html', {
+
+            });
+        }
+    }
 ];
 
 module.exports = viewRoutes;
