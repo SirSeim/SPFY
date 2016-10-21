@@ -50,6 +50,16 @@ var viewRoutes = [
     },
 
     {
+        path: '/dropin',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('dropin.html', {
+
+            });
+        }
+    },
+
+    {
         path: '/outreach',
         method: 'GET',
         handler: function (req, res) {
