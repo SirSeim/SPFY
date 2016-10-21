@@ -50,7 +50,8 @@ $(function (event) {
       for (var i = 0; i < selectedclients.length; i++) {
           signups.push({
               dropinID: currentDropIn.id,
-              clientID: selectedclients[i].match(/[0-9]+/) // TODO: find more effective implementation
+              clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
+              date: moment().format("YYYY-MM-DD")
           });
       }
 

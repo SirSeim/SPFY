@@ -393,9 +393,10 @@ var queries = {
     checkin: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
-            queryString += 'INSERT INTO check_in (drop_in_id, client_id) VALUES( ' +
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
                             element.dropinID + ', ' +
-                            element.clientID + '); ';
+                            element.clientID + ', ' +
+                            '\'' + element.date + '\'' + ');';
         });
 
         return queryString;
