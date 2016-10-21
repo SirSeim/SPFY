@@ -159,7 +159,7 @@ var queries = {
         props.forEach(function (element) {
             queryString += element + ', ';
         });
-        
+
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
 
@@ -268,7 +268,7 @@ var queries = {
     },
 
     // ** TODO: paramaterize all of these functions
-    // ** parameterize queries!!! Taking user input and using it 
+    // ** parameterize queries!!! Taking user input and using it
     // directly in the query makes the code vulnerable to SQL injection
     // also, apostraphies in names could throw off syntax
 
@@ -283,7 +283,7 @@ var queries = {
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-    
+
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -329,7 +329,7 @@ var queries = {
         queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
         queryString += 'reference = ' + parseProperty(payload.reference) + ',';
 
-        queryString += 'WHERE id = ' + payload.id; 
+        queryString += 'WHERE id = ' + payload.id;
 
         return queryString;
     },
@@ -385,6 +385,18 @@ var queries = {
                             element.dropinID + ', ' +
                             element.clientID + ', ' +
                             element.activityID + '); ';
+        });
+
+        return queryString;
+    },
+
+    checkin: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO enrollment (drop_in_id, client_id) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.clientID + ', ' +
+                            element.date + '); ';
         });
 
         return queryString;
