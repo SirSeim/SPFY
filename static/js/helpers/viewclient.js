@@ -16,8 +16,30 @@ $(function (event) {
         });
     }
 
-    var postClientEdit = function (client) {
-        
+    var editClient = function (data) {
+        $.ajax({
+            data: data,
+            url: "api/clients/" + data.id,
+            method: "POST",
+            success: function (data) {
+                console.log(data);
+                $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + clientName + '</h1>');
+                $('#client-birthday').replaceWith('<td id="client-birthday">' + clientBirthday + '</td>');
+                $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
+                $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
+                $('#client-email').replaceWith('<td id="client-email">' + clientPhone + '</td>');
+                $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
+                $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
+                $('#edit-client').show();
+                $('#cancel-edit').hide();
+                $('#submit-edit').hide();
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        }).done(function (data) {
+            console.log(data);
+        });
     }
 
     $('#clients').delegate("td", "click", function () {
@@ -30,8 +52,8 @@ $(function (event) {
     var clientAge;
     var clientPhone;
     var clientMail;
-    var lastMeeting;
-    var caseManager;
+    var clientLastMeeting;
+    var clientCaseManager;
 
     $('#edit-client').click(function () {
         clientID = $('#client-id')['0'].textContent;
@@ -40,8 +62,8 @@ $(function (event) {
         clientAge = $('#client-age')['0'].textContent;
         clientPhone = $('#client-phonenumber')['0'].textContent;
         clientMail = $('#client-email')['0'].textContent;
-        lastMeeting = $('#last-meeting')['0'].textContent;
-        caseManager = $('#case-manager')['0'].textContent;
+        clientLastMeeting = $('#last-meeting')['0'].textContent;
+        clientCaseManager = $('#case-manager')['0'].textContent;
 
         $('#client-name').replaceWith('<div id="client-name-container" class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
         $('#edit-client').hide();
@@ -52,8 +74,8 @@ $(function (event) {
         $('#client-age').replaceWith('<input type="number" id="client-age" class="form-control" min="1" step="1" value="' + clientAge + '" />');
         $('#client-phonenumber').replaceWith('<input type="text" id="client-phonenumber" class="form-control" value="' + clientPhone + '" />');
         $('#client-email').replaceWith('<input type="text" id="client-email" class="form-control" value="' + clientMail + '" />');
-        $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + lastMeeting + '" />');
-        $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + caseManager + '" />');
+        $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
+        $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
     });
 
     $('#cancel-edit').click(function () {
@@ -67,8 +89,8 @@ $(function (event) {
         $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
         $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
         $('#client-email').replaceWith('<td id="client-email">' + clientPhone + '</td>');
-        $('#last-meeting').replaceWith('<td id="last-meeting">' + lastMeeting + '</td>');
-        $('#case-manager').replaceWith('<td id="case-manager">' + caseManager + '</td>');
+        $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
+        $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
     });
 
     $('#submit-edit').click(function () {
@@ -100,23 +122,8 @@ $(function (event) {
 
         console.log(data);
 
-        $.ajax({
-            data: data,
-            url: "api/clients/" + id,
-            method: "POST",
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        }).done(function (data) {
-            console.log(data);
-        });
-
-        $('#edit-client').show();
-        $('#cancel-edit').hide();
-        $('#submit-edit').hide();
+        editClient(data);
+        
     });
 
 
