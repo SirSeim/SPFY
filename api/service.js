@@ -21,8 +21,8 @@ var service = {
         });
     },
 
-    getClient: function (postgres, client, callback) {
-        Query.getClient(postgres, client, function (err, result) {
+    getClient: function (postgres, clientID, callback) {
+        Query.getClient(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -157,6 +157,15 @@ var service = {
                 });
             }
             return callback(undefined, arr);
+        });
+    },
+
+    enroll: function (postgres, payload, callback) {
+        Query.enroll(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
         });
     }
 };

@@ -40,7 +40,7 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/clients/{client}',
+        path: '/clients/{clientID}',
         handler: Api.getClient
     },
     {
@@ -77,6 +77,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/activities/{activity}/dropins',
         handler: Api.getActivityDropIns
+    },
+    {
+        method: 'POST',
+        path: '/enroll',
+        handler: Api.enroll
     }
 ];
 

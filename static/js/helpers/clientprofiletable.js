@@ -1,35 +1,29 @@
 $(function (event) {
-    var createClient = function (client) {
-        return '<tr><td><span class="bullet"></span>' +
-                client.firstName + ' ' + client.lastName +
-                '</td></tr>';
-    };
 
+    var status = $('.dot');
+    var table = $('#clients tbody');
 
-    var populateClients = function () {
-        var status = $('.dot');
-        var table = $('#clients tbody');
-
-        status.removeClass('dot-success').addClass('dot-pending');
-        $.ajax({
-            url: "api/clients",
-            method: "GET",
-            success: function (data) {
-                table.empty();
-                status.removeClass('dot-pending').addClass('dot-success');
-                data.result.forEach(function (element) {
-                    table.append(createClient(element));
-                });
-                console.log(data);
-            },
-            error: function (data) {
-                status.removeClass('dot-pending').addClass('dot-error');
-                console.error(data);
-            }
+    $.ajax({
+        url: "api/clients",
+        method: "GET",
+        success: function (data) {
+            status.removeClass('dot-pending').addClass('dot-success');
+            console.log(data);
+        },
+        error: function (data) {
+            status.removeClass('dot-pending').addClass('dot-error');
+            console.error(data);
+        }
+    }).done(function (data) {
+        table.empty();
+        data.result.forEach(function (client) {
+            table.append('<tr><td><span class="bullet"></span>' +
+                client.firstName + ' ' +
+                client.lastName + ' ' +
+                'id: ' + client.id +
+                '</td></tr>');
         });
-    };
-
-    populateClients();
+    });
 
     $('#client-search').keyup(function () {
         var search = $('#client-search');
