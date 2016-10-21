@@ -13,14 +13,16 @@ $(function (event) {
             }
         }).done(function (data) {
             console.log(data);
-            $('#clients').click( function (event) {
-                if (data.result.rows[0].nick_name != undefined){
-                    $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
-                }else{
-                    $('#client-name').text(data.result.rows[0].first_name +" "+ data.result.rows[0].last_name);
-                }
-            });
-            
+            if (data.result.rows[0].nick_name != undefined){
+                $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
+            }else{
+                $('#client-name').text(data.result.rows[0].first_name +" "+ data.result.rows[0].last_name);
+            }
+            var birthday = data.result.rows[0].date_of_birth;
+            $('#client-birthday').text(birthday.slice(0, birthday.lastIndexOf("T")));    
+            $('#client-age').text(data.result.rows[0].age.years);
+            $('#client-phonenumber').text( data.result.rows[0].phone_number);
+            $('#client-email').text(data.result.rows[0].email);
         });
     }
 
