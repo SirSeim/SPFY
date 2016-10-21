@@ -9,7 +9,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-            
+
             payload = JSON.parse(payload.expression);
             var data = Queries.createClient(payload);
 
@@ -86,7 +86,7 @@ var query = {
             });
         });
     },
-    
+
     searchClient: function (postgres, firstName, lastName, callback) {
         postgres.connect(function (err, client, done){
             if (err) {
@@ -135,7 +135,7 @@ var query = {
     },
 
     postEditClient: function(postgres, payload, callback) {
-        postgres.connect(function (err, client,done) {
+        postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
