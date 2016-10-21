@@ -13,6 +13,14 @@ $(function (event) {
             }
         }).done(function (data) {
             console.log(data);
+            $('#clients').click( function (event) {
+                if (data.result.rows[0].nick_name != undefined){
+                    $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
+                }else{
+                    $('#client-name').text(data.result.rows[0].first_name +" "+ data.result.rows[0].last_name);
+                }
+            });
+            
         });
     }
 
@@ -22,3 +30,5 @@ $(function (event) {
 
 
 });
+
+if (true) {};
