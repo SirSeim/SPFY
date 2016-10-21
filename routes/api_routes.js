@@ -64,9 +64,34 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
+        method: 'GET',
+        path: '/activities',
+        handler: Api.getActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activity}',
+        handler: Api.getActivity
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activity}/dropins',
+        handler: Api.getActivityDropIns
+    },
+    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
+    },
+    {
+        method: 'GET',
+        path: '/editclient',
+        handler: Api.getEditclient
+    },
+    {
+        method: 'POST',
+        path: '/editclient',
+        handler: Api.postEditClient
     }
 ];
 

@@ -93,6 +93,36 @@ var api = {
             }
         });
     },
+
+    getActivities: function (request, reply) {
+        Service.getAllActivities(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivities(reply, err);
+            } else {
+                Respond.gotActivities(reply, result);
+            }
+        });
+    },
+
+    getActivity: function (request, reply) {
+        Service.getActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivity(reply, err);
+            } else {
+                Respond.gotActivity(reply, result);
+            }
+        });
+    },
+
+    getActivityDropIns: function (request, reply) {
+        Service.getActivityDropIns(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivityDropIns(reply, err);
+            } else {
+                Respond.gotActivityDropIns(reply, result);
+            }
+        });
+    },
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
             if (err) {

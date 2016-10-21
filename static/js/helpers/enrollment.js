@@ -38,22 +38,6 @@ $(function (event) {
         allActivities = data.result.rows.slice();
     });
 
-    var selectedclients = [];
-
-    $('#clients').delegate("td", "click", function () {
-        var client = $(this)[0].innerText;
-        if (!selectedclients.includes(client)) {
-            selectedclients.push(client);
-        }
-        $('#selected-clients').empty();
-        for (var i = 0; i < selectedclients.length; i++) {
-            $('#selected-clients').append('<li class="list-group-item client">'
-                    + selectedclients[i]
-                    + '</li>');
-
-        }
-    });
-
     var selectedActivities = [];
 
     $('#activities').delegate("td", "click", function (event) {
@@ -67,6 +51,22 @@ $(function (event) {
             $('#selected-activities').append('<li class="list-group-item activity">'
                     + selectedActivities[i]
                     + '</li>');
+        }
+    });
+
+    var selectedclients = [];
+
+    $('#clients').delegate("td", "click", function () {
+        var client = $(this)[0].innerText;
+        if (!selectedclients.includes(client)) {
+            selectedclients.push(client);
+        }
+        $('#selected-clients').empty();
+        for (var i = 0; i < selectedclients.length; i++) {
+            $('#selected-clients').append('<li class="list-group-item client">'
+                    + selectedclients[i]
+                    + '</li>');
+
         }
     });
 
@@ -84,7 +84,7 @@ $(function (event) {
             for (var j = 0; j < activityids.length; j++) {
                 signups.push({
                     dropinID: currentDropIn.id,
-                    clientID: selectedclients[i].match(/[0-9]+/),
+                    clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
                     activityID: activityids[j]
                 });
             }
@@ -96,29 +96,29 @@ $(function (event) {
             data: { expression: JSON.stringify(signups) },
             success: function (data) {
                 console.log(data);
+                var clientString = "";
+                for (var i = 0; i < selectedclients.length; i++) {
+                    clientString += selectedclients[i] + '<br>';
+                }
+                var activityString = "";
+                for (var i = 0; i < selectedActivities.length; i++) {
+                    activityString += selectedActivities[i] + '<br>';
+                }
 
+                $('#enrollment-feedback').empty().append(
+                    '<div><h4>Clients Successfully Enrolled</h4>' +
+                    '<h4>Clients</h4>' + clientString +
+                    '<h4>Activities</h4>' + activityString +
+                    '</div>');
+
+                $('#selected-clients').empty();
+                $('#selected-activities').empty();
             },
             error: function (data) {
                 console.error(data);
+                $('#enrollment-feedback').empty().append(
+                    '<div><h4>Enrollment failed</h4>');
             }
-        }).done(function (data) {
-            var clientString = "";
-            for (var i = 0; i < selectedclients.length; i++) {
-                clientString += selectedclients[i] + '<br>';
-            }
-            var activityString = "";
-            for (var i = 0; i < selectedActivities.length; i++) {
-                activityString += selectedActivities[i] + '<br>';
-            }
-
-            $('#enrollment-feedback').empty().append(
-                '<div><h4>Clients Successfully Enrolled</h4>' +
-                '<h4>Clients</h4>' + clientString +
-                '<h4>Activities</h4>' + activityString +
-                '</div>');
-
-            $('#selected-clients').empty();
-            $('#selected-activities').empty();
         });
     });
 

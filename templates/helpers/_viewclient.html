@@ -6,20 +6,20 @@
           </ul>
           <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="client-info">
-                <h1 id="client-name">Name Goes here</h1>
+                <h1 id="client-name">Client "Name" Here</h1>
                 <div class="client-photo">This is a photo</div>
                 <table id="clientInfoTable">
                   <tr>
-                    <td><h4>Birthday</h4></td><td>5/5/16</td>
-                    <td><h4>Age</h4></td><td>1</td>
+                    <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
+                    <td><h4>Age</h4></td><td id="client-age">00</td>
                   </tr>
                   <tr>
-                    <td><h4>Phone Number</h4></td><td>555-555-5555</td>
-                    <td><h4>Email</h4></td><td>Not Given</td>
+                    <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
+                    <td><h4>Email</h4></td><td id="client-email">Not Given</td>
                   </tr>
                   <tr>
-                    <td><h4>Last Meeting</h4></td><td>5/15/16</td>
-                    <td><h4>Case Manager</h4></td><td>Bob Ross</td>
+                    <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
+                    <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
                   </tr>
                 </table>
             </div>
@@ -27,11 +27,11 @@
                 <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4>
-                    Steven's Case Notes
+                    Client's Case Notes
                   </h4>
                   <form class="casenotes-form casenotes-right" align="right">
                     <div class="form-group">
-                    <input type="text" placeholder="Search Steven's Case Notes" size="30">
+                    <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
                     <button type="search" class="btn btn-default" align="right">Search</button>
                     </div>
                   </form>
@@ -70,88 +70,17 @@
                       <td class="col-xs-3">Chris Beckette</td>
                       <td class="col-xs-4">This is the beginning of a case note.</td>
                     </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
               <button id="addcasenote" type="button" class="btn btn-default">Add New Case Note</button>
             </div>
             <div class="tab-pane" id="documents">
-                <h1>Steven's Documents</h1>
+                <h1>Client Documents</h1>
                 <p></p>
             </div>
             <div class="tab-pane" id="green">
                 <h1>Other</h1>
                 <p></p>
             </div>
+        </div>
