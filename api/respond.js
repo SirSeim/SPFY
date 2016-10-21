@@ -155,6 +155,13 @@ var respond = {
             message: "Success enrolling!",
             result: result
         }).code(200);
+    },
+    checkin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success checking in!",
+            result: result
+        }).code(200);
     }
 
 };
