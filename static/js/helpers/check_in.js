@@ -25,6 +25,7 @@ $(function (event) {
           error: function (data) {
               console.error(data);
           }
+      });
   });
 
   var selectedclients = [];
@@ -53,6 +54,7 @@ $(function (event) {
           });
       }
 
+
       $.ajax({
           url: "api/checkin",
           method: "POST",
@@ -77,5 +79,5 @@ $(function (event) {
                   '<div><h4>Check In failed</h4>');
           }
       });
-
+  });
 });

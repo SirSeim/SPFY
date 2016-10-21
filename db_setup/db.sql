@@ -299,4 +299,4 @@ CREATE TABLE check_in (
   date date DEFAULT NULL
 );
 
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z' );
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');

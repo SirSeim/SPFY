@@ -101,11 +101,11 @@ var api = {
         });
     },
     checkin: function (request, reply) {
-        Service.enroll(request.postgres, request.payload, function (err, result) {
+        Service.checkin(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEnroll(reply, err);
+                Respond.failedToCheckIn(reply, err);
             } else {
-                Respond.enroll(reply, result);
+                Respond.checkin(reply, result);
             }
         });
     }
