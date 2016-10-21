@@ -193,9 +193,18 @@ var service = {
             return callback(undefined, arr);
         });
     },
-    
+
     createActivity: function (postgres, payload, callback) {
         Query.createActivity(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editActivity: function (postgres, payload, callback) {
+        Query.editActivity(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

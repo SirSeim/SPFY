@@ -381,7 +381,21 @@ var queries = {
         var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity'
 
         return queryString
-    }
+    },
+
+    editActivity: function (payload) {
+        var queryString = 'UPDATE activity SET ';
+
+        queryString += 'activity_name = ' + parseProperty(payload.activity_name) + ',';
+        queryString += 'ongoing = ' + parseProperty(payload.onGoing) + ',';
+        queryString += 'start_date = ' + parseProperty(payload.startDate) + ',';
+        queryString += 'end_date = ' + parseProperty(payload.endDate) + ',';
+
+        queryString += 'WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
 
     enroll: function (payload) {
         var queryString = "";

@@ -273,6 +273,23 @@ var query = {
         });
     },
 
+    editActivity: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.editActivity(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     enroll: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             var parsedPayload = JSON.parse(payload.expression);

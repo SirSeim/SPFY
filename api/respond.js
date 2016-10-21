@@ -164,6 +164,20 @@ var respond = {
             error: err
         }).code(500);
     },
+    editActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing activity!",
+            result: result
+        }).code(200);
+    },
+    failedToEditActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit activity!",
+            error: err
+        }).code(500);
+    },
     enroll: function (reply, result) {
         reply({
             statusCode: 200,

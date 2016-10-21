@@ -85,6 +85,11 @@ var apiRoutes = [
     },
     {
         method: 'POST',
+        path: "/editActivity"
+        handler: Api.editActivity
+    },
+    {
+        method: 'POST',
         path: '/enroll',
         handler: Api.enroll
     },

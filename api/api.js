@@ -123,16 +123,26 @@ var api = {
             }
         });
     },
-    
-    createActivity: function(request, reply){
+
+    createActivity: function (request, reply){
         Service.createActivity(request.postgres, request.params.activity, function (err, result) {
             if (err) {
-                Respond.failedToCreateActivity(reply,err);
+                Respond.failedToCreateActivity(reply, err);
             } else {
                 Respond.gotCreateActivity(reply, result);
             }
         });
     },
+
+    editActivity: function (request, reply) {
+        Service.editActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToEditActivity(reply, err);
+            } else {
+                Respond.gotEditActivity(reply, err);
+            }
+        })
+    }
 
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
