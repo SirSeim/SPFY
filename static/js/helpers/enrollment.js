@@ -35,7 +35,7 @@ $(function (event) {
             }
         });
     }).done(function (data) {
-        allActivities = data.result.rows.slice();
+        allActivities = data.result.slice();
     });
 
     var selectedActivities = [];

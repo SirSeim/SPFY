@@ -27,7 +27,7 @@ $(function (event) {
         });
     }).done(function (data) {
         table.empty();
-        data.result.rows.forEach(function (activity) {
+        data.result.forEach(function (activity) {
             table.append('<tr><td>' +
                 activity.activity_name +
                 '</td></tr>');
