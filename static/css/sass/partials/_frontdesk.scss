@@ -1,0 +1,14 @@
+button.badge-button.btn.btn-primary.btn-xs {
+    background-image: none;
+    background-color: $spfy-blue;
+    border-color: $button-border;
+    border: 2;
+    border-radius: 0.5;
+    padding: 10px 40px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+span.badge {
+    color: black !important;
+}

@@ -5,6 +5,14 @@
 
 @import "compass/reset";
 
+@import "modules/_colors";
+@import "modules/_sizing";
+
+@import "partials/_index";
 @import "partials/_base";
+@import "partials/_fonts";
+@import "partials/_navbar";
+
 @import "partials/_clients";
 @import "partials/_casenotes";
+@import "partials/_frontdesk";

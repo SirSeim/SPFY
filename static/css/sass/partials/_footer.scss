@@ -1,0 +1,38 @@
+@import "../modules/_sizing";
+@import "../modules/_colors";
+
+.footer-block {
+  background: $light-purple;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#footer-links li {
+    float: right;
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+// small screen only
+@media screen and (max-width: $small) {
+  .footer-block {
+    height: $sm-footer; /* Height of the footer element */
+  }
+}
+
+// medium screen only
+@media screen and (max-width: $medium) and (min-width: $small) {
+  .footer-block {
+    height: $md-footer; /* Height of the footer element */
+  }
+}
+
+// large screen only
+@media screen and (min-width: $medium) {
+  .footer-block {
+    height: $lg-footer; /* Height of the footer element */
+  }
+}

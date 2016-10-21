@@ -1,9 +1,4 @@
-$(function (event) {
-
-    // $("#").click(function () {
-    //     console.log("You are still on the homepage");
-    //     window.location.href = "frondeskhomepage.html";
-    // });
+$(function () {
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
@@ -12,7 +7,33 @@ $(function (event) {
         event.preventDefault();
     });
 
+    var createPastDropIn = function (dropin) {
+        return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
+                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+                '<td class="col-xs-2">' +
+                '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+    };
 
+    var populateViewDropIn = function () {
+        var table = $('#pastdropins tbody');
+
+        $.ajax({
+            url: "api/dropins",
+            method: "GET",
+            success: function (data) {
+                table.empty();
+                data.result.forEach(function (element) {
+                    table.append(createPastDropIn(element));
+                });
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    };
+
+    populateViewDropIn();
 // From:http://bootsnipp.com/snippets/featured/checked-list-group
     $(function () {
         $('.list-group.checked-list-box .list-group-item').each(function () {
@@ -24,10 +45,10 @@ $(function (event) {
                 style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
                 settings = {
                     on: {
-                        icon: 'glyphicon glyphicon-check'
+                        icon: 'fa fa-check'
                     },
                     off: {
-                        icon: 'glyphicon glyphicon-unchecked'
+                        icon: 'fa fa-unchecked'
                     }
                 };
                 
@@ -102,4 +123,5 @@ $(function (event) {
         }
     });
 
+    
 });
