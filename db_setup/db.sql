@@ -247,10 +247,10 @@ CREATE TABLE activity (
   end_date date DEFAULT NULL
 );
 
-INSERT INTO activity (activity_name) VALUES ('Medical');
-INSERT INTO activity (activity_name) VALUES ('Dental');
-INSERT INTO activity (activity_name) VALUES ('3D-Printing');
-INSERT INTO activity (activity_name) VALUES ('Garden Workshop');
+INSERT INTO activity (activity_name) VALUES ('Medical Care');
+INSERT INTO activity (activity_name) VALUES ('Medi-Cal Registration');
+INSERT INTO activity (activity_name) VALUES ('HIV Testing');
+INSERT INTO activity (activity_name) VALUES ('Dental Care');
 
 DROP TABLE IF EXISTS drop_in;
 
