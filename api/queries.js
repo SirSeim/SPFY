@@ -428,7 +428,7 @@ var queries = {
 
     createActivity: function (payload) {
         // WTF IS GOING ON HERE
-        var queryString = 'INSERT INTO activity ('
+        var queryString = 'INSERT INTO activity (';
 
         var payloadNames = [];
         var props = [];
