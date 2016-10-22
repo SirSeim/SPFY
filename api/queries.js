@@ -415,6 +415,8 @@ var queries = {
                             element.clientID + ', ' +
                             '\'' + element.date + '\'' + ');';
         });
+
+        return queryString;
       },
 
     dataBrowserGetClients: function () {

@@ -282,8 +282,12 @@ var query = {
 
     checkin: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
-            var parsedPayload = JSON.parse(payload.expression);
-            client.query(Queries.checkin(parsedPayload), function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.checkin(payload), function (err, result) {
+                done();
                 if (err) {
                     return callback(err);
                 }

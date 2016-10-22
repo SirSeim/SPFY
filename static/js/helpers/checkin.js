@@ -55,11 +55,12 @@ $(function (event) {
           });
       }
 
-
       $.ajax({
-          url: "api/checkin",
+          url: "/api/checkin",
           method: "POST",
-          data: { expression: JSON.stringify(signups) },
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify(signups),
           success: function (data) {
               console.log(data);
               var clientString = "";
