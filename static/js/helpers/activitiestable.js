@@ -33,6 +33,7 @@ $(function (event) {
         });
     });
 
+
     $('#activity-search').keyup(function () {
         var search = $('#activity-search');
         var activities = $('#activities td');

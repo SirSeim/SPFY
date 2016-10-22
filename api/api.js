@@ -62,6 +62,16 @@ var api = {
         }
     },
 
+    createDropIn: function (request, reply) {
+        Service.createDropIn(request.postgres, request.payload, function (err, result) {
+            if (err) { 
+                Respond.failedToCreateDropIn(reply, err);
+            } else {
+                Respond.createDropIn(reply, result);
+            }
+        });
+    },
+
     getDropIns: function (request, reply) {
         Service.getDropIns(request.postgres, function (err, result) {
             if (err) {
@@ -78,6 +88,16 @@ var api = {
                 Respond.failedToGetDropIn(reply, err);
             } else {
                 Respond.gotDropIns(reply, result);
+            }
+        });
+    },
+
+    createDropinActivities: function (request, reply) {
+        Service.createDropinActivities(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedTocreateDropinActivities(reply, err);
+            } else {
+                Respond.createDropinActivities(reply, result);
             }
         });
     },

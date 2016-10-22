@@ -336,6 +336,17 @@ var queries = {
         return queryString;
     },
 
+    createDropIn: function (payload) {
+        var queryString = 'INSERT INTO drop_in (date) VALUES ( $1 ) RETURNING date;'; // [payload.date]
+        var params = [];
+        params.push('\'' + payload.date + '\'');
+        var queryData = {
+            string: queryString,
+            params: params
+        }
+        return queryData;
+    },
+
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
 
@@ -345,6 +356,17 @@ var queries = {
     getDropIn: function (dropin) {
         var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
                             dropin + ';';
+
+        return queryString;
+    },
+
+    createDropInActivities: function (dropin) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.activityID + '); ';
+        });
 
         return queryString;
     },
