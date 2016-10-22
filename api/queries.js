@@ -279,7 +279,8 @@ var queries = {
     },
 
     getClient: function (clientID) {
-        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
+        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, ' +
+                            'date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
@@ -311,7 +312,8 @@ var queries = {
     },
 
     getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, ' +
+                            'email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
 
         return queryString;
     },
@@ -417,7 +419,7 @@ var queries = {
         });
 
         return queryString;
-      },
+    },
 
     dataBrowserGetClients: function () {
         var queryString = 'SELECT * FROM client;';
@@ -433,13 +435,12 @@ var queries = {
             searchText = ' = ' + data.searchText;
         } else {
             searchText = ' LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
-        };
+        }
         // 16 = bool
         // 1082 = date
 
         var queryString = 'SELECT * FROM client WHERE ' +
-                          data.column +  searchText + ';';
-        console.log(queryString);
+                          data.column + searchText + ';';
 
         return queryString;
     }

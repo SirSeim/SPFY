@@ -102,7 +102,6 @@ var service = {
             if (!local) {
                 return callback();
             }
-            console.log(result);
             return callback(undefined, {
                 id: local.id,
                 date: local.date
@@ -236,7 +235,7 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            var local = result.rows[0];
+            // var local = result.rows[0];
             return callback(undefined, result);
         });
     }

@@ -120,7 +120,6 @@ var api = {
     },
     dataBrowserSearchClients: function (request, reply) {
         var data = JSON.parse(request.params.data);
-        console.log(data);
         Service.dataBrowserSearchClients(request.postgres, data, function (err, result) {
             if (err) {
                 Respond.failedToGetClient(reply, err);
@@ -138,29 +137,8 @@ var api = {
                 Respond.editClient(reply, result);
             }
         });
-    },
-
-    dataBrowserGetClients: function (request, reply) {
-        Service.dataBrowserGetClients(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetClients(reply, err);
-            } else {
-                Respond.dataBrowserGetClients(reply, result);
-            }
-        });
-    },
-    dataBrowserSearchClients: function (request, reply) {
-        var data = JSON.parse(request.params.data);
-        console.log(data);
-        Service.dataBrowserSearchClients(request.postgres, data, function (err, result) {
-            if (err) {
-                Respond.failedToGetClient(reply, err);
-            } else {
-                Respond.dataBrowserSearchClients(reply, result);
-            }
-        });
     }
- };
+};
 
 
 module.exports = api;
