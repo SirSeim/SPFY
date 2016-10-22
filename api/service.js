@@ -132,6 +132,7 @@ var service = {
             if (err) {
                 return callback(err);
             }
+
             if (!result.rows[0]) {
                 return callback();
             }
@@ -217,6 +218,25 @@ var service = {
                 return callback(err);
             }
             return callback(undefined, result);
+        });
+    },
+
+    createActivity: function (postgres, payload, callback) {
+        console.log(payload);
+        Query.createActivity(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editActivity: function (postgres, payload, callback) {
+        Query.editActivity(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
         });
     },
 

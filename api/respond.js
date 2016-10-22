@@ -184,10 +184,38 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToCreateActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create activity!",
+            error: err,
+        }).code(500);
+    },
+    createActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating activity!",
+            result: result
+        }).code(200);
+    },
     failedToEnroll: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to enroll!",
+            error: err
+        }).code(500);
+    },
+    editActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing activity!",
+            result: result
+        }).code(200);
+    },
+    failedToEditActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit activity!",
             error: err
         }).code(500);
     },

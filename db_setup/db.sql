@@ -27,6 +27,8 @@ DROP TABLE IF EXISTS client;
 -- (this structure is still being decided upon)
 
 
+-- for dates, postgres documentation recommends using ISO 8601 format: '2016-01-08'
+-- which postgres will accept in any mode (some formats are rejected in certain postgres date/time modes)
 
 CREATE TABLE client (
   id SERIAL PRIMARY KEY,

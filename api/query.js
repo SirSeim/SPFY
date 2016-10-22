@@ -69,6 +69,7 @@ var query = {
         });
     },
 
+
     getClient: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -246,6 +247,44 @@ var query = {
             }
 
             client.query(Queries.getActivityDropIns(activity), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createActivity: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            console.log(payload);
+            payload = JSON.parse(payload.expression);
+            var data = Queries.createActivity(payload);
+
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editActivity: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.editActivity(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

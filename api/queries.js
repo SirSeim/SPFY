@@ -20,6 +20,7 @@ var parseProperty = function(property) {
 // need to figure out how to "only insert if not exists" implementation
 // order of these properties
 // must match order of payload properties
+
 var profileProperties = [
     'first_name',
     'last_name',
@@ -113,10 +114,16 @@ var profileProperties = [
     // backpack
 ];
 
+var activityProperties = [
+    'activity_name',
+    'ongoing',
+    'start_date',
+    'end_date'
+];
+
 // *** Postgres allows rows with duplicate data, so currently
 // same data inserted twice will be stored in two separate rows
 // need to figure out how to "only insert if not exists" implementation
-
 var queries = {
 
     // *** with this implementation, the order of the properties
@@ -284,7 +291,7 @@ var queries = {
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-
+    
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -352,7 +359,6 @@ var queries = {
 
         return queryString;
     },
-
     getDropIn: function (dropin) {
         var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
                             dropin + ';';
@@ -372,14 +378,15 @@ var queries = {
     },
 
     getDropinActivities: function (dropin) {
+
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
+
                         'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
     },
-
     getAllActivities: function () {
         var queryString = 'SELECT id, activity_name FROM activity;';
 
@@ -413,6 +420,69 @@ var queries = {
         queryString += 'email = ' + parseProperty(payload.email) + ',';
         queryString += 'last_meeting = ' + parseProperty(payload.lastMeeting) + ',';
         queryString += 'phone_number = ' + parseProperty(payload.phoneNumber) + ' ';
+
+        queryString += 'WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
+    createActivity: function (payload) {
+        // WTF IS GOING ON HERE
+        var queryString = 'INSERT INTO activity ('
+
+        var payloadNames = [];
+        var props = [];
+        var params = [];
+
+        var activityPropNames = activityProperties.map(function (element) {
+            return element.toLowerCase().replace(/_/g, '');
+        });
+
+        for (var property in payload) {
+            var index = activityPropNames.indexOf(property.toLowerCase());
+            if (index !== -1) {
+                props.push(activityProperties[index]);
+                payloadNames.push(property);
+            }
+        }
+
+        props.forEach(function (element, index) {
+            queryString += props[index] + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') VALUES (';
+
+        payloadNames.forEach(function (element, index) {
+            queryString += '$' + (index + 1) + ', ';
+            params.push(parseProperty(payload[payloadNames[index]]));
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') RETURNING ';
+
+        props.forEach(function (element) {
+            queryString += element + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ';';
+
+        var queryData = {
+            string: queryString,
+            params: params
+        };
+
+        return queryData;        
+    },
+
+    editActivity: function (payload) {
+        var queryString = 'UPDATE activity SET ';
+
+        queryString += 'activity_name = ' + parseProperty(payload.activity_name) + ',';
+        queryString += 'ongoing = ' + parseProperty(payload.onGoing) + ',';
+        queryString += 'start_date = ' + parseProperty(payload.startDate) + ',';
+        queryString += 'end_date = ' + parseProperty(payload.endDate) + ',';
 
         queryString += 'WHERE id = ' + payload.id;
 

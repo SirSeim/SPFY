@@ -94,9 +94,14 @@ var apiRoutes = [
         handler: Api.dataBrowserSearchClients
     },
     {
-        method: 'GET',
-        path: '/editclient',
-        handler: Api.getEditclient
+        method: 'POST',
+        path: "/activity",
+        handler: Api.createActivity
+    },
+    {
+        method: 'POST',
+        path: "/editactivity",
+        handler: Api.editActivity
     },
     {
         method: 'POST',

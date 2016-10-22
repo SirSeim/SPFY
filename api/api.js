@@ -153,6 +153,27 @@ var api = {
         });
     },
 
+    createActivity: function (request, reply){
+        console.log(request.payload);
+        Service.createActivity(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateActivity(reply, err);
+            } else {
+                Respond.createActivity(reply, result);
+            }
+        });
+    },
+
+    editActivity: function (request, reply) {
+        Service.editActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToEditActivity(reply, err);
+            } else {
+                Respond.gotEditActivity(reply, result);
+            }
+        });
+    },
+
     editClient: function (request, reply) {
         Service.editClient(request.postgres, request.payload, function (err, result) {
             if (err) {
