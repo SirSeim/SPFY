@@ -307,6 +307,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
+            
             client.query(Queries.dataBrowserSearchClients(data), function (err, result) {
                 done();
                 if (err) {

@@ -111,6 +111,7 @@ var api = {
             }
         });
     },
+
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
             if (err) {
@@ -120,6 +121,7 @@ var api = {
             }
         });
     },
+
     checkin: function (request, reply) {
         Service.checkin(request.postgres, request.payload, function (err, result) {
             if (err) {
@@ -129,6 +131,7 @@ var api = {
             }
         });
     },
+
     dataBrowserGetClients: function (request, reply) {
         Service.dataBrowserGetClients(request.postgres, function (err, result) {
             if (err) {
@@ -138,6 +141,7 @@ var api = {
             }
         });
     },
+
     dataBrowserSearchClients: function (request, reply) {
         var data = JSON.parse(request.params.data);
         Service.dataBrowserSearchClients(request.postgres, data, function (err, result) {

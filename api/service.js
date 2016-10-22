@@ -229,7 +229,6 @@ var service = {
         });
     },
 
-
     checkin: function (postgres, payload, callback) {
         Query.checkin(postgres, payload, function (err, result) {
             if (err) {

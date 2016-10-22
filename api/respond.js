@@ -210,7 +210,7 @@ var respond = {
             statusCode: 200,
             message: "Success checking in!",
             result: result
-        });
+        }).code(200);
     },
     dataBrowserGetClients: function (reply, result) {
         reply({
