@@ -1,5 +1,4 @@
 $(function (event) {
-    
     var table = $('#activities');
 
     $.ajax({
@@ -18,7 +17,7 @@ $(function (event) {
             url: "api/dropins/" + currentDropIn.id + "/activities",
             method: "GET",
             success: function (data) {
-                console.log("inside activities success");                
+                console.log("inside activities success");
                 console.log(data);
                 table.empty();
                 data.result.forEach(function (activity) {
@@ -32,6 +31,7 @@ $(function (event) {
             }
         });
     });
+
 
     $('#activity-search').keyup(function () {
         var search = $('#activity-search');

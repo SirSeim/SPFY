@@ -1,8 +1,10 @@
 $(function (event) {
+
     var status = $('.dot');
     var table = $('#clients tbody');
+
     $.ajax({
-        url: "api/clients",
+        url: "api/checkin",
         method: "GET",
         success: function (data) {
             status.removeClass('dot-pending').addClass('dot-success');

@@ -11,7 +11,7 @@ strong {
 }
 
 h1 {
-    font-family: 'uDIN1451MittelschriftRegular';
+    //font-family: 'uDIN1451MittelschriftRegular';
     font-weight: bold;
     font-style: normal;
     font-size: $h1-size;
@@ -34,20 +34,20 @@ h5 {
 }
 
 h2, h3, h4, h5 {
-  font-family: 'uDIN1451MittelschriftRegular';
+  //font-family: 'uDIN1451MittelschriftRegular';
   font-weight: normal;
   font-style: normal;
 }
 
 p, td, a, button, label, input, li, textarea { //aka ptdablilit
-  font-family: 'KildeSansRegular';
+  //font-family: 'KildeSansRegular';
   font-weight: normal;
   font-style: normal;
   font-size: $ptdablilit-size;
 }
 
 th {
-  font-family: 'KildeSansRegular';
+  //font-family: 'KildeSansRegular';
   font-weight: normal;
   font-style: normal;
   font-size: $th-size;

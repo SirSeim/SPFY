@@ -1,7 +1,6 @@
 var Path = require('path');
 var Service = require(Path.join(__dirname, 'service.js'));
 var Respond = require(Path.join(__dirname, 'respond.js'));
-var Queries = require(Path.join(__dirname, 'queries.js'));
 
 // these functions get called from routes/api_routes.js
 var api = {
@@ -14,9 +13,8 @@ var api = {
     // send data as a JSON back to the frontend
     createClient: function (request, reply) {
         Service.createClient(request.postgres, request.payload, function (err, result) {
-            if (err) { 
-                var payload = JSON.parse(request.payload.expression);
-                Respond.failedToCreateClient(reply, err, Queries.createClient(payload)); // for debugging SQL syntax
+            if (err) {
+                Respond.failedToCreateClient(reply, err);
             } else {
                 Respond.createdClient(reply, result);
             }
@@ -35,7 +33,7 @@ var api = {
     },
 
     getClient: function (request, reply) {
-        Service.getClient(request.postgres, request.params.clientID, function (err, result) {
+        Service.getClient(request.postgres, request.params.client, function (err, result) {
             if (err) {
                 Respond.failedToGetClient(reply, err);
             } else {
@@ -64,6 +62,16 @@ var api = {
         }
     },
 
+    createDropIn: function (request, reply) {
+        Service.createDropIn(request.postgres, request.payload, function (err, result) {
+            if (err) { 
+                Respond.failedToCreateDropIn(reply, err);
+            } else {
+                Respond.createDropIn(reply, result);
+            }
+        });
+    },
+
     getDropIns: function (request, reply) {
         Service.getDropIns(request.postgres, function (err, result) {
             if (err) {
@@ -84,42 +92,22 @@ var api = {
         });
     },
 
+    createDropinActivities: function (request, reply) {
+        Service.createDropinActivities(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedTocreateDropinActivities(reply, err);
+            } else {
+                Respond.createDropinActivities(reply, result);
+            }
+        });
+    },
+
     getDropinActivities: function (request, reply) {
         Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
                 Respond.failedToGetDropinActivities(reply, err);
             } else {
                 Respond.gotDropinActivities(reply, result);
-            }
-        });
-    },
-
-    getActivities: function (request, reply) {
-        Service.getAllActivities(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetActivities(reply, err);
-            } else {
-                Respond.gotActivities(reply, result);
-            }
-        });
-    },
-
-    getActivity: function (request, reply) {
-        Service.getActivity(request.postgres, request.params.activity, function (err, result) {
-            if (err) {
-                Respond.failedToGetActivity(reply, err);
-            } else {
-                Respond.gotActivity(reply, result);
-            }
-        });
-    },
-
-    getActivityDropIns: function (request, reply) {
-        Service.getActivityDropIns(request.postgres, request.params.activity, function (err, result) {
-            if (err) {
-                Respond.failedToGetActivityDropIns(reply, err);
-            } else {
-                Respond.gotActivityDropIns(reply, result);
             }
         });
     },
@@ -132,7 +120,70 @@ var api = {
                 Respond.enroll(reply, result);
             }
         });
+    },
+
+    checkin: function (request, reply) {
+        Service.checkin(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCheckIn(reply, err);
+            } else {
+                Respond.checkin(reply, result);
+            }
+        });
+    },
+
+    dataBrowserGetClients: function (request, reply) {
+        Service.dataBrowserGetClients(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetClients(reply, err);
+            } else {
+                Respond.dataBrowserGetClients(reply, result);
+            }
+        });
+    },
+
+    dataBrowserSearchClients: function (request, reply) {
+        var data = JSON.parse(request.params.data);
+        Service.dataBrowserSearchClients(request.postgres, data, function (err, result) {
+            if (err) {
+                Respond.failedToGetClient(reply, err);
+            } else {
+                Respond.dataBrowserSearchClients(reply, result);
+            }
+        });
+    },
+
+    createActivity: function (request, reply){
+        console.log(request.payload);
+        Service.createActivity(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateActivity(reply, err);
+            } else {
+                Respond.createActivity(reply, result);
+            }
+        });
+    },
+
+    editActivity: function (request, reply) {
+        Service.editActivity(request.postgres, request.params.activity, function (err, result) {
+            if (err) {
+                Respond.failedToEditActivity(reply, err);
+            } else {
+                Respond.gotEditActivity(reply, result);
+            }
+        });
+    },
+
+    editClient: function (request, reply) {
+        Service.editClient(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditClient(reply, err);
+            } else {
+                Respond.editClient(reply, result);
+            }
+        });
     }
 };
+
 
 module.exports = api;

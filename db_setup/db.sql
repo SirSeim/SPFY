@@ -27,6 +27,8 @@ DROP TABLE IF EXISTS client;
 -- (this structure is still being decided upon)
 
 
+-- for dates, postgres documentation recommends using ISO 8601 format: '2016-01-08'
+-- which postgres will accept in any mode (some formats are rejected in certain postgres date/time modes)
 
 CREATE TABLE client (
   id SERIAL PRIMARY KEY,
@@ -220,21 +222,21 @@ Is an activity a subprogram?
 DROP TABLE IF EXISTS program;
 
 CREATE TABLE program (
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   program_name varchar(45) DEFAULT NULL
 );
 
-INSERT INTO program VALUES (1, 'Education & Employment');
+INSERT INTO program VALUES ('Education & Employment');
 
 DROP TABLE IF EXISTS subprogram;
 
 CREATE TABLE subprogram (
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   subprogram_name varchar(45) DEFAULT NULL,
   program_id integer REFERENCES program (id)
 );
 
-INSERT INTO subprogram (id, subprogram_name, program_id) VALUES (1, 'Digital Arts Lab', 1);
+INSERT INTO subprogram (subprogram_name, program_id) VALUES ('Digital Arts Lab', 1);
 
 
 DROP TABLE IF EXISTS activity;
@@ -288,3 +290,15 @@ CREATE TABLE enrollment (
 );
 
 INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+
+
+DROP TABLE IF EXISTS check_in;
+
+CREATE TABLE check_in (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id),
+  date date DEFAULT NULL
+);
+
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');

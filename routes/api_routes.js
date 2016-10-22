@@ -40,13 +40,18 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/clients/{clientID}',
+        path: '/clients/{client}',
         handler: Api.getClient
     },
     {
         method: 'GET',
         path: '/clients',
         handler: Api.getClients
+    },
+    {
+        method: 'POST',
+        path: '/dropins',
+        handler: Api.createDropIn
     },
     {
         method: 'GET',
@@ -64,34 +69,44 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
-        method: 'GET',
-        path: '/activities',
-        handler: Api.getActivities
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}',
-        handler: Api.getActivity
-    },
-    {
-        method: 'GET',
-        path: '/activities/{activity}/dropins',
-        handler: Api.getActivityDropIns
-    },
-    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
     },
     {
-        method: 'GET',
-        path: '/editclient',
-        handler: Api.getEditclient
+        method: 'POST',
+        path: '/checkin',
+        handler: Api.checkin
     },
     {
         method: 'POST',
-        path: '/editclient',
-        handler: Api.postEditClient
+        path: '/activities',
+        handler: Api.createDropInActivites
+    },
+    {
+        method: 'GET',
+        path: '/clients/search',
+        handler: Api.dataBrowserGetClients
+    },
+    {
+        method: 'GET',
+        path: '/clients/search/{data}',
+        handler: Api.dataBrowserSearchClients
+    },
+    {
+        method: 'POST',
+        path: "/activity",
+        handler: Api.createActivity
+    },
+    {
+        method: 'POST',
+        path: "/editactivity",
+        handler: Api.editActivity
+    },
+    {
+        method: 'POST',
+        path: '/clients/{clientID}',
+        handler: Api.editClient
     }
 ];
 
