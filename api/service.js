@@ -123,7 +123,7 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            return callback(undefined,  result);
+            return callback(undefined, result);
         });
     },
 

@@ -343,7 +343,7 @@ var queries = {
         var queryData = {
             string: queryString,
             params: params
-        }
+        };
         return queryData;
     },
 
@@ -360,7 +360,7 @@ var queries = {
         return queryString;
     },
 
-    createDropInActivities: function (dropin) {
+    createDropInActivities: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
             queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id) VALUES( ' +
