@@ -20,6 +20,7 @@ var parseProperty = function(property) {
 // need to figure out how to "only insert if not exists" implementation
 // order of these properties
 // must match order of payload properties
+
 var profileProperties = [
     'first_name',
     'last_name',
@@ -113,10 +114,16 @@ var profileProperties = [
     // backpack
 ];
 
+var activityProperties = [
+    'activity_name',
+    'ongoing',
+    'start_date',
+    'end_date'
+];
+
 // *** Postgres allows rows with duplicate data, so currently
 // same data inserted twice will be stored in two separate rows
 // need to figure out how to "only insert if not exists" implementation
-
 var queries = {
 
     // *** with this implementation, the order of the properties
@@ -159,7 +166,7 @@ var queries = {
         props.forEach(function (element) {
             queryString += element + ', ';
         });
-        
+
         queryString = queryString.slice(0, queryString.lastIndexOf(','));
         queryString += ';';
 
@@ -268,7 +275,7 @@ var queries = {
     },
 
     // ** TODO: paramaterize all of these functions
-    // ** parameterize queries!!! Taking user input and using it 
+    // ** parameterize queries!!! Taking user input and using it
     // directly in the query makes the code vulnerable to SQL injection
     // also, apostraphies in names could throw off syntax
 
@@ -279,7 +286,8 @@ var queries = {
     },
 
     getClient: function (clientID) {
-        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
+        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, ' +
+                            'date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
@@ -311,7 +319,8 @@ var queries = {
     },
 
     getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
+        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, ' +
+                            'email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
 
         return queryString;
     },
@@ -329,9 +338,20 @@ var queries = {
         queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
         queryString += 'reference = ' + parseProperty(payload.reference) + ',';
 
-        queryString += 'WHERE id = ' + payload.id; 
+        queryString += 'WHERE id = ' + payload.id;
 
         return queryString;
+    },
+
+    createDropIn: function (payload) {
+        var queryString = 'INSERT INTO drop_in (date) VALUES ( $1 ) RETURNING date;'; // [payload.date]
+        var params = [];
+        params.push('\'' + payload.date + '\'');
+        var queryData = {
+            string: queryString,
+            params: params
+        };
+        return queryData;
     },
 
     getDropIns: function () {
@@ -339,7 +359,6 @@ var queries = {
 
         return queryString;
     },
-
     getDropIn: function (dropin) {
         var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
                             dropin + ';';
@@ -347,15 +366,27 @@ var queries = {
         return queryString;
     },
 
+    createDropInActivities: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.activityID + '); ';
+        });
+
+        return queryString;
+    },
+
     getDropinActivities: function (dropin) {
+
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
+
                         'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
     },
-
     getAllActivities: function () {
         var queryString = 'SELECT id, activity_name FROM activity;';
 
@@ -378,6 +409,86 @@ var queries = {
         return queryString;
     },
 
+    editClient: function (payload) {
+        var queryString = 'UPDATE client SET ';
+
+        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
+        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
+        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'birthday = ' + parseProperty(payload.birthday) + ',';
+        queryString += 'case_manager = ' + parseProperty(payload.caseManager) + ',';
+        queryString += 'email = ' + parseProperty(payload.email) + ',';
+        queryString += 'last_meeting = ' + parseProperty(payload.lastMeeting) + ',';
+        queryString += 'phone_number = ' + parseProperty(payload.phoneNumber) + ' ';
+
+        queryString += 'WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
+    createActivity: function (payload) {
+        // WTF IS GOING ON HERE
+        var queryString = 'INSERT INTO activity ('
+
+        var payloadNames = [];
+        var props = [];
+        var params = [];
+
+        var activityPropNames = activityProperties.map(function (element) {
+            return element.toLowerCase().replace(/_/g, '');
+        });
+
+        for (var property in payload) {
+            var index = activityPropNames.indexOf(property.toLowerCase());
+            if (index !== -1) {
+                props.push(activityProperties[index]);
+                payloadNames.push(property);
+            }
+        }
+
+        props.forEach(function (element, index) {
+            queryString += props[index] + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') VALUES (';
+
+        payloadNames.forEach(function (element, index) {
+            queryString += '$' + (index + 1) + ', ';
+            params.push(parseProperty(payload[payloadNames[index]]));
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ') RETURNING ';
+
+        props.forEach(function (element) {
+            queryString += element + ', ';
+        });
+
+        queryString = queryString.slice(0, queryString.lastIndexOf(','));
+        queryString += ';';
+
+        var queryData = {
+            string: queryString,
+            params: params
+        };
+
+        return queryData;        
+    },
+
+    editActivity: function (payload) {
+        var queryString = 'UPDATE activity SET ';
+
+        queryString += 'activity_name = ' + parseProperty(payload.activity_name) + ',';
+        queryString += 'ongoing = ' + parseProperty(payload.onGoing) + ',';
+        queryString += 'start_date = ' + parseProperty(payload.startDate) + ',';
+        queryString += 'end_date = ' + parseProperty(payload.endDate) + ',';
+
+        queryString += 'WHERE id = ' + payload.id;
+
+        return queryString;
+    },
+
     enroll: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
@@ -386,6 +497,42 @@ var queries = {
                             element.clientID + ', ' +
                             element.activityID + '); ';
         });
+
+        return queryString;
+    },
+
+    checkin: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.clientID + ', ' +
+                            '\'' + element.date + '\'' + ');';
+        });
+
+        return queryString;
+    },
+
+    dataBrowserGetClients: function () {
+        var queryString = 'SELECT * FROM client;';
+
+        return queryString;
+    },
+
+    dataBrowserSearchClients: function (data) {
+        var searchText = "";
+        if (data.columnType === 1043) { // string
+            searchText = ' LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
+        } else if (data.columnType === 23) { // int
+            searchText = ' = ' + data.searchText;
+        } else {
+            searchText = ' LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
+        }
+        // 16 = bool
+        // 1082 = date
+
+        var queryString = 'SELECT * FROM client WHERE ' +
+                          data.column + searchText + ';';
 
         return queryString;
     }

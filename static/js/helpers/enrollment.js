@@ -6,7 +6,7 @@ $(function (event) {
     // creates a new drop-in day, information such as the drop-in ID
     // and the ID's for each activity during that drop-in could be stored
     // in the frontend somwhere) - reduces ajax calls to retrieve information
-    
+
     var allActivities = [];
     var currentDropIn = {};
 
@@ -48,7 +48,7 @@ $(function (event) {
         // refreshSelectedActivities();
         $('#selected-activities').empty();
         for (var i = 0; i < selectedActivities.length; i++) {
-            $('#selected-activities').append('<li class="list-group-item activity">' 
+            $('#selected-activities').append('<li class="list-group-item activity">'
                     + selectedActivities[i]
                     + '</li>');
         }
@@ -63,10 +63,10 @@ $(function (event) {
         }
         $('#selected-clients').empty();
         for (var i = 0; i < selectedclients.length; i++) {
-            $('#selected-clients').append('<li class="list-group-item client">' 
+            $('#selected-clients').append('<li class="list-group-item client">'
                     + selectedclients[i]
                     + '</li>');
-            
+
         }
     });
 
@@ -121,5 +121,24 @@ $(function (event) {
             }
         });
     });
+    
+    var activityData = {
+        activityName: "Medical Care",
+        ongoing: false,
+        startDate: '2016-10-20',
+        endDate: '2016-10-22'
+    };
 
+    $.ajax({
+        url: "api/activity",
+        method: "POST",
+        data: { expression: JSON.stringify(activityData) },
+        success: function (data) {
+            console.log()
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 });

@@ -72,6 +72,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToCreateDropIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create dropin!",
+            error: err
+        }).code(500);
+    },
+    createDropIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropIns: function (reply, err) {
         reply({
             statusCode: 500,
@@ -80,6 +94,20 @@ var respond = {
         }).code(500);
     },
     gotDropIns: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting dropins!",
+            result: result
+        }).code(200);
+    },
+    failedTocreateDropIns: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get dropins!",
+            error: err
+        }).code(500);
+    },
+    createDropIns: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting dropins!",
@@ -142,6 +170,34 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToEditClient: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit client!",
+            error: err
+        }).code(500);
+    },
+    editClient: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing client!",
+            result: result
+        }).code(200);
+    },
+    failedToCreateActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create activity!",
+            error: err,
+        }).code(500);
+    },
+    createActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating activity!",
+            result: result
+        }).code(200);
+    },
     failedToEnroll: function (reply, err) {
         reply({
             statusCode: 500,
@@ -149,10 +205,52 @@ var respond = {
             error: err
         }).code(500);
     },
+    editActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing activity!",
+            result: result
+        }).code(200);
+    },
+    failedToEditActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit activity!",
+            error: err
+        }).code(500);
+    },
     enroll: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success enrolling!",
+            result: result
+        }).code(200);
+    },
+    failedToCheckIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to check-in!",
+            error: err
+        }).code(500);
+    },
+    checkin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success checking in!",
+            result: result
+        }).code(200);
+    },
+    dataBrowserGetClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got all clients.",
+            result: result
+        }).code(200);
+    },
+    dataBrowserSearchClients: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client.",
             result: result
         }).code(200);
     }

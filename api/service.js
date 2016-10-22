@@ -73,6 +73,15 @@ var service = {
         });
     },
 
+    createDropIn: function (postgres, payload, callback) {
+        Query.createDropIn(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
     getDropIns: function (postgres, callback) {
         Query.getDropIns(postgres, function (err, result) {
             if (err) {
@@ -102,11 +111,19 @@ var service = {
             if (!local) {
                 return callback();
             }
-            console.log(result);
             return callback(undefined, {
                 id: local.id,
                 date: local.date
             });
+        });
+    },
+
+    createDropinActivities: function (postgres, payload, callback) {
+        Query.createDropinActivities(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
         });
     },
 
@@ -115,6 +132,7 @@ var service = {
             if (err) {
                 return callback(err);
             }
+
             if (!result.rows[0]) {
                 return callback();
             }
@@ -194,11 +212,67 @@ var service = {
         });
     },
 
+    editClient: function (postgres, activity, callback) {
+        Query.editClient(postgres, activity, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    createActivity: function (postgres, payload, callback) {
+        console.log(payload);
+        Query.createActivity(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editActivity: function (postgres, payload, callback) {
+        Query.editActivity(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
     enroll: function (postgres, payload, callback) {
         Query.enroll(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
+            return callback(undefined, result);
+        });
+    },
+
+    checkin: function (postgres, payload, callback) {
+        Query.checkin(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    dataBrowserGetClients: function (postgres, callback) {
+        Query.dataBrowserGetClients(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    dataBrowserSearchClients: function (postgres, data, callback) {
+        Query.dataBrowserSearchClients(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            // var local = result.rows[0];
             return callback(undefined, result);
         });
     }

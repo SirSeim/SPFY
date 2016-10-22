@@ -108,6 +108,6 @@ SPFY.register({
 SPFY.start(function () {
     SPFY.log(['info', 'SPFY'], "Server started on " + setup.host + ":" + setup.port);
     SPFY.log(['info', 'SPFY'], process.env.DATABASE_URL);
-}); 
+});
 
 module.exports = SPFY;

@@ -24,16 +24,19 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4>
-                      Intake Needed
+                      Checked-In 
                     </h4>
+                    <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
                   </div>
-                  <table id="intakeneeded" class="table table-hover">
+                  <table id="checked-in" class="table table-hover">
                     <thead>
                       <tr>
                         <th>First Visit</th>
                         <th>Name(First Last)</th>
                         <th>Nickname</th>
                         <th>DOB</th>
+                        <th>Activities Today</th>
+                        <th>Check-in Notes</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -42,30 +45,40 @@
                         <td>Steven Brown</td>
                         <td>Steve</td>
                         <td>09/02/94</td>
+                        <th>Activities Today</th>
+                        <td>notes <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/23/16</td>
                         <td>John Doe</td>
                         <td>Johnny</td>
                         <td>05/21/93</td>
+                        <th>Active Fun Times</th>
+                        <td>dental <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Carly Johnson</td>
                         <td>Johns</td>
                         <td>03/29/93</td>
+                        <th>Legal, Dental</th>
+                        <td>Legal<img width=10 height=10 src="http://www.clker.com/cliparts/K/2/n/j/Q/i/blue-dot-md.png"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Jamie Johnson</td>
                         <td>Jams</td>
                         <td>03/29/95</td>
+                        <th>DA Lab, Dental, Shower</th>
+                        <td>violent<img width=10 height=10 src="http://www.thepointless.com/images/greendot.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Jeremiah Halestrom</td>
                         <td>JJ</td>
                         <td>02/29/94</td>
+                        <th>Activities Today</th>
+                        <td><img width=10 height=10 src="http://www.thepointless.com/images/greendot.jpg"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -75,75 +88,11 @@
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class = "tablinks" href="#newdrop-in" data-toggle="tab">New Drop-In</a></li>
+              <li class="active"><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
-              <li><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
             </ul>
 
             <div id="my-tab-content" class="tab-content">
-              <div class="tab-pane active" id="newdrop-in">
-                  <h2>New Drop In</h2>
-                  <form class="drop-in details">
-                      <div class="form-group">
-                        <input type="text" placeholder="Date" size="30">
-                      </div>
-                      <div class="col-xs-12">
-                        <h3 class="text-center">Health & Wellness Programs</h3>
-                        <div class="well" style="max-height: 300px;overflow: auto;">
-                         <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                         <!-- SHOWERS EXAMPLE: add, allow time slot -->
-                          <ul class="list-group checked-list-box">
-                              <li class="list-group-item">Medical</li>
-                              <li class="list-group-item">Dental</li>
-                              <li class="list-group-item">HIV Testing</li>
-                              <li class="list-group-item">Medi-Cal Registration</li>
-                              <li class="list-group-item">Counseling</li>
-                              <li class="list-group-item">Creative Expression</li>
-                              <li class="list-group-item">Mindfulness</li>
-                              <li class="list-group-item">Yoga</li>
-                              <li class="list-group-item">Creative Writing</li>
-                              <li class="list-group-item">Drumming</li>
-                              <li class="list-group-item">Music</li>
-                              <li class="list-group-item">Substance Abuse Support</li>
-                            </ul>
-                        </div>
-                      </div>
-                      <div class="col-xs-12">
-                        <h3 class="text-center">Education & Employment</h3>
-                        <div class="well" style="max-height: 300px;overflow: auto;">
-                          <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                            <ul class="list-group checked-list-box">
-                              <li class="list-group-item">Digital Arts Lab</li>
-                              <li class="list-group-item">Experiential Learning</li>
-                              <li class="list-group-item">Five Keys Charter School</li>
-                              <li class="list-group-item">West LA College Tour</li>
-                              <li class="list-group-item">East LA School Fair</li>
-                              <li class="list-group-item">Resume Development</li>
-                              <li class="list-group-item">Job Search</li>
-                              <li class="list-group-item">Career Assessment</li>
-                              <li class="list-group-item">Mock Interviews</li>
-                              <li class="list-group-item">Job Certification</li>
-                              <li class="list-group-item">Job Fair</li>
-                              <li class="list-group-item">Life Skills Program</li>
-                            </ul>
-                        </div>
-                      </div>
-                      <div class="col-xs-12">
-                        <h3 class="text-center">Other</h3>
-                        <div class="well" style="max-height: 300px;overflow: auto;">
-                          <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
-                            <ul class="list-group checked-list-box">
-                              <li class="list-group-item">Legal</li>
-                              <li class="list-group-item">Case Management</li>
-                            </ul>
-                        </div>
-                      </div>
-                  </form>   
-                  <div class="col-xs-12">
-                    <button type="create" class="btn btn-default" align="center">Create</button>
-                  </div>                
-              </div> <!-- New Drop-In Tab pane -->
-
               <div class="tab-pane" id="viewdrop-in">
                   <div class="panel panel-default">
                     <div class="panel-heading">
@@ -177,7 +126,7 @@
                 <button type="create" class="btn btn-default" align="center">Create</button>
               </div>
 
-              <div class="tab-pane" id="dropin-enrollment">
+              <div class="tab-pane active" id="dropin-enrollment">
 
                 <div class="row">
 
@@ -186,60 +135,57 @@
                   </div>
 
                   <div id="enrollment-area" class="col-sm-8">
-
-                      <div class="row">
-
-                          <div class="col-sm-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <h3 class="text-center">Selected Clients</h3>
-                                </div>            
-                                <div class="well" style="max-height: 300px;overflow: auto;">
-                                  <ul id="selected-clients" class="list-group checked-list-box">
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-4">
-                              <div class="panel panel-default">
-                                  <div class="panel-heading">
-                                    <h3 class="text-center">Selected Activities</h3>
-                                  </div>            
-                                  <div class="well" style="max-height: 300px;overflow: auto;">
-                                    <ul id="selected-activities" class="list-group checked-list-box">
-                                        
-                                      </ul>
-                                  </div>
+                      <div class="col-sm-4">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h3 class="text-center">Selected Clients</h3>
                               </div>
-                          </div>
+                              <div class="well" style="max-height: 300px;overflow: auto;">
+                                <ul id="selected-clients" class="list-group checked-list-box">
 
-                          <div class="col-sm-4">
+                                  </ul>
+                              </div>
+                            <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="text-center">Selected Activities</h3>
+                          </div>            
+                          <div class="well" style="max-height: 300px;overflow: auto;">
+                            <ul id="selected-activities" class="list-group checked-list-box">
+                                
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+<!--                           <div class="col-sm-4">
                             <div id="enrollment-feedback" class="panel panel-default">
                               
                             </div>
-                          </div>
+                          </div> -->
 
-                      </div> <!-- row -->
+                      <!-- </div> --> <!-- row -->
 
-                    <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
+                    <!-- <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button> -->
+                 <!--  </div> -->
+<!-- panel default -->
 
-                  </div>  <!-- enrollment area -->
+                  <!-- </div> -->  <!-- enrollment area -->
+                  {% include "helpers/_intakeneeded.html" %}
 
                   <div class="col-sm-2">
-                    
+
                     {% include "helpers/_activitiestable.html" %}
 
                   </div>
 
-                </div> <!-- row -->
 
-                <div class="row">
-                  <div class="col-xs-12">
-                    <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                  </div>
-                </div>
+                <!-- </div> --> <!-- row -->
+
               </div> <!-- Drop-In Enrollment Tab pane -->
             </div> <!-- Tab container -->
 
@@ -254,5 +200,6 @@
     <script src="/static/js/helpers/clientprofiletable.js"></script>
     <script src="/static/js/helpers/activitiestable.js"></script>
     <script src="/static/js/helpers/enrollment.js"></script>
+    <script src="/static/js/helpers/checkin.js"></script>
 
 {% include "helpers/_footer.html" %}
