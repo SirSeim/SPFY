@@ -24,16 +24,19 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4>
-                      Intake Needed
+                      Checked-In 
                     </h4>
+                    <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
                   </div>
-                  <table id="intakeneeded" class="table table-hover">
+                  <table id="checked-in" class="table table-hover">
                     <thead>
                       <tr>
                         <th>First Visit</th>
                         <th>Name(First Last)</th>
                         <th>Nickname</th>
                         <th>DOB</th>
+                        <th>Activities Today</th>
+                        <th>Check-in Notes</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -42,30 +45,40 @@
                         <td>Steven Brown</td>
                         <td>Steve</td>
                         <td>09/02/94</td>
+                        <th>Activities Today</th>
+                        <td>notes <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/23/16</td>
                         <td>John Doe</td>
                         <td>Johnny</td>
                         <td>05/21/93</td>
+                        <th>Active Fun Times</th>
+                        <td>dental <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Carly Johnson</td>
                         <td>Johns</td>
                         <td>03/29/93</td>
+                        <th>Legal, Dental</th>
+                        <td>Legal<img width=10 height=10 src="http://www.clker.com/cliparts/K/2/n/j/Q/i/blue-dot-md.png"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Jamie Johnson</td>
                         <td>Jams</td>
                         <td>03/29/95</td>
+                        <th>DA Lab, Dental, Shower</th>
+                        <td>violent<img width=10 height=10 src="http://www.thepointless.com/images/greendot.jpg"></td>
                       </tr>
                       <tr>
                         <td>09/20/16</td>
                         <td>Jeremiah Halestrom</td>
                         <td>JJ</td>
                         <td>02/29/94</td>
+                        <th>Activities Today</th>
+                        <td><img width=10 height=10 src="http://www.thepointless.com/images/greendot.jpg"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -151,17 +164,20 @@
                               </div>
                           </div>
 
-                          <div class="col-sm-4">
+<!--                           <div class="col-sm-4">
                             <div id="enrollment-feedback" class="panel panel-default">
                               
                             </div>
-                          </div>
+                          </div> -->
 
-                      </div> <!-- row -->
+                      <!-- </div> --> <!-- row -->
 
-                    <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
+                    <!-- <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button> -->
+                 <!--  </div> -->
+<!-- panel default -->
 
-                  </div>  <!-- enrollment area -->
+                  <!-- </div> -->  <!-- enrollment area -->
+                  {% include "helpers/_intakeneeded.html" %}
 
                   <div class="col-sm-2">
                     
@@ -169,7 +185,8 @@
 
                   </div>
 
-                </div> <!-- row -->
+
+                <!-- </div> --> <!-- row -->
 
                 <div class="row">
                   <div class="col-xs-12">
