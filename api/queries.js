@@ -366,7 +366,7 @@ var queries = {
         return queryString;
     },
 
-    createDropInActivities: function (payload) {
+    createDropinActivities: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
             queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id) VALUES( ' +
@@ -380,7 +380,6 @@ var queries = {
     getDropinActivities: function (dropin) {
 
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
-
                         'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
                         'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
                         'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
@@ -428,7 +427,7 @@ var queries = {
 
     createActivity: function (payload) {
         // WTF IS GOING ON HERE
-        var queryString = 'INSERT INTO activity ('
+        var queryString = 'INSERT INTO activity (';
 
         var payloadNames = [];
         var props = [];

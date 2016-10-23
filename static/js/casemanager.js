@@ -1,9 +1,9 @@
 $(function (event) {
 
-    $("#addcasenote").click(function () {
-        console.log("added new case note");
-        window.location.href = "casenotepage.html";
-    });
+    // $("#addcasenote").click(function () {
+    //     console.log("added new case note");
+    //     window.location.href = "casenotepage.html";
+    // });
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
