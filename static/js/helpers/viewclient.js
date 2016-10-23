@@ -13,7 +13,7 @@ $(function (event) {
             }
         }).done(function (data) {
             var string = $('#view-client-tabs').attr('class');
-            console.log(string);
+
             $('#view-client-tabs').attr('class', "col-sm-8");        
             if (data.result.rows[0].nick_name != undefined){
                 $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);

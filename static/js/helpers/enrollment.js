@@ -35,7 +35,16 @@ $(function (event) {
             }
         });
     }).done(function (data) {
-        allActivities = data.result.slice();
+        allActivities = data.result ? data.result.slice() : 
+                [{   id: 2,
+                    name: 'Medi-Cal Registration',
+                    room: 'Clinic',
+                    comments: '',
+                    startTime: '12:30:00',
+                    endTime: '13:30:00'
+                }];
+        // hardcoding at least one activity into each drop-in to avoid "no activities" errors
+        // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
     });
 
     var selectedActivities = [];
@@ -73,7 +82,7 @@ $(function (event) {
     $('#enroll-button').click(function (event) {
         var signups = [];
         var activityids = [];
-        console.log(allActivities);
+ 
         for (var i = 0; i < allActivities.length; i++) {
             if (selectedActivities.includes(allActivities[i].name)) {
                 activityids.push(allActivities[i].id);
@@ -105,7 +114,7 @@ $(function (event) {
                     activityString += selectedActivities[i] + '<br>';
                 }
 
-                $('#enrollment-feedback').empty().append(
+                $('#checkin-enrollment-feedback').empty().append(
                     '<div><h4>Clients Successfully Enrolled</h4>' +
                     '<h4>Clients</h4>' + clientString +
                     '<h4>Activities</h4>' + activityString +
@@ -122,23 +131,23 @@ $(function (event) {
         });
     });
     
-    var activityData = {
-        activityName: "Medical Care",
-        ongoing: false,
-        startDate: '2016-10-20',
-        endDate: '2016-10-22'
-    };
+    // var activityData = {
+    //     activityName: "Medical Care",
+    //     ongoing: false,
+    //     startDate: '2016-10-20',
+    //     endDate: '2016-10-22'
+    // };
 
-    $.ajax({
-        url: "api/activity",
-        method: "POST",
-        data: { expression: JSON.stringify(activityData) },
-        success: function (data) {
-            console.log()
-            console.log(data);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
+    // $.ajax({
+    //     url: "api/activity",
+    //     method: "POST",
+    //     data: { expression: JSON.stringify(activityData) },
+    //     success: function (data) {
+    //         console.log()
+    //         console.log(data);
+    //     },
+    //     error: function (data) {
+    //         console.error(data);
+    //     }
+    // });
 });

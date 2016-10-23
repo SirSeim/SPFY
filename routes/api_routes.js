@@ -81,7 +81,7 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/activities',
-        handler: Api.createDropInActivites
+        handler: Api.createDropinActivities
     },
     {
         method: 'GET',

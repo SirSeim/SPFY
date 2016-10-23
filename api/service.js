@@ -133,9 +133,12 @@ var service = {
                 return callback(err);
             }
 
+            // possible for a dropin to not have activities
+            // Should we have default activities?
             if (!result.rows[0]) {
                 return callback();
             }
+
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];

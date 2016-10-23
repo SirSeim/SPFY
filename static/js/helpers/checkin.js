@@ -68,7 +68,7 @@ $(function (event) {
                   clientString += selectedclients[i] + '<br>';
               }
 
-              $('#checkin-feedback').empty().append(
+              $('#checkin-enrollment-feedback').empty().append(
                   '<div><h4>Clients Successfully Checked In</h4>' +
                   '<h4>Clients</h4>' + clientString +
                   '</div>');

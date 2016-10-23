@@ -20,11 +20,17 @@ $(function (event) {
                 console.log("inside activities success");
                 console.log(data);
                 table.empty();
-                data.result.forEach(function (activity) {
-                    table.append('<tr><td>' +
-                        activity.name +
-                        '</td></tr>');
-                });
+                if (data.result) {
+                    data.result.forEach(function (activity) {
+                        table.append('<tr><td>' +
+                            activity.name +
+                            '</td></tr>');
+                    });
+                } else {
+                    table.append('<tr><td>Medi-Cal Registration</td></tr>');
+                    // hardcoding at least one activity into each drop-in to avoid "no activities" errors
+                    // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
+                }
             },
             error: function (data) {
                 console.error(data);
