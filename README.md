@@ -28,17 +28,19 @@ cd SPFY
 npm install
 ```
 
-configure server with config file to go into `config/default.json`
+configure database with user and database for project by having `config/create_spfy.sql`
 ```
-{
-    "Node-Server": {
-        "host": <desired host>,
-        "port": <desired port>,
-        "logToConsole": <desired logging boolean>
+CREATE USER {user} WITH PASSWORD '{password}';
+CREATE DATABASE {db, default spfy} OWNER {user};
+ALTER USER {user} WITH SUPERUSER;
+GRANT ALL PRIVILEGES ON DATABASE "{db, default spfy}" to "{user}";
+```
 
-    }
-}
+configure server with database access by having `config/set_env.sh`
 ```
+echo 'postgres://{user}:{password}@{host, default localhost}:{port, default 5432}/{db, default spfy}'
+```
+
 Alternately, get the most recent config folder from Team member/Slack
 
 ### Using Database
@@ -57,12 +59,21 @@ Stop Database
 ```
 npm run db-stop
 ```
+Reset Database (stop, initialize, start)
+```
+npm run db-reset
+```
 
 ### Running & Development
 
 Start server
 ```
 npm start
+```
+
+Alternately, start server to auto restart when a file changes, _provided by [nodemon](https://github.com/remy/nodemon/)_
+```
+npm run nodemon
 ```
 
 Run Tests
@@ -73,7 +84,7 @@ npm run lint
 
 To view a coverage report, run `npm test`, then `npm run report`, then open up `coverage/lcov-report/index.html` in a webbrowser
 
-[version-img]: https://img.shields.io/badge/version-in%20development-red.svg
+[version-img]: https://img.shields.io/badge/version-alpha-red.svg
 [version-url]: https://github.com/SirSeim/SPFY
 
 [build-img]: https://travis-ci.org/SirSeim/SPFY.svg?branch=master

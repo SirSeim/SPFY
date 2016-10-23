@@ -1,0 +1,540 @@
+@charset "UTF-8";
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/static/css/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 5, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 1, ../sass/partials/_index.scss */
+img#big-logo {
+  width: 90%;
+  height: auto;
+}
+
+/* line 6, ../sass/partials/_index.scss */
+#bubbles {
+  padding: 80px 0;
+}
+
+/* line 10, ../sass/partials/_index.scss */
+.space {
+  margin-top: 40px;
+}
+
+/* line 14, ../sass/partials/_index.scss */
+#bubbles i.fa {
+  font-size: 40px;
+  border: 4px solid #02aef0;
+  width: 100px;
+  height: 100px;
+  padding: 27px 25px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+
+/* line 25, ../sass/partials/_index.scss */
+#bubbles i.fa.fa-mobile {
+  font-size: 50px;
+  padding: 20px 25px;
+}
+
+/* line 30, ../sass/partials/_index.scss */
+#bubbles .bubble:hover > i.fa {
+  background: #02aef0;
+  color: #ffffff;
+}
+
+/* line 35, ../sass/partials/_index.scss */
+#bubbles i.fa:hover {
+  background: #02aef0;
+  color: #ffffff;
+}
+
+/* line 6, ../sass/partials/_base.scss */
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+/* line 11, ../sass/partials/_base.scss */
+#content {
+  padding-left: 5px;
+}
+
+/* line 15, ../sass/partials/_base.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* line 21, ../sass/partials/_base.scss */
+.header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  height: 50px;
+  line-height: 1.5;
+  font-size: 30px;
+  border-bottom: #EEE solid 1px;
+}
+
+/* line 31, ../sass/partials/_base.scss */
+.hidden {
+  display: none;
+}
+
+/* line 35, ../sass/partials/_base.scss */
+.sidebar {
+  width: 200px;
+  height: 300px;
+}
+
+/* line 40, ../sass/partials/_base.scss */
+.left {
+  float: left;
+}
+
+/* line 44, ../sass/partials/_base.scss */
+.right {
+  float: right;
+}
+
+/* line 48, ../sass/partials/_base.scss */
+.menuButton {
+  background-color: #09F;
+  border: none;
+  margin: 5px;
+  color: #FFF;
+  width: 60px;
+  height: 35px;
+}
+
+/* line 57, ../sass/partials/_base.scss */
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  width: 50%;
+  background-color: grey;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+}
+
+/* line 66, ../sass/partials/_base.scss */
+.dot-success {
+  background-color: green;
+}
+
+/* line 4, ../sass/partials/_fonts.scss */
+body {
+  font-family: "brandon-grotesque", sans-serif;
+  margin: 0;
+}
+
+/* line 9, ../sass/partials/_fonts.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 13, ../sass/partials/_fonts.scss */
+h1 {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 60px;
+}
+
+/* line 20, ../sass/partials/_fonts.scss */
+h2 {
+  font-size: 50px;
+}
+
+/* line 24, ../sass/partials/_fonts.scss */
+h3 {
+  font-size: 37px;
+}
+
+/* line 28, ../sass/partials/_fonts.scss */
+h4 {
+  font-size: 27px;
+}
+
+/* line 32, ../sass/partials/_fonts.scss */
+h5 {
+  font-size: 19px;
+}
+
+/* line 36, ../sass/partials/_fonts.scss */
+h2, h3, h4, h5 {
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 42, ../sass/partials/_fonts.scss */
+p, td, a, button, label, input, li, textarea {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+}
+
+/* line 49, ../sass/partials/_fonts.scss */
+th {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 17px;
+}
+
+/* line 4, ../sass/partials/_footer.scss */
+.footer-block {
+  background: #02aef0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 12, ../sass/partials/_footer.scss */
+#footer-links li {
+  float: right;
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 21, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 65px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 767px) {
+  /* line 28, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 52px;
+    /* Height of the footer element */
+  }
+}
+@media screen and (min-width: 1024px) {
+  /* line 35, ../sass/partials/_footer.scss */
+  .footer-block {
+    height: 40px;
+    /* Height of the footer element */
+  }
+}
+/* line 4, ../sass/partials/_navbar.scss */
+.brand-logo {
+  height: 35px;
+  vertical-align: middle;
+  position: relative;
+  top: -9px;
+}
+
+/* line 1, ../sass/partials/_clients.scss */
+#clientname {
+  font-size: 20px;
+}
+
+/*#clients thead {
+  width: 97%;
+}*/
+/* line 7, ../sass/partials/_clients.scss */
+#clients tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* line 12, ../sass/partials/_clients.scss */
+#clients thead, #clients tbody, #clients tr, #clients td, #clients th {
+  display: block;
+}
+
+/*#clients tbody td, #clients thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}*/
+/*these are temporary*/
+/* line 21, ../sass/partials/_clients.scss */
+#steven-dot:before {
+  content: "• ";
+  color: gold;
+}
+
+/* line 25, ../sass/partials/_clients.scss */
+#carlie-dot:before {
+  content: "• ";
+  color: red;
+}
+
+/* line 29, ../sass/partials/_clients.scss */
+#mike-dot:before {
+  content: "• ";
+  color: blue;
+}
+
+/* line 33, ../sass/partials/_clients.scss */
+#andre-dot:before {
+  content: "• ";
+  color: gold;
+}
+
+/* line 37, ../sass/partials/_clients.scss */
+.bullet:before {
+  content: "• ";
+  color: green;
+}
+
+/* line 42, ../sass/partials/_clients.scss */
+.steven-photo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+/* line 48, ../sass/partials/_clients.scss */
+#clientInfoTable td {
+  width: 150px;
+}
+
+/*#casenotes thead {
+  width: 97%;
+}*/
+/* line 4, ../sass/partials/_casenotes.scss */
+#casenotes tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* line 9, ../sass/partials/_casenotes.scss */
+#casenotes thead, #casenotes tbody, #casenotes tr, #casenotes td, #casenotes th {
+  display: block;
+}
+
+/* line 12, ../sass/partials/_casenotes.scss */
+#casenotes tbody td, #casenotes thead > tr > th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+/* line 1, ../sass/partials/_search.scss */
+#dataBrowserContent {
+  position: absolute;
+  top: 72;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* line 9, ../sass/partials/_search.scss */
+.searchMain {
+  width: 100%;
+}
+
+/* line 13, ../sass/partials/_search.scss */
+.queryBuilderUI {
+  background-color: #02aef0;
+  width: 300px;
+  position: absolute;
+  height: 100%;
+}
+
+/* line 20, ../sass/partials/_search.scss */
+.qbAccess {
+  background-color: #02aef0;
+  width: 20px;
+  float: left;
+  height: 100%;
+  position: absolute;
+  color: #CCC;
+  text-align: center;
+}
+
+/* line 30, ../sass/partials/_search.scss */
+.qbHeader {
+  color: #FFF;
+}
+
+/* line 34, ../sass/partials/_search.scss */
+.qbSelect {
+  width: 250px;
+  background-color: #FFF;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* line 41, ../sass/partials/_search.scss */
+.qbBlock {
+  margin: 20px;
+  line-height: 2;
+}
+
+/* line 46, ../sass/partials/_search.scss */
+.qbText {
+  width: 250px;
+  height: 25px;
+}
+
+/* line 51, ../sass/partials/_search.scss */
+#qbClose {
+  float: right;
+  color: #CFF;
+  opacity: 0.5;
+  padding: 10px;
+}
+
+/* line 58, ../sass/partials/_search.scss */
+.filterTable {
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
+/* line 63, ../sass/partials/_search.scss */
+.detailPane {
+  background-color: #02aef0;
+  width: 300px;
+  position: absolute;
+  height: 100%;
+  float: right;
+  right: 0;
+}
+
+/* line 72, ../sass/partials/_search.scss */
+.dInset {
+  background-color: #FFF;
+  position: absolute;
+  width: 250px;
+  margin-left: 25px;
+  margin-top: 35px;
+  height: 95%;
+}
+
+/* line 81, ../sass/partials/_search.scss */
+#dClose {
+  float: left;
+  color: #CFF;
+  opacity: 0.5;
+  padding: 10px;
+}
+
+/* line 88, ../sass/partials/_search.scss */
+#dHeader {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+/* line 94, ../sass/partials/_search.scss */
+.ftRow {
+  height: 40px;
+  border: 1px solid #CCC;
+}
+
+/* line 99, ../sass/partials/_search.scss */
+.ftHead {
+  font-weight: bold;
+  background-color: #BFF;
+  height: 40px;
+}
+
+/* line 105, ../sass/partials/_search.scss */
+.ftEven {
+  background-color: #EFF;
+}
+
+/* line 109, ../sass/partials/_search.scss */
+.ftOdd {
+  background-color: #DFF;
+}
+
+/* line 113, ../sass/partials/_search.scss */
+.ftCell {
+  padding: 10px;
+}
+
+/* line 117, ../sass/partials/_search.scss */
+#allowScroll {
+  overflow: auto;
+}
+
+/* line 1, ../sass/partials/_frontdesk.scss */
+button.badge-button.btn.btn-primary.btn-xs {
+  background-image: none;
+  background-color: #02aef0;
+  border-color: #0076a3;
+  border: 2;
+  border-radius: 0.5;
+  padding: 10px 40px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* line 12, ../sass/partials/_frontdesk.scss */
+span.badge {
+  color: black !important;
+}

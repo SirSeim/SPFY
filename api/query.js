@@ -1,160 +1,450 @@
 var Path = require('path');
-var Queries = require(Path.join(__dirname, 'queries.js')); // eslint-disable-line
-
-var parseProperty = function(property) {
-    if (typeof property === 'boolean') {
-        property = property === true ? '1' : '0';
-    }
-    if (property === undefined) {
-        property = 'null';
-    }
-    property = mysql.escape(property); // eslint-disable-line
-    return property;
-};
+var Queries = require(Path.join(__dirname, 'queries.js'));
 
 var query = {
+
+    // *** use this as standard example ***
     createClient: function (postgres, payload, callback) {
-        var queryString = 'CALL spfy.insert_client(';
-
-        queryString += parseProperty(payload.firstName) + ',';
-        queryString += parseProperty(payload.lastName) + ',';
-        queryString += parseProperty(payload.nickname) + ',';
-        queryString += parseProperty(payload.personCompletingIntake) + ',';
-        queryString += parseProperty(payload.intakeDate) + ',';
-        queryString += parseProperty(payload.HMISConsent) + ',';
-        queryString += parseProperty(payload.firstTime) + ',';
-        queryString += parseProperty(payload.caseManager) + ',';
-        queryString += parseProperty(payload.caseManagerID) + ',';
-        queryString += parseProperty(payload.phoneNumber) + ',';
-        queryString += parseProperty(payload.email) + ',';
-        queryString += parseProperty(payload.dob) + ',';
-        queryString += parseProperty(payload.intakeAge) + ',';
-        queryString += parseProperty(payload.providedID) + ',';
-        queryString += parseProperty(payload.stateID) + ',';
-        queryString += parseProperty(payload.reference) + ',';
-        queryString += parseProperty(payload.services) + ',';
-        queryString += parseProperty(payload.disability) + ',';
-        queryString += parseProperty(payload.lastGradeCompleted) + ',';
-        queryString += parseProperty(payload.someCompleted) + ',';
-        queryString += parseProperty(payload.currentlyAttending) + ',';
-        queryString += parseProperty(payload.graduated) + ',';
-        queryString += parseProperty(payload.firstLanguage) + ',';
-        queryString += parseProperty(payload.preferredLanguage) + ',';
-        queryString += parseProperty(payload.maritalStatus) + ',';
-        queryString += parseProperty(payload.militaryService) + ',';
-        queryString += parseProperty(payload.healthInsurance) + ',';
-        queryString += parseProperty(payload.gender) + ',';
-        queryString += parseProperty(payload.genderIdentification) + ',';
-        queryString += parseProperty(payload.preferredPronoun) + ',';
-        queryString += parseProperty(payload.ethnicity) + ',';
-        queryString += parseProperty(payload.race) + ',';
-        queryString += parseProperty(payload.lastSleepingLocation) + ',';
-        queryString += parseProperty(payload.lastSleepingDuration) + ',';
-        queryString += parseProperty(payload.firstDayFirstTimeHomeless) + ',';
-        queryString += parseProperty(payload.currentHomelessStartDate) + ',';
-        queryString += parseProperty(payload.currentHomelessLength) + ',';
-        queryString += parseProperty(payload.homelessEpisodeCount) + ',';
-        queryString += parseProperty(payload.locationBeforeWestLA) + ',';
-        queryString += parseProperty(payload.durationInWestLA) + ',';
-        queryString += parseProperty(payload.housingInstabilityCause) + ',';
-        queryString += parseProperty(payload.stableHousingObstacle) + ',';
-        queryString += parseProperty(payload.housingInterest) + ',';
-        queryString += parseProperty(payload.naturalConnection) + ',';
-        queryString += parseProperty(payload.contactName) + ',';
-        queryString += parseProperty(payload.contactPhoneNumber) + ',';
-        queryString += parseProperty(payload.contactRelationship) + ',';
-        queryString += parseProperty(payload.currentlyPregnant) + ',';
-        queryString += parseProperty(payload.firstPregnancy) + ',';
-        queryString += parseProperty(payload.preNatalCareReceived) + ',';
-        queryString += parseProperty(payload.preNatalCareLocation) + ',';
-        queryString += parseProperty(payload.preNatalCareDesired) + ',';
-        queryString += parseProperty(payload.trimester) + ',';
-        queryString += parseProperty(payload.babyDueDate) + ',';
-        queryString += parseProperty(payload.hasOtherChildren) + ',';
-        queryString += parseProperty(payload.dcfsOpenCase) + ',';
-        queryString += parseProperty(payload.childrenWithFamilyOrFriends) + ',';
-        queryString += parseProperty(payload.substanceAbuse) + ',';
-        queryString += parseProperty(payload.choiceSubstance) + ',';
-        queryString += parseProperty(payload.injectedDrugs) + ',';
-        queryString += parseProperty(payload.treatmentInterest) + ',';
-        queryString += parseProperty(payload.mentalServicesReceived) + ',';
-        queryString += parseProperty(payload.mentalServicesLocation) + ',';
-        queryString += parseProperty(payload.mentalMedication) + ',';
-        queryString += parseProperty(payload.helpAcquiringMedicine) + ',';
-        queryString += parseProperty(payload.internalReferral) + ',';
-        queryString += parseProperty(payload.externalReferral) + ',';
-        queryString += parseProperty(payload.income) + ',';
-        queryString += parseProperty(payload.birthCity) + ',';
-        queryString += parseProperty(payload.birthState) + ',';
-        queryString += parseProperty(payload.birthCountry) + ',';
-        queryString += parseProperty(payload.employed) + ',';
-        queryString += parseProperty(payload.lookingForEmployment) + ',';
-        queryString += parseProperty(payload.fosterCare) + ',';
-        queryString += parseProperty(payload.socialSecurityNumber) + ',';
-        queryString += parseProperty(payload.caringForAnimals) + ',';
-        queryString += parseProperty(payload.goodNeighborContract) + ',';
-        queryString += parseProperty(payload.storyPhotoVideoAudioForm) + ',';
-        queryString += parseProperty(payload.informationReleaseAuthorized) + ',';
-        queryString += parseProperty(payload.servicesConsent) + ',';
-        queryString += parseProperty(payload.showerInstructions) + ',';
-        queryString += parseProperty(payload.showerGuidelines) + ',';
-        queryString += parseProperty(payload.dropInGuidelines) + ',';
-        queryString += parseProperty(payload.intakeConfirmation) + ',';
-        queryString += parseProperty(payload.immediateNeedsConfirmation) + ',';
-        queryString += parseProperty(payload.documentsSigned) + ',';
-        queryString += parseProperty(payload.sleepingBag) + ',';
-        queryString += parseProperty(payload.backpack) + ')';
-
-        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
+        postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            callback(undefined, rows);
+
+            payload = JSON.parse(payload.expression);
+            var data = Queries.createClient(payload);
+            // unstringify the data passed in
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
         });
     },
-    createProfile: function (postgres, payload, callback) {
-        var queryString = 'CALL spfy.insert_profile(';
 
-        queryString += parseProperty(payload.username) + ',';
-        queryString += parseProperty(payload.password) + ',';
-        queryString += parseProperty(payload.firstName) + ',';
-        queryString += parseProperty(payload.lastName) + ',';
-        queryString += parseProperty(payload.position);
+    // gets called in service.js by Query module
+    getAllCaseManagers: function (postgres, payload, callback) {
 
-        queryString += ')';
-
-        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
+        // generally, this function and everything in it acquires a client
+        // runs a query on the client, and then returns the client to the pool
+        postgres.connect(function (err, client, done) {
             if (err) {
-                return callback(err);
+                return callback(err); // this is basically the function that is
+                // carried all the way down the pipeline from api.js
+                // it is now used at the very bottom
             }
-            callback(undefined, rows);
-        }); 
-    },
-    getCaseManagerClients: function (postgres, payload, callback) {
-        var queryString = 'CALL spfy.get_case_manager_clients(';
 
-        queryString += parseProperty(payload.caseManagerID) + ')';
+            // retrieves the queryString from getAllCaseManagers function in queries.js
+            // err and result are coming from the database response
+            // this is where the database connects to the backend, but we don't know
+            // what the database is returning
+            // query is executed once connection is established and
+            // PostgreSQL server is ready for a query
+            client.query(Queries.getAllCaseManagers(), function (err, result) {
+                done(); // releases the client back to the pool
+                if (err) {
+                    return callback(err);
+                }
+                // 'result' contains a property 'rows' which has the returned
+                // table rows from the query
+                return callback(undefined, result);
+                // sending result all the way back up the pipeline
+                // eventually gets to respond.js
+            });
 
-        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
-            if (err) {
-                return callback(err);
-            }
-            callback(undefined, rows);
+            /* the 'callback' function above is really
+
+                    function (err, result) {
+                        if (err) {
+                            Respond.failedToGetAllCaseManagers(reply, err);
+                        } else {
+                            Respond.getAllCaseManagers(reply, result);
+                        }
+                    }
+
+                from api.js
+            */
         });
     },
-    searchCaseManagerClients: function (postgres, payload, callback) {
-        var queryString = 'CALL spfy.search_case_manager_clients(';
 
-        queryString += parseProperty(payload.caseManagerID) + ',';
-        queryString += parseProperty(payload.clientID) + ')';
 
-        mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
+    getClient: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            callback(undefined, rows);
+
+            client.query(Queries.getClient(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
         });
-    }
+    },
+
+    searchClient: function (postgres, firstName, lastName, callback) {
+        postgres.connect(function (err, client, done){
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.searchClient(firstName, lastName), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    getClients: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getClients(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropIns: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropIns(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropIn: function (postgres, dropin, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getDropIn(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createDropIn: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            payload = JSON.parse(payload.expression);
+            console.log(payload);
+            var data = Queries.createDropIn(payload);
+            console.log(data);
+            // unstringify the data passed in
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinActivities: function (postgres, dropin, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivities(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                console.log("query.js ======================");
+                console.log(result);
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getAllActivities: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getAllActivities(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getActivity: function (postgres, activity, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getActivity(activity), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createDropInActivities: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createDropInActivities(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getActivityDropIns: function (postgres, activity, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getActivityDropIns(activity), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createActivity: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            console.log(payload);
+            payload = JSON.parse(payload.expression);
+            var data = Queries.createActivity(payload);
+
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editActivity: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.editActivity(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    enroll: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            var parsedPayload = JSON.parse(payload.expression);
+            client.query(Queries.enroll(parsedPayload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editClient: function(postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.editClient(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    dataBrowserGetClients: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.dataBrowserGetClients(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    dataBrowserSearchClients: function (postgres, data, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            
+            client.query(Queries.dataBrowserSearchClients(data), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    checkin: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.checkin(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    
+    // getClient: function (postgres, payload, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+
+    //         client.query(Queries.getClient(payload), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
+
+
+    // createProfile: function (postgres, payload, callback) {
+    //     var queryString = 'CALL spfy.insert_profile(';
+
+    //     queryString += parseProperty(payload.username) + ',';
+    //     queryString += parseProperty(payload.password) + ',';
+    //     queryString += parseProperty(payload.firstName) + ',';
+    //     queryString += parseProperty(payload.lastName) + ',';
+    //     queryString += parseProperty(payload.position);
+
+    //     queryString += ')';
+
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+
+    //         client.query(Queries.createProfile(payload), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
+    // getCaseManagerClients: function (postgres, payload, callback) {
+    //     var queryString = 'CALL spfy.get_case_manager_clients(';
+
+    //     queryString += parseProperty(payload.caseManagerID) + ')';
+
+    //     mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         callback(undefined, rows);
+    //     });
+    // },
+    // searchCaseManagerClients: function (postgres, payload, callback) {
+    //     var queryString = 'CALL spfy.search_case_manager_clients(';
+
+    //     queryString += parseProperty(payload.caseManagerID) + ',';
+    //     queryString += parseProperty(payload.clientID) + ')';
+
+    //     mysql.query(queryString, function (err, rows, fields) { // eslint-disable-line
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         callback(undefined, rows);
+    //     });
+    // }
 };
 
 module.exports = query;

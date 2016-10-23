@@ -7,7 +7,7 @@ var url = require('url');
 
 var setup = {
     host: process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",
-    port: process.env.NODE_ENV === "production" ? "80" : "8080"
+    port: process.env.PORT || "8080"
 };
 var Api = require(Path.join(__dirname, 'routes/api_routes.js'));
 var viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
@@ -23,7 +23,7 @@ var postgresqlPool = {
             host: params.hostname,
             port: params.port,
             database: params.pathname.split('/')[1],
-            ssl: true,
+            ssl: false,
             max: 20,
             min: 4
         };
@@ -108,6 +108,6 @@ SPFY.register({
 SPFY.start(function () {
     SPFY.log(['info', 'SPFY'], "Server started on " + setup.host + ":" + setup.port);
     SPFY.log(['info', 'SPFY'], process.env.DATABASE_URL);
-}); 
+});
 
 module.exports = SPFY;
