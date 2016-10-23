@@ -183,7 +183,8 @@ var query = {
                 if (err) {
                     return callback(err);
                 }
-
+                console.log("query.js ======================");
+                console.log(result);
                 return callback(undefined, result);
             });
         });

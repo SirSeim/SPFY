@@ -23,6 +23,7 @@ $(function (event) {
     }).then(function (data) {
         var dropins = data.result;
         currentDropIn = dropins[dropins.length - 1];
+        console.log(currentDropIn.id);
     }).then(function () {
         return $.ajax({
             url: "api/dropins/" + currentDropIn.id + "/activities",
@@ -35,7 +36,16 @@ $(function (event) {
             }
         });
     }).done(function (data) {
-        allActivities = data.result.slice();
+        allActivities = data.result ? data.result.slice() : 
+                {   id: 2,
+                    name: 'Medi-Cal Registration',
+                    room: 'Clinic',
+                    comments: '',
+                    startTime: '12:30:00',
+                    endTime: '13:30:00'
+                }
+        // hardcoding at least one activity into each drop-in to avoid "no activities" errors
+        // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
     });
 
     var selectedActivities = [];
@@ -122,23 +132,23 @@ $(function (event) {
         });
     });
     
-    var activityData = {
-        activityName: "Medical Care",
-        ongoing: false,
-        startDate: '2016-10-20',
-        endDate: '2016-10-22'
-    };
+    // var activityData = {
+    //     activityName: "Medical Care",
+    //     ongoing: false,
+    //     startDate: '2016-10-20',
+    //     endDate: '2016-10-22'
+    // };
 
-    $.ajax({
-        url: "api/activity",
-        method: "POST",
-        data: { expression: JSON.stringify(activityData) },
-        success: function (data) {
-            console.log()
-            console.log(data);
-        },
-        error: function (data) {
-            console.error(data);
-        }
-    });
+    // $.ajax({
+    //     url: "api/activity",
+    //     method: "POST",
+    //     data: { expression: JSON.stringify(activityData) },
+    //     success: function (data) {
+    //         console.log()
+    //         console.log(data);
+    //     },
+    //     error: function (data) {
+    //         console.error(data);
+    //     }
+    // });
 });
