@@ -43,7 +43,7 @@ information.
 
 **6.2 CSCI Descriptions**
 
-*Front Page CSC
+* Front Page CSC
   * Navbar
   * Initial Page
   * Front Desk Home Page
