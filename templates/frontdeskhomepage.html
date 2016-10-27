@@ -1,9 +1,9 @@
-{% include "helpers/_header.html" %}
+{% include "components/_header.html" %}
 
     <div class="container">
 
       <!-- make this header highlight the frontdesk selection -->
-      {% include "helpers/_navbar.html" %}
+      {% include "components/_navbar.html" %}
 
 
         <div class="row">
@@ -131,7 +131,7 @@
                 <div class="row">
 
                   <div class="col-sm-2">
-                    {% include "helpers/_clientprofiletable.html" %}
+                    {% include "components/_clientprofiletable.html" %}
                   </div>
 
                   <div id="enrollment-area" class="col-sm-8">
@@ -172,7 +172,7 @@
 
                   <div class="col-sm-2">
 
-                    {% include "helpers/_activitiestable.html" %}
+                    {% include "components/_activitiestable.html" %}
 
                   </div>
 
@@ -187,12 +187,12 @@
     </div> <!--container-->
 
 
-{% include "helpers/_basescript.html" %}
+{% include "components/_basescript.html" %}
 
     <script src="/static/js/frontdesk.js"></script>
-    <script src="/static/js/helpers/clientprofiletable.js"></script>
-    <script src="/static/js/helpers/activitiestable.js"></script>
-    <script src="/static/js/helpers/enrollment.js"></script>
-    <script src="/static/js/helpers/checkin.js"></script>
+    <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/components/activitiestable.js"></script>
+    <script src="/static/js/components/enrollment.js"></script>
+    <script src="/static/js/components/checkin.js"></script>
 
-{% include "helpers/_footer.html" %}
+{% include "components/_footer.html" %}
