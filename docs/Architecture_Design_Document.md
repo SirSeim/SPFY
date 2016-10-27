@@ -31,15 +31,15 @@ information.
 
 **6.1.2 Hardware, Software, and Human Interfaces**
 
-  ------------------------ ---------------------------
-  **Interface Type**       **Interface Description**
-  **Human Interface**      **Mouse & Keyboard**
-  **Human Interface**      **Monitor**
-  **Software Interface**   **Threaded database**
-  **Software Interface**   **Non threaded server**
-  **Software Interface**   **Socket Interface**
-  **Hardware Interface**   **Wireless networking**
-  ------------------------ ---------------------------
+  ------------------------ |---------------------------
+  **Interface Type**       | **Interface Description**
+  **Human Interface**      | **Mouse & Keyboard**
+  **Human Interface**      | **Monitor**
+  **Software Interface**   | **Threaded database**
+  **Software Interface**   | **Non threaded server**
+  **Software Interface**   | **Socket Interface**
+  **Hardware Interface**   | **Wireless networking**
+  ------------------------ |---------------------------
 
 **6.2 CSCI Descriptions**
 
