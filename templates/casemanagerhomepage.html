@@ -1,20 +1,20 @@
-{% include "helpers/_header.html" %}
+{% include "components/_header.html" %}
 
 <div class="container">
 
-  {% include "helpers/_navbar.html" %}
+  {% include "components/_navbar.html" %}
 
     <div class="row">
         <div class="col-sm-2">
           
-          {% include "helpers/_clientprofiletable.html" %}
+          {% include "components/_clientprofiletable.html" %}
 
         </div>
 
 
         <div id="view-client-tabs" class="col-sm-8 hidden">
 
-            {% include "helpers/_viewclient.html" %}
+            {% include "components/_viewclient.html" %}
 
         </div> <!--col-sm-8-->
 
@@ -24,10 +24,10 @@
 
 </div> <!--container-->
 
-{% include "helpers/_basescript.html" %}
+{% include "components/_basescript.html" %}
 
     <script src="/static/js/casemanager.js"></script>
-    <script src="/static/js/helpers/clientprofiletable.js"></script>
-    <script src="/static/js/helpers/viewclient.js"></script>
+    <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/components/viewclient.js"></script>
 
-{% include "helpers/_footer.html" %}
+{% include "components/_footer.html" %}
