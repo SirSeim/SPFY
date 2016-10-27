@@ -271,12 +271,14 @@ var IntakeForm = React.createClass({
             {/*Assigned Case Manager:  TO DO */}
             <br />
             Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
-            First Name: <input type="text"
-                          onChange={this.handleFirstNameChange} />
-            Nickname: <input type="text"
-                        onChange={this.handleNicknameChange} />
-            Last Name: <input type="text"
-                        onChange={this.handleLastNameChange} />
+            <input type="text" class="form-control" id="clientFirstName" placeholder="First Name" 
+                  onChange={this.handleFirstNameChange} />
+            <br />
+            <input type="text" class="form-control" id="clientLastName" placeholder="Last Name"
+                  onChange={this.handleNicknameChange} />
+            <br />
+            <input type="text" class="form-control" id="clientNickName" placeholder="Nick Name (optional)"
+                  onChange={this.handleLastNameChange} />
             <br />
             Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />
             Email: <input type="text"
