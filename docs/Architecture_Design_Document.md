@@ -43,109 +43,58 @@ information.
 
 **6.2 CSCI Descriptions**
 
-> Front Page CSC
->
-> Navbar
->
-> Initial Page
->
-> Front Desk Home Page
->
-> Activities Table
->
-> Client Profile Table
->
-> Add Client
->
-> Case Manager Home Page
->
-> Client Profile Table
->
-> View Client
->
-> Edit Client
->
-> Case Note Page
->
-> Drop In Page
->
-> Outreach Home Page
->
-> Server CSC -- Passes data between frontend and database
->
-> API
->
-> Queries
->
-> Create / Get / Edit / Delete Case Manager(s)
->
-> Create / Get / Edit / Delete Client(s)
->
-> Create / Get / Edit / Delete Drop In(s)
->
-> Create / Get / Edit / Delete Program(s)
->
-> Create / Get / Edit / Delete Subprogram(s)
->
-> Create / Get / Edit / Delete Activities
->
-> Create / Get / Edit / Delete Appointment(s)
->
-> Create / Get / Edit / Delete Drop In & Activity Match
->
-> Create / Get / User Activity
->
-> Custom queries based on user input
->
-> Routes
->
-> API Routes
->
-> View Routes
->
-> Database CSC -- Data is stored and accessed via queries
->
-> Tables
->
-> Case Manager
->
-> Client
->
-> Documents
->
-> Prescreen
->
-> Background
->
-> Housing History
->
-> Natural Connection
->
-> Pregnant and Parenting
->
-> Substance Abuse
->
-> Mental Health
->
-> Referral
->
-> Additional Info
->
-> Forms
->
-> Program
->
-> Subprogram
->
-> Activity
->
-> Drop In
->
-> Match Drop In Activity
->
-> Appointment
->
-> Activity Log
+*Front Page CSC
+  * Navbar
+  * Initial Page
+  * Front Desk Home Page
+    * Activities Table
+    * Client Profile Table
+  * Add Client
+  * Case Manager Home Page
+    * Client Profile Table
+    * View Client
+    * Edit Client
+  * Case Note Page
+  * Drop In Page
+  * Outreach Home Page
+* Server CSC -- Passes data between frontend and database
+  * API
+    * Queries
+      * Create / Get / Edit / Delete Case Manager(s)
+      * Create / Get / Edit / Delete Client(s)
+      * Create / Get / Edit / Delete Drop In(s)
+      * Create / Get / Edit / Delete Program(s)
+      * Create / Get / Edit / Delete Subprogram(s)
+      * Create / Get / Edit / Delete Activities
+      * Create / Get / Edit / Delete Appointment(s)
+      * Create / Get / Edit / Delete Drop In & Activity Match
+      * Create / Get / User Activity
+      * Custom queries based on user input
+  * Routes
+    * API Routes
+    * View Routes
+* Database CSC -- Data is stored and accessed via queries
+  * Tables
+    * Case Manager
+    * Client
+    * Documents
+    * Prescreen
+    * Background
+    * Housing History
+    * Natural Connection
+    * Pregnant and Parenting
+    * Substance Abuse
+    * Mental Health
+    * Referral
+    * Additional Info
+    * Forms
+    * Program
+    * Subprogram
+    * Activity
+    * Drop In
+    * Match Drop In Activity
+    * Appointment
+    * Activity Log
 
 **6.2.1 Concept of Execution**
 
