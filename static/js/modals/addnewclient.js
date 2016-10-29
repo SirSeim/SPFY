@@ -251,8 +251,9 @@ var IntakeForm = React.createClass({
     var currentYear = new Date().getFullYear(),
         todaysDate = moment();
     return (
-      <div>
-        <form className="intakeForm" onSubmit={this.handleSubmit}>
+      <div className="row">
+        <div className="col-sm-4">
+          <form className="intakeForm" onSubmit={this.handleSubmit}>
             Person Filling out this form: <input type="text"
                                             onChange={this.handlePersonCompletingIntakeChange} />
             HMIS Consent: <input type="radio" name="HMIS" value="true"
@@ -271,13 +272,13 @@ var IntakeForm = React.createClass({
             {/*Assigned Case Manager:  TO DO */}
             <br />
             Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
-            <input type="text" class="form-control" id="clientFirstName" placeholder="First Name" 
+            <input type="text" className="form-control" id="clientFirstName" placeholder="First Name" 
                   onChange={this.handleFirstNameChange} />
             <br />
-            <input type="text" class="form-control" id="clientLastName" placeholder="Last Name"
+            <input type="text" className="form-control" id="clientLastName" placeholder="Last Name"
                   onChange={this.handleNicknameChange} />
             <br />
-            <input type="text" class="form-control" id="clientNickName" placeholder="Nick Name (optional)"
+            <input type="text" className="form-control" id="clientNickName" placeholder="Nick Name (optional)"
                   onChange={this.handleLastNameChange} />
             <br />
             Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />
@@ -306,7 +307,10 @@ var IntakeForm = React.createClass({
             <br />
             <input type="submit" value="Submit" />
           </form>
+        </div>
+        <div className="col-sm-4">
           <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
+        </div>
       </div>
     );
   }
@@ -503,10 +507,8 @@ var DisplayArea = React.createClass({
 // React only tries to display one component, so can display
 // multiple components as long as they are encased in a div
 ReactDOM.render(
-    <div>
-      <IntakeForm />
-    </div>,
-  document.getElementById('content') // html has a div with id='content'
+  <IntakeForm />,
+  document.getElementById('addClientContent') // html has a div with id='content'
 );
 
 // to display multiple components with same render function
