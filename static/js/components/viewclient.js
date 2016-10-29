@@ -35,13 +35,15 @@ $(function (event) {
             method: "POST",
             success: function (data) {
                 console.log(data);
-                $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + clientName + '</h1>');
-                $('#client-birthday').replaceWith('<td id="client-birthday">' + clientBirthday + '</td>');
-                $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
-                $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
-                $('#client-email').replaceWith('<td id="client-email">' + clientPhone + '</td>');
+                console.log(data.result.rows[0]);
+                
+                $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
+                $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
+                $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].intake_age + '</td>');
+                $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + data.result.rows[0].phone_number + '</td>');
+                $('#client-email').replaceWith('<td id="client-email">' + data.result.rows[0].email + '</td>');
                 $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
-                $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
+                $('#case-manager').replaceWith('<td id="case-manager">' + data.result.rows[0].case_manager + '</td>');
                 $('#edit-client').show();
                 $('#cancel-edit').hide();
                 $('#submit-edit').hide();
@@ -50,7 +52,7 @@ $(function (event) {
                 console.error(data);
             }
         }).done(function (data) {
-            console.log(data);
+            //displayClientProfile('id: ' + data.id);
         });
     }
 
@@ -100,7 +102,7 @@ $(function (event) {
         $('#client-birthday').replaceWith('<td id="client-birthday">' + clientBirthday + '</td>');
         $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
         $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
-        $('#client-email').replaceWith('<td id="client-email">' + clientPhone + '</td>');
+        $('#client-email').replaceWith('<td id="client-email">' + clientMail + '</td>');
         $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
         $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
     });
@@ -110,7 +112,7 @@ $(function (event) {
         var id = clientID;
         var name = $('#client-name')['0'].value;
         var firstName = name.substr(0,name.indexOf(' '));
-        var nickname = name.match(/'([^']+)'/)[1];
+        //var nickname = name.match(/'([^']+)'/)[1];
         var lastName = name.substr(name.lastIndexOf(' ') + 1);
         var birthday = $('#client-birthday')['0'].value;
         var age = $('#client-age')['0'].value;
@@ -123,7 +125,7 @@ $(function (event) {
             id: id,
             firstName: firstName,
             lastName: lastName,
-            nickname: nickname,
+            //nickname: nickname,
             birthday: birthday,
             age: age,
             phoneNumber: phoneNumber,
