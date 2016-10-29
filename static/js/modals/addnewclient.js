@@ -503,10 +503,8 @@ var DisplayArea = React.createClass({
 // React only tries to display one component, so can display
 // multiple components as long as they are encased in a div
 ReactDOM.render(
-    <div>
-      <IntakeForm />
-    </div>,
-  document.getElementById('content') // html has a div with id='content'
+  <IntakeForm />,
+  document.getElementById('addClientContent') // html has a div with id='content'
 );
 
 // to display multiple components with same render function
