@@ -2,7 +2,7 @@
 @import "../modules/_colors";
 
 body {
-    font-family: "brandon-grotesque", sans-serif;
+    font-family: 'KildeSansRegular';
     margin: 0;
 }
 
@@ -11,7 +11,7 @@ strong {
 }
 
 h1 {
-    //font-family: 'uDIN1451MittelschriftRegular';
+    font-family: 'uDIN1451MittelschriftRegular';
     font-weight: bold;
     font-style: normal;
     font-size: $h1-size;
@@ -34,7 +34,7 @@ h5 {
 }
 
 h2, h3, h4, h5 {
-  //font-family: 'uDIN1451MittelschriftRegular';
+  font-family: 'uDIN1451MittelschriftRegular';
   font-weight: normal;
   font-style: normal;
 }
