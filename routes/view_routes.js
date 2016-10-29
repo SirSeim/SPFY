@@ -73,7 +73,7 @@ var viewRoutes = [
         path: '/add_client',
         method: 'GET',
         handler: function (req, res) {
-            res.view('addnewclient.html', {
+            res.view('modals/addnewclient.html', {
 
             });
         }
