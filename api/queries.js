@@ -318,31 +318,6 @@ var queries = {
         return queryString;
     },
 
-    getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, ' +
-                            'email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
-
-        return queryString;
-    },
-
-    postEditClient: function (payload) {
-        var queryString = 'UPDATE client SET ';
-
-        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
-        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
-        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
-        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
-        queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
-        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
-        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
-
-        queryString += 'WHERE id = ' + payload.id;
-
-        return queryString;
-    },
-
     createDropIn: function (payload) {
         var queryString = 'INSERT INTO drop_in (date) VALUES ( $1 ) RETURNING date;'; // [payload.date]
         var params = [];
@@ -411,16 +386,19 @@ var queries = {
     editClient: function (payload) {
         var queryString = 'UPDATE client SET ';
 
-        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
-        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
-        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'birthday = ' + parseProperty(payload.birthday) + ',';
-        queryString += 'case_manager = ' + parseProperty(payload.caseManager) + ',';
-        queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'last_meeting = ' + parseProperty(payload.lastMeeting) + ',';
-        queryString += 'phone_number = ' + parseProperty(payload.phoneNumber) + ' ';
+        queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ',';
+        queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ',';
+        //queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'date_of_birth = ' + '\'' +  parseProperty(payload.birthday) + '\'' + ',';
+        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ',';
+        queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ',';
+        queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ',';
+        //queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
+        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ' ';
 
-        queryString += 'WHERE id = ' + payload.id;
+        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
+
+        queryString += 'RETURNING first_name, last_name, date_of_birth, intake_age, phone_number, email, case_manager;';
 
         return queryString;
     },
