@@ -18,21 +18,25 @@
 }*/
 
 /*these are temporary*/
-#steven-dot:before {
+.okay-dot:before {
   content: "• ";
-  color: gold;
+  color: green;
 }
-#carlie-dot:before {
-  content: "• ";
-  color: red;
-}
-#mike-dot:before {
+.missing-dot:before {
   content: "• ";
   color: blue;
 }
-#andre-dot:before {
+.sick-dot:before {
   content: "• ";
-  color: gold;
+  color: orange;
+}
+.vulnerable-dot:before {
+  content: "• ";
+  color: purple;
+}
+.dangerous-dot:before {
+  content: "• ";
+  color: red;
 }
 .bullet:before {
     content: "• ";

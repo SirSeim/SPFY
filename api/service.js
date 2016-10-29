@@ -66,7 +66,8 @@ var service = {
                 arr.push({
                     id: local.id,
                     firstName: local.first_name,
-                    lastName: local.last_name
+                    lastName: local.last_name,
+                    status: local.client_status
                 });
             }
             return callback(undefined, arr);

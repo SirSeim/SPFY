@@ -1,6 +1,17 @@
 $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
+
+    // ** ajax call that retrieves statuses and their colors
+
+    var statuses = {
+        '1': 'okay-dot',
+        '2': 'missing-dot',
+        '3': 'sick-dot',
+        '4': 'vulnerable-dot',
+        '5': 'dangerous-dot'
+    }
+
     $.ajax({
         url: "api/clients",
         method: "GET",
@@ -15,7 +26,8 @@ $(function (event) {
     }).done(function (data) {
         table.empty();
         data.result.forEach(function (client) {
-            table.append('<tr><td><span class="bullet"></span>' +
+            console.log('<tr><td><span class="' + statuses[client.status] + '"></span>');
+            table.append('<tr><td><span class="' + statuses[client.status] + '"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +
                 'id: ' + client.id +
@@ -35,4 +47,15 @@ $(function (event) {
             }).show();
         }
     });
+
+    /*
+    
+        can insert and retrieve using jQuery's data function
+        
+        <td class="submit" data-id="1">John Doe</td>
+        var id = $(this).data("id");
+
+        // $.data() knows to grab any attribute with "data-"
+        // $.data("id", 1) will insert into the "data-id" attribute
+    */
 });

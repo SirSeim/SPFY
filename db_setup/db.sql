@@ -20,6 +20,21 @@ INSERT INTO casemanager VALUES (2, 'bp@spfy.org','tables','Ben','Perkins','Case 
 INSERT INTO casemanager VALUES (3, 'rh@spfy.org','tables','Rob','Hanna','Case Manager');
 
 
+
+DROP TABLE IF EXISTS status;
+
+CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  name varchar(45) DEFAULT NULL
+);
+
+INSERT INTO status (name) VALUES ('okay');
+INSERT INTO status (name) VALUES ('missing');
+INSERT INTO status (name) VALUES ('sick');
+INSERT INTO status (name) VALUES ('vulnerable');
+INSERT INTO status (name) VALUES ('dangerous');
+
+
 DROP TABLE IF EXISTS client;
 
 -- Where are the rest of the intake fields for a client profile?
@@ -48,14 +63,17 @@ CREATE TABLE client (
   provided_id boolean DEFAULT NULL,
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
-  services varchar(45) DEFAULT NULL
+  services varchar(45) DEFAULT NULL,
+  client_status integer REFERENCES status (id)
 );
 
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, client_status) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, client_status) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, client_status) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, client_status) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, client_status) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2);
+
+
 
 
 DROP TABLE IF EXISTS prescreen;
