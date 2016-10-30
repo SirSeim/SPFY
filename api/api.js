@@ -233,13 +233,19 @@ var api = {
             } else if (!user) {
                 Respond.userPassNoMatch(reply);
             } else {
-                Service.matchPasswords(req.payload.password, user.hashedPassword, function (err, match) {
+                Service.matchPasswords(request.payload.password, user.hashedPassword, function (err, match) {
                     if (err) {
                         Respond.failedToComparePasswords(reply, err);
-                    } else if (match) {
-                        // Gen Token
-                    } else {
+                    } else if (!match) {
                         Respond.userPassNoMatch(reply);
+                    } else {
+                        Service.genToken(user, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.loggedIn(reply, token);
+                            }
+                        });
                     }
                 });
             }

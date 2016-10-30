@@ -1,6 +1,7 @@
 var Path = require('path');
 var Query = require(Path.join(__dirname, 'query.js'));
 var bcrypt = require('bcrypt');
+var JWT   = require('jsonwebtoken');
 
 var saltRounds = 10;
 
@@ -337,6 +338,15 @@ var service = {
             }
             return callback(undefined, res);
         });
+    },
+
+    genToken: function (session, callback) {
+        try {
+            var token = JWT.sign(session, process.env.SPFY_KEY);
+            return callback(undefined, token);
+        } catch (err) {
+            return callback(err);
+        }
     }
 };
 

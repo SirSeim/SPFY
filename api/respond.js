@@ -320,6 +320,19 @@ var respond = {
             statusCode: 401,
             message: "Username or Password do not match!"
         }).code(401);
+    },
+    failedToGenToken: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to generate token!",
+            error: err
+        }).code(500);
+    },
+    loggedIn: function (reply, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!"
+        }).code(200).header("Authorization", token);
     }
 
 };
