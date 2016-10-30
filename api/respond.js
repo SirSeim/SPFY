@@ -316,7 +316,7 @@ var respond = {
         }).code(500);
     },
     userPassNoMatch: function (reply) {
-        res({
+        reply({
             statusCode: 401,
             message: "Username or Password do not match!"
         }).code(401);

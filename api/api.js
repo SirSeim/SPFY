@@ -196,7 +196,7 @@ var api = {
                 } else {
                     Respond.noUserByUsernameFound(reply);
                 }
-            })
+            });
         } else {
             Service.getUserList(request.postgres, function (err, result) {
                 if (err) {
