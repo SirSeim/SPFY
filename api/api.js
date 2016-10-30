@@ -209,11 +209,19 @@ var api = {
     },
 
     createUser: function (request, reply) {
-        Service.createUser(request.postgres, request.payload, function (err, result) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
             if (err) {
-                Respond.failedToCreateUser(reply, err);
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (user) {
+                Respond.usernameAlreadyExists(reply);
             } else {
-                Respond.createdUser(reply, result);
+                Service.createUser(request.postgres, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToCreateUser(reply, err);
+                    } else {
+                        Respond.createdUser(reply, result);
+                    }
+                });
             }
         });
     },

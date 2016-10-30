@@ -295,6 +295,12 @@ var respond = {
             error: err
         }).code(500);
     },
+    usernameAlreadyExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Username already exists!"
+        }).code(401);
+    },
     createdUser: function (reply, result) {
         reply({
             statusCode: 200,
