@@ -540,6 +540,14 @@ var queries = {
         var queryString = 'SELECT username FROM users;';
 
         return queryString;
+    },
+
+    createUser: function (payload) {
+        var queryString = 'INSERT INTO users ("username", "hashed_password") VALUES (\'' +
+                            payload.username + '\', \'' +
+                            payload.password + '\');';
+
+        return queryString;
     }
 };
 

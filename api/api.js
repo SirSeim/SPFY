@@ -192,6 +192,16 @@ var api = {
                 Respond.gotUsers(reply, result);
             }
         });
+    },
+
+    createUser: function (request, reply) {
+        Service.createUser(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateUser(reply, err);
+            } else {
+                Respond.createdUser(reply, result);
+            }
+        });
     }
 };
 

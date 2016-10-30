@@ -1,6 +1,6 @@
 var Path = require('path');
 var Api = require(Path.join(__dirname, '../api/api.js'));
-var Schema = require(Path.join(__dirname, '../api/schema.js')); // eslint-disable-line
+var Schema = require(Path.join(__dirname, '../api/schema.js'));
 
 /* ajax calls from frontend js files use the path properties
     Example:
@@ -112,6 +112,16 @@ var apiRoutes = [
         method: 'GET',
         path: '/users',
         handler: Api.getUserList
+    },
+    {
+        method: 'POST',
+        path: '/users',
+        config: {
+            validate: {
+                payload: Schema.newUser
+            }
+        },
+        handler: Api.createUser
     }
 ];
 

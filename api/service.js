@@ -299,6 +299,18 @@ var service = {
             }
             return callback(undefined, users);
         });
+    },
+
+    createUser: function (postgres, payload, callback) {
+        bcrypt.hash(payload.password, saltRounds, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            Query.createUser(postgres, {
+                username: payload.username,
+                password: hash
+            }, callback);
+        });
     }
 };
 

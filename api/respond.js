@@ -267,6 +267,20 @@ var respond = {
             message: "Successfully got Users!",
             result: result
         }).code(200);
+    },
+    failedToCreateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create User!",
+            error: err
+        }).code(500);
+    },
+    createdUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created User!",
+            result: result
+        }).code(200);
     }
 
 };
