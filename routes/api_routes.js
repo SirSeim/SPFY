@@ -44,6 +44,11 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
+        method: 'POST',
+        path: '/clients/{clientID}',
+        handler: Api.editClient
+    },
+    {
         method: 'GET',
         path: '/clients',
         handler: Api.getClients
@@ -102,11 +107,6 @@ var apiRoutes = [
         method: 'POST',
         path: "/editactivity",
         handler: Api.editActivity
-    },
-    {
-        method: 'POST',
-        path: '/clients/{clientID}',
-        handler: Api.editClient
     }
 ];
 

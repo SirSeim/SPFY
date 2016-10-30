@@ -329,47 +329,53 @@ th {
 /* line 21, ../sass/partials/_clients.scss */
 .okay-dot:before {
   content: "• ";
+  font-size: 20px;
   color: green;
 }
 
-/* line 25, ../sass/partials/_clients.scss */
+/* line 26, ../sass/partials/_clients.scss */
 .missing-dot:before {
   content: "• ";
+  font-size: 20px;
   color: blue;
 }
 
-/* line 29, ../sass/partials/_clients.scss */
+/* line 31, ../sass/partials/_clients.scss */
 .sick-dot:before {
   content: "• ";
+  font-size: 20px;
   color: orange;
 }
 
-/* line 33, ../sass/partials/_clients.scss */
+/* line 36, ../sass/partials/_clients.scss */
 .vulnerable-dot:before {
   content: "• ";
+  font-size: 20px;
   color: purple;
 }
 
-/* line 37, ../sass/partials/_clients.scss */
+/* line 41, ../sass/partials/_clients.scss */
 .dangerous-dot:before {
   content: "• ";
+  font-size: 20px;
   color: red;
 }
 
-/* line 41, ../sass/partials/_clients.scss */
+/* line 46, ../sass/partials/_clients.scss */
 .bullet:before {
   content: "• ";
+  font-size: 10px;
   color: green;
 }
 
-/* line 46, ../sass/partials/_clients.scss */
+/* line 52, ../sass/partials/_clients.scss */
 .steven-photo {
   width: 200px;
   height: 200px;
   border: 1px solid #000;
 }
 
-/* line 52, ../sass/partials/_clients.scss */
+/* line 58, ../sass/partials/_clients.scss */
 #clientInfoTable td {
   width: 150px;
 }

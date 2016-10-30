@@ -67,7 +67,7 @@ var service = {
                     id: local.id,
                     firstName: local.first_name,
                     lastName: local.last_name,
-                    status: local.client_status
+                    status: local.status
                 });
             }
             return callback(undefined, arr);
@@ -216,8 +216,8 @@ var service = {
         });
     },
 
-    editClient: function (postgres, activity, callback) {
-        Query.editClient(postgres, activity, function (err, result) {
+    editClient: function (postgres, payload, callback) {
+        Query.editClient(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

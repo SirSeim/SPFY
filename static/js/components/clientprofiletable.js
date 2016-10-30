@@ -2,7 +2,6 @@ $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
 
-    // ** ajax call that retrieves statuses and their colors
 
     var statuses = {
         '1': 'okay-dot',
@@ -10,7 +9,8 @@ $(function (event) {
         '3': 'sick-dot',
         '4': 'vulnerable-dot',
         '5': 'dangerous-dot'
-    }
+    } // in future, will be able to pull from list of statuses stored in a "Settings" page
+    // or an ajax call that retrieves statuses and their colors
 
     $.ajax({
         url: "api/clients",
@@ -26,7 +26,6 @@ $(function (event) {
     }).done(function (data) {
         table.empty();
         data.result.forEach(function (client) {
-            console.log('<tr><td><span class="' + statuses[client.status] + '"></span>');
             table.append('<tr><td><span class="' + statuses[client.status] + '"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +
@@ -41,7 +40,6 @@ $(function (event) {
         if (search.val() === '') {
             clients.show();
         } else {
-            console.log(clients);
             clients.hide().filter(function (i, e) {
                 return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
             }).show();

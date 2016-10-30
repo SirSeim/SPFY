@@ -10,6 +10,8 @@ $(function (event) {
     var allActivities = [];
     var currentDropIn = {};
 
+    // ajax chaining to ensure that asynchronous calls run smoothly
+    // .then and .done only run after the initial request goes through
     $.ajax({
         url: "api/dropins",
         method: "GET",
@@ -49,6 +51,10 @@ $(function (event) {
 
     var selectedActivities = [];
 
+    // .delegate adds event listeners to each element with designated class
+    // (in this case, every "td" element)
+    // adding an "click" event listener with the function that should execute
+    // when the event is detected
     $('#activities').delegate("td", "click", function (event) {
         var name = $(this)[0].innerText;
         if (!selectedActivities.includes(name)) {

@@ -20,26 +20,32 @@
 /*these are temporary*/
 .okay-dot:before {
   content: "• ";
+  font-size: 20px;
   color: green;
 }
 .missing-dot:before {
   content: "• ";
+  font-size: 20px;
   color: blue;
 }
 .sick-dot:before {
   content: "• ";
+  font-size: 20px;
   color: orange;
 }
 .vulnerable-dot:before {
   content: "• ";
+  font-size: 20px;
   color: purple;
 }
 .dangerous-dot:before {
   content: "• ";
+  font-size: 20px;
   color: red;
 }
 .bullet:before {
     content: "• ";
+    font-size: 10px;
     color: green;
 }
 
