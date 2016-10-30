@@ -7,14 +7,14 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "if [ -f $(npm bin)/../../config/set_env.sh ]; then DATABASE_URL=$($(npm bin)/../../config/set_env.sh) node server.js; else node server.js; fi;",
-    "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) nodemon -e js,json,html,css server.js",
+    "start": "if [ -f $(npm bin)/../../config/set_env.sh ]; then DATABASE_URL=$($(npm bin)/../../config/set_env.sh) SPFY_KEY=$($(npm bin)/../../config/set_key.sh) node server.js; else node server.js; fi;",
+    "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) SPFY_KEY=$($(npm bin)/../../config/set_key.sh) nodemon -e js,json,html,css server.js",
     "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
     "lint": "eslint server.js **/*.js",
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
-    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db; pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start; sleep 4; psql -f config/create_spfy.sql -d postgres; psql -f db_setup/db.sql -d spfy; pg_ctl -D $(npm bin)/../../db stop -s -m fast; chmod 700 $(npm bin)/../../config/set_env.sh",
+    "db-init": "cd $(npm bin)/../..; echo 'Deleting db & logs'; rm -rf db; rm -rf log; mkdir db; mkdir log; echo 'Initializing db'; initdb $(npm bin)/../../db; pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start; sleep 4; psql -f config/create_spfy.sql -d postgres; psql -f db_setup/db.sql -d spfy; pg_ctl -D $(npm bin)/../../db stop -s -m fast; chmod 700 $(npm bin)/../../config/set_env.sh; chmod 700 $(npm bin)/../../config/set_key.sh",
     "db-start": "pg_ctl -D $(npm bin)/../../db -l $(npm bin)/../../log/postgres.log start",
     "db-stop": "pg_ctl -D $(npm bin)/../../db stop -s -m fast",
     "db-reset": "npm run db-stop; npm run db-init; npm run db-start;"
@@ -86,6 +86,7 @@
     "hapi-auth-jwt2": "^7.1.3",
     "inert": "^4.0.2",
     "joi": "^9.0.4",
+    "jsonwebtoken": "^7.1.9",
     "nunjucks-hapi": "^2.1.0",
     "pg": "^6.1.0",
     "vision": "^4.1.0"
