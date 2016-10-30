@@ -268,6 +268,26 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetUserByUsername: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    gotUserByUsername: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
+    noUserByUsernameFound: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "No such User found!"
+        }).code(404);
+    },
     failedToCreateUser: function (reply, err) {
         reply({
             statusCode: 500,

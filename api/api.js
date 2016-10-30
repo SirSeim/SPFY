@@ -185,13 +185,27 @@ var api = {
     },
 
     getUserList: function (request, reply) {
-        Service.getUserList(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetUsers(reply, err);
-            } else {
-                Respond.gotUsers(reply, result);
-            }
-        });
+        if (request.query.username) {
+            Service.getUserByUsername(request.postgres, request.query.username, function (err, user) {
+                if (err) {
+                    Respond.failedToGetUserByUsername(reply, err);
+                } else if (user) {
+                    Respond.gotUserByUsername(reply, {
+                        username: user.username
+                    });
+                } else {
+                    Respond.noUserByUsernameFound(reply);
+                }
+            })
+        } else {
+            Service.getUserList(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetUsers(reply, err);
+                } else {
+                    Respond.gotUsers(reply, result);
+                }
+            });
+        }
     },
 
     createUser: function (request, reply) {

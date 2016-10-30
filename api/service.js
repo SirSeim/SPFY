@@ -301,6 +301,23 @@ var service = {
         });
     },
 
+    getUserByUsername: function (postgres, username, callback) {
+        Query.getUserByUsername(postgres, username, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var local = result.rows[0];
+            return callback(undefined, {
+                username: local.username,
+                hashedPassword: local.hashed_password
+            })
+        });
+    },
+
     createUser: function (postgres, payload, callback) {
         bcrypt.hash(payload.password, saltRounds, function (err, hash) {
             if (err) {
