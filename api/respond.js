@@ -301,6 +301,19 @@ var respond = {
             message: "Successfully created User!",
             result: result
         }).code(200);
+    },
+    failedToComparePasswords: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to compare passwords!",
+            error: err
+        }).code(500);
+    },
+    userPassNoMatch: function (reply) {
+        res({
+            statusCode: 401,
+            message: "Username or Password do not match!"
+        }).code(401);
     }
 
 };

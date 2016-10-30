@@ -122,6 +122,16 @@ var apiRoutes = [
             }
         },
         handler: Api.createUser
+    },
+    {
+        method: 'POST',
+        path: '/sessions',
+        config: {
+            validate: {
+                payload: Schema.login
+            }
+        },
+        handler: Api.login
     }
 ];
 

@@ -328,6 +328,15 @@ var service = {
                 password: hash
             }, callback);
         });
+    },
+
+    matchPasswords: function (password, hashedPassword, callback) {
+        bcrypt.compare(password, hashedPassword, function (err, res) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, res);
+        });
     }
 };
 

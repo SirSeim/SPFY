@@ -216,6 +216,26 @@ var api = {
                 Respond.createdUser(reply, result);
             }
         });
+    },
+
+    login: function (request, reply) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (!user) {
+                Respond.userPassNoMatch(reply);
+            } else {
+                Service.matchPasswords(req.payload.password, user.hashedPassword, function (err, match) {
+                    if (err) {
+                        Respond.failedToComparePasswords(reply, err);
+                    } else if (match) {
+                        // Gen Token
+                    } else {
+                        Respond.userPassNoMatch(reply);
+                    }
+                });
+            }
+        });
     }
 };
 
