@@ -1,4 +1,5 @@
 $(function () {
+
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();
@@ -6,33 +7,100 @@ $(function () {
         event.preventDefault();
     });
 
-    var createPastDropIn = function (dropin) {
-        return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
-                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-                '<td class="col-xs-2">' +
-                '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
-    };
+    // var createPastDropIn = function (dropin) {
+    //     return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
+    //             '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+    //             '<td class="col-xs-2">' +
+    //             '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+    // };
 
-    var populateViewDropIn = function () {
-        var table = $('#pastdropins tbody');
+    // var populateViewDropIn = function () {
+    //     var table = $('#pastdropins tbody');
 
-        $.ajax({
-            url: "api/dropins",
+    //     $.ajax({
+    //         url: "api/dropins",
+    //         method: "GET",
+    //         success: function (data) {
+    //             table.empty();
+    //             data.result.forEach(function (element) {
+    //                 table.append(createPastDropIn(element));
+    //             });
+    //             console.log(data);
+    //         },
+    //         error: function (data) {
+    //             console.error(data);
+    //         }
+    //     });
+    // };
+
+    // populateViewDropIn();
+
+
+    $.ajax({
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+            console.log("drop-ins");
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    }).then(function (data) {
+        var dropins = data.result;
+        var currentDropIn = dropins[dropins.length - 1];
+        $('#dropin-date').text(currentDropIn.date);
+        console.log(currentDropIn);
+        $('#dropin-date').data("id", currentDropIn.id);
+    }).then(function () {
+        return $.ajax({
+            url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
             method: "GET",
             success: function (data) {
-                table.empty();
-                data.result.forEach(function (element) {
-                    table.append(createPastDropIn(element));
-                });
                 console.log(data);
             },
             error: function (data) {
                 console.error(data);
             }
         });
-    };
+    }).done(function (data) {
+        var activities = data.result;
+        console.log(activities);
+        $('#dropin-enrollment').append('<div id="activity-tables" class="row"></div>');
+        activities.forEach(function (activity) {
+            $('#activity-tables').append(
+                '<div class="col-sm-2">' + 
+                '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
+                '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
+                '<table id="' + activity.name + '-table" data-id="' + activity.id + '" class="table table-hover">' +
+                '<thead><tr><th>Participants</th></tr></thead>' + 
+                '<tbody></tbody></table></div></div>');
+        });
+    });
 
-    populateViewDropIn();
+    
+// table.append('<tr><td>' +
+    //                         activity.name +
+    //                         '</td></tr>');
+/*
+    <tr>
+      <td>3D-Printing</td>
+    </tr>
+    <tr>
+      <td>Garden Workshop</td>
+    </tr>
+    <tr>
+      <td>Dental</td>
+    </tr>
+*/
+
+// ==========================================
+
+/* 
+think this was all for selecting the activities back when the create drop-in
+tables were here
+*/
+
 // From:http://bootsnipp.com/snippets/featured/checked-list-group
     $(function () {
         $('.list-group.checked-list-box .list-group-item').each(function () {

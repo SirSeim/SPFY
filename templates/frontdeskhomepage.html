@@ -9,6 +9,7 @@
         <div class="row">
           <div class="page-header"><center>
             <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
+            <h2 id="dropin-date" data-id="0">2222-01-01</h2>
             <button class="badge-button btn btn-primary btn-xs" type="button">
               <span id="total-youth" class="badge">50</span> Total Youth Checked-In
             </button>
@@ -137,61 +138,6 @@
 
               <div class="tab-pane active" id="dropin-enrollment">
 
-                <div class="row">
-
-                  <div class="col-sm-2">
-                    {% include "components/_clientprofiletable.html" %}
-                  </div>
-
-                  <div id="enrollment-area" class="col-sm-8">
-                      <div class="col-sm-4">
-                          <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h3 class="text-center">Selected Clients</h3>
-                              </div>
-                              <div class="well" style="max-height: 300px;overflow: auto;">
-                                <ul id="selected-clients" class="list-group checked-list-box">
-
-                                  </ul>
-                              </div>
-                            <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-4">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h3 class="text-center">Selected Activities</h3>
-                          </div>
-                          <div class="well" style="max-height: 300px;overflow: auto;">
-                            <ul id="selected-activities" class="list-group checked-list-box">
-
-                            </ul>
-                          </div>
-                          <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
-                        </div>
-                      </div>
-
-                       <div class="col-sm-4">
-                        <div id="checkin-enrollment-feedback" class="panel panel-default">
-
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                          <div id="checkin-checkin-feedback" class="panel panel-default">
-                          </div>
-                      </div>
-
-                  </div>  <!-- enrollment area -->
-
-                  <div class="col-sm-2">
-
-                    {% include "components/_activitiestable.html" %}
-
-                  </div>
-
-
-                </div> <!-- row -->
 
               </div> <!-- Drop-In Enrollment Tab pane -->
             </div> <!-- Tab container -->
