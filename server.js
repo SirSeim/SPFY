@@ -74,10 +74,10 @@ SPFY.register(require('hapi-auth-jwt2'), function (err) {
         SPFY.log(['error', 'hapi-auth-jwt2'], err);
     }
 
-    SPFY.auth.strategy('jwt', 'jwt',
-    { key: process.env.SPFY_KEY,          // Never Share your secret key 
-      validateFunc: validate,            // validate function defined above 
-      verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm 
+    SPFY.auth.strategy('jwt', 'jwt', {
+        key: process.env.SPFY_KEY,          // Never Share your secret key 
+        validateFunc: validate,            // validate function defined above 
+        verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm 
     });
  
     SPFY.auth.default('jwt');
