@@ -481,6 +481,12 @@ var queries = {
         return queryString;
     },
 
+    getEnrollmentByActivity: function (activityID) {
+        var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
+        
+        return queryString;
+    },
+
     checkin: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {

@@ -122,6 +122,16 @@ var api = {
         });
     },
 
+    getEnrollmentByActivity: function (request, reply) {
+        Service.getEnrollmentByActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetEnrollmentByActivity(reply, err);
+            } else {
+                Respond.getEnrollmentByActivity(reply, result);
+            }
+        });
+    },
+
     checkin: function (request, reply) {
         Service.checkin(request.postgres, request.payload, function (err, result) {
             if (err) {

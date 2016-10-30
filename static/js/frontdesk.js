@@ -35,7 +35,16 @@ $(function () {
 
     // populateViewDropIn();
 
+    var statuses = {
+        '1': 'okay-dot',
+        '2': 'missing-dot',
+        '3': 'sick-dot',
+        '4': 'vulnerable-dot',
+        '5': 'dangerous-dot'
+    } // in future, will be able to pull from list of statuses stored in a "Settings" page
+    // or an ajax call that retrieves statuses and their colors
 
+    var idNames = [];
     $.ajax({
         url: "api/dropins",
         method: "GET",
@@ -63,22 +72,58 @@ $(function () {
                 console.error(data);
             }
         });
-    }).done(function (data) {
+    }).then(function (data) {
         var activities = data.result;
         console.log(activities);
         $('#dropin-enrollment').append('<div id="activity-tables" class="row"></div>');
         activities.forEach(function (activity) {
+            var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
+            idNames.push(idName);
             $('#activity-tables').append(
                 '<div class="col-sm-2">' + 
                 '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
                 '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
-                '<table id="' + activity.name + '-table" data-id="' + activity.id + '" class="table table-hover">' +
+                '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover">' +
                 '<thead><tr><th>Participants</th></tr></thead>' + 
                 '<tbody></tbody></table></div></div>');
         });
+    }).then(function () {
+        // for now only getting enrollment for one activity, hard-coded
+        return $.ajax({
+            url: "api/enroll/" + $('#' + idNames[1] + '-table').data("id"),
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    // we will have retrieved client profiles and cached them
+    // previous to this point, but for now we will make another request
+    }).done(function (enrollmentData) {
+        $.ajax({
+            url: "api/clients",
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        }).done(function (clientData) {
+            clientData.result.forEach(function (client) {
+                var enrolledClients = [];
+                enrollmentData.result.rows.forEach((client) => enrolledClients.push(client.client_id));
+                if (enrolledClients.indexOf(client.id) !== -1) {
+                    $('#' + idNames[1] + '-table tbody').append(
+                        '<tr><td><span class="' + statuses[client.status] + ' bullet"></span>' + client.firstName + ' ' + client.lastName + '</td></tr>');
+                }
+            });
+        });
     });
-
     
+
 // table.append('<tr><td>' +
     //                         activity.name +
     //                         '</td></tr>');

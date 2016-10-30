@@ -310,6 +310,19 @@ var query = {
         });
     },
 
+    getEnrollmentByActivity: function (postgres, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            client.query(Queries.getEnrollmentByActivity(activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     editClient: function(postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

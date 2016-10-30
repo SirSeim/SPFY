@@ -198,13 +198,6 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToEnroll: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to enroll!",
-            error: err
-        }).code(500);
-    },
     editActivity: function (reply, result) {
         reply({
             statusCode: 200,
@@ -216,6 +209,27 @@ var respond = {
         reply({
             statusCode: 500,
             message: "Unable to edit activity!",
+            error: err
+        }).code(500);
+    },
+    failedToGetEnrollmentByActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get enrollment by activity!",
+            error: err
+        }).code(500);
+    },
+    getEnrollmentByActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting enrollment by activity!",
+            result: result
+        }).code(200);
+    },
+    failedToEnroll: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to enroll!",
             error: err
         }).code(500);
     },

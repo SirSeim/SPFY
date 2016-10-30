@@ -322,7 +322,10 @@ CREATE TABLE enrollment (
   activity_id integer REFERENCES activity (id)
 );
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 4);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 3, 4);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 4);
+
 
 
 DROP TABLE IF EXISTS check_in;
