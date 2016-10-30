@@ -281,6 +281,24 @@ var service = {
             // var local = result.rows[0];
             return callback(undefined, result);
         });
+    },
+
+    getUserList: function (postgres, callback) {
+        Query.getUserList(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var users = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+
+                users.push({
+                    username: local.username
+                });
+            }
+            return callback(undefined, users);
+        });
     }
 };
 

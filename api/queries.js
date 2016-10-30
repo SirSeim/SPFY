@@ -534,6 +534,12 @@ var queries = {
                           data.column + searchText + ';';
 
         return queryString;
+    },
+
+    getUserList: function () {
+        var queryString = 'SELECT username FROM users;';
+
+        return queryString;
     }
 };
 

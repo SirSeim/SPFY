@@ -253,6 +253,20 @@ var respond = {
             message: "Successfully got client.",
             result: result
         }).code(200);
+    },
+    failedToGetUsers: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get Users!",
+            error: err
+        }).code(500);
+    },
+    gotUsers: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got Users!",
+            result: result
+        }).code(200);
     }
 
 };

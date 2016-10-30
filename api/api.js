@@ -182,6 +182,16 @@ var api = {
                 Respond.editClient(reply, result);
             }
         });
+    },
+
+    getUserList: function (request, reply) {
+        Service.getUserList(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsers(reply, err);
+            } else {
+                Respond.gotUsers(reply, result);
+            }
+        });
     }
 };
 

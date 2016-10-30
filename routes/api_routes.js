@@ -107,6 +107,11 @@ var apiRoutes = [
         method: 'POST',
         path: '/clients/{clientID}',
         handler: Api.editClient
+    },
+    {
+        method: 'GET',
+        path: '/users',
+        handler: Api.getUserList
     }
 ];
 
