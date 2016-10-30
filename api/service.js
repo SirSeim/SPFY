@@ -1,5 +1,8 @@
 var Path = require('path');
 var Query = require(Path.join(__dirname, 'query.js'));
+var bcrypt = require('bcrypt');
+
+var saltRounds = 10;
 
 var service = {
     createClient: function (postgres, payload, callback) {
