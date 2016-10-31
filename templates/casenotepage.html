@@ -14,32 +14,31 @@
         </div>
         <div class="row">
           <label for="example-search-input" class="col s2">Case Manager</label>
-          <!-- Single button -->
-          <div class="dropdown">
-            <button type="button" id="dropdownMenuButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Name <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Jeanine Espejo-Watkins</a></li>
-              <li><a href="#">Ben Perkins</a></li>
-              <li><a href="#">Rob Hanna</a></li>
-              <li><a href="#">Rebecca McGuire</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
+          <!-- Dropdown Trigger -->
+          <a class="dropdown-button btn" id="dropdownMenuButton" href="#" data-activates="dropdown1" aria-haspopup="true" aria-expanded="false">Name <i class="right fa fa-sort-down drop-arrow"></i></a>
+
+          <!-- Dropdown Structure -->
+          <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#">Jeanine Espejo-Watkins</a></li>
+            <li><a href="#">Ben Perkins</a></li>
+            <li><a href="#">Rob Hanna</a></li>
+            <li><a href="#">Rebecca McGuire</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
         </div>
         <div class="row">
-          <label for="example-text-input" class="col s2 col-form-label">Case Notes</label>
-          <div class="col s2">
-          <textarea class="form-control" rows="10"></textarea>
+          <div class="input-field col s2">
+            <textarea id="notes" rows="10"></textarea>
+            <label for="notes">Case Notes</label>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="checkbox">
-          <label><input name="followup-checkbox" type="checkbox" value="">Follow-up Needed</label>
+        <div class="input-field col s2 checkbox">
+          <input id="followup-checkbox" name="followup-checkbox" type="checkbox" value="">
+          <label for="followup-checkbox">Follow-up Needed</label>
         </div>
         <div class="row" id="followup-area">
 

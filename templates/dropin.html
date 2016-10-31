@@ -6,14 +6,15 @@
       {% include "components/_navbar.html" %} 
 
         <div class="row">
-              <center><h3> Create New Drop In </h3> <br>
-                <div class="form-group">
-                  <input type="text" placeholder="Enter Drop-In Date YYYY-MM-DD" size="30"> 
-                  <h4> Select Programs </h4></center>
-                <div class="col-xs-4">
+              <h3> Create New Drop In </h3>
+                <div class="input field">
+                  <input id="date" class="validate" type="text" placeholder="Enter Drop-In Date YYYY-MM-DD" size="30"> 
+                  <label for="date"> Select Programs</label>
+                </div>
+                <div class="col s4">
                   <h6 class="text-center">Health & Wellness Programs</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
-                   <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                   <a href="#" class="list-group-item"><i class="fa fa-plus" aria-hidden="true"></i> New Program</a>
                    <!-- SHOWERS EXAMPLE: add, allow time slot -->
                   <ul class="list-group checked-list-box" id="activities1">
                         <li class="list-group-item">Medical</li>
@@ -31,10 +32,10 @@
                       </ul>
                   </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col s4">
                   <h6 class="text-center">Education & Employment</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
-                    <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                    <a href="#" class="list-group-item"><i class="fa fa-plus" aria-hidden="true"></i> New Program</a>
                   <ul class="list-group checked-list-box" id="activities2">
                         <li class="list-group-item">Digital Arts Lab</li>
                         <li class="list-group-item">Experiential Learning</li>
@@ -51,20 +52,20 @@
                       </ul>
                   </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col s4">
                   <h6 class="text-center">Other</h6>
                   <div class="well" style="max-height: 400px;overflow: auto;">
-                    <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                    <a href="#" class="list-group-item"><i class="fa fa-plus" aria-hidden="true"></i> New Program</a>
                   <ul class="list-group checked-list-box" id="activities3">
                         <li class="list-group-item">Legal</li>
                         <li class="list-group-item">Case Management</li>
                       </ul>
                   </div>
-                  <button type="button" class="btn btn-default" id="createdropin">Create</button>
+                  <button type="button" class="btn waves-effect waves-light" id="createdropin">Create</button>
                    <!-- needs to just close instead of submit -->
-                  <button type="button" class="btn btn-default">Cancel</button> </center>
+                  <button type="button" class="btn waves-effect waves-light">Cancel</button>
                   <div id="dropin-feedback"> </div>
-                </div> <center>
+                </div>
             </div>
         </div>
            
