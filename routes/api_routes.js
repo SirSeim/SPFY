@@ -75,6 +75,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/dropins/{dropinID}/enrollment',
+        handler: Api.getDropinEnrollment
+    },
+    {
+        method: 'GET',
         path: '/enroll/{activityID}',
         handler: Api.getEnrollmentByActivity
     },
