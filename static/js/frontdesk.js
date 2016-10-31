@@ -16,6 +16,7 @@ ReactDOM.render(
 
 $(function () {
 
+
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();
@@ -69,7 +70,7 @@ $(function () {
     }).then(function (data) {
         var activities = data.result;
         console.log(activities);
-        $('#dropin-enrollment').append('<div id="activity-tables" class="row"></div>');
+        $('#activities').append('<div id="activity-tables" class="row"></div>');
         activities.forEach(function (activity) {
             var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
             idNames.push(idName);
