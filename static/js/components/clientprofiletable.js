@@ -15,7 +15,8 @@ $(function (event) {
     }).done(function (data) {
         table.empty();
         data.result.forEach(function (client) {
-            table.append('<tr><td><span class="bullet"></span>' +
+            table.append('<tr><td data-id="' + client.id + '" data-firstname="' + client.firstName + '" data-lastname="' + client.lastName + '">' +
+                '<span class="bullet"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +
                 'id: ' + client.id +
