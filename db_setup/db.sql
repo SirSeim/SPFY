@@ -303,6 +303,8 @@ CREATE TABLE check_in (
 
 INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');
 
+DROP TABLE IF EXISTS case_note;
+
 CREATE TABLE case_note (
   id SERIAL PRIMARY KEY,
   client_id integer REFERENCES client (id),
@@ -314,3 +316,5 @@ CREATE TABLE case_note (
   due_date date DEFAULT NULL,
   reminder_date date DEFAULT NULL
 );
+
+INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (1, 1, '2016-10-31', 'CM', 'This is a test note', false, null, null);

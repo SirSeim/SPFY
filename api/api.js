@@ -182,6 +182,16 @@ var api = {
                 Respond.editClient(reply, result);
             }
         });
+    },
+
+    createCaseNote: function (request, reply) {
+        Service.editClient(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateClient(reply, err);
+            } else {
+                Respond.createClient(reply, result);
+            }
+        });
     }
 };
 
