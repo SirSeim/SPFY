@@ -128,7 +128,7 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetDropinActivities: function (reply, err) {
+    failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get dropin enrollment!",

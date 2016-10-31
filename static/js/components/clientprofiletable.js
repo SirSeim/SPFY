@@ -26,11 +26,15 @@ $(function (event) {
     }).done(function (data) {
         table.empty();
         data.result.forEach(function (client) {
-            table.append('<tr><td data-id="' + client.id + '" data-firstname="' + client.firstName + '" data-lastname="' + client.lastName + '">' +
-                '<span class="bullet"></span>' +
+            var dataString = "";
+            for (var property in client) {
+                dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
+            }
+            console.log('<td' + dataString + '>');
+            table.append('<tr><td ' + dataString + '>' +
+                '<span class="' + statuses[client.status] + ' bullet"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +
-                'id: ' + client.id +
                 '</td></tr>');
         });
     });
