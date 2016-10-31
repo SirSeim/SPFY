@@ -156,6 +156,16 @@ var service = {
         });
     },
 
+    getDropinEnrollment: function (postgres, dropinID, callback) {
+        Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
     getAllActivities: function (postgres, callback) {
         Query.getAllActivities(postgres, function (err, result) {
             if (err) {

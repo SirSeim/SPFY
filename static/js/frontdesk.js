@@ -1,3 +1,19 @@
+
+var ActivityTable = React.createClass({
+    render: function () {
+        return (
+            <div className="text">
+                <h4>There is text here</h4>
+            </div>
+        )
+    }
+});
+
+ReactDOM.render(
+  <ActivityTable />,
+  document.getElementById('react-test') // html has a div with id='content'
+);
+
 $(function () {
 
     $(".tablinks").click(function (event) {
@@ -7,33 +23,6 @@ $(function () {
         event.preventDefault();
     });
 
-    // var createPastDropIn = function (dropin) {
-    //     return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
-    //             '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-    //             '<td class="col-xs-2">' +
-    //             '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
-    // };
-
-    // var populateViewDropIn = function () {
-    //     var table = $('#pastdropins tbody');
-
-    //     $.ajax({
-    //         url: "api/dropins",
-    //         method: "GET",
-    //         success: function (data) {
-    //             table.empty();
-    //             data.result.forEach(function (element) {
-    //                 table.append(createPastDropIn(element));
-    //             });
-    //             console.log(data);
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //         }
-    //     });
-    // };
-
-    // populateViewDropIn();
 
     var statuses = {
         '1': 'okay-dot',
@@ -44,6 +33,11 @@ $(function () {
     } // in future, will be able to pull from list of statuses stored in a "Settings" page
     // or an ajax call that retrieves statuses and their colors
 
+    var clientNames = {
+        '2': 'John Nite id: 2',
+        '3': 'Cari Johnson id: 3',
+        '4': 'Michael Green id: 4'
+    }
     var idNames = [];
     $.ajax({
         url: "api/dropins",
@@ -80,18 +74,18 @@ $(function () {
             var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
             idNames.push(idName);
             $('#activity-tables').append(
-                '<div class="col-sm-2">' + 
+                '<div class="col-sm-4">' + 
                 '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
                 '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
-                '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover">' +
+                '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
                 '<thead><tr><th>Participants</th></tr></thead>' + 
                 '<tbody></tbody></table></div></div>');
         });
     }).then(function () {
-        // for now only getting enrollment for one activity, hard-coded
+
         return $.ajax({
-            url: "api/enroll/" + $('#' + idNames[1] + '-table').data("id"),
-            method: 'GET',
+            url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
+            method: "GET",
             success: function (data) {
                 console.log(data);
             },
@@ -99,25 +93,14 @@ $(function () {
                 console.error(data);
             }
         });
-    // we will have retrieved client profiles and cached them
-    // previous to this point, but for now we will make another request
-    }).done(function (enrollmentData) {
-        $.ajax({
-            url: "api/clients",
-            method: 'GET',
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        }).done(function (clientData) {
-            clientData.result.forEach(function (client) {
-                var enrolledClients = [];
-                enrollmentData.result.rows.forEach((client) => enrolledClients.push(client.client_id));
-                if (enrolledClients.indexOf(client.id) !== -1) {
-                    $('#' + idNames[1] + '-table tbody').append(
-                        '<tr><td><span class="' + statuses[client.status] + ' bullet"></span>' + client.firstName + ' ' + client.lastName + '</td></tr>');
+    }).done(function (data) {
+        var clients = data.result.rows;
+        console.log(idNames);
+        console.log(clientNames);
+        $('.table.activity').get().forEach(function (table) {
+            clients.forEach(function (client) {
+                if (client.activity_id === $(table).data("id")) {
+                    $(table).append('<tr><td><span class="bullet"></span>' + clientNames[client.client_id] + '</td></tr>');
                 }
             });
         });
