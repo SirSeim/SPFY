@@ -12,4 +12,5 @@ $(function (event) {
         event.preventDefault();
     });
 
+    $('.panel.panel-default').draggable();
 });

@@ -9,11 +9,12 @@
         <div class="row">
           <div class="page-header"><center>
             <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
+            <h2 id="dropin-date" data-id="0">2222-01-01</h2>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span id="total-youth" class="badge">50</span> Total Youth Checked-In
+              <span id="total-youth-today" class="badge">50</span> Total Youth Checked-In
             </button>
             <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span id="total-unduplicated" class="badge">14</span> Total Unduplicated
+              <span id="total-new-today" class="badge">14</span> Total New Youth Today
             </button>
             </center>
           </div>
@@ -37,6 +38,7 @@
                         <th>DOB</th>
                         <th>Activities Today</th>
                         <th>Check-in Notes</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -46,7 +48,8 @@
                         <td>Steve</td>
                         <td>09/02/94</td>
                         <th>Activities Today</th>
-                        <td>notes <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
+                        <td>notes go here</td>
+                        <td><img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -56,7 +59,7 @@
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment</a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
             </ul>
 
@@ -94,79 +97,129 @@
                 <button type="create" class="btn btn-default" align="center">Create</button>
               </div>
 
-              <div class="tab-pane active" id="dropin-enrollment">
+              <div class="tab-pane active" id="activity-enrollment">
 
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Activities</h3>
+                  </div>
+                  <div class="panel-heading"> <!-- Activity Thumbnails -->
+                    <div class="btn-toolbar" role="toolbar">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default">
+                          <i class="fa fa-user-md" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                           <i class="fa fa-music" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                           <i class="fa fa-futbol-o" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <!-- Button trigger Add New Activity Modal -->
+                      <div class="btn-group" role="group"> 
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newActivityModal">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="newActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add New Activity</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-xs-4">
+                                  <h6 class="text-center">Health & Wellness Programs</h6>
+                                  <div class="well" style="max-height: 400px;overflow: auto;">
+                                   <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                                   <!-- SHOWERS EXAMPLE: add, allow time slot -->
+                                  <ul class="list-group checked-list-box" id="activities1">
+                                        <li class="list-group-item">Medical</li>
+                                        <li class="list-group-item">Dental</li>
+                                        <li class="list-group-item">HIV Testing</li>
+                                        <li class="list-group-item">Medi-Cal Registration</li>
+                                        <li class="list-group-item">Counseling</li>
+                                        <li class="list-group-item">Creative Expression</li>
+                                        <li class="list-group-item">Mindfulness</li>
+                                        <li class="list-group-item">Yoga</li>
+                                        <li class="list-group-item">Creative Writing</li>
+                                        <li class="list-group-item">Drumming</li>
+                                        <li class="list-group-item">Music</li>
+                                        <li class="list-group-item">Substance Abuse Support</li>
+                                      </ul>
+                                  </div>
+                                </div>
+                                <div class="col-xs-4">
+                                  <h6 class="text-center">Education & Employment</h6>
+                                  <div class="well" style="max-height: 400px;overflow: auto;">
+                                    <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                                  <ul class="list-group checked-list-box" id="activities2">
+                                        <li class="list-group-item">Digital Arts Lab</li>
+                                        <li class="list-group-item">Experiential Learning</li>
+                                        <li class="list-group-item">Five Keys Charter School</li>
+                                        <li class="list-group-item">West LA College Tour</li>
+                                        <li class="list-group-item">East LA School Fair</li>
+                                        <li class="list-group-item">Resume Development</li>
+                                        <li class="list-group-item">Job Search</li>
+                                        <li class="list-group-item">Career Assessment</li>
+                                        <li class="list-group-item">Mock Interviews</li>
+                                        <li class="list-group-item">Job Certification</li>
+                                        <li class="list-group-item">Job Fair</li>
+                                        <li class="list-group-item">Life Skills Program</li>
+                                      </ul>
+                                  </div>
+                                </div>
+                                <div class="col-xs-4">
+                                  <h6 class="text-center">Other</h6>
+                                  <div class="well" style="max-height: 400px;overflow: auto;">
+                                    <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Program</a>
+                                  <ul class="list-group checked-list-box" id="activities3">
+                                        <li class="list-group-item">Legal</li>
+                                        <li class="list-group-item">Case Management</li>
+                                      </ul>
+                                  </div>
+                                  <div id="dropin-feedback"> </div>
+                                </div> <center>
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="createdropin">Add New Activity</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="activities" class="panel-body">
+                    Panel content
+                  </div>
+                </div>
+                
                 <div class="row">
-
                   <div class="col-sm-2">
-                    {% include "components/_clientprofiletable.html" %}
+                  {% include "components/_clientprofiletable.html" %}
                   </div>
-
-                  <div id="enrollment-area" class="col-sm-8">
-                      <div class="col-sm-4">
-                          <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h3 class="text-center">Selected Clients</h3>
-                              </div>
-                              <div class="well" style="max-height: 300px;overflow: auto;">
-                                <ul id="selected-clients" class="list-group checked-list-box">
-
-                                  </ul>
-                              </div>
-                            <button id="checkin-button" type="Check-in" class="btn btn-default" align="center">Check-in</button>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-4">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h3 class="text-center">Selected Activities</h3>
-                          </div>
-                          <div class="well" style="max-height: 300px;overflow: auto;">
-                            <ul id="selected-activities" class="list-group checked-list-box">
-
-                            </ul>
-                          </div>
-                          <button id="enroll-button" type="Enroll" class="btn btn-default" align="center">Enroll</button>
-                        </div>
-                      </div>
-
-                       <div class="col-sm-4">
-                        <div id="checkin-enrollment-feedback" class="panel panel-default">
-
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                          <div id="checkin-checkin-feedback" class="panel panel-default">
-                          </div>
-                      </div>
-
-                  </div>  <!-- enrollment area -->
-
-                  <div class="col-sm-2">
-
-                    {% include "components/_activitiestable.html" %}
-
-                  </div>
-
-
-                </div> <!-- row -->
-
+                </div>
               </div> <!-- Drop-In Enrollment Tab pane -->
             </div> <!-- Tab container -->
-
         </div> <!-- 3rd row -->
 
     </div> <!--container-->
 
+<div id="react-test">
 
+                </div>
 {% include "components/_basescript.html" %}
 
+    <script type="text/babel" src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
     <script src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
     <script src="/static/js/components/checkin.js"></script>
-
 
 {% include "components/_footer.html" %}

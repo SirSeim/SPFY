@@ -66,7 +66,8 @@ var service = {
                 arr.push({
                     id: local.id,
                     firstName: local.first_name,
-                    lastName: local.last_name
+                    lastName: local.last_name,
+                    status: local.status
                 });
             }
             return callback(undefined, arr);
@@ -155,6 +156,16 @@ var service = {
         });
     },
 
+    getDropinEnrollment: function (postgres, dropinID, callback) {
+        Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
     getAllActivities: function (postgres, callback) {
         Query.getAllActivities(postgres, function (err, result) {
             if (err) {
@@ -215,8 +226,8 @@ var service = {
         });
     },
 
-    editClient: function (postgres, activity, callback) {
-        Query.editClient(postgres, activity, function (err, result) {
+    editClient: function (postgres, payload, callback) {
+        Query.editClient(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -245,6 +256,15 @@ var service = {
 
     enroll: function (postgres, payload, callback) {
         Query.enroll(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getEnrollmentByActivity: function (postgres, activityID, callback) {
+        Query.getEnrollmentByActivity(postgres, activityID, function (err, result) {
             if (err) {
                 return callback(err);
             }

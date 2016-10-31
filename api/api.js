@@ -112,12 +112,32 @@ var api = {
         });
     },
 
+    getDropinEnrollment: function (request, reply) {
+        Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinEnrollment(reply, err);
+            } else {
+                Respond.getDropinEnrollment(reply, result);
+            }
+        });
+    },
+
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToEnroll(reply, err);
             } else {
                 Respond.enroll(reply, result);
+            }
+        });
+    },
+
+    getEnrollmentByActivity: function (request, reply) {
+        Service.getEnrollmentByActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetEnrollmentByActivity(reply, err);
+            } else {
+                Respond.getEnrollmentByActivity(reply, result);
             }
         });
     },

@@ -1,30 +1,37 @@
+
+var ActivityTable = React.createClass({
+    render: function () {
+        return (
+            <div className="text">
+                <h4>There is text here</h4>
+            </div>
+        )
+    }
+});
+
+ReactDOM.render(
+  <ActivityTable />,
+  document.getElementById('react-test')
+);
+
 $(function () {
-    // var createClients = function (checkin) {
-    //     return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
-    //             '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-    //             '<td class="col-xs-2">';
-    // };
+    var createClients = function (checkin) {
+        return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
+                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+                '<td class="col-xs-2">';
+    };
 
-    // var populateClients = function () {
-    //     var table = $('#clients tbody');
+    $.ajax({
+        url: "/api/clients",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 
-    //     $.ajax({
-    //         url: "/api/clients",
-    //         method: "GET",
-    //         success: function (data) {
-    //             table.empty();
-    //             data.result.forEach(function (element) {
-    //                 table.append(createClients(element));
-    //             });
-    //             console.log(data);
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //         }
-    //     });
-    // };
-
-    // populateClients();
 
 
     $.ajax({
@@ -49,47 +56,118 @@ $(function () {
                     }
                 });
             });
-            
         },
         error: function (data) {
             console.error(data);
         }
     });
 
+    $(".tablinks").click(function (event) {
+        var currentTabID = $(this).attr('href');
+        $(currentTabID).show().siblings().hide();
+        $(this).parent('li').addClass('active').siblings().removeClass('active');
+        event.preventDefault();
+    });
 
-//     $(".tablinks").click(function (event) {
-//         var currentTabID = $(this).attr('href');
-//         $(currentTabID).show().siblings().hide();
-//         $(this).parent('li').addClass('active').siblings().removeClass('active');
-//         event.preventDefault();
-//     });
 
-//     var createPastDropIn = function (dropin) {
-//         return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
-//                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-//                 '<td class="col-xs-2">';
-//     };
+    var statuses = {
+        '1': 'okay-dot',
+        '2': 'missing-dot',
+        '3': 'sick-dot',
+        '4': 'vulnerable-dot',
+        '5': 'dangerous-dot'
+    } // in future, will be able to pull from list of statuses stored in a "Settings" page
+    // or an ajax call that retrieves statuses and their colors
 
-//     var populateViewDropIn = function () {
-//         var table = $('#pastdropins tbody');
+    var clientNames = {
+        '2': 'John Nite id: 2',
+        '3': 'Cari Johnson id: 3',
+        '4': 'Michael Green id: 4'
+    }
+    var idNames = [];
+    $.ajax({
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+            console.log("drop-ins");
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    }).then(function (data) {
+        var dropins = data.result;
+        var currentDropIn = dropins[dropins.length - 1];
+        $('#dropin-date').text(currentDropIn.date);
+        console.log(currentDropIn);
+        $('#dropin-date').data("id", currentDropIn.id);
+    }).then(function () {
+        return $.ajax({
+            url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }).then(function (data) {
+        var activities = data.result;
+        console.log(activities);
+        $('#activities').append('<div id="activity-tables" class="row"></div>');
+        activities.forEach(function (activity) {
+            var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
+            idNames.push(idName);
+            $('#activity-tables').append(
+                '<div class="col-sm-4">' + 
+                '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
+                '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
+                '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
+                '<thead><tr><th>Participants</th></tr></thead>' + 
+                '<tbody></tbody></table></div></div>');
+        });
+    }).then(function () {
 
-//         $.ajax({
-//             url: "api/dropins",
-//             method: "GET",
-//             success: function (data) {
-//                 table.empty();
-//                 data.result.forEach(function (element) {
-//                     table.append(createPastDropIn(element));
-//                 });
-//                 console.log(data);
-//             },
-//             error: function (data) {
-//                 console.error(data);
-//             }
-//         });
-//     };
+        return $.ajax({
+            url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }).done(function (data) {
+        var clients = data.result.rows;
+        console.log(idNames);
+        console.log(clientNames);
+        $('.table.activity').get().forEach(function (table) {
+            clients.forEach(function (client) {
+                if (client.activity_id === $(table).data("id")) {
+                    $(table).append('<tr><td><span class="bullet"></span>' + clientNames[client.client_id] + '</td></tr>');
+                }
+            });
+        });
+    });
+  
+});
 
-//     populateViewDropIn();
+/*
+    <tr>
+      <td>3D-Printing</td>
+    </tr>
+    <tr>
+      <td>Garden Workshop</td>
+    </tr>
+    <tr>
+      <td>Dental</td>
+    </tr>
+*/
+
+// ==========================================
+
 // // From:http://bootsnipp.com/snippets/featured/checked-list-group
 
 //     var createPastCheckIn = function (checkin) {
@@ -209,4 +287,4 @@ $(function () {
 //     });
 
 
-});
+// });
