@@ -140,6 +140,16 @@ var viewRoutes = [
 
             });
         }
+    },
+
+    {
+        path: '/login',
+        method: 'GET',
+        handler: function (req, res) {
+            res.view('login.html', {
+
+            });
+        }
     }
 ];
 
