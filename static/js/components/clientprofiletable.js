@@ -30,7 +30,6 @@ $(function (event) {
             for (var property in client) {
                 dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
             }
-            console.log('<td' + dataString + '>');
             table.append('<tr><td ' + dataString + '>' +
                 '<span class="' + statuses[client.status] + ' bullet"></span>' +
                 client.firstName + ' ' +

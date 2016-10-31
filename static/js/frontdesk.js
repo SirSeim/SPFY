@@ -15,6 +15,18 @@ ReactDOM.render(
 );
 
 $(function () {
+
+
+    // hard-coding sample data for now
+    var statuses = {
+        '1': 'okay-dot',
+        '2': 'missing-dot',
+        '3': 'sick-dot',
+        '4': 'vulnerable-dot',
+        '5': 'dangerous-dot'
+    } // in future, will be able to pull from list of statuses stored in a "Settings" page
+    // or an ajax call that retrieves statuses and their colors
+
     var createClients = function (checkin) {
         return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
@@ -51,7 +63,8 @@ $(function () {
                             '<td>' + $(td).data("lastname") + '</td>' +
                             '<td>' + window.parseDate($(td).data("dob")) + '</td>' +
                             '<th>Activities Today</th>' +
-                            '<td>notes <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>' +
+                            '<td>notes</td>' +
+                            '<td><span class="' + statuses[$(td).data("status")] + ' bullet"></span></td>' +
                             '</tr>');
                     }
                 });
@@ -70,21 +83,6 @@ $(function () {
     });
 
 
-    var statuses = {
-        '1': 'okay-dot',
-        '2': 'missing-dot',
-        '3': 'sick-dot',
-        '4': 'vulnerable-dot',
-        '5': 'dangerous-dot'
-    } // in future, will be able to pull from list of statuses stored in a "Settings" page
-    // or an ajax call that retrieves statuses and their colors
-
-    var clientNames = {
-        '2': 'John Nite id: 2',
-        '3': 'Cari Johnson id: 3',
-        '4': 'Michael Green id: 4'
-    }
-    var idNames = [];
     $.ajax({
         url: "api/dropins",
         method: "GET",
@@ -118,17 +116,15 @@ $(function () {
         $('#activities').append('<div id="activity-tables" class="row"></div>');
         activities.forEach(function (activity) {
             var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
-            idNames.push(idName);
             $('#activity-tables').append(
                 '<div class="col-sm-4">' + 
                 '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
                 '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
                 '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
-                '<thead><tr><th>Participants</th></tr></thead>' + 
+                '<thead><tr><th name="participants"></th></tr></thead>' + 
                 '<tbody></tbody></table></div></div>');
         });
     }).then(function () {
-
         return $.ajax({
             url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
             method: "GET",
@@ -141,14 +137,23 @@ $(function () {
         });
     }).done(function (data) {
         var clients = data.result.rows;
-        console.log(idNames);
-        console.log(clientNames);
+
+        // get clientprofiles from profiles listed in clientprofiletable.html
+        var profiles = $('#clients').find('tr');
+        // for each activity table, add a client profile if that client is enrolled
         $('.table.activity').get().forEach(function (table) {
             clients.forEach(function (client) {
                 if (client.activity_id === $(table).data("id")) {
-                    $(table).append('<tr><td><span class="bullet"></span>' + clientNames[client.client_id] + '</td></tr>');
+                    // find the matching client profile and append it, 
+                    // careful, append will actually move the element completely to its new location
+                    // need to clone the element
+                    $(table).append($('#clients').find('[data-id="' + client.client_id + '"]').parent().clone());
                 }
             });
+        });
+        console.log($('.enrollment-panel').find('[name="participants"]').get());
+        $('.enrollment-panel').find('[name="participants"]').get().forEach(function (header) {
+            header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
         });
     });
   
