@@ -275,22 +275,40 @@ th {
 @media screen and (max-width: 767px) {
   /* line 25, ../sass/partials/_footer.scss */
   .footer-block {
-    height: 66px;
+    height: 92px;
     /* Height of the footer element */
+  }
+
+  /* line 29, ../sass/partials/_footer.scss */
+  #content {
+    padding-bottom: 92px;
+    /* to prevent cutting off content */
   }
 }
 @media screen and (max-width: 1024px) and (min-width: 767px) {
-  /* line 32, ../sass/partials/_footer.scss */
+  /* line 36, ../sass/partials/_footer.scss */
   .footer-block {
     height: 63px;
     /* Height of the footer element */
   }
+
+  /* line 40, ../sass/partials/_footer.scss */
+  #content {
+    padding-bottom: 92px;
+    /* to prevent cutting off content */
+  }
 }
 @media screen and (min-width: 1024px) {
-  /* line 39, ../sass/partials/_footer.scss */
+  /* line 47, ../sass/partials/_footer.scss */
   .footer-block {
     height: 50px;
     /* Height of the footer element */
+  }
+
+  /* line 51, ../sass/partials/_footer.scss */
+  #content {
+    padding-bottom: 92px;
+    /* to prevent cutting off content */
   }
 }
 /* line 4, ../sass/partials/_navbar.scss */
