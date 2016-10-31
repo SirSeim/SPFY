@@ -22,6 +22,7 @@ $(function () {
                 // Code for localStorage/sessionStorage.
                 console.log(xhr.getResponseHeader("authorization"));
                 localStorage.setItem("authorization", xhr.getResponseHeader("authorization"));
+                window.location.href = "/";
             } else {
                 // Sorry! No Web Storage support..
                 status.text("No LocalStorage support");
