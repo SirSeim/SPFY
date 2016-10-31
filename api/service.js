@@ -261,6 +261,28 @@ var service = {
         });
     },
 
+    getCheckIn: function (postgres, callback) {
+        Query.getCheckIn(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    dropin: local.drop_in_id,
+                    client: local.client_id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     dataBrowserGetClients: function (postgres, callback) {
         Query.dataBrowserGetClients(postgres, function (err, result) {
             if (err) {

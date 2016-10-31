@@ -64,7 +64,7 @@ var api = {
 
     createDropIn: function (request, reply) {
         Service.createDropIn(request.postgres, request.payload, function (err, result) {
-            if (err) { 
+            if (err) {
                 Respond.failedToCreateDropIn(reply, err);
             } else {
                 Respond.createDropIn(reply, result);
@@ -128,6 +128,15 @@ var api = {
                 Respond.failedToCheckIn(reply, err);
             } else {
                 Respond.checkin(reply, result);
+            }
+        });
+    },
+    getCheckIn: function (request, reply) {
+        Service.getCheckIn(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetCheckIn(reply, err);
+            } else {
+                Respond.gotCheckIn(reply, result);
             }
         });
     },

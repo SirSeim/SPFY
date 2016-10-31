@@ -1,4 +1,31 @@
 $(function () {
+    var createClients = function (checkin) {
+        return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
+                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+                '<td class="col-xs-2">';
+    };
+
+    var populateClients = function () {
+        var table = $('#pastdropins tbody');
+
+        $.ajax({
+            url: "/api/clients",
+            method: "GET",
+            success: function (data) {
+                table.empty();
+                data.result.forEach(function (element) {
+                    table.append(createClients(element));
+                });
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    };
+
+    populateClients();
+
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
         $(currentTabID).show().siblings().hide();
@@ -9,8 +36,7 @@ $(function () {
     var createPastDropIn = function (dropin) {
         return '<tr><td class="col-xs-2">' + moment(dropin.date).format('M/D/YY') +
                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-                '<td class="col-xs-2">' +
-                '<button id="editdrop-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+                '<td class="col-xs-2">';
     };
 
     var populateViewDropIn = function () {
@@ -34,6 +60,35 @@ $(function () {
 
     populateViewDropIn();
 // From:http://bootsnipp.com/snippets/featured/checked-list-group
+
+    var createPastCheckIn = function (checkin) {
+        return '<tr><td class="col-xs-2">' + moment(checkin.date).format('M/D/YY') +
+                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+                '<td class="col-xs-2">' +
+                '<button id="editcheck-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+    };
+
+    var populateCheckIn = function () {
+        var table = $('#pastdropins tbody');
+
+        $.ajax({
+            url: "/api/checkin",
+            method: "GET",
+            success: function (data) {
+                table.empty();
+                data.result.forEach(function (element) {
+                    table.append(createPastCheckIn(element));
+                });
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    };
+
+    populateCheckIn();
+
     $(function () {
         $('.list-group.checked-list-box .list-group-item').each(function () {
 
@@ -122,5 +177,5 @@ $(function () {
         }
     });
 
-    
+
 });

@@ -347,7 +347,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-            
+
             client.query(Queries.dataBrowserSearchClients(data), function (err, result) {
                 done();
                 if (err) {
@@ -375,7 +375,24 @@ var query = {
             });
         });
     },
-    
+
+    getCheckIn: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getCheckIn(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

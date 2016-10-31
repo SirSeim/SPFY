@@ -291,7 +291,7 @@ var queries = {
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-    
+
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -450,7 +450,7 @@ var queries = {
             params: params
         };
 
-        return queryData;        
+        return queryData;
     },
 
     editActivity: function (payload) {
@@ -486,6 +486,12 @@ var queries = {
                             element.clientID + ', ' +
                             '\'' + element.date + '\'' + ');';
         });
+
+        return queryString;
+    },
+
+    getCheckIn: function () {
+        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in;';
 
         return queryString;
     },

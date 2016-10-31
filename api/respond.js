@@ -240,6 +240,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetCheckIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get checkin!",
+            error: err
+        }).code(500);
+    },
+    gotCheckIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting checkin!",
+            result: result
+        }).code(200);
+    },
     dataBrowserGetClients: function (reply, result) {
         reply({
             statusCode: 200,

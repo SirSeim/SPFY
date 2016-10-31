@@ -74,6 +74,11 @@ var apiRoutes = [
         handler: Api.enroll
     },
     {
+        method: 'GET',
+        path: '/checkin',
+        handler: Api.getCheckIn
+    },
+    {
         method: 'POST',
         path: '/checkin',
         handler: Api.checkin
