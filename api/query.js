@@ -157,9 +157,7 @@ var query = {
             }
 
             payload = JSON.parse(payload.expression);
-            console.log(payload);
             var data = Queries.createDropIn(payload);
-            console.log(data);
             // unstringify the data passed in
             client.query(data.string, data.params, function (err, result) {
                 done();
@@ -183,8 +181,7 @@ var query = {
                 if (err) {
                     return callback(err);
                 }
-                console.log("query.js ======================");
-                console.log(result);
+
                 return callback(undefined, result);
             });
         });
@@ -201,8 +198,7 @@ var query = {
                 if (err) {
                     return callback(err);
                 }
-                console.log("query.js ======================");
-                console.log(result);
+
                 return callback(undefined, result);
             });
         });

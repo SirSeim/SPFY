@@ -46,10 +46,10 @@ $(function () {
                 checkins.forEach(function (checkin) {
                     if (checkin.id === $(td).data("id")) {
                         $('#checked-in tbody').append(
-                            '<tr><td>' + checkin.date + '</td>' +
+                            '<tr><td>' + window.parseDate(checkin.date) + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
                             '<td>' + $(td).data("firstname") + '</td>' +
                             '<td>' + $(td).data("lastname") + '</td>' +
-                            '<td>09/02/94</td>' + 
+                            '<td>' + window.parseDate($(td).data("dob")) + '</td>' +
                             '<th>Activities Today</th>' +
                             '<td>notes <img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>' +
                             '</tr>');
@@ -98,7 +98,7 @@ $(function () {
     }).then(function (data) {
         var dropins = data.result;
         var currentDropIn = dropins[dropins.length - 1];
-        $('#dropin-date').text(currentDropIn.date);
+        $('#dropin-date').text(window.parseDate(currentDropIn.date)); // implemented parseDate in main.js, added to DOM in _basescript.html
         console.log(currentDropIn);
         $('#dropin-date').data("id", currentDropIn.id);
     }).then(function () {

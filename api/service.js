@@ -66,8 +66,10 @@ var service = {
                 arr.push({
                     id: local.id,
                     firstName: local.first_name,
+                    nickname: local.nickname,
                     lastName: local.last_name,
-                    status: local.status
+                    status: local.status,
+                    dob: local.date_of_birth
                 });
             }
             return callback(undefined, arr);

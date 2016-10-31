@@ -313,7 +313,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name, status FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth FROM client;';
 
         return queryString;
     },
