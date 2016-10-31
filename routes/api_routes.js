@@ -127,6 +127,7 @@ var apiRoutes = [
         method: 'POST',
         path: '/sessions',
         config: {
+            auth: false,
             validate: {
                 payload: Schema.login
             }
