@@ -49,6 +49,7 @@ postgresqlPool.register.attributes = {
 };
 
 var validate = function (decoded, request, callback) {
+    console.log(decoded);
     // TODO: Look into what is in decoded & request
     // query the database for the user
     return callback(null, true);

@@ -239,7 +239,9 @@ var api = {
                     } else if (!match) {
                         Respond.userPassNoMatch(reply);
                     } else {
-                        Service.genToken(user, function (err, token) {
+                        Service.genToken({
+                            username: user.username
+                        }, function (err, token) {
                             if (err) {
                                 Respond.failedToGenToken(reply, err);
                             } else {

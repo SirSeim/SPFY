@@ -4,6 +4,10 @@ var bcrypt = require('bcrypt');
 var JWT = require('jsonwebtoken');
 
 var saltRounds = 10;
+var jwtOptions = {
+    algorithm: 'HS256',
+    expiresIn: '1 day'
+};
 
 var service = {
     createClient: function (postgres, payload, callback) {
@@ -341,12 +345,7 @@ var service = {
     },
 
     genToken: function (session, callback) {
-        try {
-            var token = JWT.sign(session, process.env.SPFY_KEY);
-            return callback(undefined, token);
-        } catch (err) {
-            return callback(err);
-        }
+        JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
     }
 };
 
