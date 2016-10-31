@@ -1,92 +1,95 @@
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
-            <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
-            <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
-            <li><a class="tablinks" href="#green" data-toggle="tab">Other</a></li>
-          </ul>
-          <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="client-info">
-              <div class="row">
-                <h1 id="client-id" style="display: none;">1</h1>
-                <h1 id="client-name" class="col-sm-9">Client 'Name' Here</h1>
-                <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
-                <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
-                <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
-              </div>
-                <div class="client-photo">This is a photo</div>
-                <table id="clientInfoTable">
-                  <tr>
-                    <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
-                    <td><h4>Age</h4></td><td id="client-age">00</td>
-                  </tr>
-                  <tr>
-                    <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
-                    <td><h4>Email</h4></td><td id="client-email">Not Given</td>
-                  </tr>
-                  <tr>
-                    <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
-                    <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
-                  </tr>
-                </table>
-            </div>
-            <div class="tab-pane" id="case-management">
-                <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4>
-                    Client's Case Notes
-                  </h4>
-                  <form class="casenotes-form casenotes-right" align="right">
-                    <div class="form-group">
-                    <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
-                    <button type="search" class="btn btn-default" align="right">Search</button>
-                    </div>
-                  </form>
-                </div>
-                <table id="casenotes" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th class="col-xs-2">Date</th>
-                      <th class="col-xs-2">Category</th>
-                      <th class="col-xs-3">Case Manager</th>
-                      <th class="col-xs-4">Preview</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                    <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <a href="#" id="addcasenote" class="btn btn-default">Add New Case Note</a>
-            </div>
-            <div class="tab-pane" id="documents">
-                <h1>Client Documents</h1>
-                <p></p>
-            </div>
-            <div class="tab-pane" id="green">
-                <h1>Other</h1>
-                <p></p>
-            </div>
-        </div>
+  <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
+  <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
+  <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
+  <li><a class="tablinks" href="#green" data-toggle="tab">Other</a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+  <div class="tab-pane active" id="client-info">
+    <div class="row">
+      <h1 id="client-id" style="display: none;">1</h1>
+      <h1 id="client-name" class="col s9">Client 'Name' Here</h1>
+      <button id="edit-client" type="button" class="col s2 btn waves-effect waves-light">Edit Client</button>
+      <button id="submit-edit" type="button" class="col s2 btn waves-effect waves-light" style="display: none;">Submit Edit</button>
+      <button id="cancel-edit" type="button" class="col s2 btn waves-effect waves-light" style="display: none;">Cancel Edit</button>
+    </div>
+    <div class="client-photo">This is a photo</div>
+    <table id="clientInfoTable">
+      <tr>
+        <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
+        <td><h4>Age</h4></td><td id="client-age">00</td>
+      </tr>
+      <tr>
+        <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
+        <td><h4>Email</h4></td><td id="client-email">Not Given</td>
+      </tr>
+      <tr>
+        <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
+        <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
+      </tr>
+    </table>
+  </div>
+  <div class="tab-pane" id="case-management">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          Client's Case Notes
+        </h4>
+        <form class="casenotes-form casenotes-right" align="right">
+          <div class="form-group">
+          <div class="input-field col s6">
+            <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
+            <label for="client-notes-search">Client Notes Search</label>
+          </div>
+          <button type="search" class="btn waves-effect waves-light" align="right">Search</button>
+          </div>
+        </form>
+      </div>
+      <table id="casenotes" class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col s2">Date</th>
+            <th class="col s2">Category</th>
+            <th class="col s3">Case Manager</th>
+            <th class="col s4">Preview</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col s2">1/10/15</td>
+            <td class="col s2">CM</td>
+            <td class="col s3">Ben Perkins</td>
+            <td class="col s4">This is the beginning of a case note.</td>
+          </tr>
+          <tr>
+            <td class="col s2">2/1/15</td>
+            <td class="col s2">CM</td>
+            <td class="col s3">Jeanine Espejo-Watkins</td>
+            <td class="col s4">This is the beginning of a case note.</td>
+          </tr>
+          <tr>
+            <td class="col s2">3/20/16</td>
+            <td class="col s2">CM</td>
+            <td class="col s3">Rebecca McGuire</td>
+            <td class="col s4">This is the beginning of a case note.</td>
+          </tr>
+          <tr>
+            <td class="col s2">5/15/16</td>
+            <td class="col s2">E&E</td>
+            <td class="col s3">Chris Beckette</td>
+            <td class="col s4">This is the beginning of a case note.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#" id="addcasenote" class="btn waves-effect waves-light">Add New Case Note</a>
+  </div>
+  <div class="tab-pane" id="documents">
+      <h1>Client Documents</h1>
+      <p></p>
+  </div>
+  <div class="tab-pane" id="green">
+      <h1>Other</h1>
+      <p></p>
+  </div>
+</div>

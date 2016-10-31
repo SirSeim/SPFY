@@ -1,10 +1,13 @@
- <div class="panel panel-default col-sm-2">
+ <div class="panel panel-default col s2">
     <div class="panel-heading">
       <h4>
         Intake Needed
       </h4>
       <span class="dot dot-success"></span>
-      <input id="client-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
+      <div class="input-field col s6">
+        <input id="client-search" type="text" class="validate" maxlength="128" placeholder="Search" />
+        <label for="client-search">Client Search</label>
+      </div>
       <!-- We need a `dot-pending` class for when the client list is still loading -->
     </div> <!-- panel heading -->
     <table id="clients" class="table table-hover">
