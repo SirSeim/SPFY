@@ -278,6 +278,14 @@ var service = {
             // var local = result.rows[0];
             return callback(undefined, result);
         });
+    },
+    createCaseNote: function (postgres, data, callback) {
+        Query.createCaseNote(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     }
 };
 

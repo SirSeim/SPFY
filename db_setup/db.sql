@@ -302,3 +302,15 @@ CREATE TABLE check_in (
 );
 
 INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');
+
+CREATE TABLE case_note (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  case_manager_id integer REFERENCES casemanager (id),
+  date date DEFAULT CURRENT_DATE,
+  category VARCHAR (5) DEFAULT NULL,
+  note VARCHAR(200) DEFAULT NULL,
+  follow_up_needed boolean DEFAULT NULL,
+  due_date date DEFAULT NULL,
+  reminder_date date DEFAULT NULL
+);

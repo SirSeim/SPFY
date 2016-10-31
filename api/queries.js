@@ -512,6 +512,20 @@ var queries = {
                           data.column + searchText + ';';
 
         return queryString;
+    },
+
+    createCaseNote: function (payload) {
+        var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (' + 
+            parseProperty(payload.clientID )+ ', ' +
+            parseProperty(payload.caseManagerID) + ', ' +
+            parseProperty(payload.date) + ', ' +
+            parseProperty(payload.category) + ', ' +
+            parseProperty(payload.note) + ', ' +
+            parseProperty(payload.followUpNeeded) + ', ' +
+            parseProperty(payload.dueDate) + ', ' +
+            parseProperty(payload.reminderDate) + ');';
+
+        return queryString;
     }
 };
 

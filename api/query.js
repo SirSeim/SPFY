@@ -375,6 +375,23 @@ var query = {
             });
         });
     },
+
+    createCaseNote: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createCaseNote(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
     
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {

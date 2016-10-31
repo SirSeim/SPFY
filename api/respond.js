@@ -205,10 +205,10 @@ var respond = {
             error: err
         }).code(500);
     },
-    editActivity: function (reply, result) {
+    enroll: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success editing activity!",
+            message: "Success enrolling!",
             result: result
         }).code(200);
     },
@@ -219,10 +219,10 @@ var respond = {
             error: err
         }).code(500);
     },
-    enroll: function (reply, result) {
+    editActivity: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success enrolling!",
+            message: "Success editing activity!",
             result: result
         }).code(200);
     },
@@ -251,6 +251,20 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Successfully got client.",
+            result: result
+        }).code(200);
+    },
+    failedToCreateCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create case note!",
+            error: err
+        }).code(500);
+    },
+    createCaseNote: function (reply, err) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created case note.",
             result: result
         }).code(200);
     }
