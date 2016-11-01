@@ -55,25 +55,31 @@ img#big-logo {
 }
 
 /* line 10, ../sass/partials/_base.scss */
-#wrapper {
-  min-height: 100%;
-  position: relative;
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-/* line 15, ../sass/partials/_base.scss */
+/* line 16, ../sass/partials/_base.scss */
+main {
+  flex: 1 0 auto;
+}
+
+/* line 20, ../sass/partials/_base.scss */
 #content {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/* line 20, ../sass/partials/_base.scss */
+/* line 25, ../sass/partials/_base.scss */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-/* line 26, ../sass/partials/_base.scss */
+/* line 31, ../sass/partials/_base.scss */
 .header {
   width: 100%;
   margin: 0 auto;
@@ -84,28 +90,28 @@ html, body {
   border-bottom: #EEE solid 1px;
 }
 
-/* line 36, ../sass/partials/_base.scss */
+/* line 41, ../sass/partials/_base.scss */
 .hidden {
   display: none;
 }
 
-/* line 40, ../sass/partials/_base.scss */
+/* line 45, ../sass/partials/_base.scss */
 .sidebar {
   width: 200px;
   height: 300px;
 }
 
-/* line 45, ../sass/partials/_base.scss */
+/* line 50, ../sass/partials/_base.scss */
 .left {
   float: left;
 }
 
-/* line 49, ../sass/partials/_base.scss */
+/* line 54, ../sass/partials/_base.scss */
 .right {
   float: right;
 }
 
-/* line 53, ../sass/partials/_base.scss */
+/* line 58, ../sass/partials/_base.scss */
 .menuButton {
   background-color: #09F;
   border: none;
@@ -115,7 +121,7 @@ html, body {
   height: 35px;
 }
 
-/* line 62, ../sass/partials/_base.scss */
+/* line 67, ../sass/partials/_base.scss */
 .dot {
   display: inline-block;
   border-radius: 50%;
@@ -126,7 +132,7 @@ html, body {
   margin: 0 2px;
 }
 
-/* line 71, ../sass/partials/_base.scss */
+/* line 76, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
 }
@@ -192,66 +198,18 @@ th {
 }
 
 /* line 4, ../sass/partials/_footer.scss */
-.footer-block {
-  background: #02aef0;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+footer.page-footer {
+  background-color: #02aef0;
 }
 
-/* line 12, ../sass/partials/_footer.scss */
-.footer-text {
-  padding: 10;
-}
-
-/* line 16, ../sass/partials/_footer.scss */
+/* line 8, ../sass/partials/_footer.scss */
 #footer-links li {
-  float: right;
+  float: left;
   display: inline;
   list-style-type: none;
   padding-right: 20px;
 }
 
-@media screen and (max-width: 767px) {
-  /* line 25, ../sass/partials/_footer.scss */
-  .footer-block {
-    height: 92px;
-    /* Height of the footer element */
-  }
-
-  /* line 29, ../sass/partials/_footer.scss */
-  #content {
-    padding-bottom: 92px;
-    /* to prevent cutting off content */
-  }
-}
-@media screen and (max-width: 1024px) and (min-width: 767px) {
-  /* line 36, ../sass/partials/_footer.scss */
-  .footer-block {
-    height: 63px;
-    /* Height of the footer element */
-  }
-
-  /* line 40, ../sass/partials/_footer.scss */
-  #content {
-    padding-bottom: 92px;
-    /* to prevent cutting off content */
-  }
-}
-@media screen and (min-width: 1024px) {
-  /* line 47, ../sass/partials/_footer.scss */
-  .footer-block {
-    height: 50px;
-    /* Height of the footer element */
-  }
-
-  /* line 51, ../sass/partials/_footer.scss */
-  #content {
-    padding-bottom: 92px;
-    /* to prevent cutting off content */
-  }
-}
 /* line 4, ../sass/partials/_navbar.scss */
 .brand-logo {
   height: 35px;

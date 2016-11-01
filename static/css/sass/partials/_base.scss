@@ -7,9 +7,14 @@
   width: 90%;
 }
 
-#wrapper {
-  min-height: 100%;
-  position: relative;
+body { // for sticky footer
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main { // for sticky footer
+  flex: 1 0 auto;
 }
 
 #content {
