@@ -393,14 +393,14 @@ var query = {
         });
     },
 
-    getClientCaseNotes: function (postgres, payload, callback) {
-        console.log('QUERY =================== ' + payload);
+    getClientCaseNotes: function (postgres, clientID, callback) {
+        console.log('QUERY =================== ' + clientID);
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getClientCaseNotes(payload), function (err, result) {
+            client.query(Queries.getClientCaseNotes(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

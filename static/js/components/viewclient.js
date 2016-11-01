@@ -11,9 +11,8 @@ $(function (event) {
     var caseNotesTable = $('#casenotes tbody');
 
     var getCaseNotes = function (data) {
-        console.log(data);
         $.ajax({
-            url: "api/case_notes/" + data.clientID,
+            url: "api/case_notes/" + data,
             method: "GET",
             data: data.clientID,
             success: function (data) {
@@ -26,7 +25,7 @@ $(function (event) {
             caseNotesTable.empty();
             data.result.forEach(function (note) {
                 caseNotesTable.append('<tr>' +
-                    '<td class="col-xs-2">' + note.date + '</td>' +
+                    '<td class="col-xs-2">' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
                     '<td class="col-xs-2">' + note.category + '</td>' + 
                     '<td class="col-xs-3">' + 'Test' + '</td>' + 
                     '<td class="col-xs-4">' + note.note +  '</td>' + 
@@ -62,13 +61,7 @@ $(function (event) {
             $('#client-phonenumber').text( data.result.rows[0].phone_number);
             $('#client-email').text(data.result.rows[0].email);
 
-            var clientID = client.match(/[0-9]+/)['0'];
-
-            var data = {
-                clientID: clientID
-            }
-            console.log(data);
-            getCaseNotes(data);
+            getCaseNotes(client.match(/[0-9]+/)['0']);
         });
     }
 

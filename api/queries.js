@@ -528,9 +528,9 @@ var queries = {
         return queryString;
     },
 
-    getClientCaseNotes: function (payload) {
-        console.log('QUERIES ==================== ' + payload);
-        var queryString = 'SELECT date, category, note, follow_up_needed, due_date, reminder_date FROM case_note WHERE client_id = ' + payload.clientID + ';';
+    getClientCaseNotes: function (clientID) {
+        console.log('QUERIES ==================== ' + clientID);
+        var queryString = 'SELECT date, category, note, follow_up_needed, due_date, reminder_date FROM case_note WHERE client_id = ' + clientID + ';';
         console.log(queryString);
 
         return queryString;
