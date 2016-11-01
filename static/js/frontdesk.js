@@ -44,9 +44,10 @@ $(function () {
             console.log($('#clients td').get());
             $('#clients td').get().forEach(function (td) {
                 checkins.forEach(function (checkin) {
+
                     if (checkin.id === $(td).data("id")) {
                         $('#checked-in tbody').append(
-                            '<tr><td>' + checkin.date + '</td>' +
+                            '<tr><td>' + moment(checkin.date).format('MM-DD-YY') + '</td>' +
                             '<td>' + $(td).data("firstname") + '</td>' +
                             '<td>' + $(td).data("lastname") + '</td>' +
                             '<td>09/02/94</td>' + 
@@ -98,7 +99,7 @@ $(function () {
     }).then(function (data) {
         var dropins = data.result;
         var currentDropIn = dropins[dropins.length - 1];
-        $('#dropin-date').text(currentDropIn.date);
+        $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
         console.log(currentDropIn);
         $('#dropin-date').data("id", currentDropIn.id);
     }).then(function () {
