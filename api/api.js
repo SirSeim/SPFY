@@ -202,6 +202,16 @@ var api = {
                 Respond.getClientCaseNotes(reply, result);
             }
         });
+    },
+
+    editCaseNote: function (request, reply) {
+        Service.editCaseNote(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditCaseNote(reply, err);
+            } else {
+                Respond.editCaseNote(reply, result);
+            }
+        });
     }
 };
 

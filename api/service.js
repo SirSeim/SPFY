@@ -294,6 +294,14 @@ var service = {
             }
             return callback(undefined, result);
         });
+    },
+    editCaseNote: function (postgres, data, callback) {
+        Query.editCaseNote(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
     }
 };
 

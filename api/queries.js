@@ -530,6 +530,16 @@ var queries = {
 
     getClientCaseNotes: function (payload) {
         var queryString = 'SELECT date, category, note, follow_up_needed, due_date, reminder_date FROM case_note WHERE client_id = ' + payload.id + ';';
+
+        return queryString;
+    },
+
+    editCaseNote: function (payload) {
+        var queryString = 'UPDATE case_note SET ';
+
+        queryString += 'client_id = ';
+
+        return queryString;
     }
 };
 

@@ -281,6 +281,20 @@ var respond = {
             message: "Successfully got client's case notes.",
             result: result
         }).code(200);
+    },
+    failedToEditCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit case note!",
+            error: err
+        }).code(500);
+    },
+    editCaseNote: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully edited case note.",
+            result: result
+        }).code(200);
     }
 
 };
