@@ -44,6 +44,11 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
+        method: 'POST',
+        path: '/clients/{clientID}',
+        handler: Api.editClient
+    },
+    {
         method: 'GET',
         path: '/clients',
         handler: Api.getClients
@@ -69,9 +74,24 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
+        method: 'GET',
+        path: '/dropins/{dropinID}/enrollment',
+        handler: Api.getDropinEnrollment
+    },
+    {
+        method: 'GET',
+        path: '/enroll/{activityID}',
+        handler: Api.getEnrollmentByActivity
+    },
+    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
+    },
+    {
+        method: 'GET',
+        path: '/checkin',
+        handler: Api.getCheckIn
     },
     {
         method: 'POST',
@@ -105,8 +125,18 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/clients/{clientID}',
-        handler: Api.editClient
+        path: '/case_notes',
+        handler: Api.createCaseNote
+    },
+    {
+        method: 'GET',
+        path: '/case_notes/{clientID}',
+        handler: Api.getClientCaseNotes
+    },
+    {
+        method: 'POST',
+        path: '/case_notes/{caseNoteID}',
+        handler: Api.editCaseNote
     }
 ];
 
