@@ -39,6 +39,7 @@ var IntakeForm = React.createClass({
         preferredPronoun: "",
         ethnicity: "White",
         race: "",
+        identification: "",
         lastSleepingLocation: "",
         lastSleepingDuration: "",
         firstDayFirstTimeHomeless: "",
@@ -171,9 +172,6 @@ var IntakeForm = React.createClass({
       console.log("handleSubmit");
     };
   },
-  handlePersonCompletingIntakeChange: function (e) {
-    this.setState({personCompletingIntake: e.target.value});
-  },
   handleFirstTimeChange: function (e) {
     var getVal = e.currentTarget.value,
         boolVal = false;
@@ -193,11 +191,9 @@ var IntakeForm = React.createClass({
   },
   handleBirthDayChange: function (e) {
     this.setState({dobDay: e.target.value});
-    console.log("Day changed.");
   },
   handleBirthMonthChange: function (e) { 
     this.setState({dobMonth: e.target.value});
-    console.log("Month changed.");
     var date = moment().date(this.state.dobDay)
                        .month(this.state.dobMonth)
                        .year(this.state.dobYear);
@@ -208,7 +204,6 @@ var IntakeForm = React.createClass({
   },
   handleBirthYearChange: function (e) {
     this.setState({dobYear: e.target.value});
-    console.log("Year changed.");
   },
   handleProvidedIDChange: function (e) {
     var getVal = e.currentTarget.value,
@@ -225,23 +220,33 @@ var IntakeForm = React.createClass({
     this.setState({otherID: e.target.value});
   },
   handleReferenceChange: function (e) {
-    this.setState({refernce: e.target.value})
+    this.setState({reference: e.target.value});
+    if (e.target.value === "other") {
+      $("#referenceOtherText").removeClass("hidden");
+    } else {
+      $("#referenceOtherText").addClass("hidden");
+      this.setState({referenceOther: ""});
+    }
   },
   handleReferenceOtherChange: function (e) {
     this.setState({referenceOther: e.target.value});
   },
-
+  handleFeatureChange: function (e) {
+    this.setState({idenfitication: e.target.value});
+  },
   // every React component is required to have a 'render' function
   // to display the html
   render: function () {
-    var currentYear = new Date().getFullYear(),
-        todaysDate = moment();
+    var dob = moment().date(this.state.dobDay)
+                      .month(this.state.dobMonth)
+                      .year(this.state.dobYear);
+    var todaysDate = moment();
+    var diff = todaysDate.diff(dob, 'years');
+    var ageWarning = "tooOldWarning" + (diff >= 25 ? "" : " hidden"); 
     return (
       <div className="row">
         <div className="col-sm-4">
           <form className="intakeForm" onSubmit={this.handleSubmit}>
-            Person Filling out this form: <input type="text"
-                                            onChange={this.handlePersonCompletingIntakeChange} />
             <br />
             First Time Attending? <input type="radio" name="firstTime" value="true"
                                     checked={this.state.firstTime === true}
@@ -265,7 +270,8 @@ var IntakeForm = React.createClass({
                                          handleYearChange={this.handleBirthYearChange}
                                          day = {this.state.dobDay}
                                          month = {this.state.dobMonth}
-                                         year = {this.state.dobYear} />
+                                         year = {this.state.dobYear}
+                                         ageWarning = {ageWarning} />
             ID Provided? <input type="radio" name="idProvided" value="true"
                                   checked={this.state.providedID === true}
                                   onChange={this.handleProvidedIDChange} /> Yes
@@ -278,13 +284,22 @@ var IntakeForm = React.createClass({
                     changeOtherID={this.handleOtherIDChange} />
             <br />
             How did you hear about Spy? {/* Need textbox on other */}
-            <select name="howHear" defaultValue="outreach" onChange={this.handleHowHeard}>
+            <select name="howHear" defaultValue="outreach" onChange={this.handleReferenceChange}>
               <option value="outreach">SPY Outreach</option>
               <option value="friends">Friends</option>
               <option value="web">Web</option>
               <option value="other">Other</option>
             </select>
+            <input id="referenceOtherText" 
+                   type="text" 
+                   className="hidden" 
+                   placeholder="Explain here"
+                   onChange={this.handleReferenceOtherChange} />
             {/* Not included: Services */}
+            <br /><br />
+            <textarea id="identifyingFeatures" 
+                      placeholder="Identifying Features" 
+                      onChange={this.handleFeatureChange}></textarea>
             <br />
             <input type="submit" value="Submit" />
           </form>
@@ -324,6 +339,7 @@ var DateDropdown = React.createClass({
                      date={date.date()} />
         <YearDropdown handleYearChange={this.props.handleYearChange}
                       year={date.year()} />
+        <span className={this.props.ageWarning}> Older than 25. </span>
       </div>
     )
   }
@@ -331,7 +347,6 @@ var DateDropdown = React.createClass({
 
 var DayDropdown = React.createClass({
   render: function () {
-    console.log(this.props.date);
     var showTwentyNineth = (29 > this.props.totalDays) ? "hidden" : "";
     var showThirtieth = (30 > this.props.totalDays) ? "hidden" : "";
     var showThirtyFirst = (31 > this.props.totalDays) ? "hidden" : "";
