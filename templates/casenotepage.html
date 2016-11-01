@@ -4,54 +4,8 @@
 
       {% include "components/_navbar.html" %}
 
-      <div class="row">
+      {% include "components/_addcasenote.html" %}
 
-        <div class="form-group row">
-          <label for="client-id" class="col-xs-2 col-form-label">Client</label>
-          <div class="col-xs-2">
-            <!-- <input type="number" placeholder="1" id="client-id" min="1"> -->
-            <select id="client-id">
-            </select>
-          </div>
-          <label for="case-manager-id" class="col-xs-2 col-form-label">Case Manager</label>
-          <div class="col-xs-2">
-            <!-- <input type="number" placeholder="1" id="case-manager-id" min="1"> -->
-            <select id="case-manager-id">
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="date" class="col-xs-2 col-form-label">Date</label>
-          <div class="col-xs-2">
-            <input type="text" placeholder="mm/dd/yy" id="date">
-          </div>
-          <label for="category" class="col-xs-2 col-form-label">Category</label>
-          <div class="col-xs-2">
-            <input type="text" placeholder="CM" id="category">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="example-text-input" class="col-xs-2 col-form-label">Case Notes</label>
-          <div class="col-xs-12">
-          <textarea id="note" class="form-control" rows="10"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="checkbox">
-          <label><input name="followup-checkbox" id="followup-checkbox" type="checkbox" value="">Follow-up Needed</label>
-        </div>
-        <div class="row" id="followup-area">
-
-        </div>
-      </div>
-
-      <div id="content">
-
-      </div>
-
-      <button type="button" id="submit" class="btn btn-primary">Submit</button>
     </div>
 
 {% include "components/_basescript.html" %}

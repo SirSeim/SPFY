@@ -83,7 +83,19 @@
                   </tbody>
                 </table>
               </div>
-              <a href="#" id="addcasenote" class="btn btn-default">Add New Case Note</a>
+              <button id="addcasenote" class="btn btn-default" data-toggle="modal" data-target="#add-note-modal">Add New Case Note</button>
+              <div class="modal fade" id="add-note-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      Add Case Note
+                    </div>
+                    <div class="modal-body">
+                      {% include "components/_addcasenote.html" %}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="tab-pane" id="documents">
                 <h1>Client Documents</h1>

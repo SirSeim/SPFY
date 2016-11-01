@@ -10,9 +10,11 @@ $(function () {
             data: data,
             success: function (data) {
                 console.log(data);
+                alert('SUCCESS! Case note has been successfully added');
             },
             error: function (data) {
                 console.log(data);
+                alert('ERROR! Could not create case note');
             }
         }).done(function (data) {
 
