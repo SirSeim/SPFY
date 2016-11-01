@@ -85,8 +85,8 @@ $(function () {
     });
 
     $('#submit').click(function () {
-        var clientID = $('#client-id')['0'].value;
-        var caseManagerID = $('#case-manager-id')['0'].value;
+        var clientID = $('#client-id').val();
+        var caseManagerID = $('#case-manager-id').val();
         var date = $('#date')['0'].value;
         var category = $('#category')['0'].value;
         var note = $('#note')['0'].value;
