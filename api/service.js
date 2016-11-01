@@ -234,7 +234,6 @@ var service = {
     },
 
     createActivity: function (postgres, payload, callback) {
-        console.log(payload);
         Query.createActivity(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
@@ -348,7 +347,6 @@ var service = {
     },
 
     genToken: function (session, callback) {
-        console.log(session);
         JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
     },
 

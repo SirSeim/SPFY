@@ -395,8 +395,6 @@ var queries = {
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
         queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
-        console.log("queries.js ==============");
-        console.log(payload.status);
         queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
@@ -542,7 +540,6 @@ var queries = {
         var queryString = 'SELECT * from notifications WHERE user_id = ' +
                             credentials.id + ';';
 
-        console.log(queryString);
         return queryString;
     }
 };
