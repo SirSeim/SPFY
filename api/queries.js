@@ -515,7 +515,6 @@ var queries = {
     },
 
     createCaseNote: function (payload) {
-        console.log(payload);
         var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (' + 
             '\'' + parseProperty(payload.clientID)+ '\'' + ', ' +
             '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
@@ -526,9 +525,11 @@ var queries = {
         queryString += parseProperty(payload.dueDate) === null ? 'null, ' : '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
         queryString += parseProperty(payload.reminderDate) === null ? 'null);' : '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
 
-        console.log(queryString);
-
         return queryString;
+    },
+
+    getClientCaseNotes: function (payload) {
+        var queryString = 'SELECT date, category, note, follow_up_needed, due_date, reminder_date FROM case_note WHERE client_id = ' + payload.id + ';';
     }
 };
 

@@ -267,6 +267,20 @@ var respond = {
             message: "Successfully created case note.",
             result: result
         }).code(200);
+    },
+    failedToGetClientCaseNotes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's case notes!",
+            error: err
+        }).code(500);
+    },
+    getClientCaseNotes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's case notes.",
+            result: result
+        }).code(200);
     }
 
 };

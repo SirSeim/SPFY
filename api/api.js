@@ -185,12 +185,21 @@ var api = {
     },
 
     createCaseNote: function (request, reply) {
-        console.log("Inside API.JS ====================");
         Service.createCaseNote(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToCreateCaseNote(reply, err);
             } else {
                 Respond.createCaseNote(reply, result);
+            }
+        });
+    },
+
+    getClientCaseNotes: function (request, reply) {
+        Service.getClientCaseNotes(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientCaseNotes(reply, err);
+            } else {
+                Respond.getClientCaseNotes(reply, result);
             }
         });
     }

@@ -112,6 +112,11 @@ var apiRoutes = [
         method: 'POST',
         path: '/case_notes',
         handler: Api.createCaseNote
+    },
+    {
+        method: 'GET',
+        path: '/case_notes/{clientID}',
+        handler: Api.getClientCaseNotes
     }
 ];
 
