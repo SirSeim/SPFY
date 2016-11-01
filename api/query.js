@@ -157,9 +157,7 @@ var query = {
             }
 
             payload = JSON.parse(payload.expression);
-            console.log(payload);
             var data = Queries.createDropIn(payload);
-            console.log(data);
             // unstringify the data passed in
             client.query(data.string, data.params, function (err, result) {
                 done();
@@ -183,8 +181,24 @@ var query = {
                 if (err) {
                     return callback(err);
                 }
-                console.log("query.js ======================");
-                console.log(result);
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinEnrollment: function (postgres, dropinID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinEnrollment(dropinID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
                 return callback(undefined, result);
             });
         });
@@ -310,6 +324,19 @@ var query = {
         });
     },
 
+    getEnrollmentByActivity: function (postgres, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            client.query(Queries.getEnrollmentByActivity(activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     editClient: function(postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -347,7 +374,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-            
+
             client.query(Queries.dataBrowserSearchClients(data), function (err, result) {
                 done();
                 if (err) {
@@ -383,6 +410,23 @@ var query = {
             }
 
             client.query(Queries.createCaseNote(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    
+    getCheckIn: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getCheckIn(), function (err, result) {
+
                 done();
                 if (err) {
                     return callback(err);

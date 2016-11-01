@@ -287,11 +287,11 @@ var queries = {
 
     getClient: function (clientID) {
         var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, ' +
-                            'date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
+                            'date_of_birth, age(date_of_birth), status FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-    
+
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -313,7 +313,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth FROM client;';
 
         return queryString;
     },
@@ -361,6 +361,11 @@ var queries = {
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
     },
+    getDropinEnrollment: function (dropinID) {
+        var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
+
+        return queryString;
+    },
     getAllActivities: function () {
         var queryString = 'SELECT id, activity_name FROM activity;';
 
@@ -386,19 +391,22 @@ var queries = {
     editClient: function (payload) {
         var queryString = 'UPDATE client SET ';
 
-        queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ',';
-        queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ',';
-        //queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'date_of_birth = ' + '\'' +  parseProperty(payload.birthday) + '\'' + ',';
-        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ',';
-        queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ',';
-        queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ',';
-        //queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
-        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ' ';
+        queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ', ';
+        queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ', ';
+        // queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
+        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
+        queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
+        queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
+        // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
+        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
+        console.log("queries.js ==============");
+        console.log(payload.status);
+        queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
-        queryString += 'RETURNING first_name, last_name, date_of_birth, intake_age, phone_number, email, case_manager;';
+        queryString += 'RETURNING first_name, last_name, date_of_birth, intake_age, phone_number, email, case_manager, status;';
 
         return queryString;
     },
@@ -450,7 +458,7 @@ var queries = {
             params: params
         };
 
-        return queryData;        
+        return queryData;
     },
 
     editActivity: function (payload) {
@@ -478,6 +486,12 @@ var queries = {
         return queryString;
     },
 
+    getEnrollmentByActivity: function (activityID) {
+        var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
+        
+        return queryString;
+    },
+
     checkin: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
@@ -486,6 +500,12 @@ var queries = {
                             element.clientID + ', ' +
                             '\'' + element.date + '\'' + ');';
         });
+
+        return queryString;
+    },
+
+    getCheckIn: function () {
+        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in;';
 
         return queryString;
     },

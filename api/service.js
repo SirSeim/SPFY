@@ -66,7 +66,10 @@ var service = {
                 arr.push({
                     id: local.id,
                     firstName: local.first_name,
-                    lastName: local.last_name
+                    nickname: local.nickname,
+                    lastName: local.last_name,
+                    status: local.status,
+                    dob: local.date_of_birth
                 });
             }
             return callback(undefined, arr);
@@ -155,6 +158,16 @@ var service = {
         });
     },
 
+    getDropinEnrollment: function (postgres, dropinID, callback) {
+        Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
     getAllActivities: function (postgres, callback) {
         Query.getAllActivities(postgres, function (err, result) {
             if (err) {
@@ -215,8 +228,8 @@ var service = {
         });
     },
 
-    editClient: function (postgres, activity, callback) {
-        Query.editClient(postgres, activity, function (err, result) {
+    editClient: function (postgres, payload, callback) {
+        Query.editClient(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -252,12 +265,43 @@ var service = {
         });
     },
 
+    getEnrollmentByActivity: function (postgres, activityID, callback) {
+        Query.getEnrollmentByActivity(postgres, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     checkin: function (postgres, payload, callback) {
         Query.checkin(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
             return callback(undefined, result);
+        });
+    },
+
+    getCheckIn: function (postgres, callback) {
+        Query.getCheckIn(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    dropin: local.drop_in_id,
+                    client: local.client_id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
         });
     },
 

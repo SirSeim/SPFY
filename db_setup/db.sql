@@ -20,6 +20,21 @@ INSERT INTO casemanager VALUES (2, 'bp@spfy.org','tables','Ben','Perkins','Case 
 INSERT INTO casemanager VALUES (3, 'rh@spfy.org','tables','Rob','Hanna','Case Manager');
 
 
+
+DROP TABLE IF EXISTS status;
+
+CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  name varchar(45) DEFAULT NULL
+);
+
+INSERT INTO status (name) VALUES ('okay');
+INSERT INTO status (name) VALUES ('missing');
+INSERT INTO status (name) VALUES ('sick');
+INSERT INTO status (name) VALUES ('vulnerable');
+INSERT INTO status (name) VALUES ('dangerous');
+
+
 DROP TABLE IF EXISTS client;
 
 -- Where are the rest of the intake fields for a client profile?
@@ -48,14 +63,32 @@ CREATE TABLE client (
   provided_id boolean DEFAULT NULL,
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
-  services varchar(45) DEFAULT NULL
+  services varchar(45) DEFAULT NULL,
+  status integer REFERENCES status (id)
 );
 
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Erick','Wilson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Tommie', 'Franklin', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Tricia','Goodman', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Mona','Adkins', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Brooke','Burke', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Ed','Salazar', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Gerard', 'Powers', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Courtney','Lawrence', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Alfredo','Hodges', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Lynne','Simmons', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Sonya','Powell', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Ann', 'Moss', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Rickey','Jacobs', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Colin','Turner', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Tara','Evans', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
+
+
 
 
 DROP TABLE IF EXISTS prescreen;
@@ -226,7 +259,7 @@ CREATE TABLE program (
   program_name varchar(45) DEFAULT NULL
 );
 
-INSERT INTO program VALUES ('Education & Employment');
+INSERT INTO program (program_name) VALUES ('Education & Employment');
 
 DROP TABLE IF EXISTS subprogram;
 
@@ -276,9 +309,10 @@ CREATE TABLE match_drop_in_activity (
   end_time time DEFAULT '23:59:59'
 );
 
-INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 3, 'DA Lab', '13:30:00', '15:30:00');
-INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Courtyard', '12:30:00', '13:30:00');
-INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 2, 'Clinic', '12:30:00', '13:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 3, 'Clinic', '13:30:00', '15:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Clinic', '12:30:00', '13:30:00');
+INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 1, 'Clinic', '12:30:00', '13:30:00');
+
 
 DROP TABLE IF EXISTS enrollment;
 
@@ -289,8 +323,17 @@ CREATE TABLE enrollment (
   activity_id integer REFERENCES activity (id)
 );
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 4);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 3, 4);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 4);
 
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 3);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 1, 3);
+
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 1);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 5, 1);
+INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 7, 1);
 
 DROP TABLE IF EXISTS check_in;
 
@@ -302,6 +345,11 @@ CREATE TABLE check_in (
 );
 
 INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 3, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 5, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 7, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 1, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 10, '2016-10-20T07:00:00.000Z');
 
 DROP TABLE IF EXISTS case_note;
 
@@ -322,3 +370,4 @@ INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 3, '2016-10-31', 'CM', 'This is an initial note', false, null, null);
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 2, '2016-10-31', 'CM', 'This is another initial note', false, null, null);
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (3, 1, '2016-10-31', 'CM', 'This is an initial note', false, null, null);
+

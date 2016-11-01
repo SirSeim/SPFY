@@ -26,13 +26,14 @@
                   <tr>
                     <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
                     <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
+                    <td><h4>Status</h4></td></td><td id="client-status">Okay</td>
                   </tr>
                 </table>
             </div>
             <div class="tab-pane" id="case-management">
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h4>
+                  <h4 id="casenotes-title">
                     Client's Case Notes
                   </h4>
                   <form class="casenotes-form casenotes-right" align="right">
@@ -45,40 +46,36 @@
                 <table id="casenotes" class="table table-hover">
                   <thead>
                     <tr>
-                      <th class="col-xs-2">Date</th>
-                      <th class="col-xs-2">Category</th>
-                      <th class="col-xs-3">Case Manager</th>
-                      <th class="col-xs-4">Note</th>
+                      <th>Date</th>
+                      <th>Category</th>
+                      <th>Case Manager</th>
+                      <th>Preview</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="col-xs-2">1/10/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Ben Perkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                      <td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+                      <td>1/10/15</td>
+                      <td>CM</td>
+                      <td>Ben Perkins</td>
+                      <td>This is the beginning of a case note.</td>
                     </tr>
                     <tr>
-                      <td class="col-xs-2">2/1/15</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Jeanine Espejo-Watkins</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                      <td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+                      <td>2/1/15</td>
+                      <td>CM</td>
+                      <td>Jeanine Espejo-Watkins</td>
+                      <td>This is the beginning of a case note.</td>
                     </tr>
                     <tr>
-                      <td class="col-xs-2">3/20/16</td>
-                      <td class="col-xs-2">CM</td>
-                      <td class="col-xs-3">Rebecca McGuire</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                      <td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+                      <td>3/20/16</td>
+                      <td>CM</td>
+                      <td>Rebecca McGuire</td>
+                      <td>This is the beginning of a case note.</td>
                     </tr>
                     <tr>
-                      <td class="col-xs-2">5/15/16</td>
-                      <td class="col-xs-2">E&E</td>
-                      <td class="col-xs-3">Chris Beckette</td>
-                      <td class="col-xs-4">This is the beginning of a case note.</td>
-                      <td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+                      <td>5/15/16</td>
+                      <td>E&E</td>
+                      <td>Chris Beckette</td>
+                      <td>This is the beginning of a case note.</td>
                     </tr>
                   </tbody>
                 </table>
