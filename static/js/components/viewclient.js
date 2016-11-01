@@ -8,27 +8,31 @@ $(function (event) {
     var clientMail;
     var clientLastMeeting;
     var clientCaseManager;
-    var caseNotesTable = $('#casenotes');
+    var caseNotesTable = $('#casenotes tbody');
 
     var getCaseNotes = function (data) {
-        console.log('get case notes called');
-        console.log(data)
+        console.log(data);
         $.ajax({
-            url: "api/case_notes/" + data,
+            url: "api/case_notes/" + data.clientID,
             method: "GET",
+            data: data.clientID,
             success: function (data) {
-                console.log('success');
                 console.log(data);
             },
             error: function (data) {
-                console.log('error');
                 console.error(data);
             }
         }).done(function (data) {
-            // caseNotesTable.empty();
-            // data.result.forEach(function (client) {
-            //     caseNotesTable.append();
-            // });
+            caseNotesTable.empty();
+            data.result.forEach(function (note) {
+                caseNotesTable.append('<tr>' +
+                    '<td class="col-xs-2">' + note.date + '</td>' +
+                    '<td class="col-xs-2">' + note.category + '</td>' + 
+                    '<td class="col-xs-3">' + 'Test' + '</td>' + 
+                    '<td class="col-xs-4">' + note.note +  '</td>' + 
+                    '<td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
+                    '</tr>');
+            });
         });
     }
 
@@ -46,7 +50,7 @@ $(function (event) {
         }).done(function (data) {
             var string = $('#view-client-tabs').attr('class');
 
-            $('#view-client-tabs').attr('class', "col-sm-8");        
+            $('#view-client-tabs').attr('class', "col-sm-8");
             if (data.result.rows[0].nick_name != undefined){
                 $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
             }else{
@@ -58,7 +62,13 @@ $(function (event) {
             $('#client-phonenumber').text( data.result.rows[0].phone_number);
             $('#client-email').text(data.result.rows[0].email);
 
-            getCaseNotes(client.match(/[0-9]+/)['0']);
+            var clientID = client.match(/[0-9]+/)['0'];
+
+            var data = {
+                clientID: clientID
+            }
+            console.log(data);
+            getCaseNotes(data);
         });
     }
 
@@ -69,7 +79,6 @@ $(function (event) {
             data: data,
             success: function (data) {
                 console.log(data);
-                console.log(data.result.rows[0]);
                 
                 $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
                 $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
