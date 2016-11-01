@@ -27,7 +27,7 @@ $(function (event) {
                 caseNotesTable.append('<tr>' +
                     '<td class="col-xs-2">' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
                     '<td class="col-xs-2">' + note.category + '</td>' + 
-                    '<td class="col-xs-3">' + 'Test' + '</td>' + 
+                    '<td class="col-xs-3">' + note.caseManager + '</td>' + 
                     '<td class="col-xs-4">' + note.note +  '</td>' + 
                     '<td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
                     '</tr>');
@@ -160,8 +160,6 @@ $(function (event) {
             lastMeeting: lastMeeting,
             caseManager: caseManager
         };
-
-        console.log(data);
 
         editClient(data);
         

@@ -529,8 +529,7 @@ var queries = {
     },
 
     getClientCaseNotes: function (clientID) {
-        console.log('QUERIES ==================== ' + clientID);
-        var queryString = 'SELECT date, category, note, follow_up_needed, due_date, reminder_date FROM case_note WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, last_name, note, follow_up_needed, due_date, reminder_date FROM case_note n LEFT JOIN casemanager m ON n.case_manager_id = m.id WHERE client_id = ' + clientID + ';';
         console.log(queryString);
 
         return queryString;

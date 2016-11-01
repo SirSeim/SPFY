@@ -394,7 +394,6 @@ var query = {
     },
 
     getClientCaseNotes: function (postgres, clientID, callback) {
-        console.log('QUERY =================== ' + clientID);
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);

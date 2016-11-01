@@ -195,7 +195,6 @@ var api = {
     },
 
     getClientCaseNotes: function (request, reply) {
-        console.log('API =================== ' + request.params.clientID);
         Service.getClientCaseNotes(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetClientCaseNotes(reply, err);
