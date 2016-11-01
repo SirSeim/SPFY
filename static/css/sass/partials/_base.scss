@@ -3,6 +3,11 @@
 // universals
 // --------------------------------------------
 
+#tabs li a {
+  color: black;
+  background-color: $spfy-blue;
+}
+
 .container { // hopefully a temporary fix
   width: 90%;
 }

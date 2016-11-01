@@ -50,36 +50,42 @@ img#big-logo {
 }
 
 /* line 6, ../sass/partials/_base.scss */
+#tabs li a {
+  color: black;
+  background-color: #02aef0;
+}
+
+/* line 11, ../sass/partials/_base.scss */
 .container {
   width: 90%;
 }
 
-/* line 10, ../sass/partials/_base.scss */
+/* line 15, ../sass/partials/_base.scss */
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-/* line 16, ../sass/partials/_base.scss */
+/* line 21, ../sass/partials/_base.scss */
 main {
   flex: 1 0 auto;
 }
 
-/* line 20, ../sass/partials/_base.scss */
+/* line 25, ../sass/partials/_base.scss */
 #content {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/* line 25, ../sass/partials/_base.scss */
+/* line 30, ../sass/partials/_base.scss */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-/* line 31, ../sass/partials/_base.scss */
+/* line 36, ../sass/partials/_base.scss */
 .header {
   width: 100%;
   margin: 0 auto;
@@ -90,28 +96,28 @@ html, body {
   border-bottom: #EEE solid 1px;
 }
 
-/* line 41, ../sass/partials/_base.scss */
+/* line 46, ../sass/partials/_base.scss */
 .hidden {
   display: none;
 }
 
-/* line 45, ../sass/partials/_base.scss */
+/* line 50, ../sass/partials/_base.scss */
 .sidebar {
   width: 200px;
   height: 300px;
 }
 
-/* line 50, ../sass/partials/_base.scss */
+/* line 55, ../sass/partials/_base.scss */
 .left {
   float: left;
 }
 
-/* line 54, ../sass/partials/_base.scss */
+/* line 59, ../sass/partials/_base.scss */
 .right {
   float: right;
 }
 
-/* line 58, ../sass/partials/_base.scss */
+/* line 63, ../sass/partials/_base.scss */
 .menuButton {
   background-color: #09F;
   border: none;
@@ -121,7 +127,7 @@ html, body {
   height: 35px;
 }
 
-/* line 67, ../sass/partials/_base.scss */
+/* line 72, ../sass/partials/_base.scss */
 .dot {
   display: inline-block;
   border-radius: 50%;
@@ -132,7 +138,7 @@ html, body {
   margin: 0 2px;
 }
 
-/* line 76, ../sass/partials/_base.scss */
+/* line 81, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
 }
@@ -471,10 +477,4 @@ button.badge-button.btn.btn-primary.btn-xs {
 /* line 12, ../sass/partials/_frontdesk.scss */
 span.badge {
   color: black !important;
-}
-
-/* line 16, ../sass/partials/_frontdesk.scss */
-#tabs li a {
-  color: black;
-  background-color: #02aef0;
 }
