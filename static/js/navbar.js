@@ -61,6 +61,12 @@ $(function () {
             }
         }).fail(function (xhr, textStatus, errorThrown) {
             console.log(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+                login.show();
+                alert.hide();
+            }
         });
     } else {
         console.log("We not special");
