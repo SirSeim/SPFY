@@ -1,22 +1,64 @@
 $(function () {
 
+    var clientDropdown = $('#client-id');
+    var caseManagerDropdown = $('#case-manager-id');
+
     var createCaseNote = function (data) {
         $.ajax({
             url: 'api/case_notes',
             method: 'POST',
             data: data,
             success: function (data) {
-                console.log('Success');
                 console.log(data);
             },
             error: function (data) {
-                console.log('Error');
                 console.log(data);
             }
         }).done(function (data) {
-            console.log('Done');
+
         });
     };
+
+    var getClients = function () {
+        $.ajax({
+            url: 'api/clients',
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        }).done(function (data) {
+            data.result.forEach(function (client) {
+                clientDropdown.append('<option value="' + client.id +
+                    '">' + client.firstName + ' ' + client.lastName +
+                    '</option>');
+            });
+        });
+    };
+
+    var getAllCaseManagers = function () {
+        $.ajax({
+            url: 'api/casemanagers',
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        }).done(function (data) {
+            data.result.rows.forEach(function (caseManager) {
+                caseManagerDropdown.append('<option value="' + caseManager.id +
+                    '">' + caseManager.first_name + ' ' + caseManager.last_name +
+                    '</option>');
+            });
+        });
+    };
+
+    getClients();
+    getAllCaseManagers();
 
     $('#dropdownMenuButton').click(function () {
         console.log("dropdown button clicked");
@@ -64,8 +106,6 @@ $(function () {
             dueDate: dueDate,
             reminderDate
         };
-
-        console.log(data);
 
         createCaseNote(data);
     });
