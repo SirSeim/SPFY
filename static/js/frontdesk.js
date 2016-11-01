@@ -78,11 +78,10 @@ $(function () {
             var idName = $client.data("id");
             console.log(idName);
             var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
-            $('#viewclient-modal').find('#client-name').innerText = $profile.data("firstname");
+            console.log($profile.data("firstname"));
+            $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
         });
     });
-
-    $('tr .profile-drag').draggable();
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
