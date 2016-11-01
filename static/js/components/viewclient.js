@@ -1,3 +1,4 @@
+
 $(function (event) {
 
     var statusNames = {
@@ -186,6 +187,30 @@ $(function (event) {
         editClient(data);
         
     });
+    
+    var popOnHover = function (id) {
+        id = '#' + id;
+        $(id).hover( function () {
+            $(id).popover('toggle');
+        });
+    };
+    var popOnClick = function (id) {
+        id = '#' + id;
+        $(id).click( function () {
+            $(id).popover('toggle');
+        });
+    };
+
+    popOnHover('follow-up');
+    popOnHover('housing');
+    popOnHover('shower');
+    popOnClick('legal');
+
+    // $('#shower').hover( function () {
+    //     $('#shower').popover('toggle');
+    // });
+
+
 
 
 });
