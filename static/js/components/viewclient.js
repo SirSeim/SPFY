@@ -203,7 +203,7 @@ $(function (event) {
 
     popOnHover('follow-up');
     popOnHover('housing');
-    popOnHover('shower');
+    popOnClick('shower');
     popOnClick('legal');
 
     // $('#shower').hover( function () {
