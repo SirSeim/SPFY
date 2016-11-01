@@ -25,11 +25,11 @@ $(function (event) {
             caseNotesTable.empty();
             data.result.forEach(function (note) {
                 caseNotesTable.append('<tr>' +
-                    '<td class="col-xs-2">' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
-                    '<td class="col-xs-2">' + note.category + '</td>' + 
-                    '<td class="col-xs-3">' + note.caseManager + '</td>' + 
-                    '<td class="col-xs-4">' + note.note +  '</td>' + 
-                    '<td class="col-xs-1"><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
+                    '<td>' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
+                    '<td>' + note.category + '</td>' + 
+                    '<td>' + note.caseManager + '</td>' + 
+                    '<td>' + note.note +  '</td>' + 
+                    '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
                     '</tr>');
             });
         });
@@ -71,7 +71,7 @@ $(function (event) {
             $('#client-phonenumber').text( data.result.rows[0].phone_number);
             $('#client-email').text(data.result.rows[0].email);
 
-            getCaseNotes(client.match(/[0-9]+/)['0']);
+            // getCaseNotes(client.match(/[0-9]+/)['0']);
 
             console.log(data.result.rows[0].status);
             console.log(statusNames[data.result.rows[0].status]);

@@ -230,6 +230,9 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Success enrolling!",
+            result: result
+        });
+    },
     failedToGetEnrollmentByActivity: function (reply, err) {
         reply({
             statusCode: 500,
