@@ -10,21 +10,32 @@
 <nav>
   <div class="nav-wrapper">
     <a class="brand-logo" href="/">
+      <!-- 
       <img class="img-responsive" src="/static/img/spfy-nav-logo.png" alt="SPFY">
+       -->
+       SPY
     </a>
-    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars"></i></a>
 
-    <ul class="left hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down">
       <li><a href="frontdesk"><h5>Front Desk</h5></a></li>
       <li><a href="case_manager"><h5>Case Management</h5></a></li>
       <li><a href="outreach"><h5>Outreach</h5></a></li>
-    </ul>
-
-    <ul class="right hide-on-med-and-down">
       <li><a href="search"><h5>Data Browser</h5></a></li>
       <li><a href="add_client"><h5>Add Client</h5></a></li>
       <li>
-        <a href="#!" class="dropdown-button" data-activates="drop-in_dropdown" aria-haspopup="true" aria-expanded="false"><h5>Drop In <i class="right fa fa-sort-down drop-arrow"></i></h5></a>
+        <a href="#!" class="dropdown-button" data-activates="drop-in_dropdown" aria-haspopup="true" aria-expanded="false"><h5>Drop In <i id="nav-drop-arrow" class="right fa fa-sort-down drop-arrow"></i></h5></a>
+      </li>
+      <li><a href="login"><h5>Login</h5></a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a href="frontdesk"><h5>Front Desk</h5></a></li>
+      <li><a href="case_manager"><h5>Case Management</h5></a></li>
+      <li><a href="outreach"><h5>Outreach</h5></a></li>
+      <li><a href="search"><h5>Data Browser</h5></a></li>
+      <li><a href="add_client"><h5>Add Client</h5></a></li>
+      <li>
+        <a href="#!" class="dropdown-button" data-activates="drop-in_dropdown" aria-haspopup="true" aria-expanded="false"><h5>Drop In <i id="nav-drop-arrow" class="right fa fa-sort-down drop-arrow"></i></h5></a>
       </li>
       <li><a href="login"><h5>Login</h5></a></li>
     </ul>

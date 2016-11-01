@@ -3,6 +3,10 @@
 // universals
 // --------------------------------------------
 
+.container { // hopefully a temporary fix
+  width: 90%;
+}
+
 #wrapper {
   min-height: 100%;
   position: relative;
@@ -17,7 +21,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-image: url("/static/img/SPFY-logo.jpg");
 }
 
 .header {
