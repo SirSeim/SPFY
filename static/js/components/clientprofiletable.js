@@ -1,6 +1,7 @@
 $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
+
     $.ajax({
         url: "api/clients",
         method: "GET",

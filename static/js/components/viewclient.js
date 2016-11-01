@@ -1,5 +1,37 @@
 $(function (event) {
 
+    var clientID;
+    var clientName;
+    var clientBirthday;
+    var clientAge;
+    var clientPhone;
+    var clientMail;
+    var clientLastMeeting;
+    var clientCaseManager;
+    var caseNotesTable = $('#casenotes');
+
+    var getCaseNotes = function (data) {
+        console.log('get case notes called');
+        console.log(data)
+        $.ajax({
+            url: "api/case_notes/" + data,
+            method: "GET",
+            success: function (data) {
+                console.log('success');
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('error');
+                console.error(data);
+            }
+        }).done(function (data) {
+            // caseNotesTable.empty();
+            // data.result.forEach(function (client) {
+            //     caseNotesTable.append();
+            // });
+        });
+    }
+
     var displayClientProfile = function (client) {
 
         $.ajax({
@@ -21,10 +53,12 @@ $(function (event) {
                 $('#client-name').text(data.result.rows[0].first_name +" "+ data.result.rows[0].last_name);
             }
             var birthday = data.result.rows[0].date_of_birth;
-            $('#client-birthday').text(birthday.slice(0, birthday.lastIndexOf("T")));    
+            $('#client-birthday').text(birthday.slice(0, birthday.lastIndexOf("T")));
             $('#client-age').text(data.result.rows[0].age.years);
             $('#client-phonenumber').text( data.result.rows[0].phone_number);
             $('#client-email').text(data.result.rows[0].email);
+
+            getCaseNotes(client.match(/[0-9]+/)['0']);
         });
     }
 
@@ -52,22 +86,13 @@ $(function (event) {
                 console.error(data);
             }
         }).done(function (data) {
-            //displayClientProfile('id: ' + data.id);
+
         });
     }
 
     $('#clients').delegate("td", "click", function () {
         displayClientProfile($(this)[0].innerText);
     });
-
-    var clientID;
-    var clientName;
-    var clientBirthday;
-    var clientAge;
-    var clientPhone;
-    var clientMail;
-    var clientLastMeeting;
-    var clientCaseManager;
 
     $('#edit-client').click(function () {
         clientID = $('#client-id')['0'].textContent;
