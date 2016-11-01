@@ -30,7 +30,7 @@ $(function (event) {
             for (var property in client) {
                 dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
             }
-            table.append('<tr><td ' + dataString + '>' +
+            table.append('<tr class="profile-drag"><td ' + dataString + '>' +
                 '<span class="' + statuses[client.status] + ' bullet"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +

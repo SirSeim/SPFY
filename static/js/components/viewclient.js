@@ -11,7 +11,7 @@ $(function (event) {
     var displayClientProfile = function (client) {
 
         $.ajax({
-            url: "api/clients/" + client.match(/[0-9]+/), // will find another way to get client id
+            url: "api/clients/" + $(client).data("id"), // will find another way to get client id
             method: "GET",
             success: function (data) {
                 console.log(data);
@@ -68,8 +68,8 @@ $(function (event) {
         });
     }
 
-    $('#clients').delegate("td", "click", function () {
-        displayClientProfile($(this)[0].innerText);
+    $('#clients').delegate("td", "click", function (event) {
+        displayClientProfile($(this));
     });
 
     var clientID;

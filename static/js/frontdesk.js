@@ -27,11 +27,6 @@ $(function () {
     } // in future, will be able to pull from list of statuses stored in a "Settings" page
     // or an ajax call that retrieves statuses and their colors
 
-    var createClients = function (checkin) {
-        return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
-                '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-                '<td class="col-xs-2">';
-    };
 
     $.ajax({
         url: "/api/clients",
@@ -58,9 +53,10 @@ $(function () {
                 checkins.forEach(function (checkin) {
                     if (checkin.id === $(td).data("id")) {
                         $('#checked-in tbody').append(
-                            '<tr><td>' + window.parseDate(checkin.date) + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
-                            '<td>' + $(td).data("firstname") + '</td>' +
-                            '<td>' + $(td).data("lastname") + '</td>' +
+                            '<tr class="clickable-row" data-toggle="modal" data-target="#viewclient-modal" data-id="' + $(td).data("id") + '">' +
+                            '<td>' + window.parseDate(checkin.date) + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
+                            '<td>' + $(td).data("firstname") + ' ' + $(td).data("lastname") + '</td>' +
+                            '<td></td>' +
                             '<td>' + window.parseDate($(td).data("dob")) + '</td>' +
                             '<th>Activities Today</th>' +
                             '<td>notes</td>' +
@@ -73,7 +69,20 @@ $(function () {
         error: function (data) {
             console.error(data);
         }
+    }).done(function (data) {
+        $('.clickable-row').click(function (event) {
+            var $client = $(this); // renaming for readability
+            console.log($client);
+            console.log($('#viewclient-modal').find('#client-name').get());
+            console.log($client.data("firstname") + ' ' + $client.data("lastname"));
+            var idName = $client.data("id");
+            console.log(idName);
+            var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
+            $('#viewclient-modal').find('#client-name').innerText = $profile.data("firstname");
+        });
     });
+
+    $('tr .profile-drag').draggable();
 
     $(".tablinks").click(function (event) {
         var currentTabID = $(this).attr('href');
@@ -94,12 +103,14 @@ $(function () {
             console.error(data);
         }
     }).then(function (data) {
+        // get today's dropin session
         var dropins = data.result;
         var currentDropIn = dropins[dropins.length - 1];
         $('#dropin-date').text(window.parseDate(currentDropIn.date)); // implemented parseDate in main.js, added to DOM in _basescript.html
         console.log(currentDropIn);
         $('#dropin-date').data("id", currentDropIn.id);
     }).then(function () {
+        // get activities associated in today's dropin
         return $.ajax({
             url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
             method: "GET",
@@ -111,6 +122,7 @@ $(function () {
             }
         });
     }).then(function (data) {
+        // makes a table for each activity
         var activities = data.result;
         console.log(activities);
         $('#activities').append('<div id="activity-tables" class="row"></div>');
@@ -125,6 +137,7 @@ $(function () {
                 '<tbody></tbody></table></div></div>');
         });
     }).then(function () {
+        // get the clients enrolled in each activity in today's dropin
         return $.ajax({
             url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
             method: "GET",
@@ -137,7 +150,6 @@ $(function () {
         });
     }).done(function (data) {
         var clients = data.result.rows;
-
         // get clientprofiles from profiles listed in clientprofiletable.html
         var profiles = $('#clients').find('tr');
         // for each activity table, add a client profile if that client is enrolled
@@ -151,7 +163,7 @@ $(function () {
                 }
             });
         });
-        console.log($('.enrollment-panel').find('[name="participants"]').get());
+        // count number of youth enrolled in each activity
         $('.enrollment-panel').find('[name="participants"]').get().forEach(function (header) {
             header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
         });
