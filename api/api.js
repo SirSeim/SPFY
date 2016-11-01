@@ -191,6 +191,7 @@ var api = {
                     Respond.failedToGetUserByUsername(reply, err);
                 } else if (user) {
                     Respond.gotUserByUsername(reply, {
+                        id: user.id,
                         username: user.username
                     });
                 } else {
