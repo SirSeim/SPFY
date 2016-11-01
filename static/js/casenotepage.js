@@ -4,14 +4,17 @@ $(function () {
         $.ajax({
             url: 'api/case_notes',
             method: 'POST',
+            data: data,
             success: function (data) {
+                console.log('Success');
                 console.log(data);
             },
             error: function (data) {
+                console.log('Error');
                 console.log(data);
             }
         }).done(function (data) {
-
+            console.log('Done');
         });
     };
 

@@ -261,7 +261,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    createCaseNote: function (reply, err) {
+    createCaseNote: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Successfully created case note.",

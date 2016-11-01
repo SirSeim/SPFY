@@ -6,7 +6,7 @@ var parseProperty = function(property) {
         property = 'null';
     }
     if (typeof property === 'string' && property === '') {
-        property = 'null';
+        property = null;
     }
     if (property === 'null') {
         return null;
@@ -515,15 +515,18 @@ var queries = {
     },
 
     createCaseNote: function (payload) {
+        console.log(payload);
         var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (' + 
-            parseProperty(payload.clientID )+ ', ' +
-            parseProperty(payload.caseManagerID) + ', ' +
-            parseProperty(payload.date) + ', ' +
-            parseProperty(payload.category) + ', ' +
-            parseProperty(payload.note) + ', ' +
-            parseProperty(payload.followUpNeeded) + ', ' +
-            parseProperty(payload.dueDate) + ', ' +
-            parseProperty(payload.reminderDate) + ');';
+            '\'' + parseProperty(payload.clientID)+ '\'' + ', ' +
+            '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.date) + '\'' + ', ' +
+            '\'' + parseProperty(payload.category) + '\'' + ', ' +
+            '\'' + parseProperty(payload.note) + '\'' + ', ' +
+            '\'' + parseProperty(payload.followUpNeeded) + '\'' + ', ';
+        queryString += parseProperty(payload.dueDate) === null ? 'null, ' : '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
+        queryString += parseProperty(payload.reminderDate) === null ? 'null);' : '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
+
+        console.log(queryString);
 
         return queryString;
     }

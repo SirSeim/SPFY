@@ -377,6 +377,8 @@ var query = {
     },
 
     createCaseNote: function (postgres, payload, callback) {
+        console.log("Inside query.js ====================");
+        console.log(payload);
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);

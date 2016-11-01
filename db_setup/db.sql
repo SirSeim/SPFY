@@ -317,4 +317,4 @@ CREATE TABLE case_note (
   reminder_date date DEFAULT NULL
 );
 
-INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (1, 1, '2016-10-31', 'CM', 'This is a test note', false, null, null);
+INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (1, 1, '2016-10-31', 'CM', 'This is an initial note', false, null, null);

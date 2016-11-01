@@ -30,9 +30,9 @@ $(function (event) {
 
     var editClient = function (data) {
         $.ajax({
-            data: data,
             url: "api/clients/" + data.id,
             method: "POST",
+            data: data,
             success: function (data) {
                 console.log(data);
                 console.log(data.result.rows[0]);

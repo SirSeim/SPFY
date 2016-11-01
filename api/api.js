@@ -185,11 +185,12 @@ var api = {
     },
 
     createCaseNote: function (request, reply) {
-        Service.editClient(request.postgres, request.payload, function (err, result) {
+        console.log("Inside API.JS ====================");
+        Service.createCaseNote(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateClient(reply, err);
+                Respond.failedToCreateCaseNote(reply, err);
             } else {
-                Respond.createClient(reply, result);
+                Respond.createCaseNote(reply, result);
             }
         });
     }

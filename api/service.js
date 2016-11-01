@@ -280,6 +280,7 @@ var service = {
         });
     },
     createCaseNote: function (postgres, data, callback) {
+        console.log("Inside service.js ====================");
         Query.createCaseNote(postgres, data, function (err, result) {
             if (err) {
                 return callback(err);
