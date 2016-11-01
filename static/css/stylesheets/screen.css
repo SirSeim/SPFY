@@ -472,3 +472,9 @@ button.badge-button.btn.btn-primary.btn-xs {
 span.badge {
   color: black !important;
 }
+
+/* line 16, ../sass/partials/_frontdesk.scss */
+#tabs li a {
+  color: black;
+  background-color: #02aef0;
+}

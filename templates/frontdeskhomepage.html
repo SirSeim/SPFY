@@ -5,7 +5,6 @@
       <!-- make this header highlight the frontdesk selection -->
       {% include "components/_navbar.html" %}
 
-
         <div class="row">
           <div class="page-header"><center>
             <h1> Front <i class="fa fa-home" aria-hidden="true"></i> Desk </h1>
@@ -85,9 +84,18 @@
         </div> <!-- 2nd row -->
 
         <div class="row">
-            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <!-- <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
               <li class="active"><a class="tablinks" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
+            </ul> -->
+            <ul id="tabs" data-tabs="tabs" class="tabs tabs-transparent">
+              <!-- <li class="tab"><a href="#test1">Test 1</a></li>
+              <li class="tab"><a class="active" href="#test2">Test 2</a></li>
+              <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
+              <li class="tab"><a href="#test4">Test 4</a></li> -->
+
+              <li class="tab"><a class="tablinks active" href="#dropin-enrollment" data-toggle="tab">Drop-In Enrollment</a></li>
+              <li class="tab"><a href="#viewdrop-in" data-toggle="tab">View Drop-In</a></li>
             </ul>
 
             <div id="my-tab-content" class="tab-content">
