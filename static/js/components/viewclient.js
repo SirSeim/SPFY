@@ -69,6 +69,7 @@ $(function (event) {
     }
 
     $('#clients').delegate("td", "click", function (event) {
+        $('#cm-page-filler').hide();
         displayClientProfile($(this));
     });
 
