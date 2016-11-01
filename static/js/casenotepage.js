@@ -1,21 +1,25 @@
-$(function () {
+$(function (event) {
 
-    var clientDropdown = $('#client-id');
-    var caseManagerDropdown = $('#case-manager-id');
+    var clientDropdown = $('#client-dropdown');
+    var caseManagerDropdown = $('#case-manager-dropdown');
 
     var createCaseNote = function (data) {
+        console.log('createCaseNote called');
+        console.log(data);
         $.ajax({
             url: 'api/case_notes',
             method: 'POST',
             data: data,
             success: function (data) {
                 console.log(data);
+                alert('SUCCESS! Case note has been successfully added');
             },
             error: function (data) {
                 console.log(data);
+                alert('ERROR! Could not create case note');
             }
         }).done(function (data) {
-
+            
         });
     };
 
@@ -25,16 +29,18 @@ $(function () {
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                clientDropdown.empty();
+                data.result.forEach(function (client) {
+                    clientDropdown.append('<option value="' + client.id +
+                        '">' + client.firstName + ' ' + client.lastName +
+                        '</option>');
+                });
             },
             error: function (data) {
                 console.log(data);
             }
         }).done(function (data) {
-            data.result.forEach(function (client) {
-                clientDropdown.append('<option value="' + client.id +
-                    '">' + client.firstName + ' ' + client.lastName +
-                    '</option>');
-            });
+            
         });
     };
 
@@ -44,16 +50,18 @@ $(function () {
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                caseManagerDropdown.empty();
+                data.result.rows.forEach(function (caseManager) {
+                    caseManagerDropdown.append('<option value="' + caseManager.id +
+                        '">' + caseManager.first_name + ' ' + caseManager.last_name +
+                        '</option>');
+                });
             },
             error: function (data) {
                 console.log(data);
             }
         }).done(function (data) {
-            data.result.rows.forEach(function (caseManager) {
-                caseManagerDropdown.append('<option value="' + caseManager.id +
-                    '">' + caseManager.first_name + ' ' + caseManager.last_name +
-                    '</option>');
-            });
+
         });
     };
 
@@ -85,8 +93,8 @@ $(function () {
     });
 
     $('#submit').click(function () {
-        var clientID = $('#client-id').val();
-        var caseManagerID = $('#case-manager-id').val();
+        var clientID = $('#client-dropdown').val();
+        var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#date')['0'].value;
         var category = $('#category')['0'].value;
         var note = $('#note')['0'].value;
