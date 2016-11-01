@@ -1,5 +1,13 @@
 var Path = require('path');
 var Query = require(Path.join(__dirname, 'query.js'));
+var bcrypt = require('bcrypt');
+var JWT = require('jsonwebtoken');
+
+var saltRounds = 10;
+var jwtOptions = {
+    algorithm: 'HS256',
+    expiresIn: '1 day'
+};
 
 var service = {
     createClient: function (postgres, payload, callback) {
@@ -279,6 +287,66 @@ var service = {
             // var local = result.rows[0];
             return callback(undefined, result);
         });
+    },
+
+    getUserList: function (postgres, callback) {
+        Query.getUserList(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var users = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+
+                users.push({
+                    username: local.username
+                });
+            }
+            return callback(undefined, users);
+        });
+    },
+
+    getUserByUsername: function (postgres, username, callback) {
+        Query.getUserByUsername(postgres, username, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var local = result.rows[0];
+            return callback(undefined, {
+                username: local.username,
+                hashedPassword: local.hashed_password
+            });
+        });
+    },
+
+    createUser: function (postgres, payload, callback) {
+        bcrypt.hash(payload.password, saltRounds, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            Query.createUser(postgres, {
+                username: payload.username,
+                password: hash
+            }, callback);
+        });
+    },
+
+    matchPasswords: function (password, hashedPassword, callback) {
+        bcrypt.compare(password, hashedPassword, function (err, res) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, res);
+        });
+    },
+
+    genToken: function (session, callback) {
+        JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
     }
 };
 

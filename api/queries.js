@@ -515,6 +515,27 @@ var queries = {
                           data.column + searchText + ';';
 
         return queryString;
+    },
+
+    getUserList: function () {
+        var queryString = 'SELECT username FROM users;';
+
+        return queryString;
+    },
+
+    getUserByUsername: function (username) {
+        var queryString = 'SELECT username, hashed_password FROM users WHERE username = \'' +
+                            username + '\';';
+
+        return queryString;
+    },
+
+    createUser: function (payload) {
+        var queryString = 'INSERT INTO users ("username", "hashed_password") VALUES (\'' +
+                            payload.username + '\', \'' +
+                            payload.password + '\');';
+
+        return queryString;
     }
 };
 

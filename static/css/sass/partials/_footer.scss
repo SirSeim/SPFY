@@ -14,16 +14,20 @@
 }
 
 #footer-links li {
-    float: right;
-    display: inline;
-    list-style-type: none;
-    padding-right: 20px;
+  float: right;
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
 }
 
 // small screen only
 @media screen and (max-width: $small) {
   .footer-block {
     height: $sm-footer; /* Height of the footer element */
+  }
+
+  #content {
+    padding-bottom: $sm-footer; /* to prevent cutting off content */
   }
 }
 
@@ -32,11 +36,19 @@
   .footer-block {
     height: $md-footer; /* Height of the footer element */
   }
+
+  #content {
+    padding-bottom: $sm-footer; /* to prevent cutting off content */
+  }
 }
 
 // large screen only
 @media screen and (min-width: $medium) {
   .footer-block {
     height: $lg-footer; /* Height of the footer element */
+  }
+
+  #content {
+    padding-bottom: $sm-footer; /* to prevent cutting off content */
   }
 }

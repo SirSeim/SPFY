@@ -335,3 +335,14 @@ CREATE TABLE check_in (
 );
 
 INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username varchar(45) NOT NULL,
+  hashed_password varchar(70) NOT NULL
+);
+
+-- inserting user 'test' to login with password 'passwordisnone'
+INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u')

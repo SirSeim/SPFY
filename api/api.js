@@ -182,6 +182,76 @@ var api = {
                 Respond.editClient(reply, result);
             }
         });
+    },
+
+    getUserList: function (request, reply) {
+        if (request.query.username) {
+            Service.getUserByUsername(request.postgres, request.query.username, function (err, user) {
+                if (err) {
+                    Respond.failedToGetUserByUsername(reply, err);
+                } else if (user) {
+                    Respond.gotUserByUsername(reply, {
+                        username: user.username
+                    });
+                } else {
+                    Respond.noUserByUsernameFound(reply);
+                }
+            });
+        } else {
+            Service.getUserList(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetUsers(reply, err);
+                } else {
+                    Respond.gotUsers(reply, result);
+                }
+            });
+        }
+    },
+
+    createUser: function (request, reply) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (user) {
+                Respond.usernameAlreadyExists(reply);
+            } else {
+                Service.createUser(request.postgres, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToCreateUser(reply, err);
+                    } else {
+                        Respond.createdUser(reply, result);
+                    }
+                });
+            }
+        });
+    },
+
+    login: function (request, reply) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (!user) {
+                Respond.userPassNoMatch(reply);
+            } else {
+                Service.matchPasswords(request.payload.password, user.hashedPassword, function (err, match) {
+                    if (err) {
+                        Respond.failedToComparePasswords(reply, err);
+                    } else if (!match) {
+                        Respond.userPassNoMatch(reply);
+                    } else {
+                        Service.genToken({
+                            username: user.username
+                        }, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.loggedIn(reply, token);
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 };
 
