@@ -8,12 +8,39 @@
             <div class="tab-pane active" id="client-info">
               <div class="row">
                 <h1 id="client-id" style="display: none;">1</h1>
-                <h1 id="client-name" class="col-sm-9">Client 'Name' Here</h1>
+                <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
                 <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
                 <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
                 <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
               </div>
-                <div class="client-photo">This is a photo</div>
+                <div class="row">
+                  <div class="col-xs-2"><img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg"></div>
+                  <div class="col-xs-10"id="client-badges">
+                    <div class="row">
+                      <a class="tablinks" href="#case-management">
+                        <button id="follow-up" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
+                          Follow Up <span id="follow-up-status" class="badge">Needed</span> 
+                        </button>
+                      </a>
+                      <a class="tablinks" href="#case-management">
+                        <button id="housing" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Housing" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                          Housing <span id="housing-status" class="badge">Complete</span>
+                        </button>
+                      </a>
+                      <!-- <a class="tablinks" href="#case-management"> -->
+                        <button id="shower" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                          Shower 
+                          <span id="shower-status" class="badge">1</span>
+                        </button>
+                     <!--  </a> -->
+                    </div>
+                    <div class="row">
+                      <button id="legal" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Legal" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                        Legal <span id="legal-status" class="badge">Ongoing</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <table id="clientInfoTable">
                   <tr>
                     <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
@@ -100,11 +127,15 @@
               </div>
             </div>
             <div class="tab-pane" id="documents">
-                <h1>Client Documents</h1>
+                <h3>Client Documents</h3>
+                <p>Client Documents </p>
+            </div>
+            <div class="tab-pane" id="referrals">
+                <h3>Referrals</h3>
                 <p></p>
             </div>
-            <div class="tab-pane" id="green">
-                <h1>Other</h1>
+            <div class="tab-pane" id="other">
+                <h3>Other</h3>
                 <p></p>
             </div>
         </div>
