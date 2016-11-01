@@ -333,6 +333,20 @@ var respond = {
             statusCode: 200,
             message: "Successfully logged in!"
         }).code(200).header("Authorization", token);
+    },
+    failedToGetUsersNotifications: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get user notifications!",
+            error: err
+        }).code(500);
+    },
+    getUsersNotifications: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got user notifications!",
+            result: result
+        }).code(200);
     }
 
 };

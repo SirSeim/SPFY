@@ -133,6 +133,11 @@ var apiRoutes = [
             }
         },
         handler: Api.login
+    },
+    {
+        method: 'GET',
+        path: '/users/notifications',
+        handler: Api.getUsersNotifications
     }
 ];
 

@@ -300,6 +300,7 @@ var service = {
                 var local = result.rows[i];
 
                 users.push({
+                    id: local.id,
                     username: local.username
                 });
             }
@@ -318,6 +319,7 @@ var service = {
 
             var local = result.rows[0];
             return callback(undefined, {
+                id: local.id,
                 username: local.username,
                 hashedPassword: local.hashed_password
             });
@@ -346,7 +348,32 @@ var service = {
     },
 
     genToken: function (session, callback) {
+        console.log(session);
         JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
+    },
+
+    getUsersNotifications: function (postgres, credentials, callback) {
+        Query.getUsersNotifications(postgres, credentials, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    user: credentials.username,
+                    type: local.type,
+                    comment: local.comment,
+                    link: local.link
+                });
+            }
+            return callback(undefined, arr);
+        });
     }
 };
 

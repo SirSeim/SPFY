@@ -240,6 +240,7 @@ var api = {
                         Respond.userPassNoMatch(reply);
                     } else {
                         Service.genToken({
+                            id: user.id,
                             username: user.username
                         }, function (err, token) {
                             if (err) {
@@ -250,6 +251,16 @@ var api = {
                         });
                     }
                 });
+            }
+        });
+    },
+
+    getUsersNotifications: function (request, reply) {
+        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsersNotifications(reply, err);
+            } else {
+                Respond.getUsersNotifications(reply, result);
             }
         });
     }

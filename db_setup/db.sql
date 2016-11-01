@@ -345,4 +345,16 @@ CREATE TABLE users (
 );
 
 -- inserting user 'test' to login with password 'passwordisnone'
-INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u')
+INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u');
+
+DROP TABLE IF EXISTS notifications;
+
+CREATE TABLE notifications (
+  id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users (id),
+  type varchar(45) NOT NULL DEFAULT 'general',
+  comment varchar(128) DEFAULT NULL,
+  link varchar(128) DEFAULT NULL
+);
+
+INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification for test', '/frontdesk');

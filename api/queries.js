@@ -518,13 +518,13 @@ var queries = {
     },
 
     getUserList: function () {
-        var queryString = 'SELECT username FROM users;';
+        var queryString = 'SELECT id, username FROM users;';
 
         return queryString;
     },
 
     getUserByUsername: function (username) {
-        var queryString = 'SELECT username, hashed_password FROM users WHERE username = \'' +
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
                             username + '\';';
 
         return queryString;
@@ -535,6 +535,14 @@ var queries = {
                             payload.username + '\', \'' +
                             payload.password + '\');';
 
+        return queryString;
+    },
+
+    getUsersNotifications: function (credentials) {
+        var queryString = 'SELECT * from notifications WHERE user_id = ' +
+                            credentials.id + ';';
+
+        console.log(queryString);
         return queryString;
     }
 };

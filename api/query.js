@@ -425,6 +425,23 @@ var query = {
                 return callback(undefined, result);
             });
         });
+    },
+
+    getUsersNotifications: function (postgres, credentials, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getUsersNotifications(credentials), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
     }
     
     // getClient: function (postgres, payload, callback) {
