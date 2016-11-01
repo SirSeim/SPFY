@@ -8,6 +8,8 @@ $(function (event) {
         '5':'Dangerous'
     } // in future, will be able to pull from list of statuses stored in a "Settings" page
 
+    $('#casenotes').DataTable();
+    
     var displayClientProfile = function (client) {
 
         $.ajax({
@@ -36,6 +38,8 @@ $(function (event) {
             console.log(data.result.rows[0].status);
             console.log(statusNames[data.result.rows[0].status]);
             $('#client-status').text(statusNames[data.result.rows[0].status]);
+
+            $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
         });
     }
 
