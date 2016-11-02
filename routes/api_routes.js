@@ -138,6 +138,16 @@ var apiRoutes = [
         method: 'GET',
         path: '/users/notifications',
         handler: Api.getUsersNotifications
+    },
+    {
+        method: 'PUT',
+        path: '/users/password',
+        config: {
+            validate: {
+                payload: Schema.changeCurrentUserPassword
+            }
+        },
+        handler: Api.changeCurrentUserPassword
     }
 ];
 

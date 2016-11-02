@@ -347,6 +347,39 @@ var respond = {
             message: "Successfully got user notifications!",
             result: result
         }).code(200);
+    },
+    failedToGetUserById: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    noSuchUserExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "User does not exist!"
+        }).code(401);
+    },
+    passNoMatch: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Passwords do not match!"
+        }).code(401);
+    },
+    failedToChangeUserPassword: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to change User password!",
+            error: err
+        }).code(500);
+    },
+    changeCurrentUserPassword: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!",
+            result: result
+        }).code(200).header("Authorization", token);
     }
 
 };

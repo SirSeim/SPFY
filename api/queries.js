@@ -528,6 +528,13 @@ var queries = {
         return queryString;
     },
 
+    getUserById: function (userId) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
+                            userId + '\';';
+
+        return queryString;
+    },
+
     createUser: function (payload) {
         var queryString = 'INSERT INTO users ("username", "hashed_password") VALUES (\'' +
                             payload.username + '\', \'' +
@@ -539,6 +546,13 @@ var queries = {
     getUsersNotifications: function (credentials) {
         var queryString = 'SELECT * from notifications WHERE user_id = ' +
                             credentials.id + ';';
+
+        return queryString;
+    },
+
+    changeUserPassword: function (userId, hashedPassword) {
+        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
+                            ' WHERE id = ' + userId + ';';
 
         return queryString;
     }

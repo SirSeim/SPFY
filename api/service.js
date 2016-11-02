@@ -325,6 +325,24 @@ var service = {
         });
     },
 
+    getUserById: function (postgres, userId, callback) {
+        Query.getUserById(postgres, userId, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                username: local.username,
+                hashedPassword: local.hashed_password
+            });
+        });
+    },
+
     createUser: function (postgres, payload, callback) {
         bcrypt.hash(payload.password, saltRounds, function (err, hash) {
             if (err) {
@@ -371,6 +389,15 @@ var service = {
                 });
             }
             return callback(undefined, arr);
+        });
+    },
+
+    changeUserPassword: function (postgres, userId, password, callback) {
+        bcrypt.hash(password, saltRounds, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            Query.changeUserPassword(postgres, userId, hash, callback);
         });
     }
 };

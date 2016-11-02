@@ -405,6 +405,23 @@ var query = {
         });
     },
 
+    getUserById: function (postgres, userId, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getUserById(userId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     createUser: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -429,6 +446,23 @@ var query = {
             }
 
             client.query(Queries.getUsersNotifications(credentials), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    changeUserPassword: function (postgres, userId, hashedPassword, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.changeUserPassword(userId, hashedPassword), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

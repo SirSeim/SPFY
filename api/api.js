@@ -263,6 +263,41 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
+    },
+
+    changeCurrentUserPassword: function (request, reply) {
+        Service.getUserById(request.postgres, request.auth.credentials.id, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserById(reply, err);
+            } else if (!user) {
+                Respond.noSuchUserExists(reply);
+            } else {
+                Service.matchPasswords(request.payload.password, user.hashedPassword, function (err, match) {
+                    if (err) {
+                        Respond.failedToComparePasswords(reply, err);
+                    } else if (!match) {
+                        Respond.passNoMatch(reply);
+                    } else {
+                        Service.changeUserPassword(request.postgres, user.id, request.payload.newPassword, function (err, result) {
+                            if (err) {
+                                Respond.failedToChangeUserPassword(reply, err);
+                            } else {
+                                Service.genToken({
+                                    id: user.id,
+                                    username: user.username
+                                }, function (err, token) {
+                                    if (err) {
+                                        Respond.failedToGenToken(reply, err);
+                                    } else {
+                                        Respond.changeCurrentUserPassword(reply, result, token);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 };
 
