@@ -21,6 +21,11 @@
         </div> <!-- 1st row -->
 
         <div class="row">
+          <div class="col-sm-3">
+                {% include "components/_clientprofiletable.html" %}
+              </div>
+              <div id="checkin-result-feedback" class="col-sm-3">
+                </div>
             <div class="col-xs-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
@@ -97,12 +102,8 @@
                     Panel content
                   </div>
                 </div>
-                
-                <div class="row">
-                  <div class="col-sm-2">
-                  {% include "components/_clientprofiletable.html" %}
-                  </div>
-                </div>
+
+
               </div> <!-- Drop-In Enrollment Tab pane -->
             </div> <!-- Tab container -->
         </div> <!-- 3rd row -->
