@@ -44,6 +44,12 @@ $(function () {
             date: moment().format()
         }
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/checkin",
             method: 'POST',
             data: data,
@@ -52,8 +58,12 @@ $(function () {
                 $('#checkin-result-feedback').empty();
                 $('#checkin-result-feedback').append('<h4>' + $(this).parent().data("firstname") + ' checked in successfully!</h4');
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         });
     });
@@ -64,6 +74,12 @@ $(function () {
     // });
 
     $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
         url: "/api/checkin",
         method: "GET",
         success: function (data) {
@@ -89,8 +105,12 @@ $(function () {
                 });
             });
         },
-        error: function (data) {
-            console.error(data);
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
         }
     }).done(function (data) {
         $('.clickable-row').click(function (event) {
@@ -115,36 +135,52 @@ $(function () {
 
 
     $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
         url: "api/dropins",
         method: "GET",
         success: function (data) {
             console.log("drop-ins");
             console.log(data);
         },
-        error: function (data) {
-            console.error(data);
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
         }
     }).then(function (data) {
         // get today's dropin session
         var dropins = data.result;
         var currentDropIn = dropins[dropins.length - 1];
-<<<<<<< HEAD
-        $('#dropin-date').text(window.parseDate(currentDropIn.date)); // implemented parseDate in main.js, added to DOM in _basescript.html
-=======
         $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
->>>>>>> database
         console.log(currentDropIn);
         $('#dropin-date').data("id", currentDropIn.id);
     }).then(function () {
         // get activities associated in today's dropin
         return $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
             method: "GET",
             success: function (data) {
                 console.log(data);
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         });
     }).then(function (data) {
@@ -165,13 +201,23 @@ $(function () {
     }).then(function () {
         // get the clients enrolled in each activity in today's dropin
         return $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
             method: "GET",
             success: function (data) {
                 console.log(data);
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         });
     }).done(function (data) {

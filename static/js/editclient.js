@@ -150,6 +150,12 @@ var IntakeForm = React.createClass({
       // the return runs before the request is complete essentially
 
       $.ajax({
+          xhrFields: {
+              withCredentials: true
+          },
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+          },
           url: "api/createclient",
           method: "POST",
           data: { expression: JSON.stringify(data) },
@@ -173,8 +179,14 @@ var IntakeForm = React.createClass({
                     + string
                     + '</div>');
           },
-          error: function (data) {
-              console.log(data);
+          error: function (xhr) {
+              console.log(xhr);
+
+              if (xhr.status === 401) {
+                  localStorage.removeItem("authorization");
+                  login.show();
+                  alert.hide();
+              }
           }
       });
       /**/

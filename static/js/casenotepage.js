@@ -7,6 +7,12 @@ $(function (event) {
         console.log('createCaseNote called');
         console.log(data);
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: 'api/case_notes',
             method: 'POST',
             data: data,
@@ -14,9 +20,13 @@ $(function (event) {
                 console.log(data);
                 alert('SUCCESS! Case note has been successfully added');
             },
-            error: function (data) {
-                console.log(data);
+            error: function (xhr) {
+                console.log(xhr);
                 alert('ERROR! Could not create case note');
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
             
@@ -25,6 +35,12 @@ $(function (event) {
 
     var getClients = function () {
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: 'api/clients',
             method: 'GET',
             success: function (data) {
@@ -36,8 +52,12 @@ $(function (event) {
                         '</option>');
                 });
             },
-            error: function (data) {
-                console.log(data);
+            error: function (xhr) {
+                console.log(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
             
@@ -46,6 +66,12 @@ $(function (event) {
 
     var getAllCaseManagers = function () {
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: 'api/casemanagers',
             method: 'GET',
             success: function (data) {
@@ -57,8 +83,12 @@ $(function (event) {
                         '</option>');
                 });
             },
-            error: function (data) {
-                console.log(data);
+            error: function (xhr) {
+                console.log(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
 

@@ -13,14 +13,24 @@ $(function (event) {
 
     var getCaseNotes = function (data) {
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/case_notes/" + data,
             method: "GET",
             data: data.clientID,
             success: function (data) {
                 console.log(data);
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
             caseNotesTable.empty();
@@ -49,13 +59,23 @@ $(function (event) {
     var displayClientProfile = function (client) {
 
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/clients/" + $(client).data("id"), // will find another way to get client id
             method: "GET",
             success: function (data) {
                 console.log(data);
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
             var string = $('#view-client-tabs').attr('class');
@@ -84,6 +104,12 @@ $(function (event) {
 
     var editClient = function (data) {
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/clients/" + data.id,
             method: "POST",
             data: data,
@@ -102,8 +128,12 @@ $(function (event) {
                 $('#cancel-edit').hide();
                 $('#submit-edit').hide();
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         }).done(function (data) {
 

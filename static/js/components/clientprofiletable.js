@@ -12,15 +12,25 @@ $(function (event) {
     // or an ajax call that retrieves statuses and their colors
 
     $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
         url: "api/clients",
         method: "GET",
         success: function (data) {
             status.removeClass('dot-pending').addClass('dot-success');
             console.log(data);
         },
-        error: function (data) {
+        error: function (xhr) {
             status.removeClass('dot-pending').addClass('dot-error');
-            console.error(data);
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
         }
     }).done(function (data) {
         table.empty();
