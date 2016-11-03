@@ -2,6 +2,9 @@ var viewRoutes = [
     {
         path: '/static/{path*}',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: {
             file: function (req) {
                 return req.params.path;
@@ -12,6 +15,9 @@ var viewRoutes = [
     {
         path: '/',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('index.html', {
 
@@ -22,6 +28,9 @@ var viewRoutes = [
     {
         path: '/case_manager',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('casemanagerhomepage.html', {
 
@@ -32,6 +41,9 @@ var viewRoutes = [
     {
         path: '/case_notes',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('casenotepage.html', {
 
@@ -42,6 +54,9 @@ var viewRoutes = [
     {
         path: '/frontdesk',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('frontdeskhomepage.html', {
 
@@ -52,6 +67,9 @@ var viewRoutes = [
     {
         path: '/dropin',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('dropin.html', {
 
@@ -62,6 +80,9 @@ var viewRoutes = [
     {
         path: '/outreach',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('outreachhomepage.html', {
 
@@ -72,6 +93,9 @@ var viewRoutes = [
     {
         path: '/add_client',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('modals/addnewclient.html', {
 
@@ -82,6 +106,9 @@ var viewRoutes = [
     {
         path: '/search',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('search.html', {
 
@@ -92,6 +119,9 @@ var viewRoutes = [
     {
         path: '/edit_client',
         method: 'GET',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('editclient.html', {
                 
@@ -102,8 +132,24 @@ var viewRoutes = [
     {
         path: '/edit_client',
         method: 'POST',
+        config: {
+            auth: false
+        },
         handler: function (req, res) {
             res.view('editclient.html', {
+
+            });
+        }
+    },
+
+    {
+        path: '/login',
+        method: 'GET',
+        config: {
+            auth: false
+        },
+        handler: function (req, res) {
+            res.view('login.html', {
 
             });
         }

@@ -14,7 +14,9 @@ var IntakeForm = React.createClass({
         caseManagerID: 0,
         phoneNumber: "",
         email: "",
-        dob: "",
+        dobDay: moment().date(),
+        dobMonth: moment().month(),
+        dobYear: moment().year(),
         intakeAge: 0,
         providedID: true,
         IDstate: "CA",
@@ -37,6 +39,7 @@ var IntakeForm = React.createClass({
         preferredPronoun: "",
         ethnicity: "White",
         race: "",
+        identification: "",
         lastSleepingLocation: "",
         lastSleepingDuration: "",
         firstDayFirstTimeHomeless: "",
@@ -98,9 +101,13 @@ var IntakeForm = React.createClass({
   },
   handleSubmit: function (e) { // 'e' is an event
     e.preventDefault();
-
     var firstName = this.state.firstName.trim();
     var lastName = this.state.lastName.trim();
+    var dob = moment().date(this.state.dobDay)
+                      .month(this.state.dobMonth)
+                      .year(this.state.dobYear)
+                      .toISOString();
+    console.log(dob);
     // var birthDate = this.state.birthDate.trim();
     // var birthday = moment(birthYear + "-" + birthMonth + "-" + birthDate);
     // birthday.toISOString();
@@ -121,7 +128,6 @@ var IntakeForm = React.createClass({
         nickname: this.state.nickname.trim(),
         personCompletingIntake: this.state.personCompletingIntake.trim(),
         intakeDate: this.state.intakeDate,
-        HMISConsent: this.state.HMISConsent,
         firstTime: this.state.firstTime,
         providedID: this.state.providedID,
         IDstate: this.state.IDstate,
@@ -141,8 +147,6 @@ var IntakeForm = React.createClass({
       console.log("data sent");
       console.log(data);
 
-      
-
       /**/
 
       // because ajax is asynchronous, any return statements
@@ -150,6 +154,12 @@ var IntakeForm = React.createClass({
       // the return runs before the request is complete essentially
 
       $.ajax({
+          xhrFields: {
+              withCredentials: true
+          },
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+          },
           url: "api/clients",
           method: "POST",
           data: { expression: JSON.stringify(data) },
@@ -157,43 +167,20 @@ var IntakeForm = React.createClass({
               console.log(data);
               console.log("result");
               console.log(data.result);
-              var rows = data.result.rows;
-              var string = "";
-              for (var property in rows[0]) {
-                string += '<h4>' + property + '</h4>' + rows[0][property];
-              }
-              // 'display-area' id references a div element in addnewclient.html which is
-              // in reactjs format
-              $("#display-area").append('<div>'
-                    // + '<h3>New Client Added</h3>' 
-                    // + '<h4>ID</h4>' + rows[0].id
-                    // + '<h4>First Name</h4>' + rows[0].firstname
-                    // + '<h4>Nickname</h4>' + rows[0].nickname
-                    // + '<h4>personCompletingIntake</h4>' + rows[0].personcompletingintake
-                    // + '<h4>intakeDate</h4>' + rows[0]
-                    // + '<h4> Last Name</h4>' + rows[0].lastname
-                    + string
-                    + '</div>');
+              window.location.href = "/";
           },
-          error: function (data) {
-              console.error(data);
+          error: function (xhr) {
+              console.error(xhr);
+
+              if (xhr.status === 401) {
+                  localStorage.removeItem("authorization");
+              }
           }
       });
       /**/
 
       console.log("handleSubmit");
     };
-  },
-  handlePersonCompletingIntakeChange: function (e) {
-    this.setState({personCompletingIntake: e.target.value});
-  },
-  handleHMISConsentChange: function (e) {
-    var getVal = e.currentTarget.value,
-        boolVal = false;
-    if (getVal === "true") {
-      boolVal = true;
-    };
-    this.setState({HMISConsent: boolVal});
   },
   handleFirstTimeChange: function (e) {
     var getVal = e.currentTarget.value,
@@ -202,12 +189,6 @@ var IntakeForm = React.createClass({
       boolVal = true;
     };
     this.setState({firstTime: boolVal});
-  },
-  handleIntakeDateChange: function (e) {
-    console.log("Handling...");
-    var date = moment(e).toISOString();
-    console.log(date);
-    this.setState({intakeDate: date});
   },
   handleFirstNameChange: function (e) {
     this.setState({firstName: e.target.value.trim()});
@@ -218,11 +199,21 @@ var IntakeForm = React.createClass({
   handleLastNameChange: function (e) {
     this.setState({lastName: e.target.value});
   },
-  handleBirthdayChange: function (e) {
-    this.setState({dateOfBirth: e.target.value}); // will not work right now
+  handleBirthDayChange: function (e) {
+    this.setState({dobDay: e.target.value});
   },
-  handleEmailChange: function (e) {
-    this.setState({email: e.target.value});
+  handleBirthMonthChange: function (e) { 
+    this.setState({dobMonth: e.target.value});
+    var date = moment().date(this.state.dobDay)
+                       .month(this.state.dobMonth)
+                       .year(this.state.dobYear);
+    if (this.state.dobDay !== date.date()) { 
+      // Change state if the date is outside day range (ex: If currently set at Feb 30th)
+      this.setState({dobDay: $("select[name='birthDay']").val()});
+    }
+  },
+  handleBirthYearChange: function (e) {
+    this.setState({dobYear: e.target.value});
   },
   handleProvidedIDChange: function (e) {
     var getVal = e.currentTarget.value,
@@ -239,51 +230,58 @@ var IntakeForm = React.createClass({
     this.setState({otherID: e.target.value});
   },
   handleReferenceChange: function (e) {
-    this.setState({refernce: e.target.value})
+    this.setState({reference: e.target.value});
+    if (e.target.value === "other") {
+      $("#referenceOtherText").removeClass("hidden");
+    } else {
+      $("#referenceOtherText").addClass("hidden");
+      this.setState({referenceOther: ""});
+    }
   },
   handleReferenceOtherChange: function (e) {
     this.setState({referenceOther: e.target.value});
   },
-
+  handleFeatureChange: function (e) {
+    this.setState({idenfitication: e.target.value});
+  },
   // every React component is required to have a 'render' function
   // to display the html
   render: function () {
-    var currentYear = new Date().getFullYear(),
-        todaysDate = moment();
+    var dob = moment().date(this.state.dobDay)
+                      .month(this.state.dobMonth)
+                      .year(this.state.dobYear);
+    var todaysDate = moment();
+    var diff = todaysDate.diff(dob, 'years');
+    var ageWarning = "tooOldWarning" + (diff >= 25 ? "" : " hidden"); 
     return (
-      <div>
-        <form className="intakeForm" onSubmit={this.handleSubmit}>
-            Person Filling out this form: <input type="text"
-                                            onChange={this.handlePersonCompletingIntakeChange} />
-            HMIS Consent: <input type="radio" name="HMIS" value="true"
-                                  checked={this.state.HMISConsent === true}
-                                  onChange={this.handleHMISConsentChange} /> Yes
-                          <input type="radio" name="HMIS" value="false"
-                                  checked={this.state.HMISConsent === false}
-                                  onChange={this.handleHMISConsentChange} /> No
+      <div className="row">
+        <div className="col-sm-4">
+          <form className="intakeForm" onSubmit={this.handleSubmit}>
             <br />
             First Time Attending? <input type="radio" name="firstTime" value="true"
                                     checked={this.state.firstTime === true}
-                                    onChange={this.handleHMISConsentChange} /> Yes
+                                    onChange={this.handleFirstTimeChange} /> Yes
                                   <input type="radio" name="firstTime" value="false"
                                     checked={this.state.firstTime === false}
-                                    onChange={this.handleHMISConsentChange} /> No
+                                    onChange={this.handleFirstTimeChange} /> No
             {/*Assigned Case Manager:  TO DO */}
             <br />
-            Date of Intake: <DateDropdown handleChange={this.handleIntakeDateChange} />
-            <input type="text" class="form-control" id="clientFirstName" placeholder="First Name" 
+            <input type="text" className="form-control" id="clientFirstName" placeholder="First Name" 
                   onChange={this.handleFirstNameChange} />
             <br />
-            <input type="text" class="form-control" id="clientLastName" placeholder="Last Name"
+            <input type="text" className="form-control" id="clientLastName" placeholder="Last Name"
                   onChange={this.handleNicknameChange} />
             <br />
-            <input type="text" class="form-control" id="clientNickName" placeholder="Nick Name (optional)"
+            <input type="text" className="form-control" id="clientNickName" placeholder="Nick Name (optional)"
                   onChange={this.handleLastNameChange} />
             <br />
-            Date of Birth: <DateDropdown handleChange={this.handleBirthdayChange} />
-            Email: <input type="text"
-                    onChange={this.handleEmailChange} />
-            <br />
+            Date of Birth: <DateDropdown handleDayChange={this.handleBirthDayChange}
+                                         handleMonthChange={this.handleBirthMonthChange}
+                                         handleYearChange={this.handleBirthYearChange}
+                                         day = {this.state.dobDay}
+                                         month = {this.state.dobMonth}
+                                         year = {this.state.dobYear}
+                                         ageWarning = {ageWarning} />
             ID Provided? <input type="radio" name="idProvided" value="true"
                                   checked={this.state.providedID === true}
                                   onChange={this.handleProvidedIDChange} /> Yes
@@ -296,122 +294,126 @@ var IntakeForm = React.createClass({
                     changeOtherID={this.handleOtherIDChange} />
             <br />
             How did you hear about Spy? {/* Need textbox on other */}
-            <select name="howHear" defaultValue="outreach" onChange={this.handleHowHeard}>
+            <select name="howHear" defaultValue="outreach" onChange={this.handleReferenceChange}>
               <option value="outreach">SPY Outreach</option>
               <option value="friends">Friends</option>
               <option value="web">Web</option>
               <option value="other">Other</option>
             </select>
+            <input id="referenceOtherText" 
+                   type="text" 
+                   className="hidden" 
+                   placeholder="Explain here"
+                   onChange={this.handleReferenceOtherChange} />
             {/* Not included: Services */}
+            <br /><br />
+            <textarea id="identifyingFeatures" 
+                      placeholder="Identifying Features" 
+                      onChange={this.handleFeatureChange}></textarea>
             <br />
             <input type="submit" value="Submit" />
           </form>
+        </div>
+        <div className="col-sm-4">
           <DisplayArea ref={(da) => {this.displayarea = da;}} text="Hello"/>
+        </div>
       </div>
     );
   }
 });
 
-// This isn't working properly for some reason...
 var DateDropdown = React.createClass({
-  getInitialState: function () {
-    var todaysDate = moment(),
-        month = todaysDate.format("MM"),
-        day = todaysDate.format("DD"),
-        year = todaysDate.format("YYYY");
-    return {month: month, day: day, year: year};
-  },
-  handleMonthChange: function (e) {
-    this.setState({month: e.target.value});
-    if (this.state.day > this.state.month.daysInMonth) {
-      this.state.day = 1
-    };
-    var newDate = moment([this.state.year, this.state.month, this.state.day]);
-    this.props.handleChange(newDate);
-  },
-  handleDayChange: function (e) {
-    this.setState({day: e.target.value})
-    var newDate = moment([this.state.year, this.state.month, this.state.day]);
-    this.props.handleChange(newDate);
-  },
   render: function () {
-    var monthSelect = [];
-    for (var i = 0; i < 12; i++) {
-      monthSelect.push(
-        <option value={i + 1} key={"month" + i}>{moment().startOf("year").add(1 * i, "months").format("MMMM")}</option>
-      )
-    };
-    var daySelect = [];
-    var daysInMonth = moment(this.state.year + "-" + this.state.month).daysInMonth();
-    for (var i = 1; i <= daysInMonth; i++) {
-      daySelect.push(
-        <option value={i} key={"day" + i}>{i}</option>
-      )
-    }
-    console.log(this.state.month);
+    var date = moment().date(this.props.day)
+                       .month(this.props.month)
+                       .year(this.props.year) 
+    var totalDays = date.daysInMonth();
     return (
       <div>
-        <select defaultValue={this.state.month} onChange={this.handleMonthChange}>
-          {monthSelect}
+        <select name="birthMonth" defaultValue={date.month()} onChange={this.props.handleMonthChange}>
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
         </select>
-        <select defaultValue={this.state.day} onChange={this.handleDayChange}>
-          {daySelect}
-        </select>
+        <DayDropdown handleDayChange={this.props.handleDayChange} 
+                     totalDays={totalDays}
+                     date={date.date()} />
+        <YearDropdown handleYearChange={this.props.handleYearChange}
+                      year={date.year()} />
+        <span className={this.props.ageWarning}> Older than 25. </span>
       </div>
-    );
+    )
+  }
+});
+
+var DayDropdown = React.createClass({
+  render: function () {
+    var showTwentyNineth = (29 > this.props.totalDays) ? "hidden" : "";
+    var showThirtieth = (30 > this.props.totalDays) ? "hidden" : "";
+    var showThirtyFirst = (31 > this.props.totalDays) ? "hidden" : "";
+    if ($("select[name='birthDay']").val() > this.props.totalDays) {
+      $("select[name='birthDay']").val(this.props.totalDays);
+    };
+    return (
+      <select name="birthDay" defaultValue={this.props.date} onChange={this.props.handleDayChange}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29" className={showTwentyNineth}>29</option>
+          <option value="30" className={showThirtieth}>30</option>
+          <option value="31" className={showThirtyFirst}>31</option>
+        </select>
+    )
   }
 })
 
-// Though this doesn't work either
-var DateOfBirthDropdown = React.createClass({
-  getInitialState: function () {
-    return {birthMonth: "01", birthDate: "1", birthYear: "2016"};
-  },
-  handleMonth: function (e) {
-    var daysInMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    this.setState({birthMonth: e.target.value});
-    this.props.changeMonth({birthMonth: e.target.value});
-  },
-  handleDate: function (e) {
-    this.setState({birthDate: e.target.value});
-    this.props.changeDate({birthDate: e.target.value});
-  },
-  handleYear: function (e) {
-    this.setState({birthyear: e.target.value});
-    this.props.changeYear({birthYear: e.target.value});
-  },
+var YearDropdown = React.createClass({
   render: function () {
     var yearOptions = [];
-    for (var j = this.props.currentYear; j > 1975; j--) {
-      yearOptions.push(
-        <GetOption val={j} valName={j} key={j} />
-      );
-    };
+    for(var i = this.props.year - 50; i <= this.props.year; i++) {
+      yearOptions.push(<option key={i} value={i}>{i}</option>);
+    }
     return (
-      <div>
-        Date of Birth:
-        <select name="Month" defaultValue="01" onChange={this.handleMonth}>
-          <option value="01">January</option>
-          <option value="02">February</option>
-          <option value="03">March</option>
-          <option value="04">April</option>
-          <option value="05">May</option>
-          <option value="06">June</option>
-          <option value="07">July</option>
-          <option value="08">August</option>
-          <option value="09">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
-        <input type="text" onChange={this.handleDate} />
-        <select name="Year" defaultValue={this.props.currentYear} onChange={this.handleYear}>
-          {yearOptions}
-        </select>
-      </div>
-    );
+      <select name="birthYear" defaultValue={this.props.year} onChange={this.props.handleYearChange}>
+        {yearOptions}
+      </select>
+    )
   }
-});
+})
 
 // this is being used inside the intake form component
 var IdInfo = React.createClass({
@@ -498,15 +500,14 @@ var DisplayArea = React.createClass({
     )
   }
 });
+
 // calls the render function of the given component to display
 // takes two parameters: 1) component to display 2) where to display it
 // React only tries to display one component, so can display
 // multiple components as long as they are encased in a div
 ReactDOM.render(
-    <div>
-      <IntakeForm />
-    </div>,
-  document.getElementById('content') // html has a div with id='content'
+  <IntakeForm />,
+  document.getElementById('addClientContent') // html has a div with id='content'
 );
 
 // to display multiple components with same render function

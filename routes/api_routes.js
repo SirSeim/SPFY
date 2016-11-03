@@ -1,6 +1,6 @@
 var Path = require('path');
 var Api = require(Path.join(__dirname, '../api/api.js'));
-var Schema = require(Path.join(__dirname, '../api/schema.js')); // eslint-disable-line
+var Schema = require(Path.join(__dirname, '../api/schema.js'));
 
 /* ajax calls from frontend js files use the path properties
     Example:
@@ -44,6 +44,11 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
+        method: 'POST',
+        path: '/clients/{clientID}',
+        handler: Api.editClient
+    },
+    {
         method: 'GET',
         path: '/clients',
         handler: Api.getClients
@@ -69,9 +74,24 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
+        method: 'GET',
+        path: '/dropins/{dropinID}/enrollment',
+        handler: Api.getDropinEnrollment
+    },
+    {
+        method: 'GET',
+        path: '/enroll/{activityID}',
+        handler: Api.getEnrollmentByActivity
+    },
+    {
         method: 'POST',
         path: '/enroll',
         handler: Api.enroll
+    },
+    {
+        method: 'GET',
+        path: '/checkin',
+        handler: Api.getCheckIn
     },
     {
         method: 'POST',
@@ -105,8 +125,59 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/clients/{clientID}',
-        handler: Api.editClient
+        path: '/case_notes',
+        handler: Api.createCaseNote
+    },
+    {
+        method: 'GET',
+        path: '/case_notes/{clientID}',
+        handler: Api.getClientCaseNotes
+    },
+    {
+        method: 'POST',
+        path: '/case_notes/{caseNoteID}',
+        handler: Api.editCaseNote
+    },
+    {
+        method: 'GET',
+        path: '/users',
+        handler: Api.getUserList
+    },
+    {
+        method: 'POST',
+        path: '/users',
+        config: {
+            validate: {
+                payload: Schema.newUser
+            }
+        },
+        handler: Api.createUser
+    },
+    {
+        method: 'POST',
+        path: '/sessions',
+        config: {
+            auth: false,
+            validate: {
+                payload: Schema.login
+            }
+        },
+        handler: Api.login
+    },
+    {
+        method: 'GET',
+        path: '/users/notifications',
+        handler: Api.getUsersNotifications
+    },
+    {
+        method: 'PUT',
+        path: '/users/password',
+        config: {
+            validate: {
+                payload: Schema.changeCurrentUserPassword
+            }
+        },
+        handler: Api.changeCurrentUserPassword
     }
 ];
 

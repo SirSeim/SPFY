@@ -4,55 +4,12 @@
 
       {% include "components/_navbar.html" %}
 
-      <div class="row">
+      {% include "components/_addcasenote.html" %}
 
-        <div class="form-group row">
-          <label for="example-text-input" class="col-xs-2 col-form-label">Date</label>
-          <div class="col-xs-">
-          <input type="text" placeholder="mm/dd/yy" id="example-text-input">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="example-search-input" class="col-xs-2 col-form-label">Case Manager</label>
-          <!-- Single button -->
-          <div class="dropdown">
-            <button type="button" id="dropdownMenuButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Name <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Jeanine Espejo-Watkins</a></li>
-              <li><a href="#">Ben Perkins</a></li>
-              <li><a href="#">Rob Hanna</a></li>
-              <li><a href="#">Rebecca McGuire</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="example-text-input" class="col-xs-2 col-form-label">Case Notes</label>
-          <div class="col-xs-">
-          <textarea class="form-control" rows="10"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="checkbox">
-          <label><input name="followup-checkbox" type="checkbox" value="">Follow-up Needed</label>
-        </div>
-        <div class="row" id="followup-area">
-
-        </div>
-      </div>
-
-      <div id="content">
-
-      </div>
     </div>
 
 {% include "components/_basescript.html" %}
 
-        <script src="/static/js/modals/casenotepage.js"></script>
+        <script src="/static/js/casenotepage.js"></script>
         
 {% include "components/_footer.html" %}

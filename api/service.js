@@ -1,5 +1,13 @@
 var Path = require('path');
 var Query = require(Path.join(__dirname, 'query.js'));
+var bcrypt = require('bcrypt');
+var JWT = require('jsonwebtoken');
+
+var saltRounds = 10;
+var jwtOptions = {
+    algorithm: 'HS256',
+    expiresIn: '1 day'
+};
 
 var service = {
     createClient: function (postgres, payload, callback) {
@@ -66,7 +74,10 @@ var service = {
                 arr.push({
                     id: local.id,
                     firstName: local.first_name,
-                    lastName: local.last_name
+                    nickname: local.nickname,
+                    lastName: local.last_name,
+                    status: local.status,
+                    dob: local.date_of_birth
                 });
             }
             return callback(undefined, arr);
@@ -155,6 +166,16 @@ var service = {
         });
     },
 
+    getDropinEnrollment: function (postgres, dropinID, callback) {
+        Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
     getAllActivities: function (postgres, callback) {
         Query.getAllActivities(postgres, function (err, result) {
             if (err) {
@@ -215,8 +236,8 @@ var service = {
         });
     },
 
-    editClient: function (postgres, activity, callback) {
-        Query.editClient(postgres, activity, function (err, result) {
+    editClient: function (postgres, payload, callback) {
+        Query.editClient(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -225,7 +246,6 @@ var service = {
     },
 
     createActivity: function (postgres, payload, callback) {
-        console.log(payload);
         Query.createActivity(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
@@ -252,12 +272,43 @@ var service = {
         });
     },
 
+    getEnrollmentByActivity: function (postgres, activityID, callback) {
+        Query.getEnrollmentByActivity(postgres, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     checkin: function (postgres, payload, callback) {
         Query.checkin(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
             return callback(undefined, result);
+        });
+    },
+
+    getCheckIn: function (postgres, callback) {
+        Query.getCheckIn(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    dropin: local.drop_in_id,
+                    client: local.client_id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
         });
     },
 
@@ -277,6 +328,165 @@ var service = {
             }
             // var local = result.rows[0];
             return callback(undefined, result);
+        });
+    },
+
+    createCaseNote: function (postgres, data, callback) {
+        Query.createCaseNote(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getClientCaseNotes: function (postgres, data, callback) {
+        Query.getClientCaseNotes(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    clientID: local.client_id,
+                    caseManagerID: local.case_manager_id,
+                    date: local.date,
+                    category: local.category,
+                    caseManager: local.first_name + ' ' + local.last_name,
+                    note: local.note,
+                    followUpNeeded: local.follow_up_needed,
+                    dueDate: local.due_date,
+                    reminderDate: local.reminder_date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    editCaseNote: function (postgres, data, callback) {
+        Query.editCaseNote(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getUserList: function (postgres, callback) {
+        Query.getUserList(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var users = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+
+                users.push({
+                    id: local.id,
+                    username: local.username
+                });
+            }
+            return callback(undefined, users);
+        });
+    },
+
+    getUserByUsername: function (postgres, username, callback) {
+        Query.getUserByUsername(postgres, username, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                username: local.username,
+                hashedPassword: local.hashed_password
+            });
+        });
+    },
+
+    getUserById: function (postgres, userId, callback) {
+        Query.getUserById(postgres, userId, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                username: local.username,
+                hashedPassword: local.hashed_password
+            });
+        });
+    },
+
+    createUser: function (postgres, payload, callback) {
+        bcrypt.hash(payload.password, saltRounds, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            Query.createUser(postgres, {
+                username: payload.username,
+                password: hash
+            }, callback);
+        });
+    },
+
+    matchPasswords: function (password, hashedPassword, callback) {
+        bcrypt.compare(password, hashedPassword, function (err, res) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, res);
+        });
+    },
+
+    genToken: function (session, callback) {
+        JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
+    },
+
+    getUsersNotifications: function (postgres, credentials, callback) {
+        Query.getUsersNotifications(postgres, credentials, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    user: credentials.username,
+                    type: local.type,
+                    comment: local.comment,
+                    link: local.link
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    changeUserPassword: function (postgres, userId, password, callback) {
+        bcrypt.hash(password, saltRounds, function (err, hash) {
+            if (err) {
+                return callback(err);
+            }
+            Query.changeUserPassword(postgres, userId, hash, callback);
         });
     }
 };

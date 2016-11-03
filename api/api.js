@@ -64,7 +64,7 @@ var api = {
 
     createDropIn: function (request, reply) {
         Service.createDropIn(request.postgres, request.payload, function (err, result) {
-            if (err) { 
+            if (err) {
                 Respond.failedToCreateDropIn(reply, err);
             } else {
                 Respond.createDropIn(reply, result);
@@ -112,6 +112,16 @@ var api = {
         });
     },
 
+    getDropinEnrollment: function (request, reply) {
+        Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinEnrollment(reply, err);
+            } else {
+                Respond.getDropinEnrollment(reply, result);
+            }
+        });
+    },
+
     enroll: function (request, reply) {
         Service.enroll(request.postgres, request.payload, function (err, result) {
             if (err) {
@@ -122,12 +132,31 @@ var api = {
         });
     },
 
+    getEnrollmentByActivity: function (request, reply) {
+        Service.getEnrollmentByActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetEnrollmentByActivity(reply, err);
+            } else {
+                Respond.getEnrollmentByActivity(reply, result);
+            }
+        });
+    },
+
     checkin: function (request, reply) {
         Service.checkin(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToCheckIn(reply, err);
             } else {
                 Respond.checkin(reply, result);
+            }
+        });
+    },
+    getCheckIn: function (request, reply) {
+        Service.getCheckIn(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetCheckIn(reply, err);
+            } else {
+                Respond.gotCheckIn(reply, result);
             }
         });
     },
@@ -154,7 +183,6 @@ var api = {
     },
 
     createActivity: function (request, reply){
-        console.log(request.payload);
         Service.createActivity(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToCreateActivity(reply, err);
@@ -180,6 +208,155 @@ var api = {
                 Respond.failedToEditClient(reply, err);
             } else {
                 Respond.editClient(reply, result);
+            }
+        });
+    },
+
+    createCaseNote: function (request, reply) {
+        Service.createCaseNote(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateCaseNote(reply, err);
+            } else {
+                Respond.createCaseNote(reply, result);
+            }
+        });
+    },
+
+
+    getClientCaseNotes: function (request, reply) {
+        Service.getClientCaseNotes(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientCaseNotes(reply, err);
+            } else {
+                Respond.getClientCaseNotes(reply, result);
+            }
+        });
+    },
+
+    editCaseNote: function (request, reply) {
+        Service.editCaseNote(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditCaseNote(reply, err);
+            } else {
+                Respond.editCaseNote(reply, result);
+            }
+        });
+    },
+
+    getUserList: function (request, reply) {
+        if (request.query.username) {
+            Service.getUserByUsername(request.postgres, request.query.username, function (err, user) {
+                if (err) {
+                    Respond.failedToGetUserByUsername(reply, err);
+                } else if (user) {
+                    Respond.gotUserByUsername(reply, {
+                        id: user.id,
+                        username: user.username
+                    });
+                } else {
+                    Respond.noUserByUsernameFound(reply);
+                }
+            });
+        } else {
+            Service.getUserList(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetUsers(reply, err);
+                } else {
+                    Respond.gotUsers(reply, result);
+                }
+            });
+        }
+    },
+
+    createUser: function (request, reply) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (user) {
+                Respond.usernameAlreadyExists(reply);
+            } else {
+                Service.createUser(request.postgres, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToCreateUser(reply, err);
+                    } else {
+                        Respond.createdUser(reply, result);
+                    }
+                });
+            }
+        });
+    },
+
+    login: function (request, reply) {
+        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByUsername(reply, err);
+            } else if (!user) {
+                Respond.userPassNoMatch(reply);
+            } else {
+                Service.matchPasswords(request.payload.password, user.hashedPassword, function (err, match) {
+                    if (err) {
+                        Respond.failedToComparePasswords(reply, err);
+                    } else if (!match) {
+                        Respond.userPassNoMatch(reply);
+                    } else {
+                        Service.genToken({
+                            id: user.id,
+                            username: user.username
+                        }, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.loggedIn(reply, token);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    },
+
+    changeCurrentUserPassword: function (request, reply) {
+        Service.getUserById(request.postgres, request.auth.credentials.id, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserById(reply, err);
+            } else if (!user) {
+                Respond.noSuchUserExists(reply);
+            } else {
+                Service.matchPasswords(request.payload.password, user.hashedPassword, function (err, match) {
+                    if (err) {
+                        Respond.failedToComparePasswords(reply, err);
+                    } else if (!match) {
+                        Respond.passNoMatch(reply);
+                    } else {
+                        var newPassword = request.payload.newPassword;
+                        Service.changeUserPassword(request.postgres, user.id, newPassword, function (err, result) {
+                            if (err) {
+                                Respond.failedToChangeUserPassword(reply, err);
+                            } else {
+                                Service.genToken({
+                                    id: user.id,
+                                    username: user.username
+                                }, function (err, token) {
+                                    if (err) {
+                                        Respond.failedToGenToken(reply, err);
+                                    } else {
+                                        Respond.changeCurrentUserPassword(reply, result, token);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    },
+
+    getUsersNotifications: function (request, reply) {
+        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsersNotifications(reply, err);
+            } else {
+                Respond.getUsersNotifications(reply, result);
             }
         });
     }
