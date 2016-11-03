@@ -272,8 +272,8 @@ $(function (event) {
         });
     };
 
-    popOnHover('follow-up');
-    popOnHover('housing');
+    popOnClick('follow-up');
+    popOnClick('housing');
     popOnClick('shower');
     popOnClick('legal');
 
