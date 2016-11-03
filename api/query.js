@@ -278,7 +278,6 @@ var query = {
                 return callback(err);
             }
 
-            console.log(payload);
             payload = JSON.parse(payload.expression);
             var data = Queries.createActivity(payload);
 

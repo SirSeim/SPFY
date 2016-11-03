@@ -238,7 +238,6 @@ var service = {
     },
 
     createActivity: function (postgres, payload, callback) {
-        console.log(payload);
         Query.createActivity(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
@@ -355,7 +354,6 @@ var service = {
                     reminderDate: local.reminder_date
                 });
             }
-            console.log(arr);
             return callback(undefined, arr);
         });
     },

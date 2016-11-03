@@ -183,7 +183,6 @@ var api = {
     },
 
     createActivity: function (request, reply){
-        console.log(request.payload);
         Service.createActivity(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToCreateActivity(reply, err);

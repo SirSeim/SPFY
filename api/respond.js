@@ -254,13 +254,6 @@ var respond = {
             error: err
         }).code(500);
     },
-    editActivity: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Success editing activity!",
-            result: result
-        }).code(200);
-    },
     failedToCheckIn: function (reply, err) {
         reply({
             statusCode: 500,
