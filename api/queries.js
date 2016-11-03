@@ -505,7 +505,7 @@ var queries = {
     },
 
     getCheckIn: function () {
-        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in;';
+        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
 
         return queryString;
     },

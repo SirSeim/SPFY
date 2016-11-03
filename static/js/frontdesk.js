@@ -73,13 +73,14 @@ $(function () {
             console.log($('#clients td').get());
             $('#clients td').get().forEach(function (td) {
                 checkins.forEach(function (checkin) {
+
                     if (checkin.id === $(td).data("id")) {
                         $('#checked-in tbody').append(
                             '<tr class="clickable-row" data-toggle="modal" data-target="#viewclient-modal" data-id="' + $(td).data("id") + '">' +
-                            '<td>' + window.parseDate(checkin.date) + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
+                            '<td>' + moment(checkin.date).format('MM-DD-YY') + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
                             '<td>' + $(td).data("firstname") + ' ' + $(td).data("lastname") + '</td>' +
                             '<td></td>' +
-                            '<td>' + window.parseDate($(td).data("dob")) + '</td>' +
+                            '<td>' + moment($(td).data("dob")).format('MM-DD-YY') + '</td>' +
                             '<th>Activities Today</th>' +
                             '<td>notes</td>' +
                             '<td><span class="' + statuses[$(td).data("status")] + ' bullet"></span></td>' +
@@ -127,7 +128,11 @@ $(function () {
         // get today's dropin session
         var dropins = data.result;
         var currentDropIn = dropins[dropins.length - 1];
+<<<<<<< HEAD
         $('#dropin-date').text(window.parseDate(currentDropIn.date)); // implemented parseDate in main.js, added to DOM in _basescript.html
+=======
+        $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
+>>>>>>> database
         console.log(currentDropIn);
         $('#dropin-date').data("id", currentDropIn.id);
     }).then(function () {
