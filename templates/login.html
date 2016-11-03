@@ -1,0 +1,37 @@
+{% include "components/_header.html" %}
+
+  <div class="container">
+
+    {% include "components/_navbar.html" %}
+
+    <div>
+      <h2>SPY Login</h2>
+    </div>
+
+
+    <div>
+      <p id="status"></p>
+      <form id="login">
+
+        <div>
+          <label for="username">USERNAME</label>
+          <input type="text" class="form-control" placeholder="username" name="username" id="username">
+        </div>
+
+        <div>
+          <label for="password">PASSWORD</label>
+          <input type="password" class="form-control" placeholder="password" name="password" id="password">
+        </div>
+        
+        <button type="submit">Login</button>
+
+      </form>
+    </div>
+
+  </div>
+
+{% include "components/_basescript.html" %}
+
+<script type="text/babel" src="static/js/login.js"></script>
+
+{% include "components/_footer.html" %}

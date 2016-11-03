@@ -337,6 +337,133 @@ var respond = {
             message: "Successfully edited case note.",
             result: result
         }).code(200);
+    },
+    failedToGetUsers: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get Users!",
+            error: err
+        }).code(500);
+    },
+    gotUsers: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got Users!",
+            result: result
+        }).code(200);
+    },
+    failedToGetUserByUsername: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    gotUserByUsername: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
+    noUserByUsernameFound: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "No such User found!"
+        }).code(404);
+    },
+    failedToCreateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create User!",
+            error: err
+        }).code(500);
+    },
+    usernameAlreadyExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Username already exists!"
+        }).code(401);
+    },
+    createdUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created User!",
+            result: result
+        }).code(200);
+    },
+    failedToComparePasswords: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to compare passwords!",
+            error: err
+        }).code(500);
+    },
+    userPassNoMatch: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Username or Password do not match!"
+        }).code(401);
+    },
+    failedToGenToken: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to generate token!",
+            error: err
+        }).code(500);
+    },
+    loggedIn: function (reply, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!"
+        }).code(200).header("Authorization", token);
+    },
+    failedToGetUsersNotifications: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get user notifications!",
+            error: err
+        }).code(500);
+    },
+    getUsersNotifications: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got user notifications!",
+            result: result
+        }).code(200);
+    },
+    failedToGetUserById: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    noSuchUserExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "User does not exist!"
+        }).code(401);
+    },
+    passNoMatch: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Passwords do not match!"
+        }).code(401);
+    },
+    failedToChangeUserPassword: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to change User password!",
+            error: err
+        }).code(500);
+    },
+    changeCurrentUserPassword: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!",
+            result: result
+        }).code(200).header("Authorization", token);
     }
 
 };

@@ -48,6 +48,14 @@ postgresqlPool.register.attributes = {
     version: "0.0.0"
 };
 
+var validate = function (decoded, request, callback) {
+    console.log(decoded);
+    // console.log(request);
+    // TODO: Look into what is in decoded & request
+    // query the database for the user
+    return callback(null, true);
+};
+
 var SPFY = new Hapi.Server({
     connections: {
         routes: {
@@ -60,6 +68,38 @@ var SPFY = new Hapi.Server({
 SPFY.connection({
     host: setup.host,
     port: setup.port
+});
+
+SPFY.register(require('hapi-auth-jwt2'), function (err) {
+ 
+    if (err) {
+        SPFY.log(['error', 'hapi-auth-jwt2'], err);
+    }
+
+    SPFY.auth.strategy('jwt', 'jwt', {
+        key: process.env.SPFY_KEY,          // Never Share your secret key 
+        validateFunc: validate,            // validate function defined above 
+        verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm 
+    });
+ 
+    SPFY.auth.default('jwt');
+ 
+    // EXAMPLE ROUTES
+    // SPFY.route([
+    //   {
+    //     method: "GET", path: "/", config: { auth: false },
+    //     handler: function(request, reply) {
+    //       reply({text: 'Token not required'});
+    //     }
+    //   },
+    //   {
+    //     method: 'GET', path: '/restricted', config: { auth: 'jwt' },
+    //     handler: function(request, reply) {
+    //       reply({text: 'You used a Token!'})
+    //       .header("Authorization", request.headers.authorization);
+    //     }
+    //   }
+    // ]);
 });
 
 SPFY.register(postgresqlPool, function () {});

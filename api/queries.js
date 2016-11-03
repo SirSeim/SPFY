@@ -583,6 +583,48 @@ var queries = {
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
 
         return queryString;
+    },
+
+    getUserList: function () {
+        var queryString = 'SELECT id, username FROM users;';
+
+        return queryString;
+    },
+
+    getUserByUsername: function (username) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
+                            username + '\';';
+
+        return queryString;
+    },
+
+    getUserById: function (userId) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
+                            userId + '\';';
+
+        return queryString;
+    },
+
+    createUser: function (payload) {
+        var queryString = 'INSERT INTO users ("username", "hashed_password") VALUES (\'' +
+                            payload.username + '\', \'' +
+                            payload.password + '\');';
+
+        return queryString;
+    },
+
+    getUsersNotifications: function (credentials) {
+        var queryString = 'SELECT * from notifications WHERE user_id = ' +
+                            credentials.id + ';';
+
+        return queryString;
+    },
+
+    changeUserPassword: function (userId, hashedPassword) {
+        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
+                            ' WHERE id = ' + userId + ';';
+
+        return queryString;
     }
 };
 
