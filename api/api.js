@@ -328,7 +328,8 @@ var api = {
                     } else if (!match) {
                         Respond.passNoMatch(reply);
                     } else {
-                        Service.changeUserPassword(request.postgres, user.id, request.payload.newPassword, function (err, result) {
+                        Service.changeUserPassword(request.postgres, user.id,
+                                    request.payload.newPassword, function (err, result) {
                             if (err) {
                                 Respond.failedToChangeUserPassword(reply, err);
                             } else {
