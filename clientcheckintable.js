@@ -1,10 +1,8 @@
 $(function (event) {
-
     var status = $('.dot');
     var table = $('#clients tbody');
-
     $.ajax({
-        url: "api/checkin",
+        url: "api/clients",
         method: "GET",
         success: function (data) {
             status.removeClass('dot-pending').addClass('dot-success');
@@ -24,17 +22,9 @@ $(function (event) {
                 '</td></tr>');
         });
     });
-
-    $('#client-search').keyup(function () {
-        var search = $('#client-search');
-        var clients = $('#clients td');
-        if (search.val() === '') {
-            clients.show();
-        } else {
-            console.log(clients);
-            clients.hide().filter(function (i, e) {
-                return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
-            }).show();
-        }
-    });
 });
+var createClients = function (checkin) {
+    return '<tr><td class="col-xs-2">' + moment(clients.date).format('M/D/YY') +
+            '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
+            '<td class="col-xs-2">';
+};

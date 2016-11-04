@@ -13,6 +13,8 @@
 
 [Read our Software Development Plan](docs/Software_Development_Plan.md)
 
+[Read our Architecture Design](docs/Architecture_Design_Document.md)
+
 ### Requirements
 Install `npm` and `postgres` if you don't already have them installed
 ```
@@ -41,7 +43,8 @@ configure server with database access by having `config/set_env.sh`
 echo 'postgres://{user}:{password}@{host, default localhost}:{port, default 5432}/{db, default spfy}'
 ```
 
-Alternately, get the most recent config folder from Team member/Slack
+Alternately, get the most recent config folder from Team member/Slack.
+The most recent config is from _Oct, 30_.
 
 ### Using Database
 
@@ -76,6 +79,8 @@ Alternately, start server to auto restart when a file changes, _provided by [nod
 npm run nodemon
 ```
 
+_Note that since_ `authorization` _now is partially functional, you will most likely have to login to try out the site._
+
 Run Tests
 ```
 npm test
@@ -84,7 +89,7 @@ npm run lint
 
 To view a coverage report, run `npm test`, then `npm run report`, then open up `coverage/lcov-report/index.html` in a webbrowser
 
-[version-img]: https://img.shields.io/badge/version-alpha-red.svg
+[version-img]: https://img.shields.io/badge/version-alpha%202-red.svg
 [version-url]: https://github.com/SirSeim/SPFY
 
 [build-img]: https://travis-ci.org/SirSeim/SPFY.svg?branch=master

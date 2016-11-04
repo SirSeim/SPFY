@@ -42,6 +42,12 @@ var Search = React.createClass({
       currentTable: data
     });
     $.ajax({
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+      },
       url: url,
       method: "GET",
       success: function (data) {
@@ -53,8 +59,12 @@ var Search = React.createClass({
         handleColumns(columnNames);
         writeToTable(data.result.rows);
       },
-      error: function (err) {
-        console.error(err);
+      error: function (xhr) {
+        console.error(xhr);
+
+        if (xhr.status === 401) {
+          localStorage.removeItem("authorization");
+        }
       }
     });
   },
@@ -84,15 +94,25 @@ var Search = React.createClass({
       console.log(url);
       var writeToTable = this.writeToTable;
       $.ajax({
+        xhrFields: {
+          withCredentials: true
+        },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
         url: url,
         method: "GET",
         success: function (data) {
           console.log(data.result.rows);
           writeToTable(data.result.rows);
         },
-        error: function (data) {
-          console.error(data);
+        error: function (xhr) {
+          console.error(xhr);
           writeToTable({});
+
+          if (xhr.status === 401) {
+            localStorage.removeItem("authorization");
+          }
         }
       });
     };

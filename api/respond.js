@@ -128,6 +128,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetDropinEnrollment: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get dropin enrollment!",
+            error: err
+        }).code(500);
+    },
+    getDropinEnrollment: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting dropin enrollment!",
+            result: result
+        }).code(200);
+    },
     failedToGetActivities: function (reply, err) {
         reply({
             statusCode: 500,
@@ -198,13 +212,6 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToEnroll: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to enroll!",
-            error: err
-        }).code(500);
-    },
     editActivity: function (reply, result) {
         reply({
             statusCode: 200,
@@ -224,7 +231,28 @@ var respond = {
             statusCode: 200,
             message: "Success enrolling!",
             result: result
+        });
+    },
+    failedToGetEnrollmentByActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get enrollment by activity!",
+            error: err
+        }).code(500);
+    },
+    getEnrollmentByActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting enrollment by activity!",
+            result: result
         }).code(200);
+    },
+    failedToEnroll: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to enroll!",
+            error: err
+        }).code(500);
     },
     failedToCheckIn: function (reply, err) {
         reply({
@@ -237,6 +265,20 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Success checking in!",
+            result: result
+        }).code(200);
+    },
+    failedToGetCheckIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get checkin!",
+            error: err
+        }).code(500);
+    },
+    gotCheckIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting checkin!",
             result: result
         }).code(200);
     },
@@ -253,6 +295,175 @@ var respond = {
             message: "Successfully got client.",
             result: result
         }).code(200);
+    },
+    failedToCreateCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create case note!",
+            error: err
+        }).code(500);
+    },
+    createCaseNote: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created case note.",
+            result: result
+        }).code(200);
+    },
+    failedToGetClientCaseNotes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's case notes!",
+            error: err
+        }).code(500);
+    },
+    getClientCaseNotes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's case notes.",
+            result: result
+        }).code(200);
+    },
+    failedToEditCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit case note!",
+            error: err
+        }).code(500);
+    },
+    editCaseNote: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully edited case note.",
+            result: result
+        }).code(200);
+    },
+    failedToGetUsers: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get Users!",
+            error: err
+        }).code(500);
+    },
+    gotUsers: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got Users!",
+            result: result
+        }).code(200);
+    },
+    failedToGetUserByUsername: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    gotUserByUsername: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
+    noUserByUsernameFound: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "No such User found!"
+        }).code(404);
+    },
+    failedToCreateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create User!",
+            error: err
+        }).code(500);
+    },
+    usernameAlreadyExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Username already exists!"
+        }).code(401);
+    },
+    createdUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created User!",
+            result: result
+        }).code(200);
+    },
+    failedToComparePasswords: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to compare passwords!",
+            error: err
+        }).code(500);
+    },
+    userPassNoMatch: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Username or Password do not match!"
+        }).code(401);
+    },
+    failedToGenToken: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to generate token!",
+            error: err
+        }).code(500);
+    },
+    loggedIn: function (reply, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!"
+        }).code(200).header("Authorization", token);
+    },
+    failedToGetUsersNotifications: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get user notifications!",
+            error: err
+        }).code(500);
+    },
+    getUsersNotifications: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got user notifications!",
+            result: result
+        }).code(200);
+    },
+    failedToGetUserById: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get User!",
+            error: err
+        }).code(500);
+    },
+    noSuchUserExists: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "User does not exist!"
+        }).code(401);
+    },
+    passNoMatch: function (reply) {
+        reply({
+            statusCode: 401,
+            message: "Passwords do not match!"
+        }).code(401);
+    },
+    failedToChangeUserPassword: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to change User password!",
+            error: err
+        }).code(500);
+    },
+    changeCurrentUserPassword: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully logged in!",
+            result: result
+        }).code(200).header("Authorization", token);
     }
 
 };

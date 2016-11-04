@@ -5,5 +5,7 @@ $(function () {
         $(".sideBar").toggleClass("hidden");
     })
 
-
+    window.parseDate = function (dateString) {
+        return dateString.replace(dateString.match(/T(\S+)/)[0], '');
+    };
 })

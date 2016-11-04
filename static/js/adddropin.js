@@ -8,6 +8,12 @@ $(function (event) {
         }
 
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: "api/dropins",
             method: "POST",
             data: { expression: JSON.stringify(data) },
@@ -18,8 +24,12 @@ $(function (event) {
                 $('#dropin-feedback').empty().text(
                   'New Drop-In for ' + data.result.rows[0].date + ' created.');
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         });
 
@@ -53,14 +63,24 @@ $(function (event) {
         };
 
         $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
             url: 'api/activities',
             method: 'POST',
             data: { expression: JSON.stringify(activityData) },
             success: function (data) {
                 console.log(data);
             },
-            error: function (data) {
-                console.error(data);
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
             }
         });
 

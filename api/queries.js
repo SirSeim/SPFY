@@ -6,7 +6,7 @@ var parseProperty = function(property) {
         property = 'null';
     }
     if (typeof property === 'string' && property === '') {
-        property = 'null';
+        property = null;
     }
     if (property === 'null') {
         return null;
@@ -281,17 +281,17 @@ var queries = {
 
     // This gets called in query.js by Queries module
     getAllCaseManagers: function () {
-        var queryString = 'SELECT first_name, last_name FROM casemanager;';
+        var queryString = 'SELECT id, first_name, last_name FROM casemanager;';
         return queryString;
     },
 
     getClient: function (clientID) {
         var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, ' +
-                            'date_of_birth, age(date_of_birth) FROM client WHERE id = ' +
+                            'date_of_birth, age(date_of_birth), status FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
-    
+
     searchClient: function (firstName, lastName) {
         // console.log(firstName);
         // console.log(lastName);
@@ -313,32 +313,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name FROM client;';
-
-        return queryString;
-    },
-
-    getEditClient: function (payload) {
-        var queryString = 'SELECT first_name, last_name, nickname, hmis_consent, first_time, ' +
-                            'email, provided_id, state_id, reference FROM client WHERE id = ' + payload.id;
-
-        return queryString;
-    },
-
-    postEditClient: function (payload) {
-        var queryString = 'UPDATE client SET ';
-
-        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
-        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
-        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'hmis_consent = ' + parseProperty(payload.HMISConsent) + ',';
-        queryString += 'first_time = ' + parseProperty(payload.firstTime) + ',';
-        queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'provided_id = ' + parseProperty(payload.providedID) + ',';
-        queryString += 'state_id = ' + parseProperty(payload.stateID) + ',';
-        queryString += 'reference = ' + parseProperty(payload.reference) + ',';
-
-        queryString += 'WHERE id = ' + payload.id;
+        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth FROM client;';
 
         return queryString;
     },
@@ -386,6 +361,11 @@ var queries = {
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
     },
+    getDropinEnrollment: function (dropinID) {
+        var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
+
+        return queryString;
+    },
     getAllActivities: function () {
         var queryString = 'SELECT id, activity_name FROM activity;';
 
@@ -411,16 +391,20 @@ var queries = {
     editClient: function (payload) {
         var queryString = 'UPDATE client SET ';
 
-        queryString += 'first_name = ' + parseProperty(payload.firstName) + ',';
-        queryString += 'last_name = ' + parseProperty(payload.lastName) + ',';
-        queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'birthday = ' + parseProperty(payload.birthday) + ',';
-        queryString += 'case_manager = ' + parseProperty(payload.caseManager) + ',';
-        queryString += 'email = ' + parseProperty(payload.email) + ',';
-        queryString += 'last_meeting = ' + parseProperty(payload.lastMeeting) + ',';
-        queryString += 'phone_number = ' + parseProperty(payload.phoneNumber) + ' ';
+        queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ', ';
+        queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ', ';
+        // queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
+        queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
+        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
+        queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
+        queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
+        // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
+        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
+        queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
 
-        queryString += 'WHERE id = ' + payload.id;
+        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
+
+        queryString += 'RETURNING first_name, last_name, date_of_birth, intake_age, phone_number, email, case_manager, status;';
 
         return queryString;
     },
@@ -472,7 +456,7 @@ var queries = {
             params: params
         };
 
-        return queryData;        
+        return queryData;
     },
 
     editActivity: function (payload) {
@@ -500,6 +484,12 @@ var queries = {
         return queryString;
     },
 
+    getEnrollmentByActivity: function (activityID) {
+        var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
+        
+        return queryString;
+    },
+
     checkin: function (payload) {
         var queryString = "";
         payload.forEach(function (element) {
@@ -508,6 +498,12 @@ var queries = {
                             element.clientID + ', ' +
                             '\'' + element.date + '\'' + ');';
         });
+
+        return queryString;
+    },
+
+    getCheckIn: function () {
+        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
 
         return queryString;
     },
@@ -532,6 +528,101 @@ var queries = {
 
         var queryString = 'SELECT * FROM client WHERE ' +
                           data.column + searchText + ';';
+
+        return queryString;
+    },
+
+    createCaseNote: function (payload) {
+        var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, ' +
+            'note, follow_up_needed, due_date, reminder_date) VALUES (' + 
+            '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.date) + '\'' + ', ' +
+            '\'' + parseProperty(payload.category) + '\'' + ', ' +
+            '\'' + parseProperty(payload.note) + '\'' + ', ' +
+            '\'' + parseProperty(payload.followUpNeeded) + '\'' + ', ';
+
+        if (parseProperty(payload.dueDate) === null) {
+            queryString += 'null, ';
+        } else {
+            queryString += '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
+        }
+
+        if (parseProperty(payload.reminderDate) === null) {
+            queryString += 'null);';
+        } else {
+            queryString += '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
+        }
+        
+
+        return queryString;
+    },
+
+    getClientCaseNotes: function (clientID) {
+        var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, ' +
+            'last_name, note, follow_up_needed, due_date, reminder_date FROM case_note n LEFT JOIN ' +
+            'casemanager m ON n.case_manager_id = m.id WHERE client_id = ' + clientID + ';';
+
+        return queryString;
+    },
+
+    editCaseNote: function (payload) {
+        var queryString = 'UPDATE case_note SET ';
+
+        queryString += 'client_id = ' + '\'' + parseProperty(payload.clientID) + '\'' + ',';
+        queryString += 'case_manager_id = ' + '\'' + parseProperty(payload.caseManagerID) + '\'' + ',';
+        queryString += 'date = ' + '\'' + parseProperty(payload.date) + '\'' + ',';
+        queryString += 'note = ' + '\'' + parseProperty(payload.note) + '\'' + ',';
+
+        queryString += 'follow_up_needed = ' + '\'' + parseProperty(payload.followUpNeeded) + '\'' + ',';
+        queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ',';
+        queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+
+        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
+
+        queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
+
+        return queryString;
+    },
+
+    getUserList: function () {
+        var queryString = 'SELECT id, username FROM users;';
+
+        return queryString;
+    },
+
+    getUserByUsername: function (username) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
+                            username + '\';';
+
+        return queryString;
+    },
+
+    getUserById: function (userId) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
+                            userId + '\';';
+
+        return queryString;
+    },
+
+    createUser: function (payload) {
+        var queryString = 'INSERT INTO users ("username", "hashed_password") VALUES (\'' +
+                            payload.username + '\', \'' +
+                            payload.password + '\');';
+
+        return queryString;
+    },
+
+    getUsersNotifications: function (credentials) {
+        var queryString = 'SELECT * from notifications WHERE user_id = ' +
+                            credentials.id + ';';
+
+        return queryString;
+    },
+
+    changeUserPassword: function (userId, hashedPassword) {
+        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
+                            ' WHERE id = ' + userId + ';';
 
         return queryString;
     }
