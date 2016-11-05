@@ -359,7 +359,20 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
+    },
+
+
+    uploadFiles: function (request, reply) {
+        Service.uploadFiles(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToUploadFiles(reply, err);
+            } else {
+                Respond.uploadFiles(reply, result);
+            }
+        });
     }
+
+
 };
 
 

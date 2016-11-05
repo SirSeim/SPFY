@@ -178,6 +178,11 @@ var apiRoutes = [
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'POST',
+        path: '/files',
+        handler: Api.uploadFiles
     }
 ];
 

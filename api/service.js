@@ -488,7 +488,16 @@ var service = {
             }
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
-    }
+    },
+
+    uploadFiles: function (postgres, payload, callback) {
+        Query.uploadFiles(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
 };
 
 module.exports = service;

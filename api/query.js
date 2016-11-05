@@ -418,7 +418,7 @@ var query = {
             });
         });
     },
-    
+
     getCheckIn: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -570,8 +570,28 @@ var query = {
                 return callback(undefined, result);
             });
         });
-    }
-    
+    },
+
+    uploadFiles: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            payload = JSON.parse(payload.expression);
+            var data = Queries.uploadFiles(payload);
+
+            client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

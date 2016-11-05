@@ -486,7 +486,7 @@ var queries = {
 
     getEnrollmentByActivity: function (activityID) {
         var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
-        
+
         return queryString;
     },
 
@@ -534,7 +534,7 @@ var queries = {
 
     createCaseNote: function (payload) {
         var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, ' +
-            'note, follow_up_needed, due_date, reminder_date) VALUES (' + 
+            'note, follow_up_needed, due_date, reminder_date) VALUES (' +
             '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
             '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
             '\'' + parseProperty(payload.date) + '\'' + ', ' +
@@ -553,7 +553,7 @@ var queries = {
         } else {
             queryString += '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
         }
-        
+
 
         return queryString;
     },
@@ -625,6 +625,12 @@ var queries = {
                             ' WHERE id = ' + userId + ';';
 
         return queryString;
+    },
+
+    uploadFiles: function(payload) {
+        var queryString = ''
+
+        return queryString
     }
 };
 
