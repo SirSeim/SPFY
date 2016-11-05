@@ -627,10 +627,10 @@ var queries = {
         return queryString;
     },
 
-    uploadFiles: function(payload) {
-        var queryString = ''
+    uploadFiles: function() {
+        var queryString = '';
 
-        return queryString
+        return queryString;
     }
 };
 

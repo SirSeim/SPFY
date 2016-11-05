@@ -124,7 +124,7 @@ var viewRoutes = [
         },
         handler: function (req, res) {
             res.view('editclient.html', {
-                
+
             });
         }
     },
@@ -163,8 +163,8 @@ var viewRoutes = [
         },
         handler: function (req, res) {
             res.view('files.html'), {
-                
-            }
+
+            };
         }
     }
 ];
