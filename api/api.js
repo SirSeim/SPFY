@@ -292,9 +292,17 @@ var api = {
     },
 
     getUser: function (request, reply) {
-        Service.getUserByQuery(request.postgres, {
-            id: request.params.userId
-        }, function (err, user) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
             if (err) {
                 Respond.failedToGetUserByQuery(reply, err);
             } else if (!user) {
