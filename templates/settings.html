@@ -5,19 +5,25 @@
     <!-- make this header highlight the frontdesk selection -->
     {% include "components/_navbar.html" %}
 
-     <div class="row">
-    <div class="col-sm-3 col-lg-2">
-      <nav class="navbar navbar-default navbar-fixed-side side-nav">
-        <ul id="options">
-        <li><a href="#">One thing</a></li>
-        <li><a href="#">Another thing</a></li>
-        </ul>
-      </nav>
-    </div>
+    <div class="row">
+      <div id="navigation" class="col-sm-3 col-lg-2">
+        <nav class="side-nav">
+          <ul id="options">
+            <li id="notifications-link"><a href="#">Notifications</a></li>
+            <li id="client-profile-link"><a href="#">Client Profiles</a></li>
+          </ul>
+        </nav>
+      </div>
     <div class="col-sm-9 col-lg-10">
-      <!-- your page content -->
+      <div class="row">
+        <div id="notifications-settings">
+          Text here
+        </div>
+        <div id="client-profile-settings" class="hidden">
+          Text here too
+        </div>
+      </div>
     </div>
-  </div>
 
     <div id="react-content">
 
@@ -29,7 +35,8 @@
 
 
 {% include "components/_basescript.html" %}
-
-  <script type="text/babel" src="/static/js/settings.js"></script>
+  
+  <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->
+  <script src="/static/js/settings.js"></script>
 
 {% include "components/_footer.html" %}
