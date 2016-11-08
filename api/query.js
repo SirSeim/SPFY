@@ -487,30 +487,13 @@ var query = {
         });
     },
 
-    getUserByUsername: function (postgres, username, callback) {
+    getUserByQuery: function (postgres, query, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getUserByUsername(username), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    getUserById: function (postgres, userId, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getUserById(userId), function (err, result) {
+            client.query(Queries.getUserByQuery(query), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

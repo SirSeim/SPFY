@@ -591,16 +591,21 @@ var queries = {
         return queryString;
     },
 
-    getUserByUsername: function (username) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
-                            username + '\';';
+    getUserByQuery: function (query) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE';
+        var setId = false;
 
-        return queryString;
-    },
-
-    getUserById: function (userId) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
-                            userId + '\';';
+        if (query.id) {
+            queryString += ' id = \'' + query.id + '\'';
+            setId = true;
+        }
+        if (query.username) {
+            if (setId) {
+                queryString += ' AND';
+            }
+            queryString += ' username = \'' + query.username + '\'';
+        }
+        queryString += ';';
 
         return queryString;
     },

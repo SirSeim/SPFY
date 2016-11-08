@@ -396,8 +396,8 @@ var service = {
         });
     },
 
-    getUserByUsername: function (postgres, username, callback) {
-        Query.getUserByUsername(postgres, username, function (err, result) {
+    getUserByQuery: function (postgres, query, callback) {
+        Query.getUserByQuery(postgres, query, function (err, result) {
             if (err) {
                 return callback(err);
             }

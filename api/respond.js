@@ -352,21 +352,21 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUserByUsername: function (reply, err) {
+    failedToGetUserByQuery: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get User!",
             error: err
         }).code(500);
     },
-    gotUserByUsername: function (reply, result) {
+    gotUserByQuery: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Successfully got User!",
             result: result
         }).code(200);
     },
-    noUserByUsernameFound: function (reply) {
+    noUserByQueryFound: function (reply) {
         reply({
             statusCode: 404,
             message: "No such User found!"
@@ -431,13 +431,6 @@ var respond = {
             message: "Successfully got user notifications!",
             result: result
         }).code(200);
-    },
-    failedToGetUserById: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to get User!",
-            error: err
-        }).code(500);
     },
     noSuchUserExists: function (reply) {
         reply({
