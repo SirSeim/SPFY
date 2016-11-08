@@ -40,9 +40,18 @@ var Search = React.createClass({
       columns: data
     })
   },
+  formatColumnName: function (column) {
+    var columnSplit = column.split("_");
+    var newColumn = [];
+    columnSplit.forEach(function (word) {
+      newColumn.push(word.charAt(0).toUpperCase() + word.substr(1));
+    }); 
+    return newColumn.join(" ");
+  },
   getColumns: function (data) {
     var handleColumns = this.changeColumns;
     var writeToTable = this.writeToTable;
+    var formatColumnName = this.formatColumnName
     var url = "api/" + data + "/search";
     this.setState({
       currentTable: data
@@ -59,8 +68,10 @@ var Search = React.createClass({
       success: function (data) {
         var fields = data.result.fields;
         var columnNames = [];
+        var formattedName = "";
         for(var i = 0; i < fields.length; i++) {
-          columnNames.push({name: fields[i].name, type: fields[i].dataTypeID});
+          formattedName = formatColumnName(fields[i].name);
+          columnNames.push({name: formattedName, type: fields[i].dataTypeID});
         };
         handleColumns(columnNames);
         writeToTable(data.result.rows);
@@ -137,7 +148,7 @@ var Search = React.createClass({
                     detailData={this.state.detailData}
                     close={this.closeDetail} />
         <FilterTable people={this.state.people} 
-                     headers={this.props.headers}
+                     headers={this.state.columns}
                      displayDetail={this.displayDetail}
                      extendWidth={this.state.displayQueryBuilder} />
         {/*<Footer />*/}
@@ -303,7 +314,7 @@ var FilterTableHeader = React.createClass({
   render: function () {
     var headers = [];
     this.props.header.forEach(function (header) {
-      headers.push(<td key={header} className="ftHead ftCell">{header}</td>);
+      headers.push(<td key={header.name} className="ftHead ftCell">{header.name}</td>);
     })
     return (
       <tr className="ftRow">
@@ -362,7 +373,7 @@ var DetailPane = React.createClass({
   }
 });
 
-var Footer = React.createClass({
+/*var Footer = React.createClass({
   render: function () {
     return (
       <div className="SearchFooter">
@@ -370,17 +381,10 @@ var Footer = React.createClass({
       </div>
     )
   }
-});
-
-var CLIENT_FILTER_HEADERS = [ 
-  "ID", "First Name", "Last Name", "Nickname", "Intake Person", 
-  "Intake Date", "HMIS Consent", "First Time Attending", "Case Manager",
-  "Case Manager ID", "Phone Number", "Email", "Date of Birth", "Age",
-  "Provided ID", "State ID", "Reference", "Services"
-]
+});*/
 
 
 ReactDOM.render(
-  <Search headers={CLIENT_FILTER_HEADERS} />,
+  <Search />,
   document.getElementById('dataBrowserContent')
 );
