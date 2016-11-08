@@ -3,6 +3,7 @@ var Search = React.createClass({
     return {
       displayDetail: false,
       detailData: {},
+      displayQueryBuilder: true,
       columns: [],
       currentTable: "",
       propsToSearch: 
@@ -23,6 +24,11 @@ var Search = React.createClass({
   },
   closeDetail: function () {
     this.setState({displayDetail: false});
+  },
+  toggleQueryBuilder: function () {
+    this.setState({
+      displayQueryBuilder: !this.state.displayQueryBuilder
+    })
   },
   writeToTable: function (data) {
     this.setState({
@@ -122,6 +128,8 @@ var Search = React.createClass({
       <div className="searchMain">
         <QueryBuilderInterface selectTable={this.getColumns} 
                                columns={this.state.columns}
+                               display={this.state.displayQueryBuilder}
+                               toggleBuilder={this.toggleQueryBuilder}
                                changeColumn={this.editPropColumn}
                                changeStrictness={this.editPropStrictness}
                                changeText={this.editPropText} />
@@ -130,7 +138,8 @@ var Search = React.createClass({
                     close={this.closeDetail} />
         <FilterTable people={this.state.people} 
                      headers={this.props.headers}
-                     displayDetail={this.displayDetail} />
+                     displayDetail={this.displayDetail}
+                     extendWidth={this.state.displayQueryBuilder} />
         {/*<Footer />*/}
       </div>
     )
@@ -140,15 +149,9 @@ var Search = React.createClass({
 var QueryBuilderInterface = React.createClass({
   getInitialState: function () {
     return {
-      displayQueryBuilder: true,
       displaySelector: false,
       displayText: false
     };
-  },
-  toggleBuilder: function () {
-    this.setState({
-      displayQueryBuilder: !this.state.displayQueryBuilder
-    })
   },
   toggleSelector: function (data) {
     this.setState({
@@ -167,14 +170,15 @@ var QueryBuilderInterface = React.createClass({
     };
   },
   render: function () {
-    var classNames = "queryBuilderUI " + (this.state.displayQueryBuilder ? "" : "hidden");
+    var classNames = "queryBuilderUI " + (this.props.display ? "" : "hidden"),
+        closeClassName = "qbAccess " + (this.props.display ? "hidden" : "");
     return (
       <div>
-        <div className="qbAccess" onClick={this.toggleBuilder}> 
+        <div className={closeClassName} onClick={this.props.toggleBuilder}> 
           >
         </div>
         <div className={classNames}>
-          <span id="qbClose" onClick={this.toggleBuilder}>Close</span>
+          <span id="qbClose" onClick={this.props.toggleBuilder}>Close</span>
           <ResourceSelector handleChange={this.props.selectTable} 
                             changeDisplay={this.toggleSelector} />
           <QueryBuilder columns={this.props.columns} 
@@ -281,9 +285,10 @@ var FilterTable = React.createClass({
                           displayDetail={this.props.displayDetail} />
         )
       }
+      var className = (this.props.extendWidth ? "filterTableExtend" : "filterTable");
       return (
         <div id="allowScroll">
-          <table className="filterTable">
+          <table className={className}>
             <tbody>
               <FilterTableHeader header={this.props.headers}/>
               {tableRows}
