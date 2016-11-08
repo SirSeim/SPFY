@@ -291,6 +291,23 @@ var api = {
         });
     },
 
+    getUser: function (request, reply) {
+        Service.getUserByQuery(request.postgres, {
+            id: request.params.userId
+        }, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Respond.getUser(reply, {
+                    id: user.id,
+                    username: user.username
+                });
+            }
+        });
+    },
+
     login: function (request, reply) {
         Service.getUserByQuery(request.postgres, {
             username: request.payload.username

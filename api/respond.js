@@ -392,6 +392,19 @@ var respond = {
             result: result
         }).code(200);
     },
+    userDoesNotExist: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "Username does not exist!"
+        }).code(404);
+    },
+    getUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
     failedToComparePasswords: function (reply, err) {
         reply({
             statusCode: 500,
