@@ -14,3 +14,10 @@ ReactDOM.render(
   <Settings />,
   document.getElementById('react-content')
 );
+
+$(function () {
+    $('#options').delegate('li', 'click', function (event) {
+        $('#options li').removeClass('selected');
+        $(this).addClass('selected');
+    });
+});
