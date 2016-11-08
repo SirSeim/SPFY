@@ -153,6 +153,19 @@ var viewRoutes = [
 
             });
         }
+    },
+
+    {
+        path: '/settings',
+        method: 'GET',
+        config: {
+            auth: false
+        },
+        handler: function (req, res) {
+            res.view('settings.html', {
+
+            });
+        }
     }
 ];
 
