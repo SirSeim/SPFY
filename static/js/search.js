@@ -87,8 +87,8 @@ var Search = React.createClass({
   },
   editPropColumn: function (data) {
     var jsonData = JSON.parse(data);
-    console.log(jsonData);
-    this.state.propsToSearch.column = jsonData.name;
+    var unformattedName = jsonData.name.toLowerCase().replace(" ", "_");
+    this.state.propsToSearch.column = unformattedName;
     this.state.propsToSearch.columnType = jsonData.type; 
     // not using this.setState because it doesn't play nice
     // with the fact propsToSearch is an object... Look into later
