@@ -521,6 +521,23 @@ var query = {
         });
     },
 
+    updateUser: function (postgres, userId, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.updateUser(userId, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getUsersNotifications: function (postgres, credentials, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

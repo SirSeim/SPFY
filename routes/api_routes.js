@@ -159,6 +159,11 @@ var apiRoutes = [
         handler: Api.getUser
     },
     {
+        method: 'PUT',
+        path: '/users/{userId}',
+        handler: Api.updateUser
+    },
+    {
         method: 'POST',
         path: '/sessions',
         config: {

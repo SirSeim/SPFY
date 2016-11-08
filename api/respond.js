@@ -405,6 +405,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToUpdateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to update User!",
+            error: err
+        }).code(500);
+    },
+    updateUser: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully updated User!",
+            result: result
+        }).code(200).header("Authorization", token);
+    },
     failedToComparePasswords: function (reply, err) {
         reply({
             statusCode: 500,

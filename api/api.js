@@ -316,6 +316,43 @@ var api = {
         });
     },
 
+    updateUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Service.updateUser(request.postgres, userQuery.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUser(reply, err);
+                    } else {
+                        Service.genToken({
+                            id: userQuery.id,
+                            username: request.payload.username
+                        }, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.updateUser(reply, result, token);
+                            }
+                        });
+                    }
+                })
+            }
+        });
+    },
+
     login: function (request, reply) {
         Service.getUserByQuery(request.postgres, {
             username: request.payload.username

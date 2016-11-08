@@ -618,6 +618,13 @@ var queries = {
         return queryString;
     },
 
+    updateUser: function (userId, payload) {
+        var queryString = 'UPDATE users SET username = \'' + payload.username +
+                            '\' WHERE id = \'' + userId + '\';';
+
+        return queryString;
+    },
+
     getUsersNotifications: function (credentials) {
         var queryString = 'SELECT * from notifications WHERE user_id = ' +
                             credentials.id + ';';
