@@ -75,9 +75,9 @@
 
               <div class="tab-pane active" id="activity-enrollment">
 
-                <div class="panel panel-default">
+                <div class="panel panel-default panel-horiscroll">
                   <div class="panel-heading"> <!-- Activity Thumbnails -->
-                    <div class="btn-toolbar" role="toolbar">
+<!--                     <div class="btn-toolbar" role="toolbar">
                       <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default">
                           <i class="fa fa-user-md" aria-hidden="true"></i>
@@ -87,19 +87,55 @@
                         </button>
                         <button type="button" class="btn btn-default">
                            <i class="fa fa-futbol-o" aria-hidden="true"></i>
-                        </button>
+                        </button> -->
+
+                          <div class="col-sm-3">
+                            <div class="thumbnail" id="dental">
+                              <div class="caption">
+                                <p>Dental</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="thumbnail" id="hivtesting">
+                              <div class="caption">
+                                <p>HIV Testing</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                              </div>
+                            </div>
+                          </div>
+
+                        <div class="col-sm-3">
+                            <div class="thumbnail" id="showers">
+                              <div class="caption">
+                                <p>Showers</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="thumbnail" id="art">
+                              <div class="caption">
+                                <p>Art</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                         
                       </div>
                       <!-- Button trigger Add New Activity Modal -->
-                      <div class="btn-group" role="group"> 
+<!--                       <div class="btn-group" role="group"> 
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newActivityModal">
                           <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div id="activities" class="panel-body">
+                      </div> -->
                     
+                    <div id="activities" class="panel-body">
+                    </div>
+                   </div>
                   </div>
                 </div>
 
@@ -123,6 +159,4 @@
     <script src="/static/js/components/clientprofiletable.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
-    <script src="/static/js/components/checkin.js"></script>
-
-{% include "components/_footer.html" %}
+    <script src="/static/js/components/checkin.js"></script

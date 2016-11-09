@@ -12,3 +12,10 @@ button.badge-button.btn.btn-primary.btn-xs {
 span.badge {
     color: black !important;
 }
+
+.panel-horiscroll .panel-heading {
+	overflow-x: scroll;
+    overflow-y: hidden;
+    height: 80px;
+    white-space:nowrap
+}
