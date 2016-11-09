@@ -146,7 +146,8 @@ var Search = React.createClass({
                                changeText={this.editPropText} />
         <DetailPane hidden={this.state.displayDetail} 
                     detailData={this.state.detailData}
-                    close={this.closeDetail} />
+                    close={this.closeDetail}
+                    format={this.formatColumnName} />
         <FilterTable people={this.state.people} 
                      headers={this.state.columns}
                      displayDetail={this.displayDetail}
@@ -358,7 +359,7 @@ var DetailPane = React.createClass({
     var details = [];
     for (var key in this.props.detailData) {
       if (this.props.detailData.hasOwnProperty(key)) {
-        details.push(<p key={key}>{key} : {this.props.detailData[key]}</p>);
+        details.push(<p key={key} className="dDetail">{this.props.format(key)} : {this.props.detailData[key]}</p>);
       }
     }
     return (
