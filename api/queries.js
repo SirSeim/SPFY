@@ -625,6 +625,12 @@ var queries = {
                             ' WHERE id = ' + userId + ';';
 
         return queryString;
+    },
+
+    getStatuses: function () {
+        var queryString = 'SELECT id, name, color FROM status;';
+
+        return queryString;
     }
 };
 

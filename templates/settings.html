@@ -9,18 +9,73 @@
       <div id="navigation" class="col-sm-3 col-lg-2">
         <nav class="side-nav">
           <ul id="options">
-            <li id="notifications-link"><a href="#">Notifications</a></li>
-            <li id="client-profile-link"><a href="#">Client Profiles</a></li>
+            <li class="account link selected"><a href="#account-settings">Account</a></li>
+            <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
+            <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
           </ul>
         </nav>
       </div>
     <div class="col-sm-9 col-lg-10">
       <div class="row">
-        <div id="notifications-settings">
-          Text here
+        <div id="account-settings">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                Change Password
+              </h4>
+            </div>
+            <form>
+              <dl>
+                <dt>Old Password</dt>
+                <dd><input type="text" class="form-control"></dd>
+              </dl>
+              <dl>
+                <dt>New Password</dt>
+                <dd><input type="text" class="form-control"></dd>
+              </dl>
+              <dl>
+                <dt>Confirm New Password</dt>
+                <dd><input type="text" class="form-control"></dd>
+              </dl>
+              <p>
+                <button class="btn btn-default" type="submit">Update Password</button>
+                <span><a href="#">I forgot my password</a></span>
+              </p>
+            </form>
+          </div>
+        </div>
+        <div id="notifications-settings" class="hidden">
+          More Text here
         </div>
         <div id="client-profile-settings" class="hidden">
-          Text here too
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                Statuses
+              </h4>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Status Message</th>
+                  <th>Status Dot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>message</td>
+                  <td>dot</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                Flags
+              </h4>
+            </div>
+          </div>
         </div>
       </div>
     </div>

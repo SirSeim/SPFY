@@ -25,14 +25,15 @@ DROP TABLE IF EXISTS status;
 
 CREATE TABLE status (
   id SERIAL PRIMARY KEY,
-  name varchar(45) DEFAULT NULL
+  name varchar(45) DEFAULT NULL,
+  color varchar(15) DEFAULT NULL
 );
 
-INSERT INTO status (name) VALUES ('okay');
-INSERT INTO status (name) VALUES ('missing');
-INSERT INTO status (name) VALUES ('sick');
-INSERT INTO status (name) VALUES ('vulnerable');
-INSERT INTO status (name) VALUES ('dangerous');
+INSERT INTO status (name, color) VALUES ('okay', '#127000'); --rgb(18, 112, 0)
+INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
+INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
+INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
+INSERT INTO status (name, color) VALUES ('dangerous', '#FB0000'); --rgb(251, 0, 0)
 
 
 DROP TABLE IF EXISTS client;

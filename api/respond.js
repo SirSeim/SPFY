@@ -464,6 +464,20 @@ var respond = {
             message: "Successfully logged in!",
             result: result
         }).code(200).header("Authorization", token);
+    },
+    failedToGetStatuses: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get statuses!",
+            error: err
+        }).code(500);
+    },
+    getStatuses: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got statuses!",
+            result: result
+        }).code(200);
     }
 
 };

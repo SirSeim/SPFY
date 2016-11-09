@@ -359,6 +359,16 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
+    },
+
+    getStatuses: function (request, reply) {
+        Service.getStatuses(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetStatuses(reply, err);
+            } else {
+                Respond.getStatuses(reply, result);
+            }
+        });
     }
 };
 

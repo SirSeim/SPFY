@@ -2,15 +2,34 @@ $(function () {
     $('#options').delegate('li', 'click', function (event) {
         $('#options li.selected').removeClass('selected');
         $(this).addClass('selected');
+        $('#options li').get().forEach(function (link) {
+            if ($(link).hasClass('selected')) {
+                $($(link).find('a').attr('href')).removeClass('hidden');
+            } else {
+                $($(link).find('a').attr('href')).addClass('hidden');
+            }
+        });
     });
 
-    $('#notifications-link').click(function (event) {
-        $('#notifications-settings').removeClass('hidden');
-        $('#client-profile-settings').addClass('hidden');
-    });
-    $('#client-profile-link').click(function (event) {
-        $('#client-profile-settings').removeClass('hidden');
-        $('#notifications-settings').addClass('hidden');
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: 'api/statuses',
+        method: 'GET',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
+        }   
     });
 });
 

@@ -140,6 +140,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/statuses',
+        handler: Api.getStatuses
+    },
+    {
+        method: 'GET',
         path: '/users',
         handler: Api.getUserList
     },
