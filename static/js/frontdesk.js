@@ -2,9 +2,7 @@
 var ActivityTable = React.createClass({
     render: function () {
         return (
-            <div className="text">
-                <h4>There is text here</h4>
-            </div>
+            <div className="text"></div>
         )
     }
 });
