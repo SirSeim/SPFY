@@ -1,4 +1,10 @@
 $(function () {
+    $('a').each(function(){
+        if ($(this).prop('href') == window.location.href) {
+            $(this).parents('li').addClass('active');
+        }
+    });
+
     var alertType = function (type) {
         var label = '<span class="label label-';
         var types = [
