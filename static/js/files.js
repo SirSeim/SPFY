@@ -5,6 +5,8 @@ $(function (event) {
 		var base64;
 		reader.onload = function () {
 			console.log(reader.result);
+			var preview = document.querySelector('img[id=preview]');
+			preview.src = reader.result;
 		};
 		reader.onerror = function (error) {
 			console.log('Error: ', error);
