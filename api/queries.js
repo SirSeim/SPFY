@@ -631,6 +631,14 @@ var queries = {
         var queryString = 'SELECT id, name, color FROM status;';
 
         return queryString;
+    },
+
+    createStatus: function (payload) {
+        var queryString = 'INSERT INTO status (name, color) VALUES(\'' +
+                            payload.name + '\', \'' +
+                            payload.color + '\') RETURNING id, name, color;';
+
+        return queryString;
     }
 };
 

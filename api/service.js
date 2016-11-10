@@ -509,7 +509,16 @@ var service = {
             }
             return callback(undefined, arr);
         });
-    }
+    },
+
+    createStatus: function (postgres, payload, callback) {
+        Query.createStatus(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
 };
 
 module.exports = service;

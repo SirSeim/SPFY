@@ -369,7 +369,17 @@ var api = {
                 Respond.getStatuses(reply, result);
             }
         });
-    }
+    },
+
+    createStatus: function (request, reply) {
+        Service.createStatus(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateStatus(reply, err);
+            } else {
+                Respond.createStatus(reply, result);
+            }
+        });
+    },
 };
 
 

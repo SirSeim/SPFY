@@ -478,6 +478,20 @@ var respond = {
             message: "Successfully got statuses!",
             result: result
         }).code(200);
+    },
+    failedToCreateStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create status!",
+            error: err,
+        }).code(500);
+    },
+    createStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating status!",
+            result: result
+        }).code(200);
     }
 
 };
