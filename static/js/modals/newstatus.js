@@ -1,5 +1,8 @@
 $(function () {
-    $('#custom').spectrum({
-        color: '#F00'
+    $('#custom-color').spectrum({
+        color: '#127000',
+        change: function(color) {
+            console.log("change called: " + color.toHexString());
+        }
     });
 });

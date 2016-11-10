@@ -1126,28 +1126,28 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   padding: 2px 0;
   height: 16px;
   line-height: 16px;
-  float: left;
+  float: right;
   font-size: 10px;
 }
 
-/* line 394, ../sass/partials/_spectrum.scss */
+/*
 .sp-preview {
-  position: relative;
-  width: 25px;
-  height: 20px;
-  border: solid 1px #222;
-  margin-right: 5px;
-  float: left;
-  z-index: 0;
+    position:relative;
+    width:25px;
+    height: 20px;
+    border: solid 1px #222;
+    margin-right: 5px;
+    float:left;
+    z-index: 0;
 }
-
-/* line 404, ../sass/partials/_spectrum.scss */
+*/
+/* line 405, ../sass/partials/_spectrum.scss */
 .sp-palette {
   *width: 220px;
   max-width: 220px;
 }
 
-/* line 408, ../sass/partials/_spectrum.scss */
+/* line 409, ../sass/partials/_spectrum.scss */
 .sp-palette .sp-thumb-el {
   width: 16px;
   height: 16px;
@@ -1155,13 +1155,13 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   border: solid 1px #d0d0d0;
 }
 
-/* line 415, ../sass/partials/_spectrum.scss */
+/* line 416, ../sass/partials/_spectrum.scss */
 .sp-container {
   padding-bottom: 0;
 }
 
 /* Buttons: http://hellohappy.org/css3-buttons/ */
-/* line 421, ../sass/partials/_spectrum.scss */
+/* line 422, ../sass/partials/_spectrum.scss */
 .sp-container button {
   background-color: #eeeeee;
   background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
@@ -1181,7 +1181,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   vertical-align: middle;
 }
 
-/* line 439, ../sass/partials/_spectrum.scss */
+/* line 440, ../sass/partials/_spectrum.scss */
 .sp-container button:hover {
   background-color: #dddddd;
   background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
@@ -1195,7 +1195,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   text-shadow: 0 1px 0 #ddd;
 }
 
-/* line 451, ../sass/partials/_spectrum.scss */
+/* line 452, ../sass/partials/_spectrum.scss */
 .sp-container button:active {
   border: 1px solid #aaa;
   border-bottom: 1px solid #888;
@@ -1206,7 +1206,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
 }
 
-/* line 460, ../sass/partials/_spectrum.scss */
+/* line 461, ../sass/partials/_spectrum.scss */
 .sp-cancel {
   font-size: 11px;
   color: #d93f3f !important;
@@ -1217,50 +1217,56 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   text-decoration: none;
 }
 
-/* line 470, ../sass/partials/_spectrum.scss */
+/* line 471, ../sass/partials/_spectrum.scss */
 .sp-cancel:hover {
   color: #d93f3f !important;
   text-decoration: underline;
 }
 
-/* line 476, ../sass/partials/_spectrum.scss */
+/* line 477, ../sass/partials/_spectrum.scss */
 .sp-palette span:hover, .sp-palette span.sp-thumb-active {
   border-color: #000;
 }
 
-/* line 480, ../sass/partials/_spectrum.scss */
+/* line 481, ../sass/partials/_spectrum.scss */
 .sp-preview, .sp-alpha, .sp-thumb-el {
   position: relative;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+  /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+  */
 }
 
-/* line 484, ../sass/partials/_spectrum.scss */
+/* line 486, ../sass/partials/_spectrum.scss */
 .sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner {
-  display: block;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  display: inline-block;
+  border-radius: 50%;
+  width: 50%;
+  height: 10px;
+  width: 10px;
+  margin: 0 2px;
 }
 
-/* line 490, ../sass/partials/_spectrum.scss */
+/* line 497, ../sass/partials/_spectrum.scss */
 .sp-palette .sp-thumb-inner {
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
 
-/* line 495, ../sass/partials/_spectrum.scss */
+/* line 502, ../sass/partials/_spectrum.scss */
 .sp-palette .sp-thumb-light.sp-thumb-active .sp-thumb-inner {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeNpiYBhsgJFMffxAXABlN5JruT4Q3wfi/0DsT64h8UD8HmpIPCWG/KemIfOJCUB+Aoacx6EGBZyHBqI+WsDCwuQ9mhxeg2A210Ntfo8klk9sOMijaURm7yc1UP2RNCMbKE9ODK1HM6iegYLkfx8pligC9lCD7KmRof0ZhjQACDAAceovrtpVBRkAAAAASUVORK5CYII=);
 }
 
-/* line 499, ../sass/partials/_spectrum.scss */
+/* line 506, ../sass/partials/_spectrum.scss */
 .sp-palette .sp-thumb-dark.sp-thumb-active .sp-thumb-inner {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAMdJREFUOE+tkgsNwzAMRMugEAahEAahEAZhEAqlEAZhEAohEAYh81X2dIm8fKpEspLGvudPOsUYpxE2BIJCroJmEW9qJ+MKaBFhEMNabSy9oIcIPwrB+afvAUFoK4H0tMaQ3XtlrggDhOVVMuT4E5MMG0FBbCEYzjYT7OxLEvIHQLY2zWwQ3D+9luyOQTfKDiFD3iUIfPk8VqrKjgAiSfGFPecrg6HN6m/iBcwiDAo7WiBeawa+Kwh7tZoSCGLMqwlSAzVDhoK+6vH4G0P5wdkAAAAASUVORK5CYII=);
 }
 
-/* line 503, ../sass/partials/_spectrum.scss */
+/* line 510, ../sass/partials/_spectrum.scss */
 .sp-clear-display {
   background-repeat: no-repeat;
   background-position: center;

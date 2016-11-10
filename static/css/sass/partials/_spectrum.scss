@@ -388,9 +388,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     padding: 2px 0;
     height: 16px;
     line-height: 16px;
-    float:left;
+    float:right;
     font-size:10px;
 }
+/*
 .sp-preview {
     position:relative;
     width:25px;
@@ -400,7 +401,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     float:left;
     z-index: 0;
 }
-
+*/
 .sp-palette {
     *width: 220px;
     max-width: 220px;
@@ -479,12 +480,18 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 .sp-preview, .sp-alpha, .sp-thumb-el {
     position:relative;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    */
 }
 .sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner {
-    display:block;
-    position:absolute;
+    position:relative;
     top:0;left:0;bottom:0;right:0;
+    display: inline-block;
+    border-radius: 50%;
+    width: 50%;
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
 }
 
 .sp-palette .sp-thumb-inner {

@@ -29,7 +29,7 @@ CREATE TABLE status (
   color varchar(15) DEFAULT NULL
 );
 
-INSERT INTO status (name, color) VALUES ('okay', '#127000'); --rgb(18, 112, 0)
+INSERT INTO status (name, color) VALUES ('okay', '#166000'); --rgb(22, 96, 0)
 INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
 INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
 INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
