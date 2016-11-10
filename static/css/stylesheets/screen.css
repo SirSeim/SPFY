@@ -180,13 +180,13 @@ html, body {
   display: inline-block;
   border-radius: 50%;
   width: 50%;
-  background-color: grey;
-  height: 15px;
-  width: 15px;
+  background-color: green;
+  height: 10px;
+  width: 10px;
   margin: 0 2px;
 }
 
-/* line 68, ../sass/partials/_base.scss */
+/* line 69, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
 }
@@ -394,48 +394,36 @@ a:hover {
   border-bottom-width: 0;
 }*/
 /*these are temporary*/
-/* line 21, ../sass/partials/_clients.scss */
-.bullet:before {
-  content: "• ";
-  font-size: 10px;
-  color: green;
+/*.dot:before {
+    content: "• ";
+    font-size: 10px;
+    color: green;
 }
-
-/* line 26, ../sass/partials/_clients.scss */
 .okay-dot:before {
   content: "• ";
   font-size: 20px;
   color: green;
 }
-
-/* line 31, ../sass/partials/_clients.scss */
 .missing-dot:before {
   content: "• ";
   font-size: 20px;
   color: blue;
 }
-
-/* line 36, ../sass/partials/_clients.scss */
 .sick-dot:before {
   content: "• ";
   font-size: 20px;
   color: orange;
 }
-
-/* line 41, ../sass/partials/_clients.scss */
 .vulnerable-dot:before {
   content: "• ";
   font-size: 20px;
   color: purple;
 }
-
-/* line 46, ../sass/partials/_clients.scss */
 .dangerous-dot:before {
   content: "• ";
   font-size: 20px;
   color: red;
-}
-
+}*/
 /* line 52, ../sass/partials/_clients.scss */
 .steven-photo {
   width: 200px;

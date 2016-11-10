@@ -40,7 +40,7 @@ $(function (event) {
                 dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
             }
             table.append('<tr class="profile-drag"><td ' + dataString + '>' +
-                '<span class="' + statuses[client.status] + ' bullet"></span>' +
+                '<span class="' + statuses[client.status] + ' dot"></span>' +
                 client.firstName + ' ' +
                 client.lastName + ' ' +
                 '</td></tr>');

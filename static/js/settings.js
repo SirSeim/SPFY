@@ -22,9 +22,16 @@ $(function () {
         method: 'GET',
         success: function (data) {
             console.log(data);
+            console.log(data.result[0].name);
+            data.result.forEach(function (status) {
+                $('#statuses-table tbody').append(
+                    '<tr><td data-id="' + status.id + '"><span class="dot"></span></td>' +
+                    '<td>' + status.name + '</td></tr>');
+                console.log($('#statuses-table tbody .dot').last().css("background-color", status.color));
+            });
         },
-        error: function (data) {
-            console.error(data);
+        error: function (xhr) {
+            console.error(xhr);
 
             if (xhr.status === 401) {
                 localStorage.removeItem("authorization");
