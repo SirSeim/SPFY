@@ -11,6 +11,7 @@ $(function () {
         });
     });
 
+
     $.ajax({
         xhrFields: {
             withCredentials: true
@@ -25,9 +26,9 @@ $(function () {
             console.log(data.result[0].name);
             data.result.forEach(function (status) {
                 $('#statuses-table tbody').append(
-                    '<tr><td data-id="' + status.id + '"><span class="dot"></span></td>' +
-                    '<td>' + status.name + '</td></tr>');
-                console.log($('#statuses-table tbody .dot').last().css("background-color", status.color));
+                    '<tr><td class="dot-column" data-id="' + status.id + '" data-color="' + status.color + '"><span class="dot"></span></td>' +
+                    '<td data-name="' + status.name + '" class="name-column">' + status.name + '</td><td><button type="button" class="btn btn-default edit">Edit</button></td></tr>');
+                $('#statuses-table tbody .dot:last').css("background-color", status.color);
             });
         },
         error: function (xhr) {
@@ -37,7 +38,27 @@ $(function () {
                 localStorage.removeItem("authorization");
             }
         }   
+    }).done(function (data) {
+        // according to stackoverflow, use delegate for elements that change frequently
+        
+        $('#statuses-table tbody').delegate('td button.edit', 'click', function (event) {
+            var columns = $(event.target).parent().siblings();
+            var dotcol = $(columns).parent().find('.dot-column');
+            var namecol = $(columns).parent().find('.name-column');
+
+            $(dotcol).empty().html('<input type="text" id="edit-color" />');
+            $('#edit-color').spectrum({
+                    color: $('#edit-color').parent().data('color'),
+                    change: function(color) {
+                        console.log("change called: " + color.toHexString());
+                        colorString = color.toHexString();
+                    }
+                });
+            $(namecol).html('<input type="text" id="edit-status-name" placeholder="' + $(namecol).data("name") + '"/>');
+        })
     });
+
+
 });
 
 // var ListItem = React.createClass({
