@@ -519,6 +519,27 @@ var service = {
             callback(undefined, result);
         });
     },
+
+    editStatus: function (postgres, statusID, payload, callback) {
+        Query.editStatus(postgres, statusID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.name,
+                    color: local.color
+                });
+            }
+            callback(undefined, arr);
+        });
+    },
 };
 
 module.exports = service;

@@ -492,7 +492,22 @@ var respond = {
             message: "Success creating status!",
             result: result
         }).code(200);
+    },
+    failedToEditStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit status!",
+            error: err,
+        }).code(500);
+    },
+    editStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing status!",
+            result: result
+        }).code(200);
     }
+
 
 };
 

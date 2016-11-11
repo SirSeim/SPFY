@@ -607,6 +607,26 @@ var query = {
             });
         });
     },
+
+    editStatus: function (postgres, statusID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            // var data = Queries.editStatus(statusID);
+            // // unstringify the data passed in
+            client.query(Queries.editStatus(statusID, payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
     
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {

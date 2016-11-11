@@ -149,6 +149,11 @@ var apiRoutes = [
         handler: Api.createStatus
     },
     {
+        method: 'PUT',
+        path: '/statuses/{statusID}',
+        handler: Api.editStatus
+    },
+    {
         method: 'GET',
         path: '/users',
         handler: Api.getUserList

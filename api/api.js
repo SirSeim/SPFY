@@ -380,6 +380,16 @@ var api = {
             }
         });
     },
+
+    editStatus: function (request, reply) {
+        Service.editStatus(request.postgres, request.params.statusID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditStatus(reply, err);
+            } else {
+                Respond.editStatus(reply, result);
+            }
+        });
+    }
 };
 
 
