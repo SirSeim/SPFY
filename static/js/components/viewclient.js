@@ -187,9 +187,7 @@ $(function (event) {
                 '<li><a href="#">' + statusNames[2] + '</a></li>' +
                 '<li><a href="#">' + statusNames[3] + '</a></li>' +
                 '<li><a href="#">' + statusNames[4] + '</a></li>' +
-                '<li><a href="#">' + statusNames[5] + '</a></li>' + 
-                '<li role="separator" class="divider"></li>' +
-                '<li><a href="#">Separated link</a></li></ul></div>');
+                '<li><a href="#">' + statusNames[5] + '</a></li></ul></div>');
 
         $('.dropdown-menu li a').click(function (event) {
             $(this).parents('.dropdown').find('.btn').html($(this).text() + ' <span class="caret"></span>');

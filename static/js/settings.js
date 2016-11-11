@@ -90,9 +90,11 @@ $(function () {
                 // update arbitrary selected columns if it is possible
 
                 console.log($(event.target).parents('tr').find('.dot-column').data("newcolor"));
+                var newColor = $(event.target).parents('tr').find('.dot-column').data("newcolor");
+
                 var data = {
                     name: $('#edit-status-name').val() ? $('#edit-status-name').val() : $('#edit-status-name').parent().data("name"),
-                    color: $(event.target).parents('tr').find('.dot-column').data("newcolor")
+                    color: newColor ? newColor : $(event.target).parents('tr').find('.dot-column').data("color") 
                 };
 
                 if (data.name && data.color) {
@@ -109,8 +111,8 @@ $(function () {
                         data: data,
                         success: function (data) {
                             console.log(data);
-                            var newName = data.result[0].name;
-                            var newColor = data.result[0].color;
+                            var name = data.result[0].name;
+                            var color = data.result[0].color;
 
                             var columns = $(event.target).parent().siblings();
                             var dotcol = $(columns).parent().find('.dot-column');
@@ -125,14 +127,14 @@ $(function () {
                             // for the same element
                             // perhaps React will solve this in the future since it does update the DOM
                             $(event.target).parents('tr').data("id", data.result[0].id);
-                            $(dotcol).data("color", newColor);
-                            $(namecol).data("name", newName);
+                            $(dotcol).data("color", color);
+                            $(namecol).data("name", name);
                             console.log($(dotcol).data("color"));
                             console.log($(namecol).data("name"));
 
                             $(dotcol).empty().html('<span class="dot"></span>');
-                            $(dotcol).children('.dot').css("background-color", newColor);
-                            $(namecol).empty().html(newName);
+                            $(dotcol).children('.dot').css("background-color", color);
+                            $(namecol).empty().html(name);
                             $(event.target).parent().replaceWith('<td>' + editButton + '</td>');
                         },
                         error: function (xhr) {
