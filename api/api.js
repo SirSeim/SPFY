@@ -359,7 +359,64 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
-    }
+    },
+
+    getUsersNotificationsById: function (request, reply) {
+        Service.getUsersNotificationsById(request.postgres, request.params.userId, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsersNotificationsById(reply, err);
+            } else {
+                Respond.getUsersNotificationsById(reply, result);
+            }
+        });
+    },
+
+    createNotificationById: function (request, reply) {
+        request.payload.userId = request.params.userId;
+        Service.createNotificationById(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateNotificationById(reply, err);
+            } else {
+                Respond.createNotificationById(reply, result);
+            }
+        });
+    },
+    getUsersNotificationsByToken: function (request, reply) {
+        Service.getUsersNotificationsByToken(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsersNotificationsByToken(reply, err);
+            } else {
+                Respond.getUsersNotificationsByToken(reply, result);
+            }
+        });
+    },
+    createNotificationByToken: function (request, reply) {
+        Service.createNotificationByToken(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateNotificationByToken(reply, err);
+            } else {
+                Respond.createNotificationByToken(reply, result);
+            }
+        });
+    },
+    // updateUsersNotificationsById: function (request, reply) {
+    //     Service.getUserById(request.postgres, request.params.userId, request.params.noteId, function (err, user) {
+    //       if (err) {
+    //           Respond.failedToUpdateUsersNotificationsById(reply, err);
+    //       } else {
+    //           Respond.updateUsersNotificationsById(reply, result);
+    //       }
+    //     });
+    // },
+    // updateUsersNotificationsByToken: function (request, reply) {
+    //     Service.getUserById(request.postgres, request.params.noteId, function (err, user) {
+    //       if (err) {
+    //           Respond.failedToUpdateUsersNotificationsByToken(reply, err);
+    //       } else {
+    //           Respond.updateUsersNotificationsByToken(reply, result);
+    //       }
+    //     });
+    // }
 };
 
 

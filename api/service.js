@@ -474,12 +474,83 @@ var service = {
                     user: credentials.username,
                     type: local.type,
                     comment: local.comment,
-                    link: local.link
+                    link: local.link,
+                    checked: local.checked
                 });
             }
             return callback(undefined, arr);
         });
     },
+
+    getUsersNotificationsById: function (postgres, userId, callback) {
+        Query.getUsersNotificationsById(postgres, userId, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows.length) {
+                return callback();
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    user: userId.username,
+                    type: local.type,
+                    comment: local.comment,
+                    link: local.link,
+                    checked: local.checked
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    createNotificationById: function (postgres, payload, callback) {
+        Query.createNotificationById(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getUsersNotificationsByToken: function (postgres, callback) {
+        Query.getUsersNotificationsByToken(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    createNotificationByToken: function (postgres, payload, callback) {
+        Query.createNotificationByToken(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    // updateUsersNotificationsById: function (postgres, userId, noteId, callback) {
+    //     Query.updateUsersNotificationsById(postgres, payload, function (err, result) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         return callback(undefined, result);
+    //     });
+    // },
+    //
+    // updateUsersNotificationsByToken: function (postgres, noteId, callback) {
+    //     Query.updateUsersNotificationsByID(postgres, payload, function (err, result) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         return callback(undefined, result);
+    //     });
+    // },
 
     changeUserPassword: function (postgres, userId, password, callback) {
         bcrypt.hash(password, saltRounds, function (err, hash) {

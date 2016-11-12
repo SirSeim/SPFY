@@ -389,7 +389,11 @@ CREATE TABLE notifications (
   user_id integer REFERENCES users (id),
   type varchar(45) NOT NULL DEFAULT 'general',
   comment varchar(128) DEFAULT NULL,
-  link varchar(128) DEFAULT NULL
+  link varchar(128) DEFAULT NULL,
+  checked boolean DEFAULT NULL
 );
 
-INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification for test', '/frontdesk');
+INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification1', '/frontdesk', 'TRUE');
+INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification2', '/frontdesk', 'FALSE');

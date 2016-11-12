@@ -418,7 +418,7 @@ var query = {
             });
         });
     },
-    
+
     getCheckIn: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -555,6 +555,107 @@ var query = {
         });
     },
 
+    getUsersNotificationsById: function (postgres, userId, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getUsersNotificationsById(userId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createNotificationById: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createNotificationById(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getUsersNotificationsByToken: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getUsersNotificationsByToken(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createNotificationByToken: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createNotificationByToken(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    // updateUsersNotificationsById: function (postgres, userId, noteId, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //
+    //         client.query(Queries.updateUsersNotificationsById(userId, noteId), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+    //
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
+    //
+    // updateUsersNotificationsByToken: function (postgres, noteId, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //
+    //         client.query(Queries.updateUsersNotificationsByToken(noteId), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+    //
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
+
     changeUserPassword: function (postgres, userId, hashedPassword, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -571,7 +672,7 @@ var query = {
             });
         });
     }
-    
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

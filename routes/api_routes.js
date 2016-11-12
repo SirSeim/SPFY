@@ -170,6 +170,46 @@ var apiRoutes = [
         handler: Api.getUsersNotifications
     },
     {
+        method: 'GET',
+        path: '/users/{userId}/notifications',
+        handler: Api.getUsersNotificationsById
+    },
+    {
+        method: 'POST',
+        path: '/users/{userId}/notifications',
+        handler: Api.createNotificationById
+    },
+    // {
+    //     method: 'PUT',
+    //     path: '/users/{userId}/notifications/{noteId}',
+    //     config: {
+    //         validate: {
+    //             payload: Schema.updateUsersNotificationsById
+    //         }
+    //     },
+    //     handler: Api.updateUsersNotificationsByID
+    // },
+    {
+        method: 'GET',
+        path: '/users/self/notifications',
+        handler: Api.getUsersNotificationsByToken
+    },
+    {
+        method: 'POST',
+        path: '/users/self/notifications',
+        handler: Api.createNotificationByToken
+    },
+    // {
+    //     method: 'PUT',
+    //     path: '/users/self/notifications/{noteId}',
+    //     config: {
+    //         validate: {
+    //             payload: Schema.updateUsersNotificationsByToken
+    //         }
+    //     },
+    //     handler: Api.updateUsersNotificationsByToken
+    // },
+    {
         method: 'PUT',
         path: '/users/password',
         config: {

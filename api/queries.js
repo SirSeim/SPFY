@@ -486,7 +486,7 @@ var queries = {
 
     getEnrollmentByActivity: function (activityID) {
         var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
-        
+
         return queryString;
     },
 
@@ -534,7 +534,7 @@ var queries = {
 
     createCaseNote: function (payload) {
         var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, ' +
-            'note, follow_up_needed, due_date, reminder_date) VALUES (' + 
+            'note, follow_up_needed, due_date, reminder_date) VALUES (' +
             '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
             '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
             '\'' + parseProperty(payload.date) + '\'' + ', ' +
@@ -553,7 +553,7 @@ var queries = {
         } else {
             queryString += '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
         }
-        
+
 
         return queryString;
     },
@@ -619,6 +619,65 @@ var queries = {
 
         return queryString;
     },
+
+    getUsersNotificationsById: function (userId) {
+        var queryString = 'SELECT checked, ' +
+                              'CASE checked WHEN FALSE THEN * ' +
+                              'END ' +
+                          'FROM notifications WHERE user_id = ' + userId + ';';
+
+        return queryString;
+    },
+
+    createNotificationById: function (payload) {
+        console.log('queries.js ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+        console.log(payload);
+        var queryString = 'INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (' +
+            '\'' + (payload.userId) + '\'' + ', ' +
+            '\'' + (payload.type) + '\'' + ', ' +
+            '\'' + (payload.comment) + '\'' + ', ' +
+            '\'' + (payload.link) + '\'' + ', ' +
+            (payload.checked) + ') RETURNING user_id, type, comment, link, checked;';
+
+        return queryString;
+    },
+
+    getUsersNotificationsByToken: function () {
+        var queryString = 'SELECT * from notifications;';
+
+        return queryString;
+    },
+
+    createNotificationByToken: function (payload) {
+        var queryString = 'UPDATE notifications SET ';
+
+        queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
+        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
+        queryString += 'RETURNING comment;';
+
+        return queryString;
+    },
+
+    // updateUsersNotificationsByID: function (userId, noteId) {
+    //     var queryString = 'UPDATE notifications SET ';
+    //
+    //     queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
+    //     queryString += 'WHERE id = ' + '\'' + userId+ '\'' + ' ';
+    //     queryString += 'WHERE id = ' + '\'' + noteId+ '\'' + ' ';
+    //     queryString += 'RETURNING comment;';
+    //
+    //     return queryString;
+    // },
+    //
+    // updateUsersNotificationsByToken: function (noteId) {
+    //     var queryString = 'UPDATE notifications SET ';
+    //
+    //     queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
+    //     queryString += 'WHERE id = ' + '\'' + noteId+ '\'' + ' ';
+    //     queryString += 'RETURNING comment;';
+    //
+    //     return queryString;
+    // },
 
     changeUserPassword: function (userId, hashedPassword) {
         var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
