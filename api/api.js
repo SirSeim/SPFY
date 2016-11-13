@@ -438,6 +438,36 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
+    },
+
+    getStatuses: function (request, reply) {
+        Service.getStatuses(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetStatuses(reply, err);
+            } else {
+                Respond.getStatuses(reply, result);
+            }
+        });
+    },
+
+    createStatus: function (request, reply) {
+        Service.createStatus(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateStatus(reply, err);
+            } else {
+                Respond.createStatus(reply, result);
+            }
+        });
+    },
+
+    editStatus: function (request, reply) {
+        Service.editStatus(request.postgres, request.params.statusID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditStatus(reply, err);
+            } else {
+                Respond.editStatus(reply, result);
+            }
+        });
     }
 };
 

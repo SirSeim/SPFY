@@ -484,7 +484,50 @@ var respond = {
             message: "Successfully logged in!",
             result: result
         }).code(200).header("Authorization", token);
+    },
+    failedToGetStatuses: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get statuses!",
+            error: err
+        }).code(500);
+    },
+    getStatuses: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got statuses!",
+            result: result
+        }).code(200);
+    },
+    failedToCreateStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create status!",
+            error: err,
+        }).code(500);
+    },
+    createStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating status!",
+            result: result
+        }).code(200);
+    },
+    failedToEditStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit status!",
+            error: err,
+        }).code(500);
+    },
+    editStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing status!",
+            result: result
+        }).code(200);
     }
+
 
 };
 

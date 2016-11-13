@@ -21,6 +21,8 @@ var parseProperty = function(property) {
 // order of these properties
 // must match order of payload properties
 
+// later we will find a way to mirror the field names in each table
+// so we don't have to cache them like this
 var profileProperties = [
     'first_name',
     'last_name',
@@ -114,6 +116,7 @@ var profileProperties = [
     // backpack
 ];
 
+// again, working on solution to avoid doing this
 var activityProperties = [
     'activity_name',
     'ongoing',
@@ -636,6 +639,30 @@ var queries = {
         var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
                             '\' WHERE id = ' + userId + ';';
 
+        return queryString;
+    },
+
+    getStatuses: function () {
+        var queryString = 'SELECT id, name, color FROM status;';
+
+        return queryString;
+    },
+
+    createStatus: function (payload) {
+        var queryString = 'INSERT INTO status (name, color) VALUES(\'' +
+                            payload.name + '\', \'' +
+                            payload.color + '\') RETURNING id, name, color;';
+
+        return queryString;
+    },
+
+    editStatus: function (statusID, payload) {
+        // just updating all of them for now?
+        var queryString = 'UPDATE status SET ' +
+                            'name = \'' + payload.name + '\', ' +
+                            'color = \'' + payload.color + '\' ' +
+                            'WHERE id = \'' + statusID + '\'' + 
+                            'RETURNING id, name, color;';
         return queryString;
     }
 };
