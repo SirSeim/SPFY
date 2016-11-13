@@ -637,6 +637,12 @@ var queries = {
                             '\' WHERE id = ' + userId + ';';
 
         return queryString;
+    },
+
+    deleteUser: function (userId) {
+        var queryString = 'DELETE FROM users WHERE id = ' + userId + ';';
+
+        return queryString;
     }
 };
 

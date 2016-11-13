@@ -438,6 +438,34 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
+    },
+
+    deleteUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.noSuchUserExists(reply);
+            } else {
+                Service.deleteUser(request.postgres, user.id, function (err, result) {
+                    if (err) {
+                        Respond.failedToDeleteUser(reply, err);
+                    } else {
+                        Respond.deleteUser(reply, result);
+                    }
+                });
+            }
+        });
     }
 };
 

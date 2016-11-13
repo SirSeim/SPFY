@@ -484,6 +484,20 @@ var respond = {
             message: "Successfully logged in!",
             result: result
         }).code(200).header("Authorization", token);
+    },
+    failedToDeleteUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete User!",
+            error: err
+        }).code(500);
+    },
+    deleteUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted User!",
+            result: result
+        }).code(200);
     }
 
 };

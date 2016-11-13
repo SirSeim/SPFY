@@ -479,6 +479,10 @@ var service = {
             }
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
+    },
+
+    deleteUser: function (postgres, userId, callback) {
+        Query.deleteUser(postgres, userId, callback);
     }
 };
 

@@ -188,6 +188,11 @@ var apiRoutes = [
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'Delete',
+        path: '/users/{userId}',
+        handler: Api.deleteUser
     }
 ];
 
