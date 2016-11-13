@@ -2,6 +2,78 @@ $(function () {
 
     // ** will clean and optimize code **
 
+
+    // ---------------------- Account ------------------------------
+
+
+    $('#update-button').click(function (event) {
+        event.preventDefault();
+        var status = $('#status');
+        console.log($('#current-password').val());
+        console.log($('#new-password').val());
+        console.log($('#confirm-new-password').val());
+
+        var data = {
+            password: $('#current-password').val(),
+            newPassword: $('#confirm-new-password').val()
+        }
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "/api/users/self/password",
+            method: "PUT",
+            data: data
+        }).done(function (data, textStatus, xhr) {
+            status.text("Success!");
+            console.log(data);
+            console.log(textStatus);
+            console.log(xhr);
+
+            if (typeof(Storage) !== "undefined") {
+                // Code for localStorage/sessionStorage.
+                console.log(xhr.getResponseHeader("authorization"));
+                localStorage.setItem("authorization", xhr.getResponseHeader("authorization"));
+                // window.location.href = "/";
+            } else {
+                // Sorry! No Web Storage support..
+                status.text("No LocalStorage support");
+            }
+        }).fail(function (xhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+            console.log(textStatus);
+            console.log(xhr);
+
+            var json = xhr.responseJSON;
+            var code = xhr.status;
+            if (code === 400) {
+                if (json.validation.keys[0] === "password") {
+                    status.text("Missing current password");
+                } else if (json.validation.keys[0] === "newPassword") {
+                    status.text("Missing new password");
+                }
+            } else if (code === 401) {
+                status.text("Bad Username or Password");
+            }
+        });
+        event.stopPropagation();
+    });
+    // var data = {
+    //     password: $('#current-passoword').val(),
+    //     password: $('#password').val()
+    // };
+
+    // status.text("Sending");
+    // console.log(data);
+    
+
+
+
+    // ---------------------- Client Profiles ----------------------------
     var editButton = '<button type="button" class="btn btn-default edit">Edit</button>';
     var colorString = '';
 

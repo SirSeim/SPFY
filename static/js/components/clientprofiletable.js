@@ -2,6 +2,10 @@ $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
 
+    // Is there a way we can make data such as statuses globally available
+    // without it being affected by asynchronous calls?
+    // tried putting an ajax in main.js, but request wasn't fast enough
+    // to be avaiable for clientprofiletable.js
     $.ajax({
         xhrFields: {
             withCredentials: true

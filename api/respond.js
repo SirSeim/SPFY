@@ -481,7 +481,7 @@ var respond = {
     changeCurrentUserPassword: function (reply, result, token) {
         reply({
             statusCode: 200,
-            message: "Successfully logged in!",
+            message: "Successfully changed User password!",
             result: result
         }).code(200).header("Authorization", token);
     },
