@@ -633,8 +633,8 @@ var queries = {
     },
 
     changeUserPassword: function (userId, hashedPassword) {
-        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
-                            ' WHERE id = ' + userId + ';';
+        var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
+                            '\' WHERE id = ' + userId + ';';
 
         return queryString;
     }

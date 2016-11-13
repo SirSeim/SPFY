@@ -181,7 +181,7 @@ var apiRoutes = [
     },
     {
         method: 'PUT',
-        path: '/users/password',
+        path: '/users/{userId}/password',
         config: {
             validate: {
                 payload: Schema.changeCurrentUserPassword
