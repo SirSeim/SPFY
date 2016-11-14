@@ -9,7 +9,7 @@ $(function () {
     // looking for a plugin to handle editing in place
     // until then, hardcoding everything
     // *****************
-    
+
     var cancel = function (element) {
         console.log($(element).children('td.col'));
         var dotcol = $(element).children('.dot-column');
@@ -137,7 +137,8 @@ $(function () {
                 $('#statuses-table tbody').append(
                     '<tr data-id="' + status.id + '">' +
                     '<td class="dot-column col" data-color="' + status.color + '" data-newcolor=""><span class="dot"></span></td>' +
-                    '<td class="name-column col" data-name="' + status.name + '">' + status.name + '</td><td>' + editButton + '</td></tr>');
+                    '<td class="name-column col" data-name="' + status.name + '">' + status.name + '</td>' +
+                    '<td class="col-sm-3">' + editButton + '</td></tr>');
                 $('#statuses-table tbody .dot:last').css("background-color", status.color);
             });
         },
@@ -170,7 +171,8 @@ $(function () {
                         $(dotcol).data("newcolor", color.toHexString());
                     }
                 });
-            $(namecol).html('<input type="text" id="edit-status-name" placeholder="' + $(namecol).data("name") + '"/>');
+            $(namecol).html('<input type="text" id="edit-status-name" />');
+            $('#edit-status-name').val($(namecol).data("name"));
 
             $(event.target).replaceWith(
                 '<button id="submit-status" type="button" class="col-sm-2 btn btn-primary btn-sm">Submit</button>' +
@@ -275,7 +277,7 @@ $(function () {
                     '<td class="type-column col" data-type="' + flag.type + '">' + flag.type + '</td>' +
                     '<td class="message-column col" data-message="' + flag.message + '">' + flag.message + '</td>' +
                     '<td class="note-column col" data-note="' + flag.note + '">' + flag.note + '</td>' +
-                    '<td>' + editButton + '</td></tr>');
+                    '<td class="col-sm-3">' + editButton + '</td></tr>');
                 $('#flags-table tbody .btn.btn-primary.flag:last').css("background-image", 'none');
                 $('#flags-table tbody .btn.btn-primary.flag:last').css("background-color", flag.color);
             });
@@ -311,10 +313,14 @@ $(function () {
                         $(colorcol).data("newcolor", color.toHexString());
                     }
                 });
-            $(typecol).html('<input type="text" id="edit-type" placeholder="' + $(typecol).data("type") + '"/>');
-            $(messagecol).html('<input type="text" id="edit-message" placeholder="' + $(messagecol).data("message") + '"/>');
-            $(notecol).html('<input type="text" id="edit-note" size="45" placeholder="' + $(notecol).data("note") + '"/>');
+            $(typecol).html('<input type="text" id="edit-type" />');
+            $(messagecol).html('<input type="text" id="edit-message" />');
+            $(notecol).html('<input type="text" id="edit-note" size="45" />');
 
+            $('#edit-type').val($(typecol).data("type"));
+            $('#edit-message').val($(messagecol).data("message"));
+            $('#edit-note').val($(notecol).data("note"));
+            
             $(event.target).replaceWith(
                 '<button id="submit-flag" type="button" class="col-sm-2 btn btn-primary btn-sm">Submit</button>' +
                 '<button id="cancel-flag" type="button" class="col-sm-2 btn btn-primary btn-sm">Cancel</button>');
