@@ -531,6 +531,60 @@ var service = {
             callback(undefined, arr);
         });
     },
+    getFlags: function (postgres, callback) {
+        Query.getFlags(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    type: local.type,
+                    color: local.color,
+                    message: local.message,
+                    note: local.note
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    createFlag: function (postgres, payload, callback) {
+        Query.createFlag(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editFlag: function (postgres, flagID, payload, callback) {
+        Query.editFlag(postgres, flagID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    type: local.type,
+                    color: local.color,
+                    message: local.message,
+                    note: local.note
+                });
+            }
+            callback(undefined, arr);
+        });
+    }
 };
 
 module.exports = service;

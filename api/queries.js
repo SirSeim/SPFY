@@ -664,6 +664,33 @@ var queries = {
                             'WHERE id = \'' + statusID + '\'' + 
                             'RETURNING id, name, color;';
         return queryString;
+    },
+    getFlags: function () {
+        var queryString = 'SELECT id, type, message, color, note FROM flags;';
+
+        return queryString;
+    },
+
+    createFlag: function (payload) {
+        var queryString = 'INSERT INTO flags (type, message, color, note) VALUES(\'' +
+                            payload.type + '\', \'' +
+                            payload.message + '\', \'' +
+                            payload.color + '\', \'' +
+                            payload.note + '\' ) RETURNING id, type, message, color, note;';
+
+        return queryString;
+    },
+
+    editFlag: function (flagID, payload) {
+        // just updating all of them for now?
+        var queryString = 'UPDATE flags SET ' +
+                            'type = \'' + payload.type + '\', ' +
+                            'message = \'' + payload.message + '\', ' +
+                            'color = \'' + payload.color + '\', ' +
+                            'note = \'' + payload.note + '\' ' +
+                            'WHERE id = \'' + flagID + '\'' + 
+                            ' RETURNING id, type, message, color note;';
+        return queryString;
     }
 };
 

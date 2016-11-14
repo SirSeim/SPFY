@@ -203,6 +203,21 @@ var apiRoutes = [
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'GET',
+        path: '/flags',
+        handler: Api.getFlags
+    },
+    {
+        method: 'POST',
+        path: '/flags',
+        handler: Api.createFlag
+    },
+    {
+        method: 'PUT',
+        path: '/flags/{flagID}',
+        handler: Api.editFlag
     }
 ];
 

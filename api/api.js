@@ -468,7 +468,37 @@ var api = {
                 Respond.editStatus(reply, result);
             }
         });
-    }
+    },
+    getFlags: function (request, reply) {
+        Service.getFlags(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetFlags(reply, err);
+            } else {
+                Respond.getFlags(reply, result);
+            }
+        });
+    },
+
+    createFlag: function (request, reply) {
+        Service.createFlag(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateFlag(reply, err);
+            } else {
+                Respond.createFlag(reply, result);
+            }
+        });
+    },
+
+    editFlag: function (request, reply) {
+        Service.editFlag(request.postgres, request.params.flagID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditFlag(reply, err);
+            } else {
+                Respond.editFlag(reply, result);
+            }
+        });
+    },
+
 };
 
 

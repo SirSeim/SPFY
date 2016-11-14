@@ -526,6 +526,48 @@ var respond = {
             message: "Success editing status!",
             result: result
         }).code(200);
+    },
+    failedToGetFlags: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get flags!",
+            error: err
+        }).code(500);
+    },
+    getFlags: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got flags!",
+            result: result
+        }).code(200);
+    },
+    failedToCreateFlag: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create flag!",
+            error: err,
+        }).code(500);
+    },
+    createFlag: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating flag!",
+            result: result
+        }).code(200);
+    },
+    failedToEditFlag: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit flag!",
+            error: err,
+        }).code(500);
+    },
+    editFlag: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing flag!",
+            result: result
+        }).code(200);
     }
 
 

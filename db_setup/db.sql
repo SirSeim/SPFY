@@ -394,3 +394,21 @@ CREATE TABLE notifications (
 );
 
 INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification for test', '/frontdesk');
+
+
+DROP TABLE IF EXISTS flags;
+
+CREATE TABLE flags (
+  id SERIAL PRIMARY KEY,
+  type varchar(45) DEFAULT NULL,
+  message varchar(45) DEFAULT NULL,
+  color varchar(45) DEFAULT NULL,
+  note varchar(100) DEFAULT NULL
+);
+
+INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '$spfy-blue', '(name) checked in at (time, day)');
+INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '$spfy-blue', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '$spfy-blue', '(name) has a follow up meeting with Jeanine.');
+
+
+
