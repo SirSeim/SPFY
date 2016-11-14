@@ -406,9 +406,11 @@ CREATE TABLE flags (
   note varchar(100) DEFAULT NULL
 );
 
-INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '$spfy-blue', '(name) checked in at (time, day)');
-INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '$spfy-blue', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
-INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '$spfy-blue', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '#02AEF0', '(name) checked in at (time, day)');
+INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO flags (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
+INSERT INTO flags (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
 
 
 

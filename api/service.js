@@ -571,6 +571,7 @@ var service = {
             if (!result.rows[0]) {
                 return callback();
             }
+            console.log(result);
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];

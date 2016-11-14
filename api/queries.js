@@ -688,8 +688,8 @@ var queries = {
                             'message = \'' + payload.message + '\', ' +
                             'color = \'' + payload.color + '\', ' +
                             'note = \'' + payload.note + '\' ' +
-                            'WHERE id = \'' + flagID + '\'' + 
-                            ' RETURNING id, type, message, color note;';
+                            'WHERE id = ' + flagID + 
+                            ' RETURNING id, type, message, color, note;';
         return queryString;
     }
 };

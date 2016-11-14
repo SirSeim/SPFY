@@ -3,7 +3,7 @@ $(function () {
     var colorString = '';
 
     // spectrum plugin must be attached to an input element
-    $('#status-custom-color').spectrum({
+    $('#flag-custom-color').spectrum({
         color: '#127000',
         change: function(color) {
             console.log("change called: " + color.toHexString());
@@ -11,13 +11,15 @@ $(function () {
         }
     });
 
-    $('#status-submit-button').click(function (event) {
+    $('#flag-submit-button').click(function (event) {
         var data = {
-            name: $('#status-name').val(),
-            color: colorString
+            color: colorString,
+            type: $('#flag-type').val() ? $('#flag-type').val() : '[flag type]',
+            message: $('#flag-message').val() ? $('#flag-message').val() : '[flag message]',
+            note: $('#flag-note').val() ? $('#flag-note').val() : '[flag note]'
         };
 
-        if (data.name && data.color) {
+        if (data.color && data.type && data.message && data.note) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -25,7 +27,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: 'api/statuses',
+                url: 'api/flags',
                 method: 'POST',
                 data: data,
                 success: function (data) {
@@ -40,7 +42,7 @@ $(function () {
                 }   
             });
         }
-        $('#new-status-modal').modal('toggle');
+        $('#new-flag-modal').modal('toggle');
 
     });
 });
