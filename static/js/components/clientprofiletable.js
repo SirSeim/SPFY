@@ -1,31 +1,13 @@
 $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
-
+    var statuses = JSON.parse(window.localStorage.statuses);
+    console.log(statuses);
     // Is there a way we can make data such as statuses globally available
     // without it being affected by asynchronous calls?
     // tried putting an ajax in main.js, but request wasn't fast enough
     // to be avaiable for clientprofiletable.js
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        },
-        url: "api/statuses",
-        method: "GET",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (xhr) {
-            console.error(xhr);
-
-            if (xhr.status === 401) {
-                localStorage.removeItem("authorization");
-            }
-        }
-    }).done(function (statuses) {
+    //.done(function (statuses) {
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -50,10 +32,10 @@ $(function (event) {
                         client.lastName + ' ' +
                         '</td></tr>');
                 });
-                console.log(statuses.result);
+                console.log(statuses);
                 $(table).children('tr').get().forEach(function (clientRow) {
                     console.log($(clientRow).find('td').data("status"));
-                    var currentStatus = statuses.result.filter(function (obj) { 
+                    var currentStatus = statuses.filter(function (obj) { 
                         if (obj.id === $(clientRow).find('td').data("status")) {
                             return obj;
                         } 
@@ -71,7 +53,7 @@ $(function (event) {
                 }
             }
         });
-    });
+    //});
 
     $('#client-search').keyup(function () {
         var search = $('#client-search');
