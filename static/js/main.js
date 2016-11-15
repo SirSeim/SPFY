@@ -7,7 +7,14 @@ $(function () {
         return dateString.replace(dateString.match(/T(\S+)/)[0], '');
     };
 
-    
+    window.getDataById = function (arrayOfObjects, id) {
+        return arrayOfObjects.filter(function (obj) { 
+            if (obj.id === id) {
+                return obj;
+            } 
+        })[0];
+    };
+
     window.setTimeout(function () {  
         $.ajax({
             xhrFields: {
@@ -35,4 +42,27 @@ $(function () {
            // this callback in javascript's callback queue and event loop
            // allowing it to be run on the call stack earlier
 
+    window.setTimeout(function () {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/flags",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+                window.sessionStorage.flags = JSON.stringify(data.result);
+            },
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            },
+        });
+    }, 0);
 })

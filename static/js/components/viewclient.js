@@ -10,6 +10,7 @@ $(function (event) {
     var clientLastMeeting;
     var clientCaseManager;
     var caseNotesTable = $('#casenotes tbody');
+    var statuses = JSON.parse(window.sessionStorage.statuses);
 
     var getCaseNotes = function (data) {
         $.ajax({
@@ -44,15 +45,7 @@ $(function (event) {
                     '</tr>');
             });
         });
-    }
-
-    var statusNames = {
-        '1':'Okay',
-        '2':'Missing',
-        '3':'Sick',
-        '4':'Vulnerable',
-        '5':'Dangerous'
-    } // in future, will be able to pull from list of statuses stored in a "Settings" page
+    };
 
     $('#casenotes').DataTable();
     
@@ -81,6 +74,7 @@ $(function (event) {
             var string = $('#view-client-tabs').attr('class');
 
             $('#view-client-tabs').attr('class', "col-sm-8");
+            $('#client-id').text(data.result.rows[0].id);
             if (data.result.rows[0].nick_name != undefined){
                 $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
             }else{
@@ -94,9 +88,12 @@ $(function (event) {
 
             // getCaseNotes(client.match(/[0-9]+/)['0']);
 
-            console.log(data.result.rows[0].status);
-            console.log(statusNames[data.result.rows[0].status]);
-            $('#client-status').text(statusNames[data.result.rows[0].status]);
+            var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
+
+            $('#client-status').text(currentStatus.name);
+
+            $('#client-status').data("id", currentStatus.id)
+                               .data("name", currentStatus.name);
 
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
         });
@@ -115,7 +112,7 @@ $(function (event) {
             data: data,
             success: function (data) {
                 console.log(data);
-                
+                var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
                 $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
                 $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
                 $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].intake_age + '</td>');
@@ -123,7 +120,9 @@ $(function (event) {
                 $('#client-email').replaceWith('<td id="client-email">' + data.result.rows[0].email + '</td>');
                 $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
                 $('#case-manager').replaceWith('<td id="case-manager">' + data.result.rows[0].case_manager + '</td>');
-                $('#client-status').replaceWith('<td id="client-status">' + statusNames[data.result.rows[0].status] + '</td>');
+                $('#client-status').replaceWith('<td id="client-status">' + currentStatus.name + '</td>');
+                $('#client-status').data("id", currentStatus.id)
+                                   .data("name", currentStatus.name);
                 $('#edit-client').show();
                 $('#cancel-edit').hide();
                 $('#submit-edit').hide();
@@ -165,7 +164,11 @@ $(function (event) {
         clientMail = $('#client-email')['0'].textContent;
         clientLastMeeting = $('#last-meeting')['0'].textContent;
         clientCaseManager = $('#case-manager')['0'].textContent;
-        clientStatus = $('#client-status')['0'].textContent;
+        clientStatus = { name: $('#client-status')['0'].textContent, id: $('#client-status').data("id") };
+        var statusString = '';
+        statuses.forEach(function (status) {    
+            statusString += '<li data-id="' + status.id + '" data-name="' + status.name + '"><a href="#">' + status.name + '</a></li>';
+        });
         console.log("client status pulled");
         console.log(clientStatus);
         $('#client-name').replaceWith('<div id="client-name-container" class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
@@ -180,16 +183,13 @@ $(function (event) {
         $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
         $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
         $('#client-status').replaceWith(
-            '<div class="dropdown"><button id="client-status" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                clientStatus + '<span class="caret"></span></button>' +
+            '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                clientStatus.name + '<span class="caret"></span></button>' +
                 '<ul class="dropdown-menu" aria-labelledby="client-status">' +
-                '<li><a href="#">' + statusNames[1] + '</a></li>' +
-                '<li><a href="#">' + statusNames[2] + '</a></li>' +
-                '<li><a href="#">' + statusNames[3] + '</a></li>' +
-                '<li><a href="#">' + statusNames[4] + '</a></li>' +
-                '<li><a href="#">' + statusNames[5] + '</a></li></ul></div>');
+                statusString + '</ul></div>');
 
         $('.dropdown-menu li a').click(function (event) {
+            $(this).parents('.dropdown').find('.btn').data("id", $(this).parent().data("id"));
             $(this).parents('.dropdown').find('.btn').html($(this).text() + ' <span class="caret"></span>');
             $(this).parents('.dropdown').dropdown('toggle');
         });
@@ -210,7 +210,9 @@ $(function (event) {
         $('#client-email').replaceWith('<td id="client-email">' + clientMail + '</td>');
         $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
         $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
-        $('#client-status').replaceWith('<td id="client-status">' + clientStatus + '</td>');
+        $('#client-status').replaceWith('<td id="client-status">' + clientStatus.name + '</td>');
+        $('#client-status').data("id", clientStatus.id)
+                           .data("name", clientStatus.name);
     });
 
     $('#submit-edit').click(function () {
@@ -226,18 +228,7 @@ $(function (event) {
         var email = $('#client-email')['0'].value;
         var lastMeeting = $('#last-meeting')['0'].value;
         var caseManager = $('#case-manager')['0'].value;
-        var status = $('#client-status')['0'].innerText;
-
-        console.log($('#client-status'));
-        console.log(status.trim());
-        // temporary implementation, use name of a status
-        // to find its corresponding key, use the key to submit new status to
-        // client profile in db
-        var key = function (statusNames) {
-            return Object.keys(statusNames).filter(function (key) {
-                return statusNames[key].trim() === status.trim() ? key : '';
-            })[0];
-        };
+        var status = $('#client-status').data("id");
         
         var data = {
             id: id,
@@ -250,7 +241,7 @@ $(function (event) {
             email: email,
             lastMeeting: lastMeeting,
             caseManager: caseManager,
-            status: key(statusNames) // currently, statuses are stored in db with their own id's
+            status: status // currently, statuses are stored in db with their own id's
         };
 
         editClient(data);
