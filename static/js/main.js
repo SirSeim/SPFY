@@ -28,7 +28,6 @@ $(function () {
                 localStorage.removeItem("authorization");
             }
         },
-        async: false // now ajax call is synchronous and can block the page load
     });
 
 })
