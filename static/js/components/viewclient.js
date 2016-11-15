@@ -11,6 +11,7 @@ $(function (event) {
     var clientCaseManager;
     var caseNotesTable = $('#casenotes tbody');
     var statuses = JSON.parse(window.sessionStorage.statuses);
+    var flags = JSON.parse(window.sessionStorage.flags);
 
     var getCaseNotes = function (data) {
         $.ajax({
@@ -94,6 +95,15 @@ $(function (event) {
 
             $('#client-status').data("id", currentStatus.id)
                                .data("name", currentStatus.name);
+
+            // for now giving all flags to all profiles
+            // later will link specific flag to specific profile
+            // based on id's
+            flags.forEach(function (flag) {
+                $('#client-flags').append(
+                    '<button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                     'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span></button>'); // title and data-content attributes are for hover popover
+            });
 
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
         });

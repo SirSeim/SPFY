@@ -407,7 +407,8 @@ var queries = {
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
-        queryString += 'RETURNING id, first_name, last_name, date_of_birth, intake_age, phone_number, email, case_manager, status;';
+        queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' + 
+                        'intake_age, phone_number, email, case_manager, status;';
 
         return queryString;
     },

@@ -3,8 +3,7 @@ $(function (event) {
     var table = $('#clients tbody');
     var statuses = JSON.parse(window.sessionStorage.statuses); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
     var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
-    console.log(statuses);
-    console.log(flags);
+
     // Is there a way we can make data such as statuses globally available
     // without it being affected by asynchronous calls?
     // tried putting an ajax in main.js, but request wasn't fast enough
@@ -34,11 +33,8 @@ $(function (event) {
                         client.lastName + ' ' +
                         '</td></tr>');
                 });
-                console.log(statuses);
                 $(table).children('tr').get().forEach(function (clientRow) {
-                    console.log($(clientRow).find('td').data("status"));
                     var currentStatus = window.getDataById(statuses, $(clientRow).find('td').data("status"));
-                    console.log(currentStatus);
                     $(clientRow).find('.dot').css('background-color', currentStatus.color);
                 });
             },
