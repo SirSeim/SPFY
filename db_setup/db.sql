@@ -390,7 +390,7 @@ CREATE TABLE notifications (
   type varchar(45) NOT NULL DEFAULT 'general',
   comment varchar(128) DEFAULT NULL,
   link varchar(128) DEFAULT NULL,
-  checked boolean DEFAULT NULL
+  checked boolean DEFAULT FALSE
 );
 
 INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
