@@ -418,7 +418,7 @@ var query = {
             });
         });
     },
-    
+
     getCheckIn: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -538,13 +538,64 @@ var query = {
         });
     },
 
-    getUsersNotifications: function (postgres, credentials, callback) {
+    getUsersNotifications: function (postgres, userId, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getUsersNotifications(credentials), function (err, result) {
+            client.query(Queries.getUsersNotifications(userId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createNotification: function (postgres, userId, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createNotification(userId, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getNotificationById: function (postgres, noteId, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getNotificationById(noteId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    updateUsersNotification: function (postgres, noteId, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.updateUsersNotification(noteId, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -588,7 +639,7 @@ var query = {
             });
         });
     }
-    
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

@@ -430,16 +430,6 @@ var api = {
         });
     },
 
-    getUsersNotifications: function (request, reply) {
-        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
-            if (err) {
-                Respond.failedToGetUsersNotifications(reply, err);
-            } else {
-                Respond.getUsersNotifications(reply, result);
-            }
-        });
-    },
-
     deleteUser: function (request, reply) {
         var userQuery;
         if (request.params.userId === 'self') {
@@ -462,6 +452,80 @@ var api = {
                         Respond.failedToDeleteUser(reply, err);
                     } else {
                         Respond.deleteUser(reply, result);
+                        }
+                });
+            }
+        });
+    },
+
+    getUsersNotifications: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getUsersNotifications(request.postgres, userId, function (err, result) {
+            if (err) {
+                Respond.failedToGetUsersNotifications(reply, err);
+            } else {
+                Respond.getUsersNotifications(reply, result);
+            }
+        });
+    },
+
+    createNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateNotification(reply, err);
+            } else {
+                Respond.createNotification(reply, result);
+            }
+        });
+    },
+
+    getUsersNotificationsById: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Respond.getUsersNotificationsById(reply, note);
+            }
+        });
+    },
+
+    updateUsersNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Service.updateUsersNotification(request.postgres, note.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUsersNotification(reply, err);
+                    } else {
+                        Respond.updateUsersNotification(reply, result);
                     }
                 });
             }
