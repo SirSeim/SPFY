@@ -354,9 +354,9 @@ var api = {
     getUsersNotifications: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
-            userId = request.auth.credentials.id
+            userId = request.auth.credentials.id;
         } else {
-            userId = request.params.userId
+            userId = request.params.userId;
         }
         Service.getUsersNotifications(request.postgres, userId, function (err, result) {
             if (err) {
@@ -370,9 +370,9 @@ var api = {
     createNotification: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
-            userId = request.auth.credentials.id
+            userId = request.auth.credentials.id;
         } else {
-            userId = request.params.userId
+            userId = request.params.userId;
         }
         Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
             if (err) {

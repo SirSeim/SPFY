@@ -632,19 +632,19 @@ var queries = {
             queryString += ', checked';
         }
         queryString += ') VALUES (' +
-            '\'' + (userId) + '\'' + ', ' +
-            '\'' + (payload.comment) + '\'';
+            '\'' + userId + '\'' + ', ' +
+            '\'' + payload.comment + '\'';
         if (payload.type) {
-            queryString += ', \'' + (payload.type) + '\'';
+            queryString += ', \'' + payload.type + '\'';
         }
         if (payload.link) {
-            queryString += ', \'' + (payload.link) + '\'';
+            queryString += ', \'' + payload.link + '\'';
         }
         if (payload.checked) {
-            queryString += ', \'' + (payload.checked) + '\'';
+            queryString += ', \'' + payload.checked + '\'';
         }
         queryString += ') RETURNING user_id, type, comment, link, checked;';
-        console.log(queryString);
+
         return queryString;
     },
 
