@@ -352,21 +352,21 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUserByUsername: function (reply, err) {
+    failedToGetUserByQuery: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get User!",
             error: err
         }).code(500);
     },
-    gotUserByUsername: function (reply, result) {
+    gotUserByQuery: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Successfully got User!",
             result: result
         }).code(200);
     },
-    noUserByUsernameFound: function (reply) {
+    noUserByQueryFound: function (reply) {
         reply({
             statusCode: 404,
             message: "No such User found!"
@@ -391,6 +391,33 @@ var respond = {
             message: "Successfully created User!",
             result: result
         }).code(200);
+    },
+    userDoesNotExist: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "Username does not exist!"
+        }).code(404);
+    },
+    getUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
+    failedToUpdateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to update User!",
+            error: err
+        }).code(500);
+    },
+    updateUser: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully updated User!",
+            result: result
+        }).code(200).header("Authorization", token);
     },
     failedToComparePasswords: function (reply, err) {
         reply({
@@ -432,24 +459,65 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUserById: function (reply, err) {
+    failedToCreateNotification: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get User!",
+            message: "Unable to create a new notification for a user",
             error: err
         }).code(500);
     },
+    createNotification: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created a new notification for a user!",
+            result: result
+        }).code(200);
+    },
     noSuchUserExists: function (reply) {
         reply({
-            statusCode: 401,
+            statusCode: 404,
             message: "User does not exist!"
-        }).code(401);
+        }).code(404);
     },
     passNoMatch: function (reply) {
         reply({
             statusCode: 401,
             message: "Passwords do not match!"
         }).code(401);
+    },
+    failedToGetNotificationById: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get the notification!",
+            error: err
+        }).code(500);
+    },
+    noSuchNotificationExists: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "No such notification for that user!"
+        }).code(404);
+    },
+    getUsersNotificationsById: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got notification!",
+            result: result
+        }).code(200);
+    },
+    failedToUpdateUsersNotification: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to update the notification!",
+            error: err
+        }).code(500);
+    },
+    updateUsersNotification: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully updated notification for user!",
+            result: result
+        }).code(200);
     },
     failedToChangeUserPassword: function (reply, err) {
         reply({
@@ -464,6 +532,20 @@ var respond = {
             message: "Successfully logged in!",
             result: result
         }).code(200).header("Authorization", token);
+    },
+    failedToDeleteUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete User!",
+            error: err
+        }).code(500);
+    },
+    deleteUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted User!",
+            result: result
+        }).code(200);
     }
 
 };

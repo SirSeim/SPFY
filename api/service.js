@@ -396,26 +396,8 @@ var service = {
         });
     },
 
-    getUserByUsername: function (postgres, username, callback) {
-        Query.getUserByUsername(postgres, username, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            if (!result.rows.length) {
-                return callback();
-            }
-
-            var local = result.rows[0];
-            return callback(undefined, {
-                id: local.id,
-                username: local.username,
-                hashedPassword: local.hashed_password
-            });
-        });
-    },
-
-    getUserById: function (postgres, userId, callback) {
-        Query.getUserById(postgres, userId, function (err, result) {
+    getUserByQuery: function (postgres, query, callback) {
+        Query.getUserByQuery(postgres, query, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -444,6 +426,15 @@ var service = {
         });
     },
 
+    updateUser: function (postgres, userId, payload, callback) {
+        Query.updateUser(postgres, userId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     matchPasswords: function (password, hashedPassword, callback) {
         bcrypt.compare(password, hashedPassword, function (err, res) {
             if (err) {
@@ -457,8 +448,8 @@ var service = {
         JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
     },
 
-    getUsersNotifications: function (postgres, credentials, callback) {
-        Query.getUsersNotifications(postgres, credentials, function (err, result) {
+    getUsersNotifications: function (postgres, userId, callback) {
+        Query.getUsersNotifications(postgres, userId, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -471,13 +462,60 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    user: credentials.username,
+                    userId: local.user_id,
                     type: local.type,
                     comment: local.comment,
-                    link: local.link
+                    link: local.link,
+                    checked: local.checked
                 });
             }
             return callback(undefined, arr);
+        });
+    },
+
+    createNotification: function (postgres, userId, payload, callback) {
+        Query.createNotification(postgres, userId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getNotificationById: function (postgres, noteId, callback) {
+        Query.getNotificationById(postgres, noteId, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                userId: local.user_id,
+                type: local.type,
+                comment: local.comment,
+                link: local.link,
+                checked: local.checked
+            });
+        });
+    },
+
+    updateUsersNotification: function (postgres, noteId, payload, callback) {
+        Query.updateUsersNotification(postgres, noteId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                userId: local.user_id,
+                type: local.type,
+                comment: local.comment,
+                link: local.link,
+                checked: local.checked
+            });
         });
     },
 
@@ -488,6 +526,10 @@ var service = {
             }
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
+    },
+
+    deleteUser: function (postgres, userId, callback) {
+        Query.deleteUser(postgres, userId, callback);
     }
 };
 

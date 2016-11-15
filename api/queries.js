@@ -486,7 +486,7 @@ var queries = {
 
     getEnrollmentByActivity: function (activityID) {
         var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
-        
+
         return queryString;
     },
 
@@ -534,7 +534,7 @@ var queries = {
 
     createCaseNote: function (payload) {
         var queryString = 'INSERT INTO case_note (client_id, case_manager_id, date, category, ' +
-            'note, follow_up_needed, due_date, reminder_date) VALUES (' + 
+            'note, follow_up_needed, due_date, reminder_date) VALUES (' +
             '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
             '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
             '\'' + parseProperty(payload.date) + '\'' + ', ' +
@@ -553,7 +553,7 @@ var queries = {
         } else {
             queryString += '\'' + parseProperty(payload.reminderDate) + '\'' + ');';
         }
-        
+
 
         return queryString;
     },
@@ -591,16 +591,21 @@ var queries = {
         return queryString;
     },
 
-    getUserByUsername: function (username) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
-                            username + '\';';
+    getUserByQuery: function (query) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE';
+        var setId = false;
 
-        return queryString;
-    },
-
-    getUserById: function (userId) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
-                            userId + '\';';
+        if (query.id) {
+            queryString += ' id = \'' + query.id + '\'';
+            setId = true;
+        }
+        if (query.username) {
+            if (setId) {
+                queryString += ' AND';
+            }
+            queryString += ' username = \'' + query.username + '\'';
+        }
+        queryString += ';';
 
         return queryString;
     },
@@ -613,16 +618,84 @@ var queries = {
         return queryString;
     },
 
-    getUsersNotifications: function (credentials) {
-        var queryString = 'SELECT * from notifications WHERE user_id = ' +
-                            credentials.id + ';';
+    updateUser: function (userId, payload) {
+        var queryString = 'UPDATE users SET username = \'' + payload.username +
+                            '\' WHERE id = \'' + userId + '\';';
+
+        return queryString;
+    },
+
+    getUsersNotifications: function (userId) {
+        var queryString = 'SELECT * FROM notifications WHERE user_id = \'' +
+                            userId + '\' AND checked = FALSE;';
+
+        return queryString;
+    },
+
+    createNotification: function (userId, payload) {
+        var queryString = 'INSERT INTO notifications (user_id, comment';
+        if (payload.type) {
+            queryString += ', type';
+        }
+        if (payload.link) {
+            queryString += ', link';
+        }
+        if (payload.checked) {
+            queryString += ', checked';
+        }
+        queryString += ') VALUES (' +
+            '\'' + userId + '\'' + ', ' +
+            '\'' + payload.comment + '\'';
+        if (payload.type) {
+            queryString += ', \'' + payload.type + '\'';
+        }
+        if (payload.link) {
+            queryString += ', \'' + payload.link + '\'';
+        }
+        if (payload.checked) {
+            queryString += ', \'' + payload.checked + '\'';
+        }
+        queryString += ') RETURNING user_id, type, comment, link, checked;';
+
+        return queryString;
+    },
+
+    getNotificationById: function (noteId) {
+        var queryString = 'SELECT id, user_id, type, comment, link, checked FROM notifications ' +
+                            'WHERE id = \'' + noteId + '\';';
+
+        return queryString;
+    },
+
+    updateUsersNotification: function (noteId, payload) {
+        var queryString = 'UPDATE notifications SET ';
+        if (payload.type) {
+            queryString += 'type = \'' + payload.type + '\',';
+        }
+        if (payload.comment) {
+            queryString += 'comment = \'' + payload.comment + '\',';
+        }
+        if (payload.link) {
+            queryString += 'link = \'' + payload.link + '\',';
+        }
+        if (typeof payload.checked === 'boolean') {
+            queryString += 'checked = \'' + payload.checked + '\',';
+        }
+        queryString = queryString.substring(0, queryString.length - 1);
+        queryString += ' WHERE id = \'' + noteId + '\' RETURNING id, user_id, type, comment, link, checked;';
 
         return queryString;
     },
 
     changeUserPassword: function (userId, hashedPassword) {
-        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
-                            ' WHERE id = ' + userId + ';';
+        var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
+                            '\' WHERE id = ' + userId + ';';
+
+        return queryString;
+    },
+
+    deleteUser: function (userId) {
+        var queryString = 'DELETE FROM users WHERE id = ' + userId + ';';
 
         return queryString;
     }

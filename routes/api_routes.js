@@ -154,6 +154,16 @@ var apiRoutes = [
         handler: Api.createUser
     },
     {
+        method: 'GET',
+        path: '/users/{userId}',
+        handler: Api.getUser
+    },
+    {
+        method: 'PUT',
+        path: '/users/{userId}',
+        handler: Api.updateUser
+    },
+    {
         method: 'POST',
         path: '/sessions',
         config: {
@@ -166,18 +176,48 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/users/notifications',
+        path: '/users/{userId}/notifications',
         handler: Api.getUsersNotifications
     },
     {
+        method: 'POST',
+        path: '/users/{userId}/notifications',
+        config: {
+            validate: {
+                payload: Schema.notification
+            }
+        },
+        handler: Api.createNotification
+    },
+    {
+        method: 'GET',
+        path: '/users/{userId}/notifications/{noteId}',
+        handler: Api.getUsersNotificationsById
+    },
+    {
         method: 'PUT',
-        path: '/users/password',
+        path: '/users/{userId}/notifications/{noteId}',
+        config: {
+            validate: {
+                payload: Schema.updateNotification
+            }
+        },
+        handler: Api.updateUsersNotification
+    },
+    {
+        method: 'PUT',
+        path: '/users/{userId}/password',
         config: {
             validate: {
                 payload: Schema.changeCurrentUserPassword
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'Delete',
+        path: '/users/{userId}',
+        handler: Api.deleteUser
     }
 ];
 

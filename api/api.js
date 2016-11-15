@@ -244,17 +244,20 @@ var api = {
     },
 
     getUserList: function (request, reply) {
-        if (request.query.username) {
-            Service.getUserByUsername(request.postgres, request.query.username, function (err, user) {
+        if (request.query.username || request.query.id) {
+            Service.getUserByQuery(request.postgres, {
+                id: request.query.id,
+                username: request.query.username
+            }, function (err, user) {
                 if (err) {
-                    Respond.failedToGetUserByUsername(reply, err);
+                    Respond.failedToGetUserByQuery(reply, err);
                 } else if (user) {
-                    Respond.gotUserByUsername(reply, {
+                    Respond.gotUserByQuery(reply, {
                         id: user.id,
                         username: user.username
                     });
                 } else {
-                    Respond.noUserByUsernameFound(reply);
+                    Respond.noUserByQueryFound(reply);
                 }
             });
         } else {
@@ -269,9 +272,11 @@ var api = {
     },
 
     createUser: function (request, reply) {
-        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+        Service.getUserByQuery(request.postgres, {
+            username: request.payload.username
+        }, function (err, user) {
             if (err) {
-                Respond.failedToGetUserByUsername(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (user) {
                 Respond.usernameAlreadyExists(reply);
             } else {
@@ -286,10 +291,74 @@ var api = {
         });
     },
 
-    login: function (request, reply) {
-        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+    getUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
             if (err) {
-                Respond.failedToGetUserByUsername(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Respond.getUser(reply, {
+                    id: user.id,
+                    username: user.username
+                });
+            }
+        });
+    },
+
+    updateUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Service.updateUser(request.postgres, userQuery.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUser(reply, err);
+                    } else {
+                        Service.genToken({
+                            id: userQuery.id,
+                            username: request.payload.username
+                        }, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.updateUser(reply, result, token);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    },
+
+    login: function (request, reply) {
+        Service.getUserByQuery(request.postgres, {
+            username: request.payload.username
+        }, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (!user) {
                 Respond.userPassNoMatch(reply);
             } else {
@@ -316,9 +385,19 @@ var api = {
     },
 
     changeCurrentUserPassword: function (request, reply) {
-        Service.getUserById(request.postgres, request.auth.credentials.id, function (err, user) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
             if (err) {
-                Respond.failedToGetUserById(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (!user) {
                 Respond.noSuchUserExists(reply);
             } else {
@@ -351,12 +430,104 @@ var api = {
         });
     },
 
+    deleteUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.noSuchUserExists(reply);
+            } else {
+                Service.deleteUser(request.postgres, user.id, function (err, result) {
+                    if (err) {
+                        Respond.failedToDeleteUser(reply, err);
+                    } else {
+                        Respond.deleteUser(reply, result);
+                    }
+                });
+            }
+        });
+    },
+
     getUsersNotifications: function (request, reply) {
-        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getUsersNotifications(request.postgres, userId, function (err, result) {
             if (err) {
                 Respond.failedToGetUsersNotifications(reply, err);
             } else {
                 Respond.getUsersNotifications(reply, result);
+            }
+        });
+    },
+
+    createNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateNotification(reply, err);
+            } else {
+                Respond.createNotification(reply, result);
+            }
+        });
+    },
+
+    getUsersNotificationsById: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Respond.getUsersNotificationsById(reply, note);
+            }
+        });
+    },
+
+    updateUsersNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Service.updateUsersNotification(request.postgres, note.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUsersNotification(reply, err);
+                    } else {
+                        Respond.updateUsersNotification(reply, result);
+                    }
+                });
             }
         });
     }
