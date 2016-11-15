@@ -1,4 +1,4 @@
-var Joi = require('joi'); // eslint-disable-line
+var Joi = require('joi');
 
 var schema = {
     newUser: Joi.object().keys({
