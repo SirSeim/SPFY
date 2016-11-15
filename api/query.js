@@ -538,13 +538,13 @@ var query = {
         });
     },
 
-    getUsersNotifications: function (postgres, credentials, callback) {
+    getUsersNotifications: function (postgres, userId, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getUsersNotifications(credentials), function (err, result) {
+            client.query(Queries.getUsersNotifications(userId), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -555,63 +555,13 @@ var query = {
         });
     },
 
-    getUsersNotificationsById: function (postgres, userId, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getUsersNotificationsById(userId), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    createNotificationById: function (postgres, payload, callback) {
+    createNotification: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
             client.query(Queries.createNotificationById(payload), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    getUsersNotificationsByToken: function (postgres, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-            client.query(Queries.getUsersNotificationsByToken(), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    createNotificationByToken: function (postgres, payload, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.createNotificationByToken(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

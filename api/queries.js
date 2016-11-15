@@ -613,23 +613,14 @@ var queries = {
         return queryString;
     },
 
-    getUsersNotifications: function (credentials) {
-        var queryString = 'SELECT * from notifications WHERE user_id = ' +
-                            credentials.id + ';';
+    getUsersNotifications: function (userId) {
+        var queryString = 'SELECT * FROM notifications WHERE user_id = \'' +
+                            userId + '\' AND checked = FALSE;';
 
         return queryString;
     },
 
-    getUsersNotificationsById: function (userId) {
-        var queryString = 'SELECT checked, ' +
-                              'CASE checked WHEN FALSE THEN * ' +
-                              'END ' +
-                          'FROM notifications WHERE user_id = ' + userId + ';';
-
-        return queryString;
-    },
-
-    createNotificationById: function (payload) {
+    createNotification: function (payload) {
         console.log('queries.js ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
         console.log(payload);
         var queryString = 'INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (' +
@@ -638,22 +629,6 @@ var queries = {
             '\'' + (payload.comment) + '\'' + ', ' +
             '\'' + (payload.link) + '\'' + ', ' +
             (payload.checked) + ') RETURNING user_id, type, comment, link, checked;';
-
-        return queryString;
-    },
-
-    getUsersNotificationsByToken: function () {
-        var queryString = 'SELECT * from notifications;';
-
-        return queryString;
-    },
-
-    createNotificationByToken: function (payload) {
-        var queryString = 'UPDATE notifications SET ';
-
-        queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
-        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
-        queryString += 'RETURNING comment;';
 
         return queryString;
     },

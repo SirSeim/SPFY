@@ -457,33 +457,8 @@ var service = {
         JWT.sign(session, process.env.SPFY_KEY, jwtOptions, callback);
     },
 
-    getUsersNotifications: function (postgres, credentials, callback) {
-        Query.getUsersNotifications(postgres, credentials, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            if (!result.rows.length) {
-                return callback();
-            }
-
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    user: credentials.username,
-                    type: local.type,
-                    comment: local.comment,
-                    link: local.link,
-                    checked: local.checked
-                });
-            }
-            return callback(undefined, arr);
-        });
-    },
-
-    getUsersNotificationsById: function (postgres, userId, callback) {
-        Query.getUsersNotificationsById(postgres, userId, function (err, result) {
+    getUsersNotifications: function (postgres, userId, callback) {
+        Query.getUsersNotifications(postgres, userId, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -507,26 +482,8 @@ var service = {
         });
     },
 
-    createNotificationById: function (postgres, payload, callback) {
-        Query.createNotificationById(postgres, payload, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            return callback(undefined, result);
-        });
-    },
-
-    getUsersNotificationsByToken: function (postgres, callback) {
-        Query.getUsersNotificationsByToken(postgres, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            return callback(undefined, result);
-        });
-    },
-
-    createNotificationByToken: function (postgres, payload, callback) {
-        Query.createNotificationByToken(postgres, payload, function (err, result) {
+    createNotification: function (postgres, payload, callback) {
+        Query.createNotification(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

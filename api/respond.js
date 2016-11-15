@@ -432,61 +432,19 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUsersNotificationsById: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to get user notifications!",
-            error: err
-        }).code(500);
-    },
-    getUsersNotificationsById: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully got all notifications for a user based on id",
-            result: result
-        }).code(200);
-    },
-    failedToCreateNotificationById: function (reply, err) {
+    failedToCreateNotification: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to create a new notification for a user",
             error: err
         }).code(500);
     },
-    createNotificationById: function (reply, result) {
+    createNotification: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Successfully created a new notification for a user",
             result: result
         }).code(200);
-    },
-    failedToGetUsersNotificationsByToken: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to create a new notification for a user",
-            error: err
-        }).code(500);
-    },
-    getUsersNotificationsByToken: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully got all notifications for a user based on token",
-            result: result
-        }).code(200);
-    },
-    createNotificationByToken: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully created a new notification for a user",
-            result: result
-        }).code(200);
-    },
-    failedToGetUserById: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to get User!",
-            error: err
-        }).code(500);
     },
     noSuchUserExists: function (reply) {
         reply({

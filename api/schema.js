@@ -14,6 +14,13 @@ var schema = {
     changeCurrentUserPassword: Joi.object().keys({
         password: Joi.string().required().trim(),
         newPassword: Joi.string().required().min(8).trim()
+    }).unknown(false),
+
+    notification: Joi.object().keys({
+        type: Joi.string().required().trim(),
+        comment: Joi.string().required().trim(),
+        link: Joi.string().trim(),
+        checked: Joi.boolean()
     }).unknown(false)
 };
 

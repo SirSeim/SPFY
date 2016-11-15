@@ -166,18 +166,13 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/users/notifications',
-        handler: Api.getUsersNotifications
-    },
-    {
-        method: 'GET',
         path: '/users/{userId}/notifications',
-        handler: Api.getUsersNotificationsById
+        handler: Api.getUsersNotifications
     },
     {
         method: 'POST',
         path: '/users/{userId}/notifications',
-        handler: Api.createNotificationById
+        handler: Api.createNotification
     },
     // {
     //     method: 'PUT',
@@ -189,16 +184,6 @@ var apiRoutes = [
     //     },
     //     handler: Api.updateUsersNotificationsByID
     // },
-    {
-        method: 'GET',
-        path: '/users/self/notifications',
-        handler: Api.getUsersNotificationsByToken
-    },
-    {
-        method: 'POST',
-        path: '/users/self/notifications',
-        handler: Api.createNotificationByToken
-    },
     // {
     //     method: 'PUT',
     //     path: '/users/self/notifications/{noteId}',

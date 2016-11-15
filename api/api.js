@@ -352,7 +352,13 @@ var api = {
     },
 
     getUsersNotifications: function (request, reply) {
-        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id
+        } else {
+            userId = request.params.userId
+        }
+        Service.getUsersNotifications(request.postgres, userId, function (err, result) {
             if (err) {
                 Respond.failedToGetUsersNotifications(reply, err);
             } else {
@@ -361,41 +367,22 @@ var api = {
         });
     },
 
-    getUsersNotificationsById: function (request, reply) {
-        Service.getUsersNotificationsById(request.postgres, request.params.userId, function (err, result) {
+    createNotification: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.createNotification(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToGetUsersNotificationsById(reply, err);
+                Respond.failedToCreateNotification(reply, err);
             } else {
-                Respond.getUsersNotificationsById(reply, result);
-            }
-        });
-    },
-
-    createNotificationById: function (request, reply) {
-        request.payload.userId = request.params.userId;
-        Service.createNotificationById(request.postgres, request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToCreateNotificationById(reply, err);
-            } else {
-                Respond.createNotificationById(reply, result);
-            }
-        });
-    },
-    getUsersNotificationsByToken: function (request, reply) {
-        Service.getUsersNotificationsByToken(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetUsersNotificationsByToken(reply, err);
-            } else {
-                Respond.getUsersNotificationsByToken(reply, result);
-            }
-        });
-    },
-    createNotificationByToken: function (request, reply) {
-        Service.createNotificationByToken(request.postgres, request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToCreateNotificationByToken(reply, err);
-            } else {
-                Respond.createNotificationByToken(reply, result);
+                Respond.createNotification(reply, result);
             }
         });
     },
