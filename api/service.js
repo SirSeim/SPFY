@@ -516,7 +516,15 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            return callback(undefined, result);
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                userId: local.user_id,
+                type: local.type,
+                comment: local.comment,
+                link: local.link,
+                checked: local.checked
+            });
         });
     },
 

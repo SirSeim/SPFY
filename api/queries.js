@@ -666,11 +666,11 @@ var queries = {
         if (payload.link) {
             queryString += 'link = \'' + payload.link + '\',';
         }
-        if (payload.checked) {
+        if (typeof payload.checked === 'boolean') {
             queryString += 'checked = \'' + payload.checked + '\',';
         }
         queryString = queryString.substring(0, queryString.length - 1);
-        queryString += ' WHERE id = \'' + noteId + '\';';
+        queryString += ' WHERE id = \'' + noteId + '\' RETURNING id, user_id, type, comment, link, checked;';
         console.log(queryString);
         return queryString;
     },
