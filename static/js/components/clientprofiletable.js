@@ -1,7 +1,7 @@
 $(function (event) {
     var status = $('.dot');
     var table = $('#clients tbody');
-    var statuses = JSON.parse(window.localStorage.statuses);
+    var statuses = JSON.parse(window.sessionStorage.statuses);
     console.log(statuses);
     // Is there a way we can make data such as statuses globally available
     // without it being affected by asynchronous calls?
