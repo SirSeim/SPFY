@@ -591,16 +591,21 @@ var queries = {
         return queryString;
     },
 
-    getUserByUsername: function (username) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE username = \'' +
-                            username + '\';';
+    getUserByQuery: function (query) {
+        var queryString = 'SELECT id, username, hashed_password FROM users WHERE';
+        var setId = false;
 
-        return queryString;
-    },
-
-    getUserById: function (userId) {
-        var queryString = 'SELECT id, username, hashed_password FROM users WHERE id = \'' +
-                            userId + '\';';
+        if (query.id) {
+            queryString += ' id = \'' + query.id + '\'';
+            setId = true;
+        }
+        if (query.username) {
+            if (setId) {
+                queryString += ' AND';
+            }
+            queryString += ' username = \'' + query.username + '\'';
+        }
+        queryString += ';';
 
         return queryString;
     },
@@ -613,6 +618,13 @@ var queries = {
         return queryString;
     },
 
+    updateUser: function (userId, payload) {
+        var queryString = 'UPDATE users SET username = \'' + payload.username +
+                            '\' WHERE id = \'' + userId + '\';';
+
+        return queryString;
+    },
+
     getUsersNotifications: function (credentials) {
         var queryString = 'SELECT * from notifications WHERE user_id = ' +
                             credentials.id + ';';
@@ -621,8 +633,14 @@ var queries = {
     },
 
     changeUserPassword: function (userId, hashedPassword) {
-        var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +
-                            ' WHERE id = ' + userId + ';';
+        var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
+                            '\' WHERE id = ' + userId + ';';
+
+        return queryString;
+    },
+
+    deleteUser: function (userId) {
+        var queryString = 'DELETE FROM users WHERE id = ' + userId + ';';
 
         return queryString;
     }

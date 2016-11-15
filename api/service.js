@@ -396,26 +396,8 @@ var service = {
         });
     },
 
-    getUserByUsername: function (postgres, username, callback) {
-        Query.getUserByUsername(postgres, username, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            if (!result.rows.length) {
-                return callback();
-            }
-
-            var local = result.rows[0];
-            return callback(undefined, {
-                id: local.id,
-                username: local.username,
-                hashedPassword: local.hashed_password
-            });
-        });
-    },
-
-    getUserById: function (postgres, userId, callback) {
-        Query.getUserById(postgres, userId, function (err, result) {
+    getUserByQuery: function (postgres, query, callback) {
+        Query.getUserByQuery(postgres, query, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -441,6 +423,15 @@ var service = {
                 username: payload.username,
                 password: hash
             }, callback);
+        });
+    },
+
+    updateUser: function (postgres, userId, payload, callback) {
+        Query.updateUser(postgres, userId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
         });
     },
 
@@ -488,6 +479,10 @@ var service = {
             }
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
+    },
+
+    deleteUser: function (postgres, userId, callback) {
+        Query.deleteUser(postgres, userId, callback);
     }
 };
 

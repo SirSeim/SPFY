@@ -154,6 +154,16 @@ var apiRoutes = [
         handler: Api.createUser
     },
     {
+        method: 'GET',
+        path: '/users/{userId}',
+        handler: Api.getUser
+    },
+    {
+        method: 'PUT',
+        path: '/users/{userId}',
+        handler: Api.updateUser
+    },
+    {
         method: 'POST',
         path: '/sessions',
         config: {
@@ -171,13 +181,18 @@ var apiRoutes = [
     },
     {
         method: 'PUT',
-        path: '/users/password',
+        path: '/users/{userId}/password',
         config: {
             validate: {
                 payload: Schema.changeCurrentUserPassword
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'Delete',
+        path: '/users/{userId}',
+        handler: Api.deleteUser
     }
 ];
 
