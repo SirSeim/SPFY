@@ -169,7 +169,14 @@ $(function () {
                     change: function(color) {
                         console.log("change called: " + color.toHexString());
                         $(dotcol).data("newcolor", color.toHexString());
-                    }
+                    },
+                    allowEmpty: true,
+                    chooseText: 'Select',
+                    showPalette: true,
+                    showSelectionPalette: true,
+                    selectionPalette: [],
+                    palette: [['#02AEF0']],
+                    localStorageKey: 'spectrum.colors'
                 });
             $(namecol).html('<input type="text" id="edit-status-name" />');
             $('#edit-status-name').val($(namecol).data("name"));

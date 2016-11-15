@@ -8,7 +8,14 @@ $(function () {
         change: function(color) {
             console.log("change called: " + color.toHexString());
             colorString = color.toHexString();
-        }
+        },
+        allowEmpty: true,
+        chooseText: 'Select',
+        showPalette: true,
+        showSelectionPalette: true,
+        selectionPalette: [],
+        palette: [['#02AEF0']],
+        localStorageKey: 'spectrum.colors'
     });
 
     $('#status-submit-button').click(function (event) {
