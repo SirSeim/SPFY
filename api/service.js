@@ -482,8 +482,8 @@ var service = {
         });
     },
 
-    createNotification: function (postgres, payload, callback) {
-        Query.createNotification(postgres, payload, function (err, result) {
+    createNotification: function (postgres, userId, payload, callback) {
+        Query.createNotification(postgres, userId, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

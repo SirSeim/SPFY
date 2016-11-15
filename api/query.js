@@ -555,13 +555,13 @@ var query = {
         });
     },
 
-    createNotification: function (postgres, payload, callback) {
+    createNotification: function (postgres, userId, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.createNotificationById(payload), function (err, result) {
+            client.query(Queries.createNotification(userId, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

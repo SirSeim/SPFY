@@ -368,17 +368,13 @@ var api = {
     },
 
     createNotification: function (request, reply) {
-        var userQuery;
+        var userId;
         if (request.params.userId === 'self') {
-            userQuery = {
-                id: request.auth.credentials.id
-            };
+            userId = request.auth.credentials.id
         } else {
-            userQuery = {
-                id: request.params.userId
-            };
+            userId = request.params.userId
         }
-        Service.createNotification(request.postgres, request.payload, function (err, result) {
+        Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToCreateNotification(reply, err);
             } else {

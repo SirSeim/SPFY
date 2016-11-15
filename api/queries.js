@@ -620,16 +620,31 @@ var queries = {
         return queryString;
     },
 
-    createNotification: function (payload) {
-        console.log('queries.js ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-        console.log(payload);
-        var queryString = 'INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (' +
-            '\'' + (payload.userId) + '\'' + ', ' +
-            '\'' + (payload.type) + '\'' + ', ' +
-            '\'' + (payload.comment) + '\'' + ', ' +
-            '\'' + (payload.link) + '\'' + ', ' +
-            (payload.checked) + ') RETURNING user_id, type, comment, link, checked;';
-
+    createNotification: function (userId, payload) {
+        var queryString = 'INSERT INTO notifications (user_id, comment';
+        if (payload.type) {
+            queryString += ', type';
+        }
+        if (payload.link) {
+            queryString += ', link';
+        }
+        if (payload.checked) {
+            queryString += ', checked';
+        }
+        queryString += ') VALUES (' +
+            '\'' + (userId) + '\'' + ', ' +
+            '\'' + (payload.comment) + '\'';
+        if (payload.type) {
+            queryString += ', \'' + (payload.type) + '\'';
+        }
+        if (payload.link) {
+            queryString += ', \'' + (payload.link) + '\'';
+        }
+        if (payload.checked) {
+            queryString += ', \'' + (payload.checked) + '\'';
+        }
+        queryString += ') RETURNING user_id, type, comment, link, checked;';
+        console.log(queryString);
         return queryString;
     },
 

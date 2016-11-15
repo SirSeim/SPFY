@@ -17,7 +17,7 @@ var schema = {
     }).unknown(false),
 
     notification: Joi.object().keys({
-        type: Joi.string().required().trim(),
+        type: Joi.string().trim(),
         comment: Joi.string().required().trim(),
         link: Joi.string().trim(),
         checked: Joi.boolean()
