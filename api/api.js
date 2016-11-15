@@ -452,7 +452,7 @@ var api = {
                         Respond.failedToDeleteUser(reply, err);
                     } else {
                         Respond.deleteUser(reply, result);
-                        }
+                    }
                 });
             }
         });

@@ -632,13 +632,6 @@ var queries = {
         return queryString;
     },
 
-    getUsersNotifications: function (credentials) {
-        var queryString = 'SELECT * from notifications WHERE user_id = ' +
-                            credentials.id + ';';
-
-        return queryString;
-    },
-
     createNotification: function (userId, payload) {
         var queryString = 'INSERT INTO notifications (user_id, comment';
         if (payload.type) {
