@@ -384,10 +384,17 @@ var api = {
     },
 
     updateUsersNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = request.params.userId;
+        }
         Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            console.log(note);
             if (err) {
                 Respond.failedToGetNotificationById(reply, err);
-            } else if (!note || note.userId !== request.params.userId) {
+            } else if (!note || note.userId !== userId) {
                 Respond.noSuchNotificationExists(reply);
             } else {
                 Service.updateUsersNotification(request.postgres, note.id, request.payload, function (err, result) {
