@@ -25,14 +25,76 @@ $(function () {
     };
 
     var alertsBadge = function (number) {
-        return ' <span class="badge">' + number + '</span>';
+        return ' <span class="badge" id="alerts-badge">' + number + '</span>';
     };
 
     var newAlertItem = function (alert) {
-        return '<li><a href="' + alert.link + '">' + alertType(alert.type) +
+        return '<li><a href="' + alert.link + '"data-id="' + alert.id +
+                '"><input type="checkbox"> ' + alertType(alert.type) +
                 alert.comment + '</a></li>';
+    };
+
+    var updateAlertsbadge = function () {
+        var list = $('#alerts').children('ul.dropdown-menu')
+        var total = list.find('input').length;
+        var checked = list.find('input:checked').length;
+        $('#alerts-badge').text(total - checked);
     }
 
+    var checkboxChange = function () {
+        var jThis = $(this);
+        var id = jThis.parent().data('id');
+        jThis.prop('disabled', true);
+        if (this.checked) {
+            console.log("checked");
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "/api/users/self/notifications/" + id,
+                method: "PUT",
+                data: {
+                    checked: true
+                }
+            }).done(function (data, textStatus, xhr) {
+                console.log(data);
+                jThis.prop('disabled', false);
+                updateAlertsbadge();
+            }).fail(function (xhr, textStatus, errorThrown) {
+                console.log(xhr);
+                jThis.prop('disabled', false);
+                jThis.prop('checked', false);
+                updateAlertsbadge();
+            });
+        } else {
+            console.log("unchecked");
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "/api/users/self/notifications/" + id,
+                method: "PUT",
+                data: {
+                    checked: false
+                }
+            }).done(function (data, textStatus, xhr) {
+                console.log(data);
+                jThis.prop('disabled', false);
+                updateAlertsbadge();
+            }).fail(function (xhr, textStatus, errorThrown) {
+                console.log(xhr);
+                jThis.prop('disabled', false);
+                jThis.prop('checked', true);
+                updateAlertsbadge();
+            });
+        }
+    };
 
     var login = $('ul.nav a[href="login"]').parent();
     var alert = $('#alerts');
@@ -51,7 +113,7 @@ $(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: "/api/users/notifications",
+            url: "/api/users/self/notifications",
             method: "GET"
         }).done(function (data, textStatus, xhr) {
             console.log(data);
@@ -66,6 +128,7 @@ $(function () {
             for (var i = 0; i < data.result.length; i++) {
                 alertList.append(newAlertItem(data.result[i]))
             }
+            alertList.find('input[type="checkbox"]').change(checkboxChange);
         }).fail(function (xhr, textStatus, errorThrown) {
             console.log(xhr);
 
@@ -117,42 +180,42 @@ $(function () {
   //   });
 
 // this is a test for createUsersNotificationsById
-    var data = {
-        type: 'general',
-        comment: 'Test notification for createUsersNotificationsById',
-        link: '/frontdesk',
-        checked: false
-    }
-    $.ajax({
-      xhrFields: {
-          withCredentials: true
-      },
-      beforeSend: function (xhr) {
-          xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-      },
-      url: "/api/users/" + 1 + "/notifications",
-      method: "POST",
-      data: data,
-  }).done(function (data, textStatus, xhr) {
-      console.log(data);
-      var local = alert.find('h5');
-      local.empty();
-      local.append('Alerts');
-      if (data.result.length) {
-          local.append(alertsBadge(data.result.length));
-      }
-      local.append(' <span class="fa fa-sort-down drop-arrow"></span>');
+  //   var data = {
+  //       type: 'general',
+  //       comment: 'Test notification for createUsersNotificationsById',
+  //       link: '/frontdesk',
+  //       checked: false
+  //   }
+  //   $.ajax({
+  //     xhrFields: {
+  //         withCredentials: true
+  //     },
+  //     beforeSend: function (xhr) {
+  //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+  //     },
+  //     url: "/api/users/" + 1 + "/notifications",
+  //     method: "POST",
+  //     data: data,
+  // }).done(function (data, textStatus, xhr) {
+  //     console.log(data);
+  //     var local = alert.find('h5');
+  //     local.empty();
+  //     local.append('Alerts');
+  //     if (data.result.length) {
+  //         local.append(alertsBadge(data.result.length));
+  //     }
+  //     local.append(' <span class="fa fa-sort-down drop-arrow"></span>');
 
-      for (var i = 0; i < data.result.length; i++) {
-          alertList.append(newAlertItem(data.result[i]))
-      }
-  }).fail(function (xhr, textStatus, errorThrown) {
-      console.log(xhr);
+  //     for (var i = 0; i < data.result.length; i++) {
+  //         alertList.append(newAlertItem(data.result[i]))
+  //     }
+  // }).fail(function (xhr, textStatus, errorThrown) {
+  //     console.log(xhr);
 
-      if (xhr.status === 401) {
-          localStorage.removeItem("authorization");
-          login.show();
-          alert.hide();
-      }
-    });
+  //     if (xhr.status === 401) {
+  //         localStorage.removeItem("authorization");
+  //         login.show();
+  //         alert.hide();
+  //     }
+  //   });
 });
