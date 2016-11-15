@@ -391,7 +391,6 @@ var api = {
             userId = parseInt(request.params.userId);
         }
         Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
-            console.log(note.userId !== userId);
             if (err) {
                 Respond.failedToGetNotificationById(reply, err);
             } else if (!note || note.userId !== userId) {

@@ -651,7 +651,7 @@ var queries = {
     getNotificationById: function (noteId) {
         var queryString = 'SELECT id, user_id, type, comment, link, checked FROM notifications ' +
                             'WHERE id = \'' + noteId + '\';';
-        console.log(queryString);
+
         return queryString;
     },
 
@@ -671,30 +671,9 @@ var queries = {
         }
         queryString = queryString.substring(0, queryString.length - 1);
         queryString += ' WHERE id = \'' + noteId + '\' RETURNING id, user_id, type, comment, link, checked;';
-        console.log(queryString);
+
         return queryString;
     },
-
-    // updateUsersNotificationsByID: function (userId, noteId) {
-    //     var queryString = 'UPDATE notifications SET ';
-    //
-    //     queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
-    //     queryString += 'WHERE id = ' + '\'' + userId+ '\'' + ' ';
-    //     queryString += 'WHERE id = ' + '\'' + noteId+ '\'' + ' ';
-    //     queryString += 'RETURNING comment;';
-    //
-    //     return queryString;
-    // },
-    //
-    // updateUsersNotificationsByToken: function (noteId) {
-    //     var queryString = 'UPDATE notifications SET ';
-    //
-    //     queryString += 'comment = ' + '\'' + parseProperty(payload.comment) + '\'' + ', ';
-    //     queryString += 'WHERE id = ' + '\'' + noteId+ '\'' + ' ';
-    //     queryString += 'RETURNING comment;';
-    //
-    //     return queryString;
-    // },
 
     changeUserPassword: function (userId, hashedPassword) {
         var queryString = 'UPDATE users SET hashed_password = ' + hashedPassword +

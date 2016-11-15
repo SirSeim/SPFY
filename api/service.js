@@ -508,7 +508,7 @@ var service = {
                 link: local.link,
                 checked: local.checked
             });
-        })
+        });
     },
 
     updateUsersNotification: function (postgres, noteId, payload, callback) {
