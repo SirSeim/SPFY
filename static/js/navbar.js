@@ -99,12 +99,14 @@ $(function () {
     var login = $('ul.nav a[href="login"]').parent();
     var alert = $('#alerts');
     var alertList = alert.children('ul.dropdown-menu');
+    var profile = $('#profile');
     if (typeof(Storage) !== "undefined" && localStorage.getItem("authorization")) {
         console.log("We have authorization");
 
         login.hide();
         alert.show();
         alertList.empty();
+        profile.show();
 
         $.ajax({
             xhrFields: {
@@ -144,6 +146,7 @@ $(function () {
         login.show();
         alert.hide();
         alertList.empty();
+        profile.hide();
     }
 
 // this is a test for getUsersNotificationsById
