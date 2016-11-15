@@ -648,6 +648,32 @@ var queries = {
         return queryString;
     },
 
+    getNotificationById: function (noteId) {
+        var queryString = 'SELECT id, user_id, type, comment, link, checked FROM notifications ' +
+                            'WHERE id = \'' + noteId + '\';';
+        console.log(queryString);
+        return queryString;
+    },
+
+    updateUsersNotification: function (noteId, payload) {
+        var queryString = 'UPDATE notifications SET ';
+        if (payload.type) {
+            queryString += 'type = \'' + payload.type + '\' ';
+        }
+        if (payload.comment) {
+            queryString += 'comment = \'' + payload.comment + '\' ';
+        }
+        if (payload.link) {
+            queryString += 'link = \'' + payload.link + '\' ';
+        }
+        if (payload.checked) {
+            queryString += 'checked = \'' + payload.checked + '\' ';
+        }
+        queryString += 'WHERE id = \'' + noteId + '\';';
+        console.log(queryString);
+        return queryString;
+    },
+
     // updateUsersNotificationsByID: function (userId, noteId) {
     //     var queryString = 'UPDATE notifications SET ';
     //

@@ -382,24 +382,24 @@ var api = {
             }
         });
     },
-    // updateUsersNotificationsById: function (request, reply) {
-    //     Service.getUserById(request.postgres, request.params.userId, request.params.noteId, function (err, user) {
-    //       if (err) {
-    //           Respond.failedToUpdateUsersNotificationsById(reply, err);
-    //       } else {
-    //           Respond.updateUsersNotificationsById(reply, result);
-    //       }
-    //     });
-    // },
-    // updateUsersNotificationsByToken: function (request, reply) {
-    //     Service.getUserById(request.postgres, request.params.noteId, function (err, user) {
-    //       if (err) {
-    //           Respond.failedToUpdateUsersNotificationsByToken(reply, err);
-    //       } else {
-    //           Respond.updateUsersNotificationsByToken(reply, result);
-    //       }
-    //     });
-    // }
+
+    updateUsersNotification: function (request, reply) {
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== request.params.userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Service.updateUsersNotification(request.postgres, note.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUsersNotification(reply, err);
+                    } else {
+                        Respond.updateUsersNotification(reply, result);
+                    }
+                });
+            }
+        });
+    }
 };
 
 

@@ -572,39 +572,39 @@ var query = {
         });
     },
 
-    // updateUsersNotificationsById: function (postgres, userId, noteId, callback) {
-    //     postgres.connect(function (err, client, done) {
-    //         if (err) {
-    //             return callback(err);
-    //         }
-    //
-    //         client.query(Queries.updateUsersNotificationsById(userId, noteId), function (err, result) {
-    //             done();
-    //             if (err) {
-    //                 return callback(err);
-    //             }
-    //
-    //             return callback(undefined, result);
-    //         });
-    //     });
-    // },
-    //
-    // updateUsersNotificationsByToken: function (postgres, noteId, callback) {
-    //     postgres.connect(function (err, client, done) {
-    //         if (err) {
-    //             return callback(err);
-    //         }
-    //
-    //         client.query(Queries.updateUsersNotificationsByToken(noteId), function (err, result) {
-    //             done();
-    //             if (err) {
-    //                 return callback(err);
-    //             }
-    //
-    //             return callback(undefined, result);
-    //         });
-    //     });
-    // },
+    getNotificationById: function (postgres, noteId, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getNotificationById(noteId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    updateUsersNotification: function (postgres, noteId, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.updateUsersNotification(noteId, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
 
     changeUserPassword: function (postgres, userId, hashedPassword, callback) {
         postgres.connect(function (err, client, done) {

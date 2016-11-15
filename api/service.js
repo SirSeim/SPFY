@@ -471,7 +471,7 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    user: userId.username,
+                    userId: local.user_id,
                     type: local.type,
                     comment: local.comment,
                     link: local.link,
@@ -491,23 +491,34 @@ var service = {
         });
     },
 
-    // updateUsersNotificationsById: function (postgres, userId, noteId, callback) {
-    //     Query.updateUsersNotificationsById(postgres, payload, function (err, result) {
-    //         if (err) {
-    //             return callback(err);
-    //         }
-    //         return callback(undefined, result);
-    //     });
-    // },
-    //
-    // updateUsersNotificationsByToken: function (postgres, noteId, callback) {
-    //     Query.updateUsersNotificationsByID(postgres, payload, function (err, result) {
-    //         if (err) {
-    //             return callback(err);
-    //         }
-    //         return callback(undefined, result);
-    //     });
-    // },
+    getNotificationById: function (postgres, noteId, callback) {
+        Query.getNotificationById(postgres, noteId, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var local = result.rows[0];
+            return callback(undefined, {
+                id: local.id,
+                userId: local.user_id,
+                type: local.type,
+                comment: local.comment,
+                link: local.link,
+                checked: local.checked
+            });
+        })
+    },
+
+    updateUsersNotification: function (postgres, noteId, payload, callback) {
+        Query.updateUsersNotification(postgres, noteId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
 
     changeUserPassword: function (postgres, userId, password, callback) {
         bcrypt.hash(password, saltRounds, function (err, hash) {

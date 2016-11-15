@@ -179,26 +179,16 @@ var apiRoutes = [
         },
         handler: Api.createNotification
     },
-    // {
-    //     method: 'PUT',
-    //     path: '/users/{userId}/notifications/{noteId}',
-    //     config: {
-    //         validate: {
-    //             payload: Schema.updateUsersNotificationsById
-    //         }
-    //     },
-    //     handler: Api.updateUsersNotificationsByID
-    // },
-    // {
-    //     method: 'PUT',
-    //     path: '/users/self/notifications/{noteId}',
-    //     config: {
-    //         validate: {
-    //             payload: Schema.updateUsersNotificationsByToken
-    //         }
-    //     },
-    //     handler: Api.updateUsersNotificationsByToken
-    // },
+    {
+        method: 'PUT',
+        path: '/users/{userId}/notifications/{noteId}',
+        config: {
+            validate: {
+                payload: Schema.updateNotification
+            }
+        },
+        handler: Api.updateUsersNotification
+    },
     {
         method: 'PUT',
         path: '/users/password',

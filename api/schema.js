@@ -21,6 +21,13 @@ var schema = {
         comment: Joi.string().required().trim(),
         link: Joi.string().trim(),
         checked: Joi.boolean()
+    }).unknown(false),
+
+    updateNotification: Joi.object().keys({
+        type: Joi.string().trim(),
+        comment: Joi.string().trim(),
+        link: Joi.string().trim(),
+        checked: Joi.boolean()
     }).unknown(false)
 };
 
