@@ -356,7 +356,7 @@ var api = {
         if (request.params.userId === 'self') {
             userId = request.auth.credentials.id;
         } else {
-            userId = request.params.userId;
+            userId = parseInt(request.params.userId);
         }
         Service.getUsersNotifications(request.postgres, userId, function (err, result) {
             if (err) {
@@ -372,7 +372,7 @@ var api = {
         if (request.params.userId === 'self') {
             userId = request.auth.credentials.id;
         } else {
-            userId = request.params.userId;
+            userId = parseInt(request.params.userId);
         }
         Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
             if (err) {
@@ -383,15 +383,33 @@ var api = {
         });
     },
 
+    getUsersNotificationsById: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
+            console.log(note.userId !== userId);
+            if (err) {
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
+            } else {
+                Respond.getUsersNotificationsById(reply, note);
+            }
+        });
+    },
+
     updateUsersNotification: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
             userId = request.auth.credentials.id;
         } else {
-            userId = request.params.userId;
+            userId = parseInt(request.params.userId);
         }
         Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
-            console.log(note);
             if (err) {
                 Respond.failedToGetNotificationById(reply, err);
             } else if (!note || note.userId !== userId) {

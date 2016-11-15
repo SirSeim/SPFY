@@ -442,7 +442,7 @@ var respond = {
     createNotification: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully created a new notification for a user",
+            message: "Successfully created a new notification for a user!",
             result: result
         }).code(200);
     },
@@ -470,6 +470,13 @@ var respond = {
             statusCode: 404,
             message: "No such notification for that user!"
         }).code(404);
+    },
+    getUsersNotificationsById: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got notification!",
+            result: result
+        }).code(200);
     },
     failedToUpdateUsersNotification: function (reply, err) {
         reply({

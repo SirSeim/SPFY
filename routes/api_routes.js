@@ -180,6 +180,11 @@ var apiRoutes = [
         handler: Api.createNotification
     },
     {
+        method: 'GET',
+        path: '/users/{userId}/notifications/{noteId}',
+        handler: Api.getUsersNotificationsById
+    },
+    {
         method: 'PUT',
         path: '/users/{userId}/notifications/{noteId}',
         config: {
