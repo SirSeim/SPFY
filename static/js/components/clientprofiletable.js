@@ -3,52 +3,25 @@ $(function (event) {
     var table = $('#clients tbody');
     var statuses = JSON.parse(window.sessionStorage.statuses); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
     var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
+    var clients = JSON.parse(window.sessionStorage.clients);
 
-    // Is there a way we can make data such as statuses globally available
-    // without it being affected by asynchronous calls?
-    // tried putting an ajax in main.js, but request wasn't fast enough
-    // to be avaiable for clientprofiletable.js
-    //.done(function (statuses) {
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "api/clients",
-            method: "GET",
-            success: function (data) {
-                status.removeClass('dot-pending').addClass('dot-success');
-                console.log(data);
-                table.empty();
-                data.result.forEach(function (client) {
-                    var dataString = "";
-                    for (var property in client) {
-                        dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
-                    }
-                    table.append('<tr class="profile-drag"><td ' + dataString + '>' +
-                        '<span class="dot"></span>' +
-                        client.firstName + ' ' +
-                        client.lastName + ' ' +
-                        '</td></tr>');
-                });
-                $(table).children('tr').get().forEach(function (clientRow) {
-                    var currentStatus = window.getDataById(statuses, $(clientRow).find('td').data("status"));
-                    $(clientRow).find('.dot').css('background-color', currentStatus.color);
-                });
-            },
-            error: function (xhr) {
-                status.removeClass('dot-pending').addClass('dot-error');
-                console.error(xhr);
-
-                if (xhr.status === 401) {
-                    localStorage.removeItem("authorization");
-                }
-            }
-        });
-    //});
-
+    table.empty();
+    clients.forEach(function (client) {
+    var dataString = "";
+    for (var property in client) {
+        dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
+    }
+    table.append('<tr class="profile-drag"><td ' + dataString + '>' +
+        '<span class="dot"></span>' +
+        client.firstName + ' ' +
+        client.lastName + ' ' +
+        '</td></tr>');
+    });
+    $(table).children('tr').get().forEach(function (clientRow) {
+        var currentStatus = window.getDataById(statuses, $(clientRow).find('td').data("status"));
+        $(clientRow).find('.dot').css('background-color', currentStatus.color);
+    });
+    
     $('#client-search').keyup(function () {
         var search = $('#client-search');
         var clients = $('#clients td');

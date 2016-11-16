@@ -99,6 +99,7 @@ $(function (event) {
             // for now giving all flags to all profiles
             // later will link specific flag to specific profile
             // based on id's
+            $('#client-flags').empty();
             flags.forEach(function (flag) {
                 $('#client-flags').append(
                     '<button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +

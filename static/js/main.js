@@ -65,4 +65,28 @@ $(function () {
             },
         });
     }, 0);
+
+    window.setTimeout(function () {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/clients",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+                window.sessionStorage.clients = JSON.stringify(data.result);
+            },
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
+        });
+    }, 0);
 })
