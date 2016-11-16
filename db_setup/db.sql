@@ -393,3 +393,10 @@ CREATE TABLE notifications (
 );
 
 INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification for test', '/frontdesk');
+
+DROP TABLE IF EXISTS files;
+
+CREATE TABLE files (
+  id SERIAL PRIMARY KEY,
+  base_64_string varchar(max) DEFAULT NULL
+);
