@@ -588,10 +588,9 @@ span.badge {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  width: 1600px;
 }
 
-/* line 23, ../sass/partials/_frontdesk.scss */
+/* line 22, ../sass/partials/_frontdesk.scss */
 .thumbnail {
   box-shadow: 1px 1px 10px #999;
   margin: 2px;
