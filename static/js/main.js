@@ -15,29 +15,35 @@ $(function () {
         })[0];
     };
 
-    window.setTimeout(function () {  
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "api/statuses",
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                window.sessionStorage.statuses = JSON.stringify(data.result);
-            },
-            error: function (xhr) {
-                console.error(xhr);
+    //window.setTimeout(function () {  
 
-                if (xhr.status === 401) {
-                    localStorage.removeItem("authorization");
-                }
-            },
-        });
-    }, 0); // found this trick on a js conference video
+    window.sessionStorageListeners = [];
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "api/statuses",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+            window.sessionStorage.statuses = JSON.stringify(data.result);
+            window.sessionStorageListeners.forEach(function (listener) {
+                listener.ready();
+            });
+        },
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
+        },
+    });
+    //}, 0); // found this trick on a js conference video
            // from what I could gather this setTimeout reprioritizes
            // this callback in javascript's callback queue and event loop
            // allowing it to be run on the call stack earlier
