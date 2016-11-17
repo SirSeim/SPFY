@@ -398,5 +398,7 @@ DROP TABLE IF EXISTS files;
 
 CREATE TABLE files (
   id SERIAL PRIMARY KEY,
-  base_64_string varchar(max) DEFAULT NULL
+  base_64_string varchar DEFAULT NULL
 );
+
+INSERT INTO files (base_64_string) VALUES ('oashipwah3u9reioahwui9rahwirawrhwua8irhqwiothru93wq0ht9uqw0ht90qw');

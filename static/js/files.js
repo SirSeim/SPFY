@@ -38,16 +38,6 @@ $(function (event) {
 		var file = this.files[0];
 		var base64;
 
-		reader.onload = function() {
-
-			var preview = document.querySelector('img[id=preview]');
-			preview.src = reader.result;
-
-			var base64 = arrayBufferToBase64(reader.result);
-    		console.log(base64);
-    		console.log('DONE');
-		}
-
 		if (file) {
 			getBase64(file, function (e) {
 				var preview = document.querySelector('img[id=preview]');
