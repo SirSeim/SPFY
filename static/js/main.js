@@ -43,56 +43,59 @@ $(function () {
             }
         },
     });
+
     //}, 0); // found this trick on a js conference video
            // from what I could gather this setTimeout reprioritizes
            // this callback in javascript's callback queue and event loop
            // allowing it to be run on the call stack earlier
 
-    window.setTimeout(function () {
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "api/flags",
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                window.sessionStorage.flags = JSON.stringify(data.result);
-            },
-            error: function (xhr) {
-                console.error(xhr);
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "api/flags",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+            window.sessionStorage.flags = JSON.stringify(data.result);
+            window.sessionStorageListeners.forEach(function (listener) {
+                listener.ready();
+            });
+        },
+        error: function (xhr) {
+            console.error(xhr);
 
-                if (xhr.status === 401) {
-                    localStorage.removeItem("authorization");
-                }
-            },
-        });
-    }, 0);
-
-    window.setTimeout(function () {
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "api/clients",
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                window.sessionStorage.clients = JSON.stringify(data.result);
-            },
-            error: function (xhr) {
-                console.error(xhr);
-
-                if (xhr.status === 401) {
-                    localStorage.removeItem("authorization");
-                }
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
             }
-        });
-    }, 0);
+        },
+    });
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "api/clients",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+            window.sessionStorage.clients = JSON.stringify(data.result);
+            window.sessionStorageListeners.forEach(function (listener) {
+                listener.ready();
+            });
+        },
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
+        }
+    });
 })

@@ -39,7 +39,7 @@ $(function (event) {
                 }).show();
             }
         });
-    }
+    };
     /*
     
         can insert and retrieve using jQuery's data function

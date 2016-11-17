@@ -266,9 +266,9 @@ $(function () {
     $('#flags-table tbody').delegate('td button.edit', 'click', function (event) {
 
         // cancel any other active edits before opening the edit options for the current status
-        // $(event.target).parents('tbody').children('tr').get().forEach(function (element) {
-        //     cancel(element);
-        // });
+        $(event.target).parents('tbody').children('tr').get().forEach(function (element) {
+            cancel(element);
+        });
 
         var columns = $(event.target).parent().siblings();
         var colorcol = $(columns).parent().find('.color-column');
