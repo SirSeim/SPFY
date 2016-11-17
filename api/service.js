@@ -530,6 +530,112 @@ var service = {
 
     deleteUser: function (postgres, userId, callback) {
         Query.deleteUser(postgres, userId, callback);
+    },
+
+    getStatuses: function (postgres, callback) {
+        Query.getStatuses(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.name,
+                    color: local.color
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    createStatus: function (postgres, payload, callback) {
+        Query.createStatus(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editStatus: function (postgres, statusID, payload, callback) {
+        Query.editStatus(postgres, statusID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.name,
+                    color: local.color
+                });
+            }
+            callback(undefined, arr);
+        });
+    },
+    getFlags: function (postgres, callback) {
+        Query.getFlags(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    type: local.type,
+                    color: local.color,
+                    message: local.message,
+                    note: local.note
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    createFlag: function (postgres, payload, callback) {
+        Query.createFlag(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editFlag: function (postgres, flagID, payload, callback) {
+        Query.editFlag(postgres, flagID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            console.log(result);
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    type: local.type,
+                    color: local.color,
+                    message: local.message,
+                    note: local.note
+                });
+            }
+            callback(undefined, arr);
+        });
     }
 };
 

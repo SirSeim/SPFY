@@ -638,7 +638,117 @@ var query = {
                 return callback(undefined, result);
             });
         });
-    }
+    },
+
+    getStatuses: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getStatuses(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createStatus: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            // var data = Queries.createStatus(payload);
+            // // unstringify the data passed in
+            client.query(Queries.createStatus(payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editStatus: function (postgres, statusID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            // var data = Queries.editStatus(statusID);
+            // // unstringify the data passed in
+            client.query(Queries.editStatus(statusID, payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    getFlags: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getFlags(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createFlag: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // var data = Queries.createFlag(payload);
+            // // unstringify the data passed in
+            client.query(Queries.createFlag(payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editFlag: function (postgres, flagID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            // var data = Queries.editFlag(flagID);
+            // // unstringify the data passed in
+            client.query(Queries.editFlag(flagID, payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
 
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {

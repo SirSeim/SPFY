@@ -25,14 +25,15 @@ DROP TABLE IF EXISTS status;
 
 CREATE TABLE status (
   id SERIAL PRIMARY KEY,
-  name varchar(45) DEFAULT NULL
+  name varchar(45) DEFAULT NULL,
+  color varchar(15) DEFAULT NULL
 );
 
-INSERT INTO status (name) VALUES ('okay');
-INSERT INTO status (name) VALUES ('missing');
-INSERT INTO status (name) VALUES ('sick');
-INSERT INTO status (name) VALUES ('vulnerable');
-INSERT INTO status (name) VALUES ('dangerous');
+INSERT INTO status (name, color) VALUES ('okay', '#008000'); --rgb(0, 128, 0)
+INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
+INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
+INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
+INSERT INTO status (name, color) VALUES ('dangerous', '#FB0000'); --rgb(251, 0, 0)
 
 
 DROP TABLE IF EXISTS client;
@@ -397,3 +398,19 @@ INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Test not
 INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification', '/frontdesk', 'FALSE');
 INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification1', '/frontdesk', 'TRUE');
 INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification2', '/frontdesk', 'FALSE');
+
+DROP TABLE IF EXISTS flags;
+
+CREATE TABLE flags (
+  id SERIAL PRIMARY KEY,
+  type varchar(45) DEFAULT NULL,
+  message varchar(45) DEFAULT NULL,
+  color varchar(45) DEFAULT NULL,
+  note varchar(100) DEFAULT NULL
+);
+
+INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '#02AEF0', '(name) checked in at (time, day)');
+INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO flags (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
+INSERT INTO flags (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');

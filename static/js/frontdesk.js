@@ -25,6 +25,14 @@ $(function () {
     } // in future, will be able to pull from list of statuses stored in a "Settings" page
     // or an ajax call that retrieves statuses and their colors
 
+    $('#viewclient-modal-save-button').click(function (event) {
+
+        // ajax call here to save any changes to the client profile
+        
+        $('#viewclient-modal').modal('toggle');
+
+    });
+
     $('#clients tbody').css("height", 100);
     // $('#clients tbody').find('tr td').get().forEach(function (row) {
     //     $(row).append('<button type="button" class="btn btn-default checkin">Check-In</button>');
