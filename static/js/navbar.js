@@ -138,6 +138,7 @@ $(function () {
                 localStorage.removeItem("authorization");
                 login.show();
                 alert.hide();
+                profile.hide();
             }
         });
     } else {
@@ -148,6 +149,12 @@ $(function () {
         alertList.empty();
         profile.hide();
     }
+
+    $('#logout').click(function () {
+        localStorage.removeItem("authorization");
+        var rawWords = window.location.href.split("/");
+        window.location = rawWords[0] + "//" + rawWords[2] + "/";
+    });
 
 // this is a test for getUsersNotificationsById
   //   $.ajax({
