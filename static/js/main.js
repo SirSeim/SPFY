@@ -15,8 +15,6 @@ $(function () {
         })[0];
     };
 
-    //window.setTimeout(function () {  
-
     window.sessionStorageListeners = [];
 
     $.ajax({
@@ -43,11 +41,6 @@ $(function () {
             }
         },
     });
-
-    //}, 0); // found this trick on a js conference video
-           // from what I could gather this setTimeout reprioritizes
-           // this callback in javascript's callback queue and event loop
-           // allowing it to be run on the call stack earlier
 
     $.ajax({
         xhrFields: {
