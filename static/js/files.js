@@ -44,7 +44,6 @@ $(function (event) {
     		console.log('DONE');
 		}
 
-		
 		if (file) {
 			reader.readAsArrayBuffer(file);
 		}
