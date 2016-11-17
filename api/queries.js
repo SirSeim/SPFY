@@ -628,7 +628,8 @@ var queries = {
     },
 
     uploadFiles: function() {
-        var queryString = '';
+        var queryString = 'INSERT INTO files (base_64_string) VALUES (\'' +
+                            payload.base64 + '\');';
 
         return queryString;
     }
