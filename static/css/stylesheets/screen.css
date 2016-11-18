@@ -191,6 +191,102 @@ html, body {
   background-color: green;
 }
 
+/* line 73, ../sass/partials/_base.scss */
+.former-switch .former-switch-container {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+/* line 79, ../sass/partials/_base.scss */
+.former-switch input {
+  height: 24px;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 44px;
+  z-index: 0;
+}
+
+/* line 90, ../sass/partials/_base.scss */
+.former-switch .former-switch-display {
+  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background: #ccc;
+  border-radius: 12px;
+  height: 24px;
+  position: relative;
+  width: 44px;
+  z-index: 1;
+}
+
+/* line 101, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:after, .former-switch .former-switch-display:before {
+  border-radius: 11px;
+  content: '';
+  display: block;
+  height: 22px;
+  position: absolute;
+}
+
+/* line 109, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:before {
+  -webkit-transform: translate(1px, 1px) scale(1);
+  transform: translate(1px, 1px) scale(1);
+  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  background: #f9f9f9;
+  width: 42px;
+}
+
+/* line 118, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:after {
+  -webkit-transform: translate(1px, 1px);
+  transform: translate(1px, 1px);
+  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  width: 22px;
+}
+
+/* line 128, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:active {
+  background: #ccc;
+}
+
+/* line 132, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:active:after {
+  width: 26px;
+}
+
+/* line 136, ../sass/partials/_base.scss */
+.former-switch .former-switch-display:active:before, .former-switch.former-switch-active .former-switch-display:before {
+  -webkit-transform: translate(1px, 1px) scale(0);
+  transform: translate(1px, 1px) scale(0);
+}
+
+/* line 141, ../sass/partials/_base.scss */
+.former-switch.former-switch-active .former-switch-display {
+  background: #02aef0;
+  border-color: #02aef0;
+}
+
+/* line 146, ../sass/partials/_base.scss */
+.former-switch.former-switch-active .former-switch-display:active:after {
+  -webkit-transform: translate(17px, 1px);
+  transform: translate(17px, 1px);
+}
+
+/* line 151, ../sass/partials/_base.scss */
+.former-switch.former-switch-active .former-switch-display:after {
+  -webkit-transform: translate(21px, 1px);
+  transform: translate(21px, 1px);
+}
+
 /* line 4, ../sass/partials/_fonts.scss */
 body {
   font-family: 'KildeSansRegular';
@@ -618,6 +714,14 @@ button.badge-button.btn.btn-primary.btn-xs {
 /* line 12, ../sass/partials/_frontdesk.scss */
 span.badge {
   color: black !important;
+}
+
+/* line 16, ../sass/partials/_frontdesk.scss */
+.panel-horiscroll .panel-heading {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 80px;
+  white-space: nowrap;
 }
 
 /* plugins */

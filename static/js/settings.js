@@ -119,7 +119,12 @@ $(function () {
         
         // --------------------- Notifications --------------------------
         
-        types.forEach(function (type) { $('#notifications-settings div.panel').append('<p>' + type.name + '</p>') });
+        types.forEach(function (type) { 
+            $('#flag-notifications-table tbody').append(
+                            '<tr><td>' + type.name + '</td>' + 
+                            '<td><input type="checkbox" checked data-toggle="toggle"></td>' +
+                            '</tr>');
+        });
 
 
         // ---------------------- Client Profiles ----------------------------
