@@ -633,7 +633,7 @@ var queries = {
         // query with subquery
         var queryString = 'SELECT type, comment, link, checked FROM notification WHERE id IN (' +
                             'SELECT notification_id FROM receive_notification WHERE user_id = ' + userId +
-                            ' ) ORDER BY id;'
+                            ' ) ORDER BY id;';
         return queryString;
     },
 
