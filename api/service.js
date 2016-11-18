@@ -519,6 +519,26 @@ var service = {
         });
     },
 
+    getNotificationTypes: function (postgres, callback) {
+        Query.getNotificationTypes(postgres, function(err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    name: local.name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     changeUserPassword: function (postgres, userId, password, callback) {
         bcrypt.hash(password, saltRounds, function (err, hash) {
             if (err) {

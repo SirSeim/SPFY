@@ -383,21 +383,46 @@ CREATE TABLE users (
 -- inserting user 'test' to login with password 'passwordisnone'
 INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u');
 
-DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS notification_types;
 
-CREATE TABLE notifications (
+CREATE TABLE notification_types ( -- making types separate is useful for settings
+  id SERIAL PRIMARY KEY,          -- and this could very well be implemented in the frontend
+  name varchar(45) DEFAULT NULL   -- by just calling all the notifications and extracting the different
+);                                -- types, but this seems much simpler and safer than relying on
+                                  -- complex js to filter out the unique types from each request
+
+INSERT INTO notification_types (name) VALUES ('default');
+INSERT INTO notification_types (name) VALUES ('primary');
+INSERT INTO notification_types (name) VALUES ('success');
+INSERT INTO notification_types (name) VALUES ('info');
+INSERT INTO notification_types (name) VALUES ('warning');
+INSERT INTO notification_types (name) VALUES ('danger');
+
+DROP TABLE IF EXISTS notification;
+
+CREATE TABLE notification (
   id SERIAL PRIMARY KEY,
-  user_id integer REFERENCES users (id),
-  type varchar(45) NOT NULL DEFAULT 'general',
+  type integer REFERENCES notification_types (id),
   comment varchar(128) DEFAULT NULL,
   link varchar(128) DEFAULT NULL,
   checked boolean DEFAULT FALSE
 );
 
-INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification', '/frontdesk', 'FALSE');
-INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification1', '/frontdesk', 'TRUE');
-INSERT INTO notifications (user_id, comment, link, checked) VALUES (1, 'Another notification2', '/frontdesk', 'FALSE');
+INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Yet another notification for test', '/frontdesk', 'FALSE');
+
+DROP TABLE IF EXISTS receive_notification;
+
+CREATE TABLE receive_notification (
+  id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users (id),
+  notification_id integer REFERENCES notification (id)
+);
+
+INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 1);
+INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 2);
+INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 3);
 
 DROP TABLE IF EXISTS flags;
 

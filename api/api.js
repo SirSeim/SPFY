@@ -532,6 +532,16 @@ var api = {
         });
     },
 
+    getNotificationTypes: function (request, reply) {
+        Service.getNotificationTypes(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetNotificationTypes(reply, err);
+            } else {
+                Respond.getNotificationTypes(reply, result);
+            }
+        });
+    },
+
     getStatuses: function (request, reply) {
         Service.getStatuses(request.postgres, function (err, result) {
             if (err) {

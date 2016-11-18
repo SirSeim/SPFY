@@ -519,6 +519,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetNotificationTypes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get notification types!",
+            error: err
+        }).code(500);
+    },
+    getNotificationTypes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got notification types!",
+            result: result
+        }).code(200);
+    },
     failedToChangeUserPassword: function (reply, err) {
         reply({
             statusCode: 500,

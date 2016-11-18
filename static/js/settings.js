@@ -5,6 +5,7 @@ $(function () {
     var setupSettingsPage = function () {
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
+        var types = JSON.parse(window.sessionStorage.notificationTypes);
 
         var editButton = '<button type="button" class="btn btn-default edit">Edit</button>';
         var colorString = '';
@@ -118,7 +119,7 @@ $(function () {
         
         // --------------------- Notifications --------------------------
         
-        // TODO
+        types.forEach(function (type) { $('#notifications-settings div.panel').append('<p>' + type.name + '</p>') });
 
 
         // ---------------------- Client Profiles ----------------------------

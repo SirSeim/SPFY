@@ -630,16 +630,20 @@ var queries = {
     },
 
     getUsersNotifications: function (userId) {
-        var queryString = 'SELECT * FROM notifications WHERE user_id = \'' +
-                            userId + '\' AND checked = FALSE;';
-
+        // query with subquery
+        var queryString = 'SELECT type, comment, link, checked FROM notification WHERE id IN (' +
+                            'SELECT notification_id FROM receive_notification WHERE user_id = ' + userId +
+                            ' ) ORDER BY id;'
         return queryString;
     },
 
     createNotification: function (userId, payload) {
-        var queryString = 'INSERT INTO notifications (user_id, comment';
+        var queryString = 'INSERT INTO notification (';
         if (payload.type) {
             queryString += ', type';
+        }
+        if (payload.comment) {
+            queryString += ', comment';
         }
         if (payload.link) {
             queryString += ', link';
@@ -653,13 +657,16 @@ var queries = {
         if (payload.type) {
             queryString += ', \'' + payload.type + '\'';
         }
+        if (payload.comment) {
+            queryString += ', \'' + payload.comment + '\'';
+        }
         if (payload.link) {
             queryString += ', \'' + payload.link + '\'';
         }
         if (payload.checked) {
             queryString += ', \'' + payload.checked + '\'';
         }
-        queryString += ') RETURNING user_id, type, comment, link, checked;';
+        queryString += ') RETURNING id, type, comment, link, checked;';
 
         return queryString;
     },
@@ -687,6 +694,12 @@ var queries = {
         }
         queryString = queryString.substring(0, queryString.length - 1);
         queryString += ' WHERE id = \'' + noteId + '\' RETURNING id, user_id, type, comment, link, checked;';
+
+        return queryString;
+    },
+
+    getNotificationTypes: function () {
+        var queryString = 'SELECT * FROM notification_types;';
 
         return queryString;
     },
