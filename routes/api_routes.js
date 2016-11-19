@@ -181,12 +181,12 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/{clientID}',
+        path: '/case_manager/{clientID}',
         handler: Api.getCasePlan
     },
     {
         method: 'POST',
-        path: '{casePlanID}',
+        path: '/case_manager/{casePlanID}',
         handler: Api.editCasePlan
     }
 ];

@@ -37,10 +37,10 @@ $(function (event) {
             data.result.forEach(function (note) {
                 caseNotesTable.append('<tr>' +
                     '<td>' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
-                    '<td>' + note.category + '</td>' + 
-                    '<td>' + note.caseManager + '</td>' + 
-                    '<td>' + note.note +  '</td>' + 
-                    '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
+                    '<td>' + note.category + '</td>' +
+                    '<td>' + note.caseManager + '</td>' +
+                    '<td>' + note.note +  '</td>' +
+                    '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' +
                     '</tr>');
             });
         });
@@ -55,7 +55,7 @@ $(function (event) {
     } // in future, will be able to pull from list of statuses stored in a "Settings" page
 
     $('#casenotes').DataTable();
-    
+
     var displayClientProfile = function (client) {
 
         $.ajax({
@@ -91,14 +91,10 @@ $(function (event) {
             $('#client-age').text(data.result.rows[0].age.years);
             $('#client-phonenumber').text( data.result.rows[0].phone_number);
             $('#client-email').text(data.result.rows[0].email);
-
-            // getCaseNotes(client.match(/[0-9]+/)['0']);
-
-            console.log(data.result.rows[0].status);
-            console.log(statusNames[data.result.rows[0].status]);
             $('#client-status').text(statusNames[data.result.rows[0].status]);
-
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
+            $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
+
         });
     }
 
@@ -115,7 +111,7 @@ $(function (event) {
             data: data,
             success: function (data) {
                 console.log(data);
-                
+
                 $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
                 $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
                 $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].intake_age + '</td>');
@@ -187,7 +183,7 @@ $(function (event) {
                 '<li><a href="#">' + statusNames[2] + '</a></li>' +
                 '<li><a href="#">' + statusNames[3] + '</a></li>' +
                 '<li><a href="#">' + statusNames[4] + '</a></li>' +
-                '<li><a href="#">' + statusNames[5] + '</a></li>' + 
+                '<li><a href="#">' + statusNames[5] + '</a></li>' +
                 '<li role="separator" class="divider"></li>' +
                 '<li><a href="#">Separated link</a></li></ul></div>');
 
@@ -196,7 +192,7 @@ $(function (event) {
             $(this).parents('.dropdown').dropdown('toggle');
         });
     });
-    
+
 
 
     $('#cancel-edit').click(function () {
@@ -240,7 +236,7 @@ $(function (event) {
                 return statusNames[key].trim() === status.trim() ? key : '';
             })[0];
         };
-        
+
         var data = {
             id: id,
             firstName: firstName,
@@ -256,9 +252,9 @@ $(function (event) {
         };
 
         editClient(data);
-        
+
     });
-    
+
     var popOnHover = function (id) {
         id = '#' + id;
         $(id).hover( function () {
