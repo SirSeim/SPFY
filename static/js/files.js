@@ -50,7 +50,9 @@ $(function (event) {
 
 	$('#submit').click(function () {
 		var fileString = $('#base64').text();
-		uploadFile(fileString);
+		uploadFile({
+            fileString: fileString
+        });
 	});
 
 });

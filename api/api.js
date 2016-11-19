@@ -363,6 +363,7 @@ var api = {
 
 
     uploadFiles: function (request, reply) {
+        console.log("api.js ===========");
         Service.uploadFiles(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToUploadFiles(reply, err);

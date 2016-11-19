@@ -573,15 +573,20 @@ var query = {
     },
 
     uploadFiles: function (postgres, payload, callback) {
+        console.log("query.js =========");
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            payload = JSON.parse(payload.expression);
-            var data = Queries.uploadFiles(payload);
+            // if you get a huge printout of base64
+            // text in your terminal window, it means the image made it through
+            // down to this level and is about to go into postgres
 
-            client.query(data.string, data.params, function (err, result) {
+            // uncommenting this console log is useful to see if it makes it
+            // but it might crash your dev console because the string is so big
+            // console.log(payload.fileString);
+            client.query(Queries.uploadFiles(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

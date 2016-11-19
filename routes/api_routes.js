@@ -182,6 +182,13 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/files',
+        config: {
+            payload: {
+                maxBytes: 209715200,
+                //output: 'stream',
+                //parse: false
+            }
+        }, 
         handler: Api.uploadFiles
     }
 ];

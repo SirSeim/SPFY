@@ -491,6 +491,7 @@ var service = {
     },
 
     uploadFiles: function (postgres, payload, callback) {
+        console.log("service.js ==========");
         Query.uploadFiles(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
