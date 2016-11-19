@@ -178,6 +178,16 @@ var apiRoutes = [
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'GET',
+        path: '/{clientID}',
+        handler: Api.getCasePlan
+    },
+    {
+        method: 'POST',
+        path: '{casePlanID}',
+        handler: Api.editCasePlan
     }
 ];
 

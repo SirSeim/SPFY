@@ -418,7 +418,7 @@ var query = {
             });
         });
     },
-    
+
     getCheckIn: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -570,8 +570,42 @@ var query = {
                 return callback(undefined, result);
             });
         });
-    }
-    
+    },
+
+    getCasePlan: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getCasePlan(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    editCasePlan: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.editCasePlan(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

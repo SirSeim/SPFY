@@ -488,7 +488,41 @@ var service = {
             }
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
-    }
+    },
+
+    getCasePlan: function (postgres, data, callback) {
+        Query.getCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    clientID: local.client_id,
+                    caseManagerID: local.case_manager_id,
+                    date: local.date,
+                    category: local.category,
+                    caseManager: local.first_name + ' ' + local.last_name,
+                    note: local.note
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    editCasePlan: function (postgres, data, callback) {
+        Query.editCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
 };
 
 module.exports = service;

@@ -64,7 +64,8 @@ CREATE TABLE client (
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL,
-  status integer REFERENCES status (id)
+  status integer REFERENCES status (id),
+  caseplan varchar() DEFAULT NULL
 );
 
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);

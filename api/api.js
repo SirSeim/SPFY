@@ -359,7 +359,28 @@ var api = {
                 Respond.getUsersNotifications(reply, result);
             }
         });
-    }
+    },
+
+    getCasePlan: function (request, reply) {
+        Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCasePlan(reply, err);
+            } else {
+                Respond.getCasePlan(reply, result);
+            }
+        });
+
+    },
+
+    editCasePlan: function (request, reply) {
+        Service.editCasePlan(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditCasePlan(reply, err);
+            } else {
+                Respond.editCasePlan(reply, result);
+            }
+        });
+    },
 };
 
 

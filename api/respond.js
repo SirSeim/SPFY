@@ -464,7 +464,35 @@ var respond = {
             message: "Successfully logged in!",
             result: result
         }).code(200).header("Authorization", token);
-    }
+    },
+    failedToGetCasePlan: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's case plan!",
+            error: err
+        }).code(500);
+    },
+    getCasePlan: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's case plan.",
+            result: result
+        }).code(200);
+    },
+    failedToEditCasePlan: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit case plan!",
+            error: err
+        }).code(500);
+    },
+    editCasePlan: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully edited case plan.",
+            result: result
+        }).code(200);
+    },
 
 };
 
