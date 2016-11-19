@@ -479,6 +479,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get file",
+            error: err
+        }).code(500);
+    },
+    getFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got file",
+            result: result
+        }).code(200);
+    }
 
 };
 

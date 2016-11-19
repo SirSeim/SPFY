@@ -499,6 +499,15 @@ var service = {
             callback(undefined, result);
         });
     },
+
+    getFile: function (postgres, fileID, callback) {
+        Query.getFile(postgres, fileID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    }
 };
 
 module.exports = service;

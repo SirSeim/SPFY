@@ -34,6 +34,34 @@ $(function (event) {
         });
 	};
 
+	var getFile = function (data) {
+		$.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: 'api/files/' + data,
+            method: 'GET',
+            data: data,
+            success: function (data) {
+                console.log(data);
+                alert('SUCCESS! File has been successfully retrieved');
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                alert('ERROR! Could not get file');
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
+        }).done(function (data) {
+
+        });
+	}
+
 	$('#file').change(function () {
 		var file = this.files[0];
 		var base64;
@@ -53,6 +81,11 @@ $(function (event) {
 		uploadFile({
             fileString: fileString
         });
+	});
+
+	$('#get').click(function () {
+		var fileID = 1;
+		getFile(fileID);
 	});
 
 });

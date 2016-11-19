@@ -371,6 +371,16 @@ var api = {
                 Respond.uploadFiles(reply, result);
             }
         });
+    },
+
+    getFile: function (request, reply) {
+        Service.getFile(request.postgres, request.params.fileID, function (err, result) {
+            if (err) {
+                Respond.failedToGetFile(reply, err);
+            } else {
+                Respond.getFile(reply, result);
+            }
+        });
     }
 
 

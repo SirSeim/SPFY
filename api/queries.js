@@ -627,11 +627,17 @@ var queries = {
         return queryString;
     },
 
-    uploadFiles: function(payload) {
+    uploadFiles: function (payload) {
         console.log("queries.js ======");
-        var queryString = 'INSERT INTO files (base_64_string) VALUES (\'' +
+        var queryString = 'INSERT INTO file (base_64_string) VALUES (\'' +
                             payload.fileString + '\');';
 
+        return queryString;
+    },
+
+    getFile: function (fileID) {
+        var queryString = 'SELECT base_64_string FROM file WHERE id = ' + fileID + ';';
+        console.log(queryString);
         return queryString;
     }
 };

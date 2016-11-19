@@ -190,6 +190,11 @@ var apiRoutes = [
             }
         }, 
         handler: Api.uploadFiles
+    },
+    {
+        method: 'GET',
+        path: '/files/{fileID}',
+        handler: Api.getFile
     }
 ];
 
