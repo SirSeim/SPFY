@@ -125,7 +125,7 @@ $(function () {
                   local.append(alertsBadge(data.result.length));
               }
               local.append(' <span class="fa fa-sort-down drop-arrow"></span>');
-
+              alert.children('ul.dropdown-menu').empty();
               for (var i = 0; i < data.result.length; i++) {
                   alertList.append(newAlertItem(data.result[i]))
               }

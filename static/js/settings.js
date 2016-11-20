@@ -122,10 +122,13 @@ $(function () {
         types.forEach(function (type) { 
             $('#flag-notifications-table tbody').append(
                             '<tr><td>' + type.name + '</td>' + 
-                            '<td><input type="checkbox" checked data-toggle="toggle"></td>' +
+                            '<td><input type="checkbox" name="settings-checkbox" checked></td>' +
                             '</tr>');
         });
 
+        $('[name="settings-checkbox"]').get().forEach(function (checkbox) {
+            $(checkbox).bootstrapSwitch();
+        });
 
         // ---------------------- Client Profiles ----------------------------
 
