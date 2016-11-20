@@ -1,16 +1,16 @@
 
-var ActivityTable = React.createClass({
-    render: function () {
-        return (
-            <div className="text"></div>
-        )
-    }
-});
+// var ActivityTable = React.createClass({
+//     render: function () {
+//         return (
+//             <div className="text"></div>
+//         )
+//     }
+// });
 
-ReactDOM.render(
-  <ActivityTable />,
-  document.getElementById('react-test')
-);
+// ReactDOM.render(
+//   <ActivityTable />,
+//   document.getElementById('react-test')
+// );
 
 $(function () {
 
@@ -34,50 +34,6 @@ $(function () {
     });
 
     $('#clients tbody').css("height", 100);
-    // $('#clients tbody').find('tr td').get().forEach(function (row) {
-    //     $(row).append('<button type="button" class="btn btn-default checkin">Check-In</button>');
-    // });
-    // $('#clients tbody').find('.profile-drag').get().forEach(function (row) {
-    //     $(row).draggable();
-    // });
-
-    // console.log($('.btn.checkin'));
-    // $('.btn.checkin').click(function (event) {
-    //     alert("clicked!");
-    //     var data = {
-    //         dropinID: $('#dropin-date').data("id"),
-    //         clientID: $(this).parent().data("id"),
-    //         date: moment().format()
-    //     }
-    //     $.ajax({
-    //         xhrFields: {
-    //             withCredentials: true
-    //         },
-    //         beforeSend: function (xhr) {
-    //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-    //         },
-    //         url: "api/checkin",
-    //         method: 'POST',
-    //         data: data,
-    //         success: function (data) {
-    //             console.log(data);
-    //             $('#checkin-result-feedback').empty();
-    //             $('#checkin-result-feedback').append('<h4>' + $(this).parent().data("firstname") + ' checked in successfully!</h4');
-    //         },
-    //         error: function (xhr) {
-    //             console.error(xhr);
-
-    //             if (xhr.status === 401) {
-    //                 localStorage.removeItem("authorization");
-    //             }
-    //         }
-    //     });
-    // });
-
-    // $('#clients').toggleClass("hidden");
-    // $('#client-search').keydown(function () {
-    //     $('#clients').toggleClass("hidden");
-    // });
 
     $.ajax({
         xhrFields: {
