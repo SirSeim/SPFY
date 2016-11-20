@@ -23,6 +23,8 @@ $(function (event) {
             client.lastName + ' ' +
             '</td></tr>');
         });
+        // what if profiles don't come through?
+        // need code for edge case
         $(table).children('tr').get().forEach(function (clientRow) {
             var currentStatus = window.getDataById(statuses, $(clientRow).find('td').data("status"));
             $(clientRow).find('.dot').css('background-color', currentStatus.color);
