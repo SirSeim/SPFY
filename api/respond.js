@@ -479,17 +479,31 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetFile: function (reply, err) {
+    failedToGetClientFiles: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get file",
+            message: "Unable to get client's files",
             error: err
         }).code(500);
     },
-    getFile: function (reply, result) {
+    getClientFiles: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully got file",
+            message: "Successfully got client's files",
+            result: result
+        }).code(200);
+    },
+    failedToGetProfilePicture: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's profile picture",
+            error: err
+        }).code(500);
+    },
+    getProfilePicture: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's profile picture",
             result: result
         }).code(200);
     }

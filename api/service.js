@@ -499,8 +499,17 @@ var service = {
         });
     },
 
-    getFile: function (postgres, fileID, callback) {
-        Query.getFile(postgres, fileID, function (err, result) {
+    getClientFiles: function (postgres, clientID, callback) {
+        Query.getClientFiles(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getProfilePicture: function (postgres, clientID, callback) {
+        Query.getProfilePicture(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }

@@ -636,9 +636,13 @@ var queries = {
         return queryString;
     },
 
-    getFile: function (fileID) {
-        var queryString = 'SELECT base_64_string FROM file WHERE client_id = ' + fileID + ' AND type = profile_picture;';
-        console.log(queryString);
+    getClientFiles: function (clientID) {
+        var queryString = 'SELECT type, base_64_string FROM file WHERE client_id = ' + clientID + ';';
+        return queryString;
+    },
+
+    getProfilePicture: function (clientID) {
+        var queryString = 'SELECT base_64_string FROM file WHERE client_id = ' + clientID + 'AND type=profile_picture;';
         return queryString;
     }
 };

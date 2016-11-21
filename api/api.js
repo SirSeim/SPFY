@@ -372,16 +372,25 @@ var api = {
         });
     },
 
-    getFile: function (request, reply) {
-        Service.getFile(request.postgres, request.params.fileID, function (err, result) {
+    getClientFiles: function (request, reply) {
+        Service.getClientFiles(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
-                Respond.failedToGetFile(reply, err);
+                Respond.failedToGetClientFiles(reply, err);
             } else {
-                Respond.getFile(reply, result);
+                Respond.getClientFiles(reply, result);
+            }
+        });
+    },
+
+    getProfilePicture: function (request, reply) {
+        Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetProfilePicture(reply, err);
+            } else {
+                Respond.getProfilePicture(reply, result);
             }
         });
     }
-
 
 };
 

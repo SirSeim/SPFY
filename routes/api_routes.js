@@ -193,8 +193,13 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/files/{fileID}',
-        handler: Api.getFile
+        path: '/files/{clientID}',
+        handler: Api.getClientFiles
+    },
+    {
+        method: 'GET',
+        path: '/files/profile_picture/{clientID}',
+        handler: Api.getProfilePicture
     }
 ];
 

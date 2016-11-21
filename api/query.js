@@ -596,13 +596,30 @@ var query = {
         });
     },
 
-    getFile: function (postgres, fileID, callback) {
+    getClientFiles: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.getFile(fileID), function (err, result) {
+            client.query(Queries.getClientFiles(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getProfilePicture: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getProfilePicture(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
