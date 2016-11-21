@@ -100,6 +100,38 @@ $(function (event) {
 
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
         });
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: 'api/files/' + $(client).data("id"),
+            method: 'GET',
+            data: $(client).data("id"),
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
+        }).done(function (data) {
+            var result = data.result;
+            if (result.rowCount > 0) {
+                var url = result.rows['0'].base_64_string;
+                var photo = document.querySelector('img[id=client-photo]');
+                photo.src = url;
+            } else {
+                var photo = document.querySelector('img[id=client-photo]');
+                photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
+            }
+        });
+
     }
 
     var editClient = function (data) {

@@ -636,7 +636,7 @@ var queries = {
     },
 
     getFile: function (fileID) {
-        var queryString = 'SELECT base_64_string FROM file WHERE id = ' + fileID + ';';
+        var queryString = 'SELECT base_64_string FROM file WHERE client_id = ' + fileID + ';';
         console.log(queryString);
         return queryString;
     }
