@@ -465,17 +465,17 @@ var respond = {
             result: result
         }).code(200).header("Authorization", token);
     },
-    failedToUploadFiles: function (reply, err) {
+    failedToUploadFile: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to upload files",
+            message: "Unable to upload file",
             error: err
         }).code(500);
     },
-    uploadFiles: function (reply, result) {
+    uploadFile: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully uploaded files",
+            message: "Successfully uploaded file",
             result: result
         }).code(200);
     },

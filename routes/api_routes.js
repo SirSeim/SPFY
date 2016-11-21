@@ -189,7 +189,7 @@ var apiRoutes = [
                 //parse: false
             }
         }, 
-        handler: Api.uploadFiles
+        handler: Api.uploadFile
     },
     {
         method: 'GET',

@@ -572,8 +572,7 @@ var query = {
         });
     },
 
-    uploadFiles: function (postgres, payload, callback) {
-        console.log("query.js =========");
+    uploadFile: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
@@ -586,7 +585,7 @@ var query = {
             // uncommenting this console log is useful to see if it makes it
             // but it might crash your dev console because the string is so big
             // console.log(payload.fileString);
-            client.query(Queries.uploadFiles(payload), function (err, result) {
+            client.query(Queries.uploadFile(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

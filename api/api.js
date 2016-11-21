@@ -362,13 +362,12 @@ var api = {
     },
 
 
-    uploadFiles: function (request, reply) {
-        console.log("api.js ===========");
-        Service.uploadFiles(request.postgres, request.payload, function (err, result) {
+    uploadFile: function (request, reply) {
+        Service.uploadFile(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToUploadFiles(reply, err);
+                Respond.failedToUploadFile(reply, err);
             } else {
-                Respond.uploadFiles(reply, result);
+                Respond.uploadFile(reply, result);
             }
         });
     },

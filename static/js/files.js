@@ -24,8 +24,7 @@ $(function (event) {
             data: data,
             success: function (data) {
                 console.log(data);
-                alert('SUCCESS! File has been successfully added');
-                
+                alert('SUCCESS! File has been successfully uploaded');
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -77,6 +76,7 @@ $(function (event) {
 			getBase64(file, function (e) {
 				var preview = document.querySelector('img[id=preview]');
 				preview.src = e.target.result;
+                console.log(preview.src);
 				base64 = e.target.result;
 				$('#base64').text(base64);
 			});
