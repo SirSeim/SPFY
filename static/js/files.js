@@ -1,5 +1,10 @@
 $(function (event) {
 
+    var setSource = function (url) {
+        var retrieved = document.querySelector('img[id=retrieved-file]');
+        retrieved.src = url;
+    }
+
 	var getBase64 = function (file, callback) {
 		var reader = new FileReader();
 		reader.onload = callback;
@@ -20,6 +25,7 @@ $(function (event) {
             success: function (data) {
                 console.log(data);
                 alert('SUCCESS! File has been successfully added');
+                
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -30,7 +36,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-
+            
         });
 	};
 
@@ -48,6 +54,7 @@ $(function (event) {
             success: function (data) {
                 console.log(data);
                 alert('SUCCESS! File has been successfully retrieved');
+                setSource(data.result.rows['0'].base_64_string);
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -58,7 +65,6 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-
         });
 	}
 
@@ -84,7 +90,7 @@ $(function (event) {
 	});
 
 	$('#get').click(function () {
-		var fileID = 1;
+		var fileID = 2;
 		getFile(fileID);
 	});
 

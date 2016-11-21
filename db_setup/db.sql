@@ -396,9 +396,9 @@ INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification
 
 DROP TABLE IF EXISTS files;
 
-CREATE TABLE files (
+CREATE TABLE file (
   id SERIAL PRIMARY KEY,
   base_64_string varchar DEFAULT NULL
 );
 
-INSERT INTO files (base_64_string) VALUES ('oashipwah3u9reioahwui9rahwirawrhwua8irhqwiothru93wq0ht9uqw0ht90qw');
+INSERT INTO file (base_64_string) VALUES ('oashipwah3u9reioahwui9rahwirawrhwua8irhqwiothru93wq0ht9uqw0ht90qw');
