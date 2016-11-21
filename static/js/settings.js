@@ -446,6 +446,7 @@ $(function () {
 //         this.select2();
 //     },
 //     render: function () {
+//         console.log(this.props.statuses); // passed in as a property from ReactDOM render
 //         return (
 //             <div className="row">
 //               <div id="navigation" className="col-sm-3 col-lg-2">
@@ -468,7 +469,62 @@ $(function () {
 //     }
 // });
 
+// ** passing in global data
+// var statuses = JSON.parse(window.sessionStorage.statuses);
+
 // ReactDOM.render(
-//   <Navs />,
+//   <Navs statuses={statuses} />, // see Nav's render function to verify it went through
 //   document.getElementById('react-content')
 // );
+
+/* wait to render components until call arrives
+
+1. Move the Ajax request into the parent and conditionally render the component:
+
+var Parent = React.createClass({
+  getInitialState: function() {
+    return { data: null };
+  },
+
+  componentDidMount: function() {
+    $.get('http://foobar.io/api/v1/listings/categories/').done(function(data) {
+      this.setState({data: data});
+    }.bind(this));
+  },
+
+  render: function() {
+    if (this.state.data) {
+      return <CategoriesSetup data={this.state.data} />;
+    }
+
+    return <div>Loading...</div>;
+  }
+});
+
+2. Keep the Ajax request in the component and render something else conditionally while it's loading:
+
+var CategoriesSetup = React.createClass({
+  getInitialState: function() {
+    return { data: null };
+  },
+
+  componentDidMount: function() {
+    $.get('http://foobar.io/api/v1/listings/categories/').done(function(data) {
+      this.setState({data: data});
+    }.bind(this));
+  },
+
+  render: function() {
+    if (this.state.data) {
+      return <Input type="select">{this.state.data.map(this.renderRow)}</Input>;
+    }
+
+    return <div>Loading...</div>;
+  },
+
+  renderRow: function(row) {
+    return <OptionRow obj={row} />;
+  }
+});
+
+*/
