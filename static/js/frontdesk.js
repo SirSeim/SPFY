@@ -145,6 +145,8 @@ $(function () {
 
         $('#clients tbody').css("height", 100);
 
+        // $('#checked-in').DataTable();
+
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -156,35 +158,6 @@ $(function () {
             method: "GET",
             success: function (data) {
                 console.log(data);
-                var checkins = data.result;
-                $('#checked-in tbody').empty();
-                clients.forEach(function (client) {
-                    checkins.forEach(function (checkin) {
-                        if (checkin.id === client.id) {
-                            var display = [
-                                moment(checkin.date).format('MM-DD-YY'),
-                                client.firstName,
-                                client.lastName,
-                                moment(client.dob).format('MM-DD-YY'),
-                                'activities',
-                                'note',
-                                '<span class="dot"></span>'
-                            ];
-                            var trAttributes = [
-                                'class="clickable-row"',
-                                'data-toggle="modal"',
-                                'data-target="#viewclient-modal"'
-                            ];
-                            $('#checked-in tbody').append(window.buildRow(checkin, display, trAttributes));
-                            var status = window.getDataById(statuses, client.status);
-                            $('#checked-in tbody').find('tr').last().find('td span.dot').css('background-color', status.color);
-                        }
-                    });
-                    $('#checked-in tbody').children('tr').get().forEach(function (clientRow) {
-                        var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
-                        $(clientRow).find('.dot').css('background-color', status.color);
-                    });
-                });
             },
             error: function (xhr) {
                 console.error(xhr);
@@ -193,9 +166,73 @@ $(function () {
                     localStorage.removeItem("authorization");
                 }
             }
+        }).done(function (data) {
+            var dataset = [];
+            var checkins = data.result;
+            $('#checked-in tbody').empty();
+            clients.forEach(function (client) {
+                checkins.forEach(function (checkin) {
+                    if (checkin.id === client.id) {
+                        dataset.push(client);
+                        // dataset.push([
+                        //     moment(checkin.date).format('MM-DD-YY'),
+                        //     client.firstName + ' ' + client.lastName,
+                        //     moment(client.dob).format('MM-DD-YY'),
+                        //     'activities',
+                        //     'note',
+                        //     '<span class="dot"></span>'
+                        // ]);
+                        // var display = [
+                        //     moment(checkin.date).format('MM-DD-YY'),
+                        //     client.firstName + ' ' + client.lastName,
+                        //     moment(client.dob).format('MM-DD-YY'),
+                        //     'activities',
+                        //     'note',
+                        //     '<span class="dot"></span>'
+                        // ];
+                        // var trAttributes = [
+                        //     'class="clickable-row"',
+                        //     'data-toggle="modal"',
+                        //     'data-target="#viewclient-modal"'
+                        // ];
+                        // $('#checked-in tbody').append(window.buildRow(client, display, trAttributes));
+                        // var status = window.getDataById(statuses, client.status);
+                        // $('#checked-in tbody').find('tr').last().find('td span.dot').css('background-color', status.color);
+                    }
+                });
+                // $('#checked-in tbody').children('tr').get().forEach(function (clientRow) {
+                //     var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
+                //     $(clientRow).find('.dot').css('background-color', status.color);
+                // });
+            });
+            $('#checked-in').DataTable({
+                data: dataset,
+                columns: Object.keys(clients[0]).map(function (propName) {
+                          return { data: propName, title: propName };
+                        })
+            });
         });
-    
-        $('#checked-in').DataTable();
+        /*
+            If headers not showing up, need to specify them manually.
+            DataTables documentation doesn't mention this
+
+            data = this.SearchController.resultSet;
+            this.$tableContainer.dataTable({
+                data:    data,
+                columns: [
+                {
+                    data: "H",
+                    title: "Thickness"
+                },
+                {
+                    data: "InstanceId",
+                    title: "Instance ID"
+                }]
+            });
+
+        */
+
+        // $('#checked-in').DataTable();
         
         $('.clickable-row').click(function (event) {
             var $client = $(this); // renaming for readability
