@@ -500,7 +500,7 @@ var queries = {
             queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
                             element.dropinID + ', ' +
                             element.clientID + ', ' +
-                            '\'' + element.date + '\'' + ');';
+                            '\'' + element.date + '\'' + ') RETURNING drop_in_id, client_id, date;';
         });
 
         return queryString;

@@ -16,12 +16,18 @@ $(function () {
 
     var setupFrontDesk = function () {
 
+        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var clients = JSON.parse(window.sessionStorage.clients);
 
         // // modify the clientprofiletable once it comes onto the page
         // // to include 'select' button specific to checkin process
-        // $('#clients tbody tr').get().forEach(function (row) {
-        //     $(row).append('<td><button name="select-button" type="button" class="btn btn-default">Select</button></td>')
-        // });
+        $('#clients tbody tr').get().forEach(function (row) {
+            $(row).addClass("clickable-row")
+                  .data("toggle", "modal")
+                  .data("target", "#viewclient-modal");
+
+            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
+        });
           var currentDropIn = {};
 
           // once "Create Drop-In" feature is done, dropin session will
@@ -34,15 +40,15 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-              url: "api/dropins",
-              method: "GET",
-              success: function (data) {
+                url: "api/dropins",
+                method: "GET",
+                success: function (data) {
                   console.log("drop-ins");
                   console.log(data);
-              },
-              error: function (data) {
+                },
+                error: function (data) {
                   console.error(data);
-              }
+                }
           }).then(function (data) {
               var dropins = data.result;
               currentDropIn = dropins[dropins.length - 1];
@@ -67,8 +73,8 @@ $(function () {
 
           var selectedclients = [];
 
-          $('#clients').delegate("td", "click", function (event) {
-              var client = $(event.target).data();
+          $('[name="select-button"]').click(function (event) {
+              var client = $(event.target).parents('tr').data();
               console.log(client);
               if (!selectedclients.includes(client)) {
                   selectedclients.push(client);
@@ -80,6 +86,7 @@ $(function () {
                           '</li>');
 
               }
+              event.stopPropagation();
           });
 
           $('#checkin-button').click(function (event) {
@@ -127,14 +134,11 @@ $(function () {
               });
           });
         
-        var statuses = JSON.parse(window.sessionStorage.statuses);
 
         $('#viewclient-modal-save-button').click(function (event) {
-
+            // TODO
             // ajax call here to save any changes to the client profile
-            
             $('#viewclient-modal').modal('toggle');
-
         });
 
         $('#clients tbody').css("height", 100);
@@ -149,27 +153,28 @@ $(function () {
             url: "/api/checkin",
             method: "GET",
             success: function (data) {
-
-                // ** currently using the clientprofiletable to populate
-                // the checked-in table, but in future should probably use
-                // globally accessible client profiles (with just basic info)
                 console.log(data);
                 var checkins = data.result;
                 $('#checked-in tbody').empty();
-                $('#clients tr').get().forEach(function (tr) {
+                clients.forEach(function (client) {
                     checkins.forEach(function (checkin) {
-                        if (checkin.id === $(tr).data("id")) {
-                            $('#checked-in tbody').append(
-                                '<tr class="clickable-row" data-toggle="modal" data-target="#viewclient-modal" data-id="' + $(tr).data("id") + '">' +
-                                '<td>' + moment(checkin.date).format('MM-DD-YY') + '</td>' + // implemented parseDate in main.js, added to DOM in _basescript.html
-                                '<td>' + $(tr).data("firstname") + ' ' + $(tr).data("lastname") + '</td>' +
-                                '<td></td>' +
-                                '<td>' + moment($(tr).data("dob")).format('MM-DD-YY') + '</td>' +
-                                '<th>Activities Today</th>' +
-                                '<td>notes</td>' +
-                                '<td><span class="dot"></span></td>' +
-                                '</tr>');
-                            var status = window.getDataById(statuses, $(tr).data("status"));
+                        if (checkin.id === client.id) {
+                            var display = [
+                                moment(checkin.date).format('MM-DD-YY'),
+                                client.firstName,
+                                client.lastName,
+                                moment(client.dob).format('MM-DD-YY'),
+                                'activities',
+                                'note',
+                                '<span class="dot"></span>'
+                            ];
+                            var trAttributes = [
+                                'class="clickable-row"',
+                                'data-toggle="modal"',
+                                'data-target="#viewclient-modal"'
+                            ];
+                            $('#checked-in tbody').append(window.buildRow(checkin, display, trAttributes));
+                            var status = window.getDataById(statuses, client.status);
                             $('#checked-in tbody').find('tr').last().find('td span.dot').css('background-color', status.color);
                         }
                     });
@@ -189,13 +194,8 @@ $(function () {
         }).done(function (data) {
             $('.clickable-row').click(function (event) {
                 var $client = $(this); // renaming for readability
-                console.log($client);
-                console.log($('#viewclient-modal').find('#client-name').get());
-                console.log($client.data("firstname") + ' ' + $client.data("lastname"));
                 var idName = $client.data("id");
-                console.log(idName);
                 var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
-                console.log($profile.data("firstname"));
                 $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
             });
         });
@@ -295,17 +295,23 @@ $(function () {
                 }
             });
         }).done(function (data) {
-            var clients = data.result.rows;
+            var enrollment = data.result.rows;
             // get clientprofiles from profiles listed in clientprofiletable.html
             var profiles = $('#clients').find('tr');
             // for each activity table, add a client profile if that client is enrolled
             $('.table.activity').get().forEach(function (table) {
-                clients.forEach(function (client) {
-                    if (client.activity_id === $(table).data("id")) {
-                        // find the matching client profile and append it, 
-                        // careful, append will actually move the element completely to its new location
-                        // need to clone the element
-                        $(table).append($('#clients').find('[data-id="' + client.client_id + '"]').clone());
+                enrollment.forEach(function (enroll) {
+                    if (enroll.activity_id === $(table).data("id")) {
+                        var client = window.getDataById(clients, enroll.client_id);
+                        var status = window.getDataById(statuses, client.status);
+                        var display = ['<span class="dot"></span>' + client.firstName + ' ' + client.lastName];
+                        var trAttributes = [
+                            'class="clickable-row"',
+                            'data-toggle="modal"',
+                            'data-target="#viewclient-modal"'
+                        ];
+                        $(table).append(window.buildRow(client, display, trAttributes));
+                        $(table).find('tr').last().find('span.dot').css('background-color', status.color);
                     }
                 });
             });
@@ -316,9 +322,15 @@ $(function () {
         });
     };
 
-    if (window.sessionStorage.statuses) {
+    var globalData = []
+    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.clients);
+
+    if (globalData.every((array) => array)) {
+        console.log("call arrived");
         setupFrontDesk();
     } else {
+        console.log("waiting for call");
         window.sessionStorageListeners.push({
             ready: setupFrontDesk
         });

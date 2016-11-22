@@ -17,7 +17,8 @@ $(function () {
 
     // data - data to be stored in <tr> with data()
     // display - array of content (strings) to display in each <td> 
-    window.buildRow = function (data, display) {
+    // trAttributes - any extra attributes besides 'data-'
+    window.buildRow = function (data, display, trAttributes) {
         var dataString = "";
         var tdString = "";
         for (var property in data) {
@@ -26,7 +27,15 @@ $(function () {
         display.forEach(function (column) {
             tdString += '<td>' + column + '</td>';
         });
-        return '<tr ' + dataString + '>' + tdString + '</tr>';
+        if (trAttributes) {
+            var attributes = '';
+            trAttributes.forEach(function (attr) {
+                attributes += attr + ' ';
+            });
+            return '<tr ' + attributes + ' ' + dataString + '>' + tdString + '</tr>';
+        } else {
+            return '<tr ' + dataString + '>' + tdString + '</tr>';
+        }
     };
 
     window.sessionStorageListeners = [];
