@@ -22,10 +22,10 @@ $(function () {
         // // modify the clientprofiletable once it comes onto the page
         // // to include 'select' button specific to checkin process
         $('#clients tbody tr').get().forEach(function (row) {
+            console.log($(row));
             $(row).addClass("clickable-row")
-                  .data("toggle", "modal")
+                  .data("toggle", "modal") // for some reason modal isn't working
                   .data("target", "#viewclient-modal");
-
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
           var currentDropIn = {};
@@ -95,7 +95,7 @@ $(function () {
               for (var i = 0; i < selectedclients.length; i++) {
                   signups.push({
                       dropinID: currentDropIn.id,
-                      clientID: selectedclients[i].id, // TODO: find more effective implementation
+                      clientID: selectedclients[i].id,
                       date: moment().format("YYYY-MM-DD")
                   });
               }
@@ -115,8 +115,10 @@ $(function () {
                   success: function (data) {
                       console.log(data);
                       var clientString = "";
-                      for (var i = 0; i < selectedclients.length; i++) {
-                          clientString += selectedclients[i].firstname + ' ' + selectedclients[i].lastname + '<br>';
+                      var checkedInClients = data.result.rows;
+                      for (var i = 0; i < checkedInClients.length; i++) {
+                          var client = window.getDataById(clients, checkedInClients[i].client_id);
+                          clientString += client.firstName + ' ' + client.lastName + '<br>';
                       }
 
                       $('#checkin-feedback').empty().append(
@@ -191,13 +193,16 @@ $(function () {
                     localStorage.removeItem("authorization");
                 }
             }
-        }).done(function (data) {
-            $('.clickable-row').click(function (event) {
-                var $client = $(this); // renaming for readability
-                var idName = $client.data("id");
-                var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
-                $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
-            });
+        });
+    
+        $('#checked-in').DataTable();
+        
+        $('.clickable-row').click(function (event) {
+            var $client = $(this); // renaming for readability
+            var idName = $client.data("id");
+            var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
+            $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
+            event.stopPropagation();
         });
 
         $(".tablinks").click(function (event) {

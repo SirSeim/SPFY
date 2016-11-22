@@ -150,7 +150,7 @@ $(function (event) {
         });
     }
 
-    $('#clients').delegate("td", "click", function (event) {
+    $('#clients').delegate("tr", "click", function (event) {
         $('#cm-page-filler').hide();
         displayClientProfile($(this));
     });
