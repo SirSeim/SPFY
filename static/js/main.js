@@ -15,6 +15,20 @@ $(function () {
         })[0];
     };
 
+    // data - data to be stored in <tr> with data()
+    // display - array of content (strings) to display in each <td> 
+    window.buildRow = function (data, display) {
+        var dataString = "";
+        var tdString = "";
+        for (var property in data) {
+            dataString += 'data-' + property.toLowerCase() + '="' + data[property] + '" ';
+        }
+        display.forEach(function (column) {
+            tdString += '<td>' + column + '</td>';
+        });
+        return '<tr ' + dataString + '>' + tdString + '</tr>';
+    };
+
     window.sessionStorageListeners = [];
 
     $.ajax({
