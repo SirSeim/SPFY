@@ -15,6 +15,14 @@ $(function () {
         })[0];
     };
 
+    window.dataString = function (data) {
+        var dataString = "";
+        for (var property in data) {
+            dataString += 'data-' + property + '="' + data[property] + '" ';
+        }
+        return dataString;
+    };
+
     // data - data to be stored in <tr> with data()
     // display - array of content (strings) to display in each <td> 
     // trAttributes - any extra attributes besides 'data-'

@@ -170,18 +170,45 @@ $(function () {
             var dataset = [];
             var checkins = data.result;
             $('#checked-in tbody').empty();
+            var table = $('#checked-in').DataTable({
+                // data: dataset,
+                columns: Object.keys(clients[0]).map(function (propName) {
+                          return { data: propName, title: propName };
+                        }) // setting property names as column headers for now
+            });
             clients.forEach(function (client) {
                 checkins.forEach(function (checkin) {
                     if (checkin.id === client.id) {
-                        dataset.push(client);
-                        // dataset.push([
-                        //     moment(checkin.date).format('MM-DD-YY'),
-                        //     client.firstName + ' ' + client.lastName,
-                        //     moment(client.dob).format('MM-DD-YY'),
-                        //     'activities',
-                        //     'note',
-                        //     '<span class="dot"></span>'
-                        // ]);
+                        // dataset.push(client);
+                        var row = table.row.add({
+                            // moment(checkin.date).format('MM-DD-YY'),
+                            id: client.id,
+                            firstName: client.firstName,
+                            lastName: client.lastName,
+                            dob: moment(client.dob).format('MM-DD-YY'),
+                            status: '<span class="dot"></span>'
+                        }).draw();
+                        $(row.node()).data({ // node() returns the actual html tag
+                            // moment(checkin.date).format('MM-DD-YY'),
+                            id: client.id,
+                            firstName: client.firstName,
+                            lastName: client.lastName,
+                            dob: moment(client.dob).format('MM-DD-YY'),
+                            status: client.status 
+                        }); 
+                        console.log($(row.node()).data());
+                        var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                        $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                        // according to stackoverflow, need to manually reattach event handlers
+                        // to dynamically added elements, even for modals
+                        $(row.node()).data('toggle', 'modal')
+                                     .data('target', '#viewclient-modal')
+                                     .on('click', function (event) {
+                                          $('#viewclient-modal').find('#client-name')
+                                                                .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                          $('#viewclient-modal').modal('toggle');
+                                     });
+                                     
                         // var display = [
                         //     moment(checkin.date).format('MM-DD-YY'),
                         //     client.firstName + ' ' + client.lastName,
@@ -198,19 +225,24 @@ $(function () {
                         // $('#checked-in tbody').append(window.buildRow(client, display, trAttributes));
                         // var status = window.getDataById(statuses, client.status);
                         // $('#checked-in tbody').find('tr').last().find('td span.dot').css('background-color', status.color);
+
                     }
                 });
+                // console.log(table.rows(table.rows().length - 1));
                 // $('#checked-in tbody').children('tr').get().forEach(function (clientRow) {
                 //     var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
+                //     console.log(currentStatus);
                 //     $(clientRow).find('.dot').css('background-color', status.color);
                 // });
             });
-            $('#checked-in').DataTable({
-                data: dataset,
-                columns: Object.keys(clients[0]).map(function (propName) {
-                          return { data: propName, title: propName };
-                        })
-            });
+            
+            // column headers
+            // $('#checked-in').DataTable({
+            //     // data: dataset,
+            //     columns: Object.keys(clients[0]).map(function (propName) {
+            //               return { data: propName, title: propName };
+            //             })
+            // });
         });
         /*
             If headers not showing up, need to specify them manually.
@@ -234,13 +266,14 @@ $(function () {
 
         // $('#checked-in').DataTable();
         
-        $('.clickable-row').click(function (event) {
-            var $client = $(this); // renaming for readability
-            var idName = $client.data("id");
-            var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
-            $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
-            event.stopPropagation();
-        });
+        // $('.clickable-row').click(function (event) {
+        //     alert("clicked");
+        //     var $client = $(this); // renaming for readability
+        //     var idName = $client.data("id");
+        //     var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
+        //     $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
+        //     // event.stopPropagation();
+        // });
 
         $(".tablinks").click(function (event) {
             var currentTabID = $(this).attr('href');

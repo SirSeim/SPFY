@@ -4,6 +4,78 @@
   • double quotes \" are column identifiers (reference column names)
 */
 
+/*
+  • adding a line with EXPLAIN ANALYZE before a query
+  will print out each step that postgres takes for running the query
+  as well as the time it took to run the query
+  (it will explain everything that is run until the next semicolon ';')
+*/
+
+/*
+
+   Create index for fields that are searched from the application side
+   Example: names, phone numbers
+
+   create alternateID's  1-to-many relationship
+    1 person associated with many id's
+    driver's license
+    Social security number
+    passport
+
+    If you are searching for it on the application side, should
+    index it on database side to make search faster
+
+
+    For queryBuilding:
+    "adhoc reporting for postgres"
+    collects dictionary data (data about the datastructure)
+    displays the data and can shop around
+    can build your own report
+
+    MySQL has more resources for best practices, more popular
+    Postgres has enterprise level version
+
+
+    Can secure with SSL using a free SSL certificate
+    company called LetsEncrypt - completely trustworthy!!!
+
+    LAMP environment - pre-packaged but can't really change shell
+    usually given when signing up with a host provider
+
+
+    Database encryption encrypts the files
+
+    tables are a logical structure, stored as a file in the database
+    server file system
+
+    encrypt the database data files (which hold the tables and
+    storage information)
+
+    encrypt the os file system encryption, encrypts the os files
+    makes the os less agile though, so instead protect
+    the os from the network, keep all the ports closed, only
+    open those needed for data transfer
+
+    if you protect os network side, don't have to encrypt the os
+    every time you encrypt it slows down the system
+
+    Recommends AWS
+    -pick 6 or 7 availability zone
+    -deploy into one zone
+    -each zone has 4 data centers
+    -your system is gauranteed to be in 2 datacenters
+    at any given moment, so don't have to worry
+    about back-ups!
+    -can extend service, pay extra to live in more avaibility zones
+    makes requests faster
+
+    can ask support about back-ups
+
+    * Make sure Heroku can access AWS console
+
+    Bitnami - has Marketplace
+
+*/
 DROP TABLE IF EXISTS casemanager;
 
 CREATE TABLE casemanager (
