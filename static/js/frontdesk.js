@@ -205,21 +205,27 @@ $(function () {
                 disableIfEmpty: true,
                 numberDisplayed: 2,
                 onChange: function (option, checked) {
-                    console.log(option);
-                    console.log(checked);
-                    console.log(table.column('firstName:name'));
                     if (checked) {
                       table.column($(option).attr('title') + ':name').visible(true);
                     } else {
-                      table.column($(option).attr('title') + ':name').visible(false);
+                      table.column($(option).attr('title') + ':name').visible(false, false); // 2nd false prevents Datatables from recalculating layout
                     }
+                },
+                onSelectAll: function () {
+                    $('#column-select option:selected').each(function (index) {
+                        table.column($(this).attr('title') + ':name').visible(true);
+                    });
+                },
+                onDeselectAll: function () {
+                    $('#column-select option').each(function (index) {
+                        table.column($(this).attr('title') + ':name').visible(false, false);
+                    });
                 }
             });
             $('#column-select').multiselect('dataprovider', options); // this must follow configurations
 
             // preselecting default column visibility
             // later this data will come from local settings
-            console.log(table.columns());
             table.columns().every(function () { // every() is built-in from Datatables
                 // the table context is automatically set to the appropriate table for each column that has been selected
                 // i.e. "this" is a column
