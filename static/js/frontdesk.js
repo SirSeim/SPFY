@@ -208,7 +208,11 @@ $(function () {
                     console.log(option);
                     console.log(checked);
                     console.log(table.column('firstName:name'));
-                    table.column($(option).attr('title') + ':name').visible(true);
+                    if (checked) {
+                      table.column($(option).attr('title') + ':name').visible(true);
+                    } else {
+                      table.column($(option).attr('title') + ':name').visible(false);
+                    }
                 }
             });
             $('#column-select').multiselect('dataprovider', options); // this must follow configurations
