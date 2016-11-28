@@ -173,8 +173,55 @@ $(function () {
             var table = $('#checked-in').DataTable({
                 // data: dataset,
                 columns: Object.keys(clients[0]).map(function (propName) {
-                          return { data: propName, title: propName };
+                          return { name: propName, data: propName, title: propName };
                         }) // setting property names as column headers for now
+            });
+            
+            // manually setting these for testing
+            // will probably have these in a local "check-in table settings"
+            // button attached to the table later on
+            table.column(5).visible(false);
+            table.column(6).visible(false);
+
+            // initial solution for parametrizing tables
+            // add button for toggling column visibility
+            $('#checked-in_wrapper').find('div.row:first div.col-sm-6:first')
+                .append(
+                '<div class="datatables_columns_visible" id="datatables_columns_visible">' +
+                '<label>Show columns <select multiple="multiple" name="multiselect[]" id="column-select"></select>' +
+                '</label></div>')
+                .find('div').wrap('<div class="col-sm-6"></div>');
+
+            var options = [];
+
+            Object.keys(clients[0]).forEach(function (propName, index) {
+                options.push({label: propName, title: propName, value: index});
+            });
+            
+            $('#column-select').multiselect({
+                includeSelectAllOption: true,
+                enableHTML: false, // to protect against XSS injections
+                nonSelectedText: 'None',
+                disableIfEmpty: true,
+                numberDisplayed: 2,
+                onChange: function (option, checked) {
+                    console.log(option);
+                    console.log(checked);
+                    console.log(table.column('firstName:name'));
+                    table.column($(option).attr('title') + ':name').visible(true);
+                }
+            });
+            $('#column-select').multiselect('dataprovider', options); // this must follow configurations
+
+            // preselecting default column visibility
+            // later this data will come from local settings
+            console.log(table.columns());
+            table.columns().every(function () { // every() is built-in from Datatables
+                // the table context is automatically set to the appropriate table for each column that has been selected
+                // i.e. "this" is a column
+                if (this.visible()) {
+                    $('#column-select').multiselect('select', this.index());
+                }
             });
             clients.forEach(function (client) {
                 checkins.forEach(function (checkin) {
@@ -186,7 +233,9 @@ $(function () {
                             firstName: client.firstName,
                             lastName: client.lastName,
                             dob: moment(client.dob).format('MM-DD-YY'),
-                            status: '<span class="dot"></span>'
+                            status: '<span class="dot"></span>',
+                            phone: client.phone,
+                            email: client.email
                         }).draw();
                         $(row.node()).data({ // node() returns the actual html tag
                             // moment(checkin.date).format('MM-DD-YY'),
@@ -196,7 +245,6 @@ $(function () {
                             dob: moment(client.dob).format('MM-DD-YY'),
                             status: client.status 
                         }); 
-                        console.log($(row.node()).data());
                         var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
                         $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                         // according to stackoverflow, need to manually reattach event handlers
@@ -208,41 +256,9 @@ $(function () {
                                                                 .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
                                           $('#viewclient-modal').modal('toggle');
                                      });
-                                     
-                        // var display = [
-                        //     moment(checkin.date).format('MM-DD-YY'),
-                        //     client.firstName + ' ' + client.lastName,
-                        //     moment(client.dob).format('MM-DD-YY'),
-                        //     'activities',
-                        //     'note',
-                        //     '<span class="dot"></span>'
-                        // ];
-                        // var trAttributes = [
-                        //     'class="clickable-row"',
-                        //     'data-toggle="modal"',
-                        //     'data-target="#viewclient-modal"'
-                        // ];
-                        // $('#checked-in tbody').append(window.buildRow(client, display, trAttributes));
-                        // var status = window.getDataById(statuses, client.status);
-                        // $('#checked-in tbody').find('tr').last().find('td span.dot').css('background-color', status.color);
-
                     }
                 });
-                // console.log(table.rows(table.rows().length - 1));
-                // $('#checked-in tbody').children('tr').get().forEach(function (clientRow) {
-                //     var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
-                //     console.log(currentStatus);
-                //     $(clientRow).find('.dot').css('background-color', status.color);
-                // });
             });
-            
-            // column headers
-            // $('#checked-in').DataTable({
-            //     // data: dataset,
-            //     columns: Object.keys(clients[0]).map(function (propName) {
-            //               return { data: propName, title: propName };
-            //             })
-            // });
         });
         /*
             If headers not showing up, need to specify them manually.
@@ -263,17 +279,6 @@ $(function () {
             });
 
         */
-
-        // $('#checked-in').DataTable();
-        
-        // $('.clickable-row').click(function (event) {
-        //     alert("clicked");
-        //     var $client = $(this); // renaming for readability
-        //     var idName = $client.data("id");
-        //     var $profile = $('#clients tbody').find('td[data-id="' + idName + '"]');
-        //     $('#viewclient-modal').find('#client-name').text($profile.data("firstname") + ' ' + $profile.data("lastname"));
-        //     // event.stopPropagation();
-        // });
 
         $(".tablinks").click(function (event) {
             var currentTabID = $(this).attr('href');

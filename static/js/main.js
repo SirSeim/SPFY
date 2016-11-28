@@ -23,6 +23,7 @@ $(function () {
         return dataString;
     };
 
+    // ** will need this for enrollment tables
     // data - data to be stored in <tr> with data()
     // display - array of content (strings) to display in each <td> 
     // trAttributes - any extra attributes besides 'data-'

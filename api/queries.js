@@ -316,7 +316,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth, phone_number, email FROM client;';
 
         return queryString;
     },

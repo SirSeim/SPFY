@@ -77,7 +77,9 @@ var service = {
                     nickname: local.nickname,
                     lastName: local.last_name,
                     status: local.status,
-                    dob: local.date_of_birth
+                    dob: local.date_of_birth,
+                    phone: local.phone_number,
+                    email: local.email
                 });
             }
             return callback(undefined, arr);
