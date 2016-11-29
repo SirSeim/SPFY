@@ -675,7 +675,7 @@ var queries = {
         // will iterate through payload to include multiple
         // users later
         var queryString = 'INSERT INTO receive_notification (user_id, notification_id) VALUES (' +
-                           userId + ', ' +  payload.notificationId +');';
+                           userId + ', ' + payload.notificationId + ');';
 
         return queryString;
     },
