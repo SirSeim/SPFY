@@ -12,7 +12,11 @@ $(function (event) {
         var clientCaseManager;
         var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
-        // var flags = JSON.parse(window.sessionStorage.flags);
+        var flags = JSON.parse(window.sessionStorage.flags);
+
+        $('#setflag-button').click(function (event) {
+            $('#setflag-modal').modal('toggle');
+        });
 
         var getCaseNotes = function (data) {
             $.ajax({
@@ -96,10 +100,7 @@ $(function (event) {
 
                 $('#client-status').data("id", currentStatus.id)
                                    .data("name", currentStatus.name);
-
-                // for now giving all flags to all profiles
-                // later will link specific flag to specific profile
-                // based on id's
+                    
 
                 $.ajax({
                     xhrFields: {
@@ -120,12 +121,17 @@ $(function (event) {
                             localStorage.removeItem("authorization");
                         }
                     }
-                }).done(function (flags) {
+                }).done(function (data) {
                     $('#client-flags').empty();
-                    flags.result.rows.forEach(function (flag) {
+                    data.result.rows.forEach(function (flag) {
                         $('#client-flags').append(
-                            '<li><button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span></button></li>'); // title and data-content attributes are for hover popover
+                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
+                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                    });
+                    $('#client-flags li a.flag-edit').click(function (event) {
+                        $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Flag');
+                        $('#editflag-modal').modal('toggle');
                     });
                 });
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
@@ -307,7 +313,7 @@ $(function (event) {
 
     var globalData = []
     globalData.push(window.sessionStorage.statuses);
-    // globalData.push(window.sessionStorage.flags);
+    globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");
