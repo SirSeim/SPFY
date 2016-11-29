@@ -19,13 +19,20 @@ $(function () {
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var clients = JSON.parse(window.sessionStorage.clients);
 
-        // // modify the clientprofiletable once it comes onto the page
-        // // to include 'select' button specific to checkin process
+        // modify the clientprofiletable once it comes onto the page
+        // to include 'select' button specific to checkin process
         $('#clients tbody tr').get().forEach(function (row) {
             console.log($(row));
             $(row).addClass("clickable-row")
                   .data("toggle", "modal") // for some reason modal isn't working
-                  .data("target", "#viewclient-modal");
+                  .data("target", "#viewclient-modal")
+                  // according to stackoverflow, need to manually reattach event handlers
+                  // to dynamically added elements, even for modals
+                  .on('click', function (event) {
+                      $('#viewclient-modal').find('#client-name')
+                                            .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
+                      $('#viewclient-modal').modal('toggle');
+                  });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
           var currentDropIn = {};
