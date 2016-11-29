@@ -601,6 +601,16 @@ var api = {
             }
         });
     },
+    
+    getClientFlags: function (request, reply) {
+        Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientFlags(reply, err);
+            } else {
+                Respond.getClientFlags(reply, result);
+            }
+        });
+    }
 };
 
 

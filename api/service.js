@@ -644,7 +644,6 @@ var service = {
             if (!result.rows[0]) {
                 return callback();
             }
-            console.log(result);
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -657,6 +656,30 @@ var service = {
                 });
             }
             callback(undefined, arr);
+        });
+    },
+
+    getClientFlags: function (postgres, clientID, callback) {
+        Query.getClientFlags(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            // var arr = [];
+            // for (var i = 0; i < result.rows.length; i++) {
+            //     var local = result.rows[i];
+            //     arr.push({
+            //         id: local.id,
+            //         type: local.type,
+            //         color: local.color,
+            //         message: local.message,
+            //         note: local.note
+            //     });
+            // }
+            // callback(undefined, arr);
+            callback(undefined, result);
         });
     }
 };

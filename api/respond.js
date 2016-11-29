@@ -644,8 +644,21 @@ var respond = {
             message: "Success editing flag!",
             result: result
         }).code(200);
+    },
+    failedToGetClientFlags: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client flags!",
+            error: err,
+        }).code(500);
+    },
+    getClientFlags: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting client flags!",
+            result: result
+        }).code(200);
     }
-
 
 };
 

@@ -767,6 +767,26 @@ var query = {
         });
     },
 
+    getClientFlags: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            // var data = Queries.editFlag(clientID);
+            // // unstringify the data passed in
+            client.query(Queries.getClientFlags(clientID), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    }
+
     // getClient: function (postgres, payload, callback) {
     //     postgres.connect(function (err, client, done) {
     //         if (err) {

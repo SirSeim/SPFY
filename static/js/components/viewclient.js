@@ -12,7 +12,7 @@ $(function (event) {
         var clientCaseManager;
         var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
-        var flags = JSON.parse(window.sessionStorage.flags);
+        // var flags = JSON.parse(window.sessionStorage.flags);
 
         var getCaseNotes = function (data) {
             $.ajax({
@@ -100,13 +100,34 @@ $(function (event) {
                 // for now giving all flags to all profiles
                 // later will link specific flag to specific profile
                 // based on id's
-                $('#client-flags').empty();
-                flags.forEach(function (flag) {
-                    $('#client-flags').append(
-                        '<button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                         'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span></button>'); // title and data-content attributes are for hover popover
-                });
 
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: 'api/flags/1',
+                    method: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }
+                }).done(function (flags) {
+                    $('#client-flags').empty();
+                    flags.result.rows.forEach(function (flag) {
+                        $('#client-flags').append(
+                            '<li><button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span></button></li>'); // title and data-content attributes are for hover popover
+                    });
+                });
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
             });
         }
@@ -286,7 +307,7 @@ $(function (event) {
 
     var globalData = []
     globalData.push(window.sessionStorage.statuses);
-    globalData.push(window.sessionStorage.flags);
+    // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");

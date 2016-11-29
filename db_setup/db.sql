@@ -9,6 +9,13 @@
   will print out each step that postgres takes for running the query
   as well as the time it took to run the query
   (it will explain everything that is run until the next semicolon ';')
+
+  EXPLAIN ANALYZE
+  SELECT type, comment, link, checked FROM notification WHERE id IN (
+    SELECT notification_id FROM receive_notification WHERE user_id = 1
+  ) ORDER BY id;
+  INSERT INTO notification (type) VALUES (1); -- won't explain analyze this
+
 */
 
 /*
@@ -511,3 +518,15 @@ INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02
 INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
 INSERT INTO flags (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
 INSERT INTO flags (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
+
+DROP TABLE IF EXISTS profile_flag;
+
+CREATE TABLE profile_flag (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  flag_id integer REFERENCES flags (id)
+);
+
+INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 2);
+INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 3);
+

@@ -253,6 +253,11 @@ var apiRoutes = [
         method: 'PUT',
         path: '/flags/{flagID}',
         handler: Api.editFlag
+    },
+    {
+        method: 'GET',
+        path: '/flags/{clientID}',
+        handler: Api.getClientFlags
     }
 ];
 
