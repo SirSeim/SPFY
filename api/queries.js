@@ -771,7 +771,7 @@ var queries = {
     getClientFlags: function (clientID) {
         var queryString = 'SELECT type, message, color, note FROM flags WHERE id IN (' +
                           'SELECT flag_id FROM profile_flag WHERE client_id = ' + clientID +
-                          ') ORDER BY id;'
+                          ') ORDER BY id;';
 
         return queryString;
     }
