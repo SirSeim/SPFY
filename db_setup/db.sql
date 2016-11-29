@@ -490,6 +490,7 @@ CREATE TABLE notification (
 INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Another notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Yet another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Test notification for set flags modal', '/index', 'FALSE');
 
 DROP TABLE IF EXISTS receive_notification;
 

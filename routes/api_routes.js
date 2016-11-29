@@ -205,6 +205,16 @@ var apiRoutes = [
         handler: Api.createNotification
     },
     {
+        method: 'POST',
+        path: '/notifications/{userId}/set',
+        // config: {
+        //     validate: {
+        //         payload: Schema.notification
+        //     }
+        // },
+        handler: Api.setNotification
+    },
+    {
         method: 'GET',
         path: '/users/{userId}/notifications/{noteId}',
         handler: Api.getUsersNotificationsById

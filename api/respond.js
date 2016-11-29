@@ -473,6 +473,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToSetNotification: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to set a notification!",
+            error: err
+        }).code(500);
+    },
+    setNotification: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully set a notification!",
+            result: result
+        }).code(200);
+    },
     noSuchUserExists: function (reply) {
         reply({
             statusCode: 404,

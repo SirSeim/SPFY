@@ -484,6 +484,15 @@ var service = {
         });
     },
 
+    setNotification: function (postgres, userId, payload, callback) {
+        Query.setNotification(postgres, userId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     getNotificationById: function (postgres, noteId, callback) {
         Query.getNotificationById(postgres, noteId, function (err, result) {
             if (err) {

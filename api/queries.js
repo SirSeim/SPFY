@@ -640,7 +640,7 @@ var queries = {
     createNotification: function (userId, payload) {
         var queryString = 'INSERT INTO notification (';
         if (payload.type) {
-            queryString += ', type';
+            queryString += 'type';
         }
         if (payload.comment) {
             queryString += ', comment';
@@ -667,6 +667,15 @@ var queries = {
             queryString += ', \'' + payload.checked + '\'';
         }
         queryString += ') RETURNING id, type, comment, link, checked;';
+
+        return queryString;
+    },
+
+    setNotification: function (userId, payload) {
+        // will iterate through payload to include multiple
+        // users later
+        var queryString = 'INSERT INTO receive_notification (user_id, notification_id) VALUES (' +
+                           userId + ', ' +  payload.notificationId +');';
 
         return queryString;
     },

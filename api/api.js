@@ -490,6 +490,22 @@ var api = {
         });
     },
 
+    setNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.setNotification(request.postgres, userId, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToSetNotification(reply, err);
+            } else {
+                Respond.setNotification(reply, result);
+            }
+        });
+    },
+    
     getUsersNotificationsById: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
