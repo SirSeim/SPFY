@@ -108,7 +108,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/files/' + $(client).data("id"),
+            url: 'api/profile_picture/files/' + $(client).data("id"),
             method: 'GET',
             data: $(client).data("id"),
             success: function (data) {
@@ -163,6 +163,31 @@ $(function (event) {
             error: function (xhr) {
                 console.error(xhr);
 
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
+        }).done(function (data) {
+
+        });
+    }
+
+    var addFile = function (data) {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: 'api/files',
+            method: 'POST',
+            data: data,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.log(xhr);
                 if (xhr.status === 401) {
                     localStorage.removeItem("authorization");
                 }
@@ -289,6 +314,42 @@ $(function (event) {
 
         editClient(data);
         
+    });
+
+    var getBase64 = function (file, callback) {
+        var reader = new FileReader();
+        reader.onload = callback;
+        reader.readAsDataURL(file);
+    };
+
+    $('#file').change(function () {
+        var file = this.files[0];
+        var base64;
+
+        if (file) {
+            getBase64(file, function (e) {
+                base64 = e.target.result;
+                $('#base64').text(base64);
+            });
+        }
+    });
+
+    $('#submit-file').click(function () {
+        var clientID = $('#client-id')['0'].textContent
+        var name = $('#file').val();
+        var type = $('#file-type').val();
+        var fileString = $('#base64').text();
+
+        var data = {
+            clientID: clientID,
+            name: name,
+            type: type,
+            fileString: fileString
+        }
+
+        console.log(data);
+
+        //addFile(data);
     });
     
     var popOnHover = function (id) {
