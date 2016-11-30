@@ -80,6 +80,7 @@ $(function (event) {
         }).done(function (data) {
             var string = $('#view-client-tabs').attr('class');
 
+            $('#client-id').text(data.result.rows[0].id);
             $('#view-client-tabs').attr('class', "col-sm-8");
             if (data.result.rows[0].nick_name != undefined){
                 $('#client-name').text(data.result.rows[0].nick_name + " (" + data.result.rows[0].first_name + ") " + data.result.rows[0].last_name);
@@ -108,7 +109,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/profile_picture/files/' + $(client).data("id"),
+            url: 'api/files/profile_picture/' + $(client).data("id"),
             method: 'GET',
             data: $(client).data("id"),
             success: function (data) {
@@ -185,9 +186,12 @@ $(function (event) {
             data: data,
             success: function (data) {
                 console.log(data);
+                alert('SUCCESS: File has been uploaded');
+                $('#add-file-modal').modal('hide');
             },
             error: function (xhr) {
                 console.log(xhr);
+                alert('ERROR: File failed to upload');
                 if (xhr.status === 401) {
                     localStorage.removeItem("authorization");
                 }
@@ -347,9 +351,7 @@ $(function (event) {
             fileString: fileString
         }
 
-        console.log(data);
-
-        //addFile(data);
+        addFile(data);
     });
     
     var popOnHover = function (id) {
