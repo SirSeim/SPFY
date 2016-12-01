@@ -515,16 +515,27 @@ var queries = {
     },
 
     dataBrowserSearchClients: function (data) {
+        var TYPE_STRING = 1043,
+            TYPE_INT = 23,
+            TYPE_BOOL = 16,
+            TYPE_DATE = 1082;
+
         var searchText = "";
-        if (data.columnType === 1043) { // string
-            searchText = ' LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
-        } else if (data.columnType === 23) { // int
-            searchText = ' = ' + data.searchText;
+
+        if (data.columnType === TYPE_STRING) {
+            searchText =  ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
+        } else if (data.columnType === TYPE_INT) {
+            var operators = ["=", "!=", ">", "<"];
+            searchText = ' ' + operators[data.status] + ' ' + data.data;
+        } else if (data.columnType === TYPE_BOOL) {
+            if (data.status === 0 || data.status === 1) {
+                searchText = ' = ' (data.status === 0 ? '1' : '0')
+            } else {
+                searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
+            }
         } else {
-            searchText = ' LIKE \'' + (data.strict ? data.searchText : '%' + data.searchText + '%') + '\'';
+            searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
         }
-        // 16 = bool
-        // 1082 = date
 
         var queryString = 'SELECT * FROM client WHERE ' +
                           data.column + searchText + ';';

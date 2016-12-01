@@ -2,17 +2,14 @@ var Search = React.createClass({
   getInitialState: function () {
     return {
       displayDetail: false,
-      detailData: {},
       displayQueryBuilder: true,
+      detailData: {},
       columns: [],
       currentTable: "",
-      propsToSearch: 
-        {
-          column: "",
-          columnType: "",
-          strict: false,
-          searchText: ""
-        },
+      currentColumn: "",
+      currentColumnType: 0, // 1043 = string, 23 = int, 16 = bool, 1082 = date
+      currentSearchParameter: 0,
+      currentData: "",
       people: {}
     }
   },
@@ -48,11 +45,11 @@ var Search = React.createClass({
     }); 
     return newColumn.join(" ");
   },
-  getColumns: function (data) {
+  getInitialData: function (data) {
     var handleColumns = this.changeColumns;
     var writeToTable = this.writeToTable;
     var formatColumnName = this.formatColumnName
-    var url = "api/" + data + "/search";
+    var url = "api/search/" + data;
     this.setState({
       currentTable: data
     });
@@ -75,6 +72,7 @@ var Search = React.createClass({
         };
         handleColumns(columnNames);
         writeToTable(data.result.rows);
+        console.log(data.result.rows)
       },
       error: function (xhr) {
         console.error(xhr);
@@ -88,25 +86,37 @@ var Search = React.createClass({
   editPropColumn: function (data) {
     var jsonData = JSON.parse(data);
     var unformattedName = jsonData.name.toLowerCase().replace(" ", "_");
-    this.state.propsToSearch.column = unformattedName;
-    this.state.propsToSearch.columnType = jsonData.type; 
-    // not using this.setState because it doesn't play nice
-    // with the fact propsToSearch is an object... Look into later
+    this.setState({
+      currentColumn: unformattedName,
+      currentColumnType: jsonData.type,
+      currentSearchParameter: 0
+    });
   },
-  editPropStrictness: function (data) {
-    this.state.propsToSearch.strict = data;
+  editPropStatus: function (data) {
+    this.setState({
+      currentSearchParameter: data
+    });
   },
   editPropText: function (data) {
-    this.state.propsToSearch.searchText = data;
+    this.setState({
+      currentData: data
+    });
+    this.state.currentData = data; // currently there's an issue with search not working
+    // right if this isn't here - it's caused by the fact that setState is async so the 
+    // search runs on the previous data, not the new one. This will be remedied soon.
     this.search();
   },
   search: function (data) {
-    var props = this.state.propsToSearch;
+    var props = {
+      column: this.state.currentColumn,
+      columnType: this.state.currentColumnType,
+      status: this.state.currentSearchParameter,
+      data: this.state.currentData
+    }
     if (props.column != "") {
-      var url = "api/" + this.state.currentTable 
-                       +"/search" 
-                       + ((props.searchText != "") ? 
-                          "/" + JSON.stringify(this.state.propsToSearch) : 
+      var url = "api/search/" + this.state.currentTable 
+                       + ((props.data != "") ? 
+                          "/" + JSON.stringify(props) : 
                           "");
       console.log(url);
       var writeToTable = this.writeToTable;
@@ -137,13 +147,15 @@ var Search = React.createClass({
   render: function () {
     return (
       <div className="searchMain">
-        <QueryBuilderInterface selectTable={this.getColumns} 
+        <QueryBuilderInterface selectTable={this.getInitialData} 
                                columns={this.state.columns}
                                display={this.state.displayQueryBuilder}
                                toggleBuilder={this.toggleQueryBuilder}
+                               currentType={this.state.currentColumnType}
                                changeColumn={this.editPropColumn}
-                               changeStrictness={this.editPropStrictness}
-                               changeText={this.editPropText} />
+                               changeStatus={this.editPropStatus}
+                               currentSearchParameter={this.state.currentSearchParameter}
+                               changeInput={this.editPropText} />
         <DetailPane hidden={this.state.displayDetail} 
                     detailData={this.state.detailData}
                     close={this.closeDetail}
@@ -162,7 +174,9 @@ var QueryBuilderInterface = React.createClass({
   getInitialState: function () {
     return {
       displaySelector: false,
-      displayText: false
+      dropdownToDisplay: "string",
+      inputToDisplay: "text",
+      displayInput: false
     };
   },
   toggleSelector: function (data) {
@@ -170,14 +184,24 @@ var QueryBuilderInterface = React.createClass({
       displaySelector: data
     })
   },
-  showText: function (hasColumn, hasStrictness) {
+  changeDropdown: function (data) {
+    this.setState({
+      dropdownToDisplay: data
+    });
+  },
+  changeInput: function (data) {
+    this.setState({
+      inputToDisplay: data
+    });
+  },
+  showInput: function (hasColumn) {
     if (hasColumn) {
       this.setState({
-        displayText: true
+        displayInput: true
       });
     } else {
       this.setState({
-        displayText: false
+        displayInput: false
       });
     };
   },
@@ -194,12 +218,14 @@ var QueryBuilderInterface = React.createClass({
           <ResourceSelector handleChange={this.props.selectTable} 
                             changeDisplay={this.toggleSelector} />
           <QueryBuilder columns={this.props.columns} 
+                        currentType={this.props.currentType}
                         display={this.state.displaySelector}
-                        displayText={this.state.displayText}
-                        editTextShowing={this.showText}
+                        displayInput={this.state.displayInput}
+                        showInput={this.showInput}
+                        currentSearchParameter={this.props.currentSearchParameter}
+                        updateStatus={this.props.changeStatus}
                         changeColumn={this.props.changeColumn}
-                        changeStrictness={this.props.changeStrictness}
-                        changeText={this.props.changeText} />
+                        changeInput={this.props.changeInput} />
           {/* <ViewManager /> */}
         </div>
       </div>
@@ -232,19 +258,18 @@ var ResourceSelector = React.createClass({
 var QueryBuilder = React.createClass({
   handleColumnChange: function (e) {
     if (e.target.value != "none") {
-      this.props.editTextShowing(true);
+      this.props.showInput(true);
       this.props.changeColumn(e.target.value);
     };
   },
   handleStrictnessChange: function (e) {
-    if (e.target.value === "contains") {
-      this.props.changeStrictness(false);
-    } else if (e.target.value === "exactly") {
-      this.props.changeStrictness(true);
-    }
+    this.props.updateStatus(parseInt(e.target.value));
   },
   handleTextChange: function (e) {
-    this.props.changeText(e.target.value);
+    this.props.changeInput(e.target.value);
+  },
+  handleDropdownChange: function (e) {
+    //
   },
   render: function () {
     var columns = [];
@@ -254,8 +279,58 @@ var QueryBuilder = React.createClass({
                 key={JSON.stringify(columnName)}>{columnName.name}</option>
       )
     });
-    var classNames = "qbBlock " + (this.props.display ? "" : "hidden");
-    var textClassNames = "qbText " + (this.props.displayText ? "" : "hidden")
+    var classNames = "qbBlock " + (this.props.display ? "" : "hidden"),
+        inputClassNames = "qbText " + (this.props.displayInput ? "" : "hidden");
+    // Consider: Exists vs not exists? What is required?
+    var columnIsIntDropdown = 
+      <select className="qbSelect" onChange={this.handleStrictnessChange} value={this.props.currentSearchParameter}>
+        <option value="0">Is</option>
+        <option value="1">Is Not</option>
+        <option value="2">Is Greater Than</option>
+        <option value="3">Is Less Than</option>
+      </select>;
+    var columnIsIntOrStringBox = 
+      <input type="text" className={inputClassNames} onChange={this.handleTextChange} />;
+    var columnIsStringDropdown = 
+      <select className="qbSelect" onChange={this.handleStrictnessChange} value={this.props.currentSearchParameter}>
+        <option value="0">Contains</option>
+        <option value="1">Is Exactly</option>
+      </select>;
+    var columnIsBoolDropdown = 
+      <select className="qbSelect" onChange={this.handleStrictnessChange} value={this.props.currentSearchParameter}>
+        <option value="0">Is True</option>
+        <option value="1">Is False</option>
+        <option value="2">Exists</option>
+        <option value="3">Does Not Exist</option>
+      </select>;
+    var columnIsDateDropdown = 
+      <select className="qbSelect" onChange={this.handleStrictnessChange} value={this.props.currentSearchParameter}>
+        <option value="0">Is</option>
+        <option value="2">Is Not</option>
+        <option value="3">Is Between</option>
+        <option value="3">Is Not Between</option>
+        <option value="4">Is Before</option>
+        <option value="5">Is After</option>
+      </select>;
+    //var columnIsDateBox = <DateDropdown />
+    var selectedDropdown;
+    var selectedInput;
+    if (this.props.currentType === 1043) { // string 
+      selectedDropdown = columnIsStringDropdown;
+      selectedInput = columnIsIntOrStringBox;
+    } else if (this.props.currentType === 23) { // int
+      selectedDropdown = columnIsIntDropdown;
+      selectedInput = columnIsIntOrStringBox;
+    } else if (this.props.currentType === 16) { // bool
+      selectedDropdown = columnIsBoolDropdown;
+      selectedInput = <p></p>;
+    } else if (this.props.currentType === 1082) { // date
+      selectedDropdown = columnIsDateDropdown;
+      selectedInput = <p></p>;
+    } else {
+      selectedDropdown = <p></p>;
+      selectedInput = <p></p>;
+    }
     return (
       <div className={classNames}>
         <h4 className="qbHeader">Build Search</h4>
@@ -263,11 +338,8 @@ var QueryBuilder = React.createClass({
           <option value="none">Select an Option to Filter By</option>
           {columns}
         </select>
-        <select className="qbSelect" onChange={this.handleStrictnessChange}> 
-          <option value="contains">Contains</option>
-          <option value="exactly">Is Exactly</option>
-        </select>
-        <input type="text" className={textClassNames} onChange={this.handleTextChange} />
+        {selectedDropdown}
+        {selectedInput}
       </div>
     )
   }
@@ -374,15 +446,98 @@ var DetailPane = React.createClass({
   }
 });
 
-/*var Footer = React.createClass({
+var DateDropdown = React.createClass({
   render: function () {
+    var date = moment().date(this.props.day)
+                       .month(this.props.month)
+                       .year(this.props.year) 
+    var totalDays = date.daysInMonth();
     return (
-      <div className="SearchFooter">
-        <p> A footer. </p>
+      <div>
+        <select name="birthMonth" defaultValue={date.month()} onChange={this.props.handleMonthChange}>
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
+        </select>
+        <DayDropdown handleDayChange={this.props.handleDayChange} 
+                     totalDays={totalDays}
+                     date={date.date()} />
+        <YearDropdown handleYearChange={this.props.handleYearChange}
+                      year={date.year()} />
+        <span className={this.props.ageWarning}> Older than 25. </span>
       </div>
     )
   }
-});*/
+});
+
+var DayDropdown = React.createClass({
+  render: function () {
+    var showTwentyNineth = (29 > this.props.totalDays) ? "hidden" : "";
+    var showThirtieth = (30 > this.props.totalDays) ? "hidden" : "";
+    var showThirtyFirst = (31 > this.props.totalDays) ? "hidden" : "";
+    if ($("select[name='birthDay']").val() > this.props.totalDays) {
+      $("select[name='birthDay']").val(this.props.totalDays);
+    };
+    return (
+      <select name="birthDay" defaultValue={this.props.date} onChange={this.props.handleDayChange}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29" className={showTwentyNineth}>29</option>
+          <option value="30" className={showThirtieth}>30</option>
+          <option value="31" className={showThirtyFirst}>31</option>
+        </select>
+    )
+  }
+})
+
+var YearDropdown = React.createClass({
+  render: function () {
+    var yearOptions = [];
+    for(var i = this.props.year - 50; i <= this.props.year; i++) {
+      yearOptions.push(<option key={i} value={i}>{i}</option>);
+    }
+    return (
+      <select name="birthYear" defaultValue={this.props.year} onChange={this.props.handleYearChange}>
+        {yearOptions}
+      </select>
+    )
+  }
+})
 
 
 ReactDOM.render(
