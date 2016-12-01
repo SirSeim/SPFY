@@ -6,19 +6,14 @@
       {% include "components/_navbar.html" %}
 
 
-        <div class="row">
+<!--         <div class="row">
           <div class="page-header"><center>
             <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
             <h5 id="dropin-date" data-id="0">2222-01-01</h5>
-            <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span id="total-youth-today" class="badge">50</span> Total Youth Checked-In
-            </button>
-            <button class="badge-button btn btn-primary btn-xs" type="button">
-              <span id="total-new-today" class="badge">14</span> Total New Youth Today
-            </button>
+
             </center>
           </div>
-        </div> <!-- 1st row -->
+        </div>  --><!-- 1st row -->
 
         <div class="row">
 
@@ -47,8 +42,13 @@
               <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4>
-                      Checked-In
+                      Check-Ins
                     </h4>
+                    <h9>
+                      <div id="total-new-today">14 New Today </div> 
+                      <div id="total-youth-today">50 Total Checked-In </div>             
+                    </h9>
+                    <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
                   </div>
                   <table id="checked-in" class="table table-hover">
                     <!-- DataTables just requires an empty <table> -->
@@ -64,13 +64,9 @@
             </ul>
 
             <div id="my-tab-content" class="tab-content">
-              <div class="tab-pane" id="viewdrop-in">
+             <div class="tab-pane active" id="activity-enrollment">
 
-              </div>
-
-              <div class="tab-pane active" id="activity-enrollment">
-
-                <div class="panel panel-default panel-horiscroll">
+                <div class="panel panel-default">
                   <div class="panel-heading"> <!-- Activity Thumbnails -->
 <!--                     <div class="btn-toolbar" role="toolbar">
                       <div class="btn-group" role="group">
@@ -83,42 +79,44 @@
                         <button type="button" class="btn btn-default">
                            <i class="fa fa-futbol-o" aria-hidden="true"></i>
                         </button> -->
-
+                        <div class="horiscroll">
                           <div class="col-sm-3">
                             <div class="thumbnail" id="dental">
                               <div class="caption">
                                 <p>Dental</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                               </div>
                             </div>
                           </div>
                           <div class="col-sm-3">
-                            <div class="thumbnail" id="hivtesting">
+                            <div class="thumbnail" id="dental">
                               <div class="caption">
-                                <p>HIV Testing</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                <p>Dental</p>
                               </div>
                             </div>
                           </div>
-
-                        <div class="col-sm-3">
-                            <div class="thumbnail" id="showers">
+                          <div class="col-sm-3">
+                            <div class="thumbnail" id="dental">
                               <div class="caption">
-                                <p>Showers</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                <p>Dental</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="thumbnail" id="dental">
+                              <div class="caption">
+                                <p>Dental</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="thumbnail" id="dental">
+                              <div class="caption">
+                                <p>Dental</p>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="thumbnail" id="art">
-                              <div class="caption">
-                                <p>Art</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                          
                          
                       </div>
                       <!-- Button trigger Add New Activity Modal -->
@@ -128,11 +126,18 @@
                         </button>
                       </div> -->
                     
-                    <div id="activities" class="panel-body">
+                      <div id="activities" class="panel-body">
+                      </div>
                     </div>
-                   </div>
-                  </div>
+                  
                 </div>
+                <div class="tab-pane" id="viewdrop-in">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                    </div>
+                  </div>
 
 
               </div> <!-- Drop-In Enrollment Tab pane -->

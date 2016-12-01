@@ -63,7 +63,7 @@ a img {
   border: none;
 }
 
-/* line 116, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+</* line 116, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -1878,4 +1878,23 @@ span.multiselect-native-select select {
 .form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
   margin-left: -20px;
   margin-right: 0;
+}
+
+.horiscroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 1600px;
+}
+
+/* line 23, ../sass/partials/_frontdesk.scss */
+.thumbnail {
+  box-shadow: 1px 1px 10px #999;
+  margin: 2px;
+  max-height: 80px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
 }

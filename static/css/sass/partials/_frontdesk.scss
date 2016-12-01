@@ -13,9 +13,20 @@ span.badge {
     color: black !important;
 }
 
-.panel-horiscroll .panel-heading {
+.horiscroll {
 	overflow-x: scroll;
     overflow-y: hidden;
-    height: 80px;
-    white-space:nowrap
+    white-space:nowrap;
+    width: 1600px;
+}
+
+.thumbnail { 
+    box-shadow: 1px 1px 10px #999; 
+    margin: 2px;
+    max-height: 80px;
+    cursor: pointer;
+    display:inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align:top;
 }
