@@ -105,12 +105,12 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/clients/search',
+        path: '/search/clients',
         handler: Api.dataBrowserGetClients
     },
     {
         method: 'GET',
-        path: '/clients/search/{data}',
+        path: '/search/clients/{data}',
         handler: Api.dataBrowserSearchClients
     },
     {
