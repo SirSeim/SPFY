@@ -783,6 +783,27 @@ var queries = {
                           ') ORDER BY id;';
 
         return queryString;
+    },
+
+    uploadFile: function (payload) {
+        var queryString = 'INSERT INTO file (client_id, name, type, base_64_string) VALUES (\'' +
+                            payload.clientID + '\', \'' +
+                            payload.name + '\', \'' +
+                            payload.type + '\', \'' +
+                            payload.fileString + '\');';
+
+        return queryString;
+    },
+
+    getClientFiles: function (clientID) {
+        var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID + ';';
+        return queryString;
+    },
+
+    getProfilePicture: function (clientID) {
+        var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID + 
+                            'AND type=\'profile_picture\';';
+        return queryString;
     }
 };
 

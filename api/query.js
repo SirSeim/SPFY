@@ -662,7 +662,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
+            
             client.query(Queries.deleteUser(userId), function (err, result) {
                 done();
                 if (err) {
@@ -673,6 +673,29 @@ var query = {
             });
         });
     },
+
+    uploadFile: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // if you get a huge printout of base64
+            // text in your terminal window, it means the image made it through
+            // down to this level and is about to go into postgres
+
+            // uncommenting this console log is useful to see if it makes it
+            // but it might crash your dev console because the string is so big
+            // console.log(payload.fileString);
+            client.query(Queries.uploadFile(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },           
 
     getStatuses: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
@@ -729,6 +752,7 @@ var query = {
             });
         });
     },
+
     getFlags: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -769,11 +793,26 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
             // var data = Queries.editFlag(flagID);
             // // unstringify the data passed in
             client.query(Queries.editFlag(flagID, payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getClientFiles: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getClientFiles(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -789,11 +828,27 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
             // var data = Queries.editFlag(clientID);
             // // unstringify the data passed in
             client.query(Queries.getClientFlags(clientID), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getProfilePicture: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getProfilePicture(clientID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

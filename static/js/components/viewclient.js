@@ -56,7 +56,6 @@ $(function (event) {
         $('#casenotes').DataTable();
         
         var displayClientProfile = function (client) {
-
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -136,7 +135,38 @@ $(function (event) {
                 });
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
             });
-        }
+            
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/profile_picture/' + $(client).data("id"),
+                method: 'GET',
+                data: $(client).data("id"),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                var result = data.result;
+                if (result.rowCount > 0) {
+                    var url = result.rows['0'].base_64_string;
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = url;
+                } else {
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
+                }
+            });
+        };
 
         var editClient = function (data) {
             $.ajax({
@@ -176,23 +206,78 @@ $(function (event) {
             }).done(function (data) {
 
             });
-        }
+        };
 
         $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
         });
 
+        // *** Files *** 
 
-        var clientID;
-        var clientName;
-        var clientBirthday;
-        var clientAge;
-        var clientPhone;
-        var clientMail;
-        var clientLastMeeting;
-        var clientCaseManager;
-        var clientStatus;
+        var addFile = function (data) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files',
+                method: 'POST',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    alert('SUCCESS: File has been uploaded');
+                    $('#add-file-modal').modal('hide');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    alert('ERROR: File failed to upload');
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
+        var getBase64 = function (file, callback) {
+            var reader = new FileReader();
+            reader.onload = callback;
+            reader.readAsDataURL(file);
+        };
+
+        $('#file').change(function () {
+            var file = this.files[0];
+            var base64;
+
+            if (file) {
+                getBase64(file, function (e) {
+                    base64 = e.target.result;
+                    $('#base64').text(base64);
+                });
+            }
+        });
+
+        $('#submit-file').click(function () {
+            var clientID = $('#client-id')['0'].textContent
+            var name = $('#file').val();
+            var type = $('#file-type').val();
+            var fileString = $('#base64').text();
+
+            var data = {
+                clientID: clientID,
+                name: name,
+                type: type,
+                fileString: fileString
+            }
+
+            addFile(data);
+        });
+
+        // *** *** ***
 
         $('#edit-client').click(function () {
             clientID = $('#client-id')['0'].textContent;
@@ -233,8 +318,6 @@ $(function (event) {
                 $(this).parents('.dropdown').dropdown('toggle');
             });
         });
-        
-
 
         $('#cancel-edit').click(function () {
 
@@ -308,10 +391,9 @@ $(function (event) {
         // $('#shower').hover( function () {
         //     $('#shower').popover('toggle');
         // });
-
     };
 
-    var globalData = []
+    var globalData = [];
     globalData.push(window.sessionStorage.statuses);
     globalData.push(window.sessionStorage.flags);
 

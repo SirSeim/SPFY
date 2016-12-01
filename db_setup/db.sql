@@ -531,3 +531,13 @@ CREATE TABLE profile_flag (
 INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 2);
 INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 3);
 
+DROP TABLE IF EXISTS file;
+
+--Type choices: profile_picture, photo, document, compressed
+CREATE TABLE file (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  name varchar(45) DEFAULT NULL,
+  type varchar(30) DEFAULT NULL,
+  base_64_string varchar DEFAULT NULL
+);

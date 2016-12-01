@@ -548,12 +548,32 @@ var api = {
         });
     },
 
+    uploadFile: function (request, reply) {
+        Service.uploadFile(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToUploadFile(reply, err);
+            } else {
+                Respond.uploadFile(reply, result);
+            }
+        });
+    },
+
     getNotificationTypes: function (request, reply) {
         Service.getNotificationTypes(request.postgres, function (err, result) {
             if (err) {
                 Respond.failedToGetNotificationTypes(reply, err);
             } else {
                 Respond.getNotificationTypes(reply, result);
+            }
+        });
+    },
+
+    getClientFiles: function (request, reply) {
+        Service.getClientFiles(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientFiles(reply, err);
+            } else {
+                Respond.getClientFiles(reply, result);
             }
         });
     },
@@ -626,7 +646,18 @@ var api = {
                 Respond.getClientFlags(reply, result);
             }
         });
+    },
+
+    getProfilePicture: function (request, reply) {
+        Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetProfilePicture(reply, err);
+            } else {
+                Respond.getProfilePicture(reply, result);
+            }
+        });
     }
+
 };
 
 

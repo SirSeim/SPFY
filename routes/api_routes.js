@@ -268,6 +268,28 @@ var apiRoutes = [
         method: 'GET',
         path: '/flags/{clientID}',
         handler: Api.getClientFlags
+    },
+    {
+        method: 'POST',
+        path: '/files',
+        config: {
+            payload: {
+                maxBytes: 209715200,
+                //output: 'stream',
+                //parse: false
+            }
+        }, 
+        handler: Api.uploadFile
+    },
+    {
+        method: 'GET',
+        path: '/files/{clientID}',
+        handler: Api.getClientFiles
+    },
+    {
+        method: 'GET',
+        path: '/files/profile_picture/{clientID}',
+        handler: Api.getProfilePicture
     }
 ];
 

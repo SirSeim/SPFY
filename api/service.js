@@ -593,6 +593,15 @@ var service = {
         });
     },
 
+    uploadFile: function (postgres, payload, callback) {
+        Query.uploadFile(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
     editStatus: function (postgres, statusID, payload, callback) {
         Query.editStatus(postgres, statusID, payload, function (err, result) {
             if (err) {
@@ -613,6 +622,7 @@ var service = {
             callback(undefined, arr);
         });
     },
+
     getFlags: function (postgres, callback) {
         Query.getFlags(postgres, function (err, result) {
             if (err) {
@@ -638,6 +648,15 @@ var service = {
 
     createFlag: function (postgres, payload, callback) {
         Query.createFlag(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getClientFiles: function (postgres, clientID, callback) {
+        Query.getClientFiles(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -688,6 +707,15 @@ var service = {
             //     });
             // }
             // callback(undefined, arr);
+            callback(undefined, result);
+        });
+    },
+
+    getProfilePicture: function (postgres, clientID, callback) {
+        Query.getProfilePicture(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
             callback(undefined, result);
         });
     }
