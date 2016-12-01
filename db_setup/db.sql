@@ -477,32 +477,21 @@ INSERT INTO notification_types (name) VALUES ('info');
 INSERT INTO notification_types (name) VALUES ('warning');
 INSERT INTO notification_types (name) VALUES ('danger');
 
-DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS notifications;
 
-CREATE TABLE notification (
+CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users (id),
   type integer REFERENCES notification_types (id),
   comment varchar(128) DEFAULT NULL,
   link varchar(128) DEFAULT NULL,
   checked boolean DEFAULT FALSE
 );
 
-INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Test notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Another notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Yet another notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notification (type, comment, link, checked) VALUES (1, 'Test notification for set flags modal', '/index', 'FALSE');
-
-DROP TABLE IF EXISTS receive_notification;
-
-CREATE TABLE receive_notification (
-  id SERIAL PRIMARY KEY,
-  user_id integer REFERENCES users (id),
-  notification_id integer REFERENCES notification (id)
-);
-
-INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 1);
-INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 2);
-INSERT INTO receive_notification (user_id, notification_id) VALUES (1, 3);
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Yet another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for set flags modal', '/index', 'FALSE');
 
 DROP TABLE IF EXISTS flags;
 

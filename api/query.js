@@ -572,23 +572,6 @@ var query = {
         });
     },
 
-    setNotification: function (postgres, userId, payload, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.setNotification(userId, payload), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
     getNotificationById: function (postgres, noteId, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

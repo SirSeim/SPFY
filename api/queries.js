@@ -630,15 +630,13 @@ var queries = {
     },
 
     getUsersNotifications: function (userId) {
-        // query with subquery
-        var queryString = 'SELECT type, comment, link, checked FROM notification WHERE id IN (' +
-                            'SELECT notification_id FROM receive_notification WHERE user_id = ' + userId +
-                            ' ) ORDER BY id;';
+        var queryString = 'SELECT id, type, comment, link, checked FROM notifications WHERE user_id = ' + userId +
+                            ' AND checked = false ORDER BY id;';
         return queryString;
     },
 
     createNotification: function (userId, payload) {
-        var queryString = 'INSERT INTO notification (';
+        var queryString = 'INSERT INTO notifications (';
         if (payload.type) {
             queryString += 'type';
         }
@@ -667,15 +665,6 @@ var queries = {
             queryString += ', \'' + payload.checked + '\'';
         }
         queryString += ') RETURNING id, type, comment, link, checked;';
-
-        return queryString;
-    },
-
-    setNotification: function (userId, payload) {
-        // will iterate through payload to include multiple
-        // users later
-        var queryString = 'INSERT INTO receive_notification (user_id, notification_id) VALUES (' +
-                           userId + ', ' + payload.notificationId + ');';
 
         return queryString;
     },
