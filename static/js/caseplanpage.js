@@ -11,7 +11,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/case_manager',
+            url: '/clients/{clientID}/case_plan',
             method: 'POST',
             data: data,
             success: function (data) {
@@ -39,11 +39,10 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: '/case_manager/{clientID}',
+            url: '/clients/{clientID}/case_plan',
             method: 'GET',
             success: function (data) {
                 console.log(data);
-                };
             },
             error: function (xhr) {
                 console.log(xhr);

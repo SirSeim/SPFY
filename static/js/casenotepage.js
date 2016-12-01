@@ -123,6 +123,7 @@ $(function (event) {
     });
 
     $('#submit').click(function () {
+        console.log("hello");
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#date')['0'].value;
