@@ -28,10 +28,10 @@ $(function (event) {
 
     // second parameter can also be an object with
     // more options
-    $("#clients").notify("Hello SPY!", {
-        className: "info",
-        position: "right"
-    });
+    // $("#clients").notify("Hello SPY!", {
+    //     className: "info",
+    //     position: "right"
+    // });
 
 
     /* MDN has a Notification API for desktop notifications

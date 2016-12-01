@@ -205,6 +205,16 @@ var apiRoutes = [
         handler: Api.createNotification
     },
     {
+        method: 'POST',
+        path: '/notifications/{userId}/set',
+        // config: {
+        //     validate: {
+        //         payload: Schema.notification
+        //     }
+        // },
+        handler: Api.setNotification
+    },
+    {
         method: 'GET',
         path: '/users/{userId}/notifications/{noteId}',
         handler: Api.getUsersNotificationsById
@@ -253,6 +263,11 @@ var apiRoutes = [
         method: 'PUT',
         path: '/flags/{flagID}',
         handler: Api.editFlag
+    },
+    {
+        method: 'GET',
+        path: '/flags/{clientID}',
+        handler: Api.getClientFlags
     }
 ];
 

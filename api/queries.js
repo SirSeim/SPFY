@@ -316,7 +316,7 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth, phone_number, email FROM client;';
 
         return queryString;
     },
@@ -500,7 +500,7 @@ var queries = {
             queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
                             element.dropinID + ', ' +
                             element.clientID + ', ' +
-                            '\'' + element.date + '\'' + ');';
+                            '\'' + element.date + '\'' + ') RETURNING drop_in_id, client_id, date;';
         });
 
         return queryString;
@@ -640,7 +640,7 @@ var queries = {
     createNotification: function (userId, payload) {
         var queryString = 'INSERT INTO notification (';
         if (payload.type) {
-            queryString += ', type';
+            queryString += 'type';
         }
         if (payload.comment) {
             queryString += ', comment';
@@ -667,6 +667,15 @@ var queries = {
             queryString += ', \'' + payload.checked + '\'';
         }
         queryString += ') RETURNING id, type, comment, link, checked;';
+
+        return queryString;
+    },
+
+    setNotification: function (userId, payload) {
+        // will iterate through payload to include multiple
+        // users later
+        var queryString = 'INSERT INTO receive_notification (user_id, notification_id) VALUES (' +
+                           userId + ', ' + payload.notificationId + ');';
 
         return queryString;
     },
@@ -765,6 +774,14 @@ var queries = {
                             'note = \'' + payload.note + '\' ' +
                             'WHERE id = ' + flagID + 
                             ' RETURNING id, type, message, color, note;';
+        return queryString;
+    },
+
+    getClientFlags: function (clientID) {
+        var queryString = 'SELECT type, message, color, note FROM flags WHERE id IN (' +
+                          'SELECT flag_id FROM profile_flag WHERE client_id = ' + clientID +
+                          ') ORDER BY id;';
+
         return queryString;
     }
 };

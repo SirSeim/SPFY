@@ -15,6 +15,38 @@ $(function () {
         })[0];
     };
 
+    window.dataString = function (data) {
+        var dataString = "";
+        for (var property in data) {
+            dataString += 'data-' + property + '="' + data[property] + '" ';
+        }
+        return dataString;
+    };
+
+    // ** will need this for enrollment tables
+    // data - data to be stored in <tr> with data()
+    // display - array of content (strings) to display in each <td> 
+    // trAttributes - any extra attributes besides 'data-'
+    window.buildRow = function (data, display, trAttributes) {
+        var dataString = "";
+        var tdString = "";
+        for (var property in data) {
+            dataString += 'data-' + property.toLowerCase() + '="' + data[property] + '" ';
+        }
+        display.forEach(function (column) {
+            tdString += '<td>' + column + '</td>';
+        });
+        if (trAttributes) {
+            var attributes = '';
+            trAttributes.forEach(function (attr) {
+                attributes += attr + ' ';
+            });
+            return '<tr ' + attributes + ' ' + dataString + '>' + tdString + '</tr>';
+        } else {
+            return '<tr ' + dataString + '>' + tdString + '</tr>';
+        }
+    };
+
     window.sessionStorageListeners = [];
 
     $.ajax({

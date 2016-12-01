@@ -13,18 +13,15 @@ $(function (event) {
 
         table.empty();
         clients.forEach(function (client) {
-        var dataString = "";
-        for (var property in client) {
-            dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
-        }
-        table.append('<tr class="profile-drag"><td ' + dataString + '>' +
-            '<span class="dot"></span>' +
-            client.firstName + ' ' +
-            client.lastName + ' ' +
-            '</td></tr>');
+            var display = ['<span class="dot"></span>' + client.firstName + ' ' +
+            client.lastName];
+            table.append(window.buildRow(client, display));
+
         });
+        // what if profiles don't come through?
+        // need code for edge case
         $(table).children('tr').get().forEach(function (clientRow) {
-            var currentStatus = window.getDataById(statuses, $(clientRow).find('td').data("status"));
+            var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
             $(clientRow).find('.dot').css('background-color', currentStatus.color);
         });
         

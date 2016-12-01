@@ -1,7 +1,6 @@
-
 $(function (event) {
 
-    var setupViewClient = function () {
+    var setupClientProfile = function () {
         var clientID;
         var clientName;
         var clientBirthday;
@@ -13,6 +12,10 @@ $(function (event) {
         var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
+
+        $('#setflag-button').click(function (event) {
+            $('#setflag-modal').modal('toggle');
+        });
 
         var getCaseNotes = function (data) {
             $.ajax({
@@ -96,17 +99,40 @@ $(function (event) {
 
                 $('#client-status').data("id", currentStatus.id)
                                    .data("name", currentStatus.name);
+                    
 
-                // for now giving all flags to all profiles
-                // later will link specific flag to specific profile
-                // based on id's
-                $('#client-flags').empty();
-                flags.forEach(function (flag) {
-                    $('#client-flags').append(
-                        '<button data-id="' + flag.id + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                         'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span></button>'); // title and data-content attributes are for hover popover
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: 'api/flags/1',
+                    method: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }
+                }).done(function (data) {
+                    $('#client-flags').empty();
+                    data.result.rows.forEach(function (flag) {
+                        $('#client-flags').append(
+                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
+                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                    });
+                    $('#client-flags li a.flag-edit').click(function (event) {
+                        $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Flag');
+                        $('#editflag-modal').modal('toggle');
+                    });
                 });
-
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
             });
         }
@@ -151,7 +177,7 @@ $(function (event) {
             });
         }
 
-        $('#clients').delegate("td", "click", function (event) {
+        $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
         });
@@ -281,6 +307,7 @@ $(function (event) {
         // $('#shower').hover( function () {
         //     $('#shower').popover('toggle');
         // });
+
     };
 
     var globalData = []
@@ -289,11 +316,11 @@ $(function (event) {
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");
-        setupViewClient();
+        setupClientProfile();
     } else {
         console.log("waiting for call");
         window.sessionStorageListeners.push({
-            ready: setupViewClient
+            ready: setupClientProfile
         });
     }
 

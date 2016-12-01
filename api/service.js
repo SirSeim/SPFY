@@ -77,7 +77,9 @@ var service = {
                     nickname: local.nickname,
                     lastName: local.last_name,
                     status: local.status,
-                    dob: local.date_of_birth
+                    dob: local.date_of_birth,
+                    phone: local.phone_number,
+                    email: local.email
                 });
             }
             return callback(undefined, arr);
@@ -482,6 +484,15 @@ var service = {
         });
     },
 
+    setNotification: function (postgres, userId, payload, callback) {
+        Query.setNotification(postgres, userId, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
     getNotificationById: function (postgres, noteId, callback) {
         Query.getNotificationById(postgres, noteId, function (err, result) {
             if (err) {
@@ -642,7 +653,6 @@ var service = {
             if (!result.rows[0]) {
                 return callback();
             }
-            console.log(result);
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -655,6 +665,30 @@ var service = {
                 });
             }
             callback(undefined, arr);
+        });
+    },
+
+    getClientFlags: function (postgres, clientID, callback) {
+        Query.getClientFlags(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            // var arr = [];
+            // for (var i = 0; i < result.rows.length; i++) {
+            //     var local = result.rows[i];
+            //     arr.push({
+            //         id: local.id,
+            //         type: local.type,
+            //         color: local.color,
+            //         message: local.message,
+            //         note: local.note
+            //     });
+            // }
+            // callback(undefined, arr);
+            callback(undefined, result);
         });
     }
 };
