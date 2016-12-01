@@ -519,21 +519,23 @@ var queries = {
     },
 
     dataBrowserSearchClients: function (data) {
-        var TYPE_STRING = 1043,
-            TYPE_INT = 23,
-            TYPE_BOOL = 16,
-            TYPE_DATE = 1082;
+        var TYPE_STRING = 1043;
+        var TYPE_INT = 23;
+        var TYPE_BOOL = 16;
+
+        // Currently unused
+        // var TYPE_DATE = 1082;
 
         var searchText = "";
 
         if (data.columnType === TYPE_STRING) {
-            searchText =  ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
+            searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
         } else if (data.columnType === TYPE_INT) {
             var operators = ["=", "!=", ">", "<"];
             searchText = ' ' + operators[data.status] + ' ' + data.data;
         } else if (data.columnType === TYPE_BOOL) {
             if (data.status === 0 || data.status === 1) {
-                searchText = ' = ' (data.status === 0 ? '1' : '0')
+                searchText = ' = ' + (data.status === 0 ? '1' : '0');
             } else {
                 searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
             }
