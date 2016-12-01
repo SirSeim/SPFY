@@ -180,6 +180,11 @@ var apiRoutes = [
         handler: Api.changeCurrentUserPassword
     },
     {
+        method: 'POST',
+        path: '/case_manager',
+        handler: Api.createCasePlan
+    },
+    {
         method: 'GET',
         path: '/case_manager/{clientID}',
         handler: Api.getCasePlan
