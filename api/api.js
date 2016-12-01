@@ -361,6 +361,16 @@ var api = {
         });
     },
 
+    createCasePlan: function (request, reply) {
+        Service.createCasePlan(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateCasePlan(reply, err);
+            } else {
+                Respond.createCasePlan(reply, result);
+            }
+        });
+    },
+
     getCasePlan: function (request, reply) {
         Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
             if (err) {

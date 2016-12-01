@@ -627,6 +627,16 @@ var queries = {
         return queryString;
     },
 
+    createCasePlan: function (payload) {
+        var queryString = 'INSERT INTO caseplan (client_id, case_manager_id, date, note, ) VALUES (' +
+            '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.date) + '\'' + ', ' +
+            '\'' + parseProperty(payload.note) + '\'' + ', ';
+
+        return queryString;
+    },
+
     editCasePlan: function (payload) {
         var queryString = 'UPDATE caseplan SET ';
 

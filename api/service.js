@@ -489,6 +489,15 @@ var service = {
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
     },
+    
+    createCasePlan: function (postgres, data, callback) {
+        Query.createCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
 
     getCasePlan: function (postgres, data, callback) {
         Query.getCasePlan(postgres, data, function (err, result) {

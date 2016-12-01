@@ -65,7 +65,7 @@ CREATE TABLE client (
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL,
   status integer REFERENCES status (id),
-  caseplan varchar() DEFAULT NULL
+  caseplan varchar DEFAULT NULL
 );
 
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
@@ -371,6 +371,22 @@ INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 3, '2016-10-31', 'CM', 'This is an initial note', false, null, null);
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 2, '2016-10-31', 'CM', 'This is another initial note', false, null, null);
 INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (3, 1, '2016-10-31', 'CM', 'This is an initial note', false, null, null);
+
+DROP TABLE IF EXISTS caseplan;
+
+CREATE TABLE caseplan (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  case_manager_id integer REFERENCES casemanager (id),
+  date date DEFAULT CURRENT_DATE,
+  note VARCHAR DEFAULT NULL
+);
+
+INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (1, 1, '2016-10-31', 'CM', 'This is an initial note');
+INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (1, 1, '2016-11-15', 'CM', 'This is another initial note');
+INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 3, '2016-10-31', 'CM', 'This is an initial note');
+INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 2, '2016-10-31', 'CM', 'This is another initial note');
+INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (3, 1, '2016-10-31', 'CM', 'This is an initial note');
 
 DROP TABLE IF EXISTS users;
 
