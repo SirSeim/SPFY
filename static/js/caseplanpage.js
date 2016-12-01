@@ -96,7 +96,7 @@ $(function (event) {
         console.log(this.data);
     });
 
-    $('#submit').click(function () {
+    $('#submitplan').click(function () {
         console.log('clicked');
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#date')['0'].value;

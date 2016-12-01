@@ -29,7 +29,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-            
+
         });
     };
 
@@ -60,7 +60,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-            
+
         });
     };
 
