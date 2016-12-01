@@ -17,9 +17,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="frontdesk"><h5>Front <span class="fa fa-home" aria-hidden="true"></span> Desk</h5><span class="sr-only">(current)</span></a></li>
-          <li><a href="case_manager"><h5>Case Management</h5></a></li>
-          <li><a href="outreach"><h5>Outreach</h5></a></li>
+          <li><a href="frontdesk"><h5>Front <span class="fa fa-home" aria-hidden="true"></span> Desk</h5></a></li>
+          <li><a href="case_manager"><h5>Clients</h5></a></li>
+          <li><a href="search"><h5>Data Browser</h5></a></li>
 <!--           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Drop <span class="fa fa-sort-down drop-arrow"></span></h5></a>
             <ul class="dropdown-menu">
@@ -40,8 +40,7 @@
           <button type="search" class="btn btn-default">Search</button>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="search"><h5>Data Browser</h5></a></li>
-          <li><a href="add_client"><h5>Add Client</h5></a></li>
+          <!-- <li><a href="add_client"><h5>Add Client</h5></a></li> -->
 <!--           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Drop In <span class="fa fa-sort-down drop-arrow"></span></h5></a>
             <ul class="dropdown-menu">
@@ -61,6 +60,21 @@
               <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
             </ul>
           </li>
+
+          <li class="dropdown" id="profile">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Profile <span class="fa fa-sort-down drop-arrow"></span></h5></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Account</li>
+              <li><a href="dropin"><i class="fa fa-id-badge" aria-hidden="true"></i> Info</a></li>
+              <li><a href="#" id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">System</li>
+              <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
+              <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
+              <li><a href="settings">Settings</a></li>
+              <li><a href="#">Help</a></li>
+              </ul>
+          </li> <!-- Profile -->
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

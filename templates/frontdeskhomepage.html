@@ -16,6 +16,28 @@
         </div>  --><!-- 1st row -->
 
         <div class="row">
+
+          <div class="col-sm-3">
+                {% include "components/_clientprofiletable.html" %}
+          </div>
+          <div class="col-sm-3">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4>
+                  Selected Clients
+                </h4>
+              </div>
+              <ul id="selected-clients">
+              </ul>
+              <button id="checkin-button" type="button" class="btn btn-default">Check-In</button>
+            </div>
+          </div>
+          <div id="checkin-feedback" class="col-sm-3">
+
+          </div>
+        </div> <!-- 2nd row -->
+
+        <div class="row">
             <div class="col-sm-10">
               <div class="panel panel-default">
                   <div class="panel-heading">
@@ -29,37 +51,11 @@
                     <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
                   </div>
                   <table id="checked-in" class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>First Visit</th>
-                        <th>Name(First Last)</th>
-                        <th>Nickname</th>
-                        <th>DOB</th>
-                        <th>Activities Today</th>
-                        <th>Check-in Notes</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>09/23/16</td>
-                        <td>Steven Brown</td>
-                        <td>Steve</td>
-                        <td>09/02/94</td>
-                        <th>Activities Today</th>
-                        <td>notes go here</td>
-                        <td><img width=10 height=10 src="http://media1.s-nbcnews.com/j/newscms/2016_14/1038581/red-dot-puzzle-before-today-160406_7042d4e863c03b4a32720f424d48501b.today-inline-large.jpg"></td>
-                      </tr>
-                    </tbody>
+                    <!-- DataTables just requires an empty <table> -->
                   </table>
                 </div>
             </div>
-            <div class="col-sm-2">
-                  {% include "components/_clientprofiletable.html" %}
-            </div>
-<!--             <div id="checkin-result-feedback" class="col-sm-2">
-            </div> -->
-        </div> <!-- 2nd row -->
+        </div> <!-- 3rd row -->
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -211,7 +207,7 @@
 
               </div> <!-- Drop-In Enrollment Tab pane -->
             </div> <!-- Tab container -->
-        </div> <!-- 3rd row -->
+        </div> <!-- 4th row -->
 
     </div> <!--container-->
 

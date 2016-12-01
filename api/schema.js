@@ -1,4 +1,4 @@
-var Joi = require('joi'); // eslint-disable-line
+var Joi = require('joi');
 
 var schema = {
     newUser: Joi.object().keys({
@@ -14,6 +14,20 @@ var schema = {
     changeCurrentUserPassword: Joi.object().keys({
         password: Joi.string().required().trim(),
         newPassword: Joi.string().required().min(8).trim()
+    }).unknown(false),
+
+    notification: Joi.object().keys({
+        type: Joi.string().trim(),
+        comment: Joi.string().required().trim(),
+        link: Joi.string().trim(),
+        checked: Joi.boolean()
+    }).unknown(false),
+
+    updateNotification: Joi.object().keys({
+        type: Joi.string().trim(),
+        comment: Joi.string().trim(),
+        link: Joi.string().trim(),
+        checked: Joi.boolean()
     }).unknown(false)
 };
 

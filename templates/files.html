@@ -1,0 +1,20 @@
+{% include "components/_header.html" %}
+
+<div class="container">
+
+	{% include "components/_navbar.html" %}
+
+	<input id="file" type="file" />
+	<img src="" id="preview" height="200" alt="Image preview...">
+	<div id="base64" hidden></div>
+	<button type="button" id="submit" class="btn btn-primary">Submit</button>
+	<button type="button" id="get" class="btn btn-primary">Get File</button>
+	<img src="" id="retrieved-file" height="200" alt="Retrieved image...">
+
+</div><!--container-->
+
+{% include "components/_basescript.html" %}
+
+<script src="/static/js/files.js"></script>
+
+{% include "components/_footer.html" %}

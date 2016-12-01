@@ -4,8 +4,6 @@ $(function (event) {
     var caseManagerDropdown = $('#case-manager-dropdown');
 
     var createCaseNote = function (data) {
-        console.log('createCaseNote called');
-        console.log(data);
         $.ajax({
             xhrFields: {
                 withCredentials: true
