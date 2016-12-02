@@ -1,6 +1,7 @@
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
             <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
+            <li><a class="tablinks" href="#caseplan" data-toggle="tab">Case Plan</a></li>
             <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
             <li><a class="tablinks" href="#referrals" data-toggle="tab">Referrals</a></li>
             <li><a class="tablinks" href="#other" data-toggle="tab">Other</a></li>
@@ -9,6 +10,39 @@
             <div class="tab-pane active" id="client-info">
 
               <div class="row">
+                <h1 id="client-id" style="display: none;">1</h1>
+                <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
+                <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
+                <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
+                <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
+              </div>
+                <div class="row">
+                  <div class="col-xs-2"><img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg"></div>
+                  <div class="col-xs-10"id="client-badges">
+                    <div class="row">
+
+                        <button id="follow-up" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
+                          Follow Up <span id="follow-up-status" class="badge">Needed</span>
+                        </button>
+
+
+                        <button id="housing" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Housing" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                          Housing <span id="housing-status" class="badge">Complete</span>
+                        </button>
+
+                      <!-- <a class="tablinks" href="#case-management"> -->
+                        <button id="shower" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                          Shower
+                          <span id="shower-status" class="badge">1</span>
+                        </button>
+                     <!--  </a> -->
+                    </div>
+                    <div class="row">
+                      <button id="legal" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Legal" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+                        Legal <span id="legal-status" class="badge">Ongoing</span>
+                      </button>
+                    </div>
+                  </div>
                 <div class="col-xs-2">
                   <img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg">
                 </div>
@@ -47,7 +81,7 @@
                   <div class="panel-heading">
                   <h3>Flags</h3>
                   <button id="setflag-button" type="button" class="btn btn-default">Set Flag</button>
-                  </div>                  
+                  </div>
                     <ul id="client-flags">
 
                     </ul>
@@ -123,6 +157,35 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="tab-pane" id="caseplan">
+                <h3 id="caseplan-title">
+                    Client's Case Plan
+                </h3>
+                <div class="row">
+                  <div class="form-group row">
+                    <label for="case-manager-dropdown" class="col-xs-2 col-form-label">Case Manager</label>
+                    <div class="col-xs-2">
+                      <select id="case-manager-dropdown">
+                        <option value="1">Jeanine Espejo-Watkins</option>
+                        <option value="1">John Doe</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="date" class="col-xs-2 col-form-label">Date</label>
+                    <div class="col-xs-2">
+                      <input type="text" placeholder="mm/dd/yy" id="date">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="example-text-input" class="col-xs-2 col-form-label">Case Plan</label>
+                    <div class="col-xs-12">
+                    <textarea id="caseplan-text" class="form-control" rows="10"></textarea>
+                    </div>
+                  </div>
+                </div>
+                  <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
             </div>
             <div class="tab-pane" id="documents">
                 <h3>Client Documents</h3>

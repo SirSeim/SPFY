@@ -474,6 +474,15 @@ var api = {
         });
     },
 
+    createCasePlan: function (request, reply) {
+        Service.createCasePlan(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateCasePlan(reply, err);
+            } else {
+                Respond.createCasePlan(reply, result);
+            }
+        });
+    },
     createNotification: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
@@ -489,7 +498,7 @@ var api = {
             }
         });
     },
-    
+
     getUsersNotificationsById: function (request, reply) {
         var userId;
         if (request.params.userId === 'self') {
@@ -548,6 +557,27 @@ var api = {
                 Respond.failedToGetNotificationTypes(reply, err);
             } else {
                 Respond.getNotificationTypes(reply, result);
+            }
+        });
+    },
+    getCasePlan: function (request, reply) {
+        console.log('We are inside of api.js');
+        Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCasePlan(reply, err);
+            } else {
+                Respond.getCasePlan(reply, result);
+            }
+        });
+
+    },
+
+    editCasePlan: function (request, reply) {
+        Service.editCasePlan(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditCasePlan(reply, err);
+            } else {
+                Respond.editCasePlan(reply, result);
             }
         });
     },
@@ -621,7 +651,7 @@ var api = {
             }
         });
     },
-    
+
     getClientFlags: function (request, reply) {
         Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
@@ -641,7 +671,6 @@ var api = {
             }
         });
     }
-
 };
 
 
