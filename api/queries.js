@@ -370,7 +370,7 @@ var queries = {
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT id, activity_name FROM activity;';
+        var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity;';
 
         return queryString;
     },

@@ -105,6 +105,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/activities',
+        handler: Api.getAllActivities
+    },
+    {
+        method: 'GET',
         path: '/search/clients',
         handler: Api.dataBrowserGetClients
     },

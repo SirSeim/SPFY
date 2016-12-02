@@ -102,6 +102,16 @@ var api = {
         });
     },
 
+    getAllActivities: function (request, reply) {
+        Service.getAllActivities(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetAllActivities(reply, err);
+            } else {
+                Respond.getAllActivities(reply, result);
+            }
+        });
+    },
+
     getDropinActivities: function (request, reply) {
         Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
