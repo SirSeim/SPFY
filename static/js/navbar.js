@@ -1,4 +1,4 @@
-$(function () {   
+$(function () {
   var setupNavbar = function () {
 
       var types = JSON.parse(window.sessionStorage.notificationTypes);
@@ -27,13 +27,13 @@ $(function () {
       };
 
       var newAlertItem = function (alert) {
-          return '<li><a href="' + alert.link + '"data-id="' + alert.id +
+          return '<a class="dropdown-item" href="' + alert.link + '"data-id="' + alert.id +
                   '"><input type="checkbox"> ' + alertType(alert.type) + // a typeId
-                  alert.comment + '</a></li>';
+                  alert.comment + '</a>';
       };
 
       var updateAlertsbadge = function () {
-          var list = $('#alerts').children('ul.dropdown-menu')
+          var list = $('#alerts').children('div.dropdown-menu')
           var total = list.find('input').length;
           var checked = list.find('input:checked').length;
           $('#alerts-badge').text(total - checked);
@@ -96,7 +96,7 @@ $(function () {
 
       var login = $('ul.nav a[href="login"]').parent();
       var alert = $('#alerts');
-      var alertList = alert.children('ul.dropdown-menu');
+      var alertList = alert.children('div.dropdown-menu');
       var profile = $('#profile');
       if (typeof(Storage) !== "undefined" && localStorage.getItem("authorization")) {
           console.log("We have authorization");
@@ -117,14 +117,13 @@ $(function () {
               method: "GET"
           }).done(function (data, textStatus, xhr) {
               console.log(data);
-              var local = alert.find('h5');
+              var local = alert.find('a');
               local.empty();
               local.append('Alerts');
               if (data.result.length) {
                   local.append(alertsBadge(data.result.length));
               }
-              
-              alert.children('ul.dropdown-menu').empty();
+              alert.children('div.dropdown-menu').empty();
               for (var i = 0; i < data.result.length; i++) {
                   alertList.append(newAlertItem(data.result[i]))
               }
