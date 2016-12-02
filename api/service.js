@@ -197,7 +197,7 @@ var service = {
 
             return callback(undefined, result);
         });
-    }
+    },
 
     getDropinEnrollment: function (postgres, dropinID, callback) {
         Query.getDropinEnrollment(postgres, dropinID, function (err, result) {

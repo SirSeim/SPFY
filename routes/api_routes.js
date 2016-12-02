@@ -77,7 +77,7 @@ var apiRoutes = [
         method: 'POST',
         path: '/dropins/{dropin}/activities',
         handler: Api.addActivitiesToDropIn
-    }
+    },
     {
         method: 'GET',
         path: '/dropins/{dropinID}/enrollment',
