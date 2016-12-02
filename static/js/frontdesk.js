@@ -309,6 +309,8 @@ $(function () {
              $("#newActivityModal").modal("toggle");
         });
 
+        $("#create-thumbnail")
+
         $(".thumbnail-dismiss").click(function (event) {
              $(this).parent().remove();
         });
