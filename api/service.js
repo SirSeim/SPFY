@@ -550,6 +550,36 @@ var service = {
         });
     },
 
+    createCasePlan: function (postgres, data, callback) {
+        Query.createCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getCasePlan: function (postgres, data, callback) {
+        console.log('We are inside of service.js');
+
+        Query.getCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    caseplan: local.caseplan
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     deleteUser: function (postgres, userId, callback) {
         Query.deleteUser(postgres, userId, callback);
     },
@@ -633,7 +663,16 @@ var service = {
                     note: local.note
                 });
             }
-            return callback(undefined, arr);
+            callback(undefined, arr);
+        });
+    },
+
+    editCasePlan: function (postgres, data, callback) {
+        Query.editCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
         });
     },
 
