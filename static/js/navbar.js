@@ -19,7 +19,7 @@ $(function () {
     };
 
     var alertsBadge = function (number) {
-        return ' <span class="badge">' + number + '</span>';
+        return ' <span class="tag-pill">' + number + '</span>';
     };
 
     var newAlertItem = function (alert) {
@@ -54,7 +54,7 @@ $(function () {
             if (data.result.length) {
                 local.append(alertsBadge(data.result.length));
             }
-            local.append(' <span class="fa fa-sort-down drop-arrow"></span>');
+            // local.append(' <span class="fa fa-sort-down drop-arrow"></span>');
 
             for (var i = 0; i < data.result.length; i++) {
                 alertList.append(newAlertItem(data.result[i]))
