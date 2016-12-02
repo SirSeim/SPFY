@@ -289,7 +289,7 @@ var queries = {
     },
 
     getClient: function (clientID) {
-        var queryString = 'SELECT first_name, last_name, intake_date, phone_number, email, ' +
+        var queryString = 'SELECT id, first_name, last_name, intake_date, phone_number, email, ' +
                             'date_of_birth, age(date_of_birth), status, caseplan FROM client WHERE id = ' +
 
                             '\'' + clientID + '\'' + ';';
@@ -821,8 +821,8 @@ var queries = {
 
     editCasePlan: function (payload) {
         var queryString = 'UPDATE client SET ';
-        queryString += 'caseplan = ' + '\'' + parseProperty(payload.caseplan) + '\'' + ' ';
-        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
+        queryString += 'caseplan = ' + '\'' + payload.text + '\'' + ' ';
+        queryString += 'WHERE id = ' + '\'' + payload.clientID + '\'' + ' ';
 
         queryString += 'RETURNING caseplan;';
 

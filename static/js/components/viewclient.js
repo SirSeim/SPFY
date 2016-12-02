@@ -177,9 +177,9 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/clients/" + data.id,
+                url: "api/clients/" + data.clientID + "/case_plan",
                 method: "PUT",
-                data: data.clientID,
+                data: data,
                 success: function (data) {
                     console.log(data);
                 },
@@ -191,20 +191,21 @@ $(function (event) {
                     }
                 }
             });
-        }
+        };
 
         $("#submitplan").click(function(event){;
             var clientID = $('#client-id')['0'].textContent;
             console.log(clientID);
-            var text = $('#caseplan-text').text();
+            var text = $('#caseplan-text').val();
 
             var data = {
                 clientID: clientID,
                 text: text
             }
             editCasePlan(data);
+            location.reload();
 
-    });
+        });
 
         var editClient = function (data) {
             $.ajax({
