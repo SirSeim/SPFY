@@ -309,10 +309,15 @@ $(function () {
              $("#newActivityModal").modal("toggle");
         });
 
-        $("#create-thumbnail")
+        // $("#create-thumbnail").click(function (event) {
+        //      $("#horiscroll").append("<div class=\"thumbnail\" data-id=\"3\">
+        //             <div class="caption"><span class="health">
+        //                 <p>Dental</p>
+        //             </div></div>")
+        // });
 
         $(".thumbnail-dismiss").click(function (event) {
-             $(this).parent().remove();
+             $(this).parent().parent().parent().parent().remove();
         });
 
 
