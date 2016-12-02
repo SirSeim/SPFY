@@ -115,6 +115,26 @@ var service = {
         });
     },
 
+    getLatestDropIns: function (postgres, latest, callback) {
+        Query.getLatestDropIns(postgres, latest, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     getDropIn: function (postgres, dropin, callback) {
         Query.getDropIn(postgres, dropin, function (err, result) {
             if (err) {

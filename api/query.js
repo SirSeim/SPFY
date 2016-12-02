@@ -134,6 +134,23 @@ var query = {
         });
     },
 
+    getLatestDropIns: function (postgres, latest, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getLatestDropIns(latest), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropIn: function (postgres, dropin, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

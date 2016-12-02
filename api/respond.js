@@ -100,6 +100,13 @@ var respond = {
             result: result
         }).code(200);
     },
+    badGetDropIns: function (reply, reason) {
+        reply({
+            statusCode: 400,
+            message: "Bad request for getting dropins!",
+            error: reason
+        }).code(400);
+    },
     failedTocreateDropIns: function (reply, err) {
         reply({
             statusCode: 500,

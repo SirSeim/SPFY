@@ -338,6 +338,11 @@ var queries = {
 
         return queryString;
     },
+    getLatestDropIns: function (latest) {
+        var queryString = 'SELECT * FROM drop_in ORDER by date DESC LIMIT ' + latest + ';';
+
+        return queryString;
+    },
     getDropIn: function (dropin) {
         var queryString = 'SELECT id, date FROM drop_in WHERE id = ' +
                             dropin + ';';
