@@ -12,3 +12,20 @@ button.badge-button.btn.btn-primary.btn-xs {
 span.badge {
     color: black !important;
 }
+
+.horiscroll {
+	overflow-x: scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+}
+
+.thumbnail { 
+    box-shadow: 1px 1px 10px #999; 
+    margin: 2px;
+    max-height: 80px;
+    cursor: pointer;
+    display:inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align:top;
+}

@@ -1,64 +1,42 @@
+// $ only ensures that code does not run until the page is finished loading
+// ajax call runs concurrent with page loading
 $(function (event) {
-    var status = $('.dot');
-    var table = $('#clients tbody');
+    
+    
+    var setupClientProfileTable = function () {
+        var status = $('.dot');
+        var table = $('#clients tbody');
+        var statuses = JSON.parse(window.sessionStorage.statuses); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
+        var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
+        var clients = JSON.parse(window.sessionStorage.clients);
 
-    var statuses = {
-        '1': 'okay-dot',
-        '2': 'missing-dot',
-        '3': 'sick-dot',
-        '4': 'vulnerable-dot',
-        '5': 'dangerous-dot'
-    } // in future, will be able to pull from list of statuses stored in a "Settings" page
-    // or an ajax call that retrieves statuses and their colors
 
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        },
-        url: "api/clients",
-        method: "GET",
-        success: function (data) {
-            status.removeClass('dot-pending').addClass('dot-success');
-            console.log(data);
-        },
-        error: function (xhr) {
-            status.removeClass('dot-pending').addClass('dot-error');
-            console.error(xhr);
-
-            if (xhr.status === 401) {
-                localStorage.removeItem("authorization");
-            }
-        }
-    }).done(function (data) {
         table.empty();
-        data.result.forEach(function (client) {
-            var dataString = "";
-            for (var property in client) {
-                dataString += 'data-' + property.toLowerCase() + '="' + client[property] + '" ';
-            }
-            table.append('<tr class="profile-drag"><td ' + dataString + '>' +
-                '<span class="' + statuses[client.status] + ' bullet"></span>' +
-                client.firstName + ' ' +
-                client.lastName + ' ' +
-                '</td></tr>');
+        clients.forEach(function (client) {
+            var display = ['<span class="dot"></span>' + client.firstName + ' ' +
+            client.lastName];
+            table.append(window.buildRow(client, display));
+
         });
-    });
-
-    $('#client-search').keyup(function () {
-        var search = $('#client-search');
-        var clients = $('#clients td');
-        if (search.val() === '') {
-            clients.show();
-        } else {
-            clients.hide().filter(function (i, e) {
-                return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
-            }).show();
-        }
-    });
-
+        // what if profiles don't come through?
+        // need code for edge case
+        $(table).children('tr').get().forEach(function (clientRow) {
+            var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
+            $(clientRow).find('.dot').css('background-color', currentStatus.color);
+        });
+        
+        $('#client-search').keyup(function () {
+            var search = $('#client-search');
+            var clients = $('#clients td');
+            if (search.val() === '') {
+                clients.show();
+            } else {
+                clients.hide().filter(function (i, e) {
+                    return $(e).text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+                }).show();
+            }
+        });
+    };
     /*
     
         can insert and retrieve using jQuery's data function
@@ -69,4 +47,24 @@ $(function (event) {
         // $.data() knows to grab any attribute with "data-"
         // $.data("id", 1) will insert into the "data-id" attribute
     */
+
+    // never make assumptions about when calls will show up
+    if (window.sessionStorage.statuses) {
+        // executes if the call has already arrived
+        // statuses already exists
+        // means setup function is okay to run
+        console.log("call arrived");
+        setupClientProfileTable();
+    } else {
+        console.log("call has not arrived, listen for call");
+        // the call hasn't arrived yet, register a listener
+        // to tell page when it shows up
+        // main.js will tell clientprofiletable.js when it shows up
+
+        // this is where "loading" animation shows up
+        // "please wait"
+        window.sessionStorageListeners.push({
+            ready: setupClientProfileTable
+        });
+    }
 });

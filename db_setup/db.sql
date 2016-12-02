@@ -4,6 +4,85 @@
   • double quotes \" are column identifiers (reference column names)
 */
 
+/*
+  • adding a line with EXPLAIN ANALYZE before a query
+  will print out each step that postgres takes for running the query
+  as well as the time it took to run the query
+  (it will explain everything that is run until the next semicolon ';')
+
+  EXPLAIN ANALYZE
+  SELECT type, comment, link, checked FROM notification WHERE id IN (
+    SELECT notification_id FROM receive_notification WHERE user_id = 1
+  ) ORDER BY id;
+  INSERT INTO notification (type) VALUES (1); -- won't explain analyze this
+
+*/
+
+/*
+
+   Create index for fields that are searched from the application side
+   Example: names, phone numbers
+
+   create alternateID's  1-to-many relationship
+    1 person associated with many id's
+    driver's license
+    Social security number
+    passport
+
+    If you are searching for it on the application side, should
+    index it on database side to make search faster
+
+
+    For queryBuilding:
+    "adhoc reporting for postgres"
+    collects dictionary data (data about the datastructure)
+    displays the data and can shop around
+    can build your own report
+
+    MySQL has more resources for best practices, more popular
+    Postgres has enterprise level version
+
+
+    Can secure with SSL using a free SSL certificate
+    company called LetsEncrypt - completely trustworthy!!!
+
+    LAMP environment - pre-packaged but can't really change shell
+    usually given when signing up with a host provider
+
+
+    Database encryption encrypts the files
+
+    tables are a logical structure, stored as a file in the database
+    server file system
+
+    encrypt the database data files (which hold the tables and
+    storage information)
+
+    encrypt the os file system encryption, encrypts the os files
+    makes the os less agile though, so instead protect
+    the os from the network, keep all the ports closed, only
+    open those needed for data transfer
+
+    if you protect os network side, don't have to encrypt the os
+    every time you encrypt it slows down the system
+
+    Recommends AWS
+    -pick 6 or 7 availability zone
+    -deploy into one zone
+    -each zone has 4 data centers
+    -your system is gauranteed to be in 2 datacenters
+    at any given moment, so don't have to worry
+    about back-ups!
+    -can extend service, pay extra to live in more avaibility zones
+    makes requests faster
+
+    can ask support about back-ups
+
+    * Make sure Heroku can access AWS console
+
+    Bitnami - has Marketplace
+
+*/
 DROP TABLE IF EXISTS casemanager;
 
 CREATE TABLE casemanager (
@@ -25,14 +104,15 @@ DROP TABLE IF EXISTS status;
 
 CREATE TABLE status (
   id SERIAL PRIMARY KEY,
-  name varchar(45) DEFAULT NULL
+  name varchar(45) DEFAULT NULL,
+  color varchar(15) DEFAULT NULL
 );
 
-INSERT INTO status (name) VALUES ('okay');
-INSERT INTO status (name) VALUES ('missing');
-INSERT INTO status (name) VALUES ('sick');
-INSERT INTO status (name) VALUES ('vulnerable');
-INSERT INTO status (name) VALUES ('dangerous');
+INSERT INTO status (name, color) VALUES ('okay', '#008000'); --rgb(0, 128, 0)
+INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
+INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
+INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
+INSERT INTO status (name, color) VALUES ('dangerous', '#FB0000'); --rgb(251, 0, 0)
 
 
 DROP TABLE IF EXISTS client;
@@ -382,14 +462,71 @@ CREATE TABLE users (
 -- inserting user 'test' to login with password 'passwordisnone'
 INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u');
 
+DROP TABLE IF EXISTS notification_types;
+
+CREATE TABLE notification_types ( -- making types separate is useful for settings
+  id SERIAL PRIMARY KEY,          -- and this could very well be implemented in the frontend
+  name varchar(45) DEFAULT NULL   -- by just calling all the notifications and extracting the different
+);                                -- types, but this seems much simpler and safer than relying on
+                                  -- complex js to filter out the unique types from each request
+
+INSERT INTO notification_types (name) VALUES ('default');
+INSERT INTO notification_types (name) VALUES ('primary');
+INSERT INTO notification_types (name) VALUES ('success');
+INSERT INTO notification_types (name) VALUES ('info');
+INSERT INTO notification_types (name) VALUES ('warning');
+INSERT INTO notification_types (name) VALUES ('danger');
+
 DROP TABLE IF EXISTS notifications;
 
 CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
   user_id integer REFERENCES users (id),
-  type varchar(45) NOT NULL DEFAULT 'general',
+  type integer REFERENCES notification_types (id),
   comment varchar(128) DEFAULT NULL,
-  link varchar(128) DEFAULT NULL
+  link varchar(128) DEFAULT NULL,
+  checked boolean DEFAULT FALSE
 );
 
-INSERT INTO notifications (user_id, comment, link) VALUES (1, 'Test notification for test', '/frontdesk');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Yet another notification for test', '/frontdesk', 'FALSE');
+INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for set flags modal', '/index', 'FALSE');
+
+DROP TABLE IF EXISTS flags;
+
+CREATE TABLE flags (
+  id SERIAL PRIMARY KEY,
+  type varchar(45) DEFAULT NULL,
+  message varchar(45) DEFAULT NULL,
+  color varchar(45) DEFAULT NULL,
+  note varchar(100) DEFAULT NULL
+);
+
+INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '#02AEF0', '(name) checked in at (time, day)');
+INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO flags (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
+INSERT INTO flags (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
+
+DROP TABLE IF EXISTS profile_flag;
+
+CREATE TABLE profile_flag (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  flag_id integer REFERENCES flags (id)
+);
+
+INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 2);
+INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 3);
+
+DROP TABLE IF EXISTS file;
+
+--Type choices: profile_picture, photo, document, compressed
+CREATE TABLE file (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  name varchar(45) DEFAULT NULL,
+  type varchar(30) DEFAULT NULL,
+  base_64_string varchar DEFAULT NULL
+);
