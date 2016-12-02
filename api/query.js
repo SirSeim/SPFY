@@ -745,7 +745,7 @@ var query = {
             });
         });
     },
-            
+
     getCasePlan: function (postgres, clientID, callback) {
         console.log('We are inside of query.js');
         postgres.connect(function (err, client, done) {
@@ -760,7 +760,8 @@ var query = {
 
                 return callback(undefined, result);
             });
-
+        });
+    },
     getFlags: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -803,7 +804,6 @@ var query = {
             // // unstringify the data passed in
             client.query(Queries.editFlag(flagID, payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
->>>>>>> master
                 done();
                 if (err) {
                     return callback(err);
@@ -814,20 +814,20 @@ var query = {
         });
     },
     editCasePlan: function (postgres, payload, callback) {
-            postgres.connect(function (err, client, done) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.editCasePlan(payload), function (err, result) {
+                done();
                 if (err) {
                     return callback(err);
                 }
-                client.query(Queries.editCasePlan(payload), function (err, result) {
-                    done();
-                    if (err) {
-                        return callback(err);
-                    }
 
-                    return callback(undefined, result);
-                });
+                return callback(undefined, result);
             });
-        },
+        });
+    },
     getClientFiles: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

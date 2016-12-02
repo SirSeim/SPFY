@@ -480,7 +480,8 @@ var api = {
                 Respond.failedToCreateCasePlan(reply, err);
             } else {
                 Respond.createCasePlan(reply, result);
-            }    
+            }
+        });
     },
     createNotification: function (request, reply) {
         var userId;
@@ -556,7 +557,6 @@ var api = {
                 Respond.failedToGetNotificationTypes(reply, err);
             } else {
                 Respond.getNotificationTypes(reply, result);
->>>>>>> master
             }
         });
     },
@@ -671,8 +671,6 @@ var api = {
             }
         });
     }
-
->>>>>>> master
 };
 
 
