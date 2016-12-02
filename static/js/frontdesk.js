@@ -35,6 +35,7 @@ $(function () {
                   });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
+
           var currentDropIn = {};
 
           // once "Create Drop-In" feature is done, dropin session will
@@ -304,119 +305,123 @@ $(function () {
             event.preventDefault();
         });
 
-
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "api/dropins",
-            method: "GET",
-            success: function (data) {
-                console.log("drop-ins");
-                console.log(data);
-            },
-            error: function (xhr) {
-                console.error(xhr);
-
-                if (xhr.status === 401) {
-                    localStorage.removeItem("authorization");
-                }
-            }
-        }).then(function (data) {
-            // get today's dropin session
-            var dropins = data.result;
-            var currentDropIn = dropins[dropins.length - 1];
-            $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
-            console.log(currentDropIn);
-            $('#dropin-date').data("id", currentDropIn.id);
-        }).then(function () {
-            // get activities associated in today's dropin
-            return $.ajax({
-                xhrFields: {
-                    withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
-                method: "GET",
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (xhr) {
-                    console.error(xhr);
-
-                    if (xhr.status === 401) {
-                        localStorage.removeItem("authorization");
-                    }
-                }
-            });
-        }).then(function (data) {
-            // makes a table for each activity
-            var activities = data.result;
-            console.log(activities);
-            $('#activities').append('<div id="activity-tables" class="row"></div>');
-            activities.forEach(function (activity) {
-                var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
-                $('#activity-tables').append(
-                    '<div class="col-sm-4">' + 
-                    '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
-                    '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
-                    '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
-                    '<thead><tr><th name="participants"></th></tr></thead>' + 
-                    '<tbody></tbody></table></div></div>');
-            });
-        }).then(function () {
-            // get the clients enrolled in each activity in today's dropin
-            return $.ajax({
-                xhrFields: {
-                    withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
-                method: "GET",
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (xhr) {
-                    console.error(xhr);
-
-                    if (xhr.status === 401) {
-                        localStorage.removeItem("authorization");
-                    }
-                }
-            });
-        }).done(function (data) {
-            var enrollment = data.result.rows;
-            // get clientprofiles from profiles listed in clientprofiletable.html
-            var profiles = $('#clients').find('tr');
-            // for each activity table, add a client profile if that client is enrolled
-            $('.table.activity').get().forEach(function (table) {
-                enrollment.forEach(function (enroll) {
-                    if (enroll.activity_id === $(table).data("id")) {
-                        var client = window.getDataById(clients, enroll.client_id);
-                        var status = window.getDataById(statuses, client.status);
-                        var display = ['<span class="dot"></span>' + client.firstName + ' ' + client.lastName];
-                        var trAttributes = [
-                            'class="clickable-row"',
-                            'data-toggle="modal"',
-                            'data-target="#viewclient-modal"'
-                        ];
-                        $(table).append(window.buildRow(client, display, trAttributes));
-                        $(table).find('tr').last().find('span.dot').css('background-color', status.color);
-                    }
-                });
-            });
-            // count number of youth enrolled in each activity
-            $('.enrollment-panel').find('[name="participants"]').get().forEach(function (header) {
-                header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
-            });
+        $("#add-new-activity").click(function (event) {
+             $("#newActivityModal").modal("toggle");
         });
+
+
+        // $.ajax({
+        //     xhrFields: {
+        //         withCredentials: true
+        //     },
+        //     beforeSend: function (xhr) {
+        //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        //     },
+        //     url: "api/dropins",
+        //     method: "GET",
+        //     success: function (data) {
+        //         console.log("drop-ins");
+        //         console.log(data);
+        //     },
+        //     error: function (xhr) {
+        //         console.error(xhr);
+
+        //         if (xhr.status === 401) {
+        //             localStorage.removeItem("authorization");
+        //         }
+        //     }
+        // }).then(function (data) {
+        //     // get today's dropin session
+        //     var dropins = data.result;
+        //     var currentDropIn = dropins[dropins.length - 1];
+        //     $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
+        //     console.log(currentDropIn);
+        //     $('#dropin-date').data("id", currentDropIn.id);
+        // }).then(function () {
+        //     // get activities associated in today's dropin
+        //     return $.ajax({
+        //         xhrFields: {
+        //             withCredentials: true
+        //         },
+        //         beforeSend: function (xhr) {
+        //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        //         },
+        //         url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
+        //         method: "GET",
+        //         success: function (data) {
+        //             console.log(data);
+        //         },
+        //         error: function (xhr) {
+        //             console.error(xhr);
+
+        //             if (xhr.status === 401) {
+        //                 localStorage.removeItem("authorization");
+        //             }
+        //         }
+        //     });
+        // }).then(function (data) {
+        //     // makes a table for each activity
+        //     var activities = data.result;
+        //     console.log(activities);
+        //     $('#activities').append('<div id="activity-tables" class="row"></div>');
+        //     activities.forEach(function (activity) {
+        //         var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
+        //         $('#activity-tables').append(
+        //             '<div class="col-sm-4">' + 
+        //             '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
+        //             '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
+        //             '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
+        //             '<thead><tr><th name="participants"></th></tr></thead>' + 
+        //             '<tbody></tbody></table></div></div>');
+        //     });
+        // }).then(function () {
+        //     // get the clients enrolled in each activity in today's dropin
+        //     return $.ajax({
+        //         xhrFields: {
+        //             withCredentials: true
+        //         },
+        //         beforeSend: function (xhr) {
+        //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        //         },
+        //         url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
+        //         method: "GET",
+        //         success: function (data) {
+        //             console.log(data);
+        //         },
+        //         error: function (xhr) {
+        //             console.error(xhr);
+
+        //             if (xhr.status === 401) {
+        //                 localStorage.removeItem("authorization");
+        //             }
+        //         }
+        //     });
+        // }).done(function (data) {
+        //     var enrollment = data.result.rows;
+        //     // get clientprofiles from profiles listed in clientprofiletable.html
+        //     var profiles = $('#clients').find('tr');
+        //     // for each activity table, add a client profile if that client is enrolled
+        //     $('.table.activity').get().forEach(function (table) {
+        //         enrollment.forEach(function (enroll) {
+        //             if (enroll.activity_id === $(table).data("id")) {
+        //                 var client = window.getDataById(clients, enroll.client_id);
+        //                 var status = window.getDataById(statuses, client.status);
+        //                 var display = ['<span class="dot"></span>' + client.firstName + ' ' + client.lastName];
+        //                 var trAttributes = [
+        //                     'class="clickable-row"',
+        //                     'data-toggle="modal"',
+        //                     'data-target="#viewclient-modal"'
+        //                 ];
+        //                 $(table).append(window.buildRow(client, display, trAttributes));
+        //                 $(table).find('tr').last().find('span.dot').css('background-color', status.color);
+        //             }
+        //         });
+        //     });
+        //     // count number of youth enrolled in each activity
+        //     $('.enrollment-panel').find('[name="participants"]').get().forEach(function (header) {
+        //         header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
+        //     });
+        // });
     };
 
     var globalData = []
