@@ -590,6 +590,8 @@ var query = {
     },
 
     getCasePlan: function (postgres, clientID, callback) {
+        console.log('We are inside of query.js');
+
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);

@@ -489,7 +489,7 @@ var service = {
             Query.changeUserPassword(postgres, userId, hash, callback);
         });
     },
-    
+
     createCasePlan: function (postgres, data, callback) {
         Query.createCasePlan(postgres, data, function (err, result) {
             if (err) {
@@ -500,6 +500,8 @@ var service = {
     },
 
     getCasePlan: function (postgres, data, callback) {
+        console.log('We are inside of service.js');
+
         Query.getCasePlan(postgres, data, function (err, result) {
             if (err) {
                 return callback(err);

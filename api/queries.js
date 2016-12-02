@@ -651,6 +651,7 @@ var queries = {
     },
 
     getCasePlan: function (clientID) {
+        console.log('We are inside of queries.js');
         var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, ' +
             'last_name, note FROM caseplan n LEFT JOIN ' +
             'casemanager m ON n.case_manager_id = m.id WHERE client_id = ' + clientID + ';';
