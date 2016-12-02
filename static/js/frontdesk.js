@@ -309,6 +309,10 @@ $(function () {
              $("#newActivityModal").modal("toggle");
         });
 
+        $(".thumbnail-dismiss").click(function (event) {
+             $(this).parent().remove();
+        });
+
 
         // $.ajax({
         //     xhrFields: {
