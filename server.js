@@ -48,13 +48,7 @@ postgresqlPool.register.attributes = {
     version: "0.0.0"
 };
 
-var validate = function (decoded, request, callback) {
-    console.log(decoded);
-    // console.log(request);
-    // TODO: Look into what is in decoded & request
-    // query the database for the user
-    return callback(null, true);
-};
+var validate = require(Path.join(__dirname, 'api/validate.js'));
 
 var SPFY = new Hapi.Server({
     connections: {
