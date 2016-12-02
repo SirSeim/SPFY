@@ -179,7 +179,7 @@ $(function (event) {
                 },
                 url: "api/clients/" + data.id,
                 method: "PUT",
-                data: data,
+                data: data.clientID,
                 success: function (data) {
                     console.log(data);
                 },
@@ -193,8 +193,15 @@ $(function (event) {
             });
         }
 
-        $("#submitplan").click(function(client){
-            alert("here");
+        $("#submitplan").click(function(event){;
+            var clientID = $('#client-id')['0'].textContent;
+            console.log(clientID);
+            var text = $('#caseplan-text').text();
+
+            var data = {
+                clientID: clientID,
+                text: text
+            }
             editCasePlan(data);
 
     });
