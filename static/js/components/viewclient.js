@@ -43,17 +43,17 @@ $(function (event) {
                 data.result.forEach(function (note) {
                     caseNotesTable.append('<tr>' +
                         '<td>' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
-                        '<td>' + note.category + '</td>' + 
-                        '<td>' + note.caseManager + '</td>' + 
-                        '<td>' + note.note +  '</td>' + 
-                        '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' + 
+                        '<td>' + note.category + '</td>' +
+                        '<td>' + note.caseManager + '</td>' +
+                        '<td>' + note.note +  '</td>' +
+                        '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' +
                         '</tr>');
                 });
             });
         };
 
         $('#casenotes').DataTable();
-        
+
         var displayClientProfile = function (client) {
             $.ajax({
                 xhrFields: {
@@ -98,7 +98,7 @@ $(function (event) {
 
                 $('#client-status').data("id", currentStatus.id)
                                    .data("name", currentStatus.name);
-                    
+
 
                 $.ajax({
                     xhrFields: {
@@ -133,8 +133,10 @@ $(function (event) {
                     });
                 });
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
+                $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
+                $('#caseplan-text').text(data.result.rows[0].caseplan);
             });
-            
+
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -166,6 +168,44 @@ $(function (event) {
                 }
             });
         };
+
+        var editCasePlan = function (data){
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/clients/" + data.clientID + "/case_plan",
+                method: "PUT",
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            });
+        };
+
+        $("#submitplan").click(function(event){;
+            var clientID = $('#client-id')['0'].textContent;
+            console.log(clientID);
+            var text = $('#caseplan-text').val();
+
+            var data = {
+                clientID: clientID,
+                text: text
+            }
+            editCasePlan(data);
+            location.reload();
+
+        });
 
         var editClient = function (data) {
             $.ajax({
@@ -212,7 +252,7 @@ $(function (event) {
             displayClientProfile($(this));
         });
 
-        // *** Files *** 
+        // *** Files ***
 
         var addFile = function (data) {
             $.ajax({
@@ -289,7 +329,7 @@ $(function (event) {
             clientCaseManager = $('#case-manager')['0'].textContent;
             clientStatus = { name: $('#client-status')['0'].textContent, id: $('#client-status').data("id") };
             var statusString = '';
-            statuses.forEach(function (status) {    
+            statuses.forEach(function (status) {
                 statusString += '<li data-id="' + status.id + '" data-name="' + status.name + '"><a href="#">' + status.name + '</a></li>';
             });
             console.log("client status pulled");
@@ -350,7 +390,7 @@ $(function (event) {
             var lastMeeting = $('#last-meeting')['0'].value;
             var caseManager = $('#case-manager')['0'].value;
             var status = $('#client-status').data("id");
-            
+
             var data = {
                 id: id,
                 firstName: firstName,
@@ -366,9 +406,9 @@ $(function (event) {
             };
 
             editClient(data);
-            
+
         });
-        
+
         var popOnHover = function (id) {
             id = '#' + id;
             $(id).hover( function () {

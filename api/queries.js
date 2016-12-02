@@ -290,7 +290,8 @@ var queries = {
 
     getClient: function (clientID) {
         var queryString = 'SELECT id, first_name, last_name, intake_date, phone_number, email, ' +
-                            'date_of_birth, age(date_of_birth), status FROM client WHERE id = ' +
+                            'date_of_birth, age(date_of_birth), status, caseplan FROM client WHERE id = ' +
+
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
@@ -407,7 +408,7 @@ var queries = {
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
-        queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' + 
+        queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' +
                         'intake_age, phone_number, email, case_manager, status;';
 
         return queryString;
@@ -747,7 +748,7 @@ var queries = {
         var queryString = 'UPDATE status SET ' +
                             'name = \'' + payload.name + '\', ' +
                             'color = \'' + payload.color + '\' ' +
-                            'WHERE id = \'' + statusID + '\'' + 
+                            'WHERE id = \'' + statusID + '\'' +
                             'RETURNING id, name, color;';
         return queryString;
     },
@@ -774,7 +775,7 @@ var queries = {
                             'message = \'' + payload.message + '\', ' +
                             'color = \'' + payload.color + '\', ' +
                             'note = \'' + payload.note + '\' ' +
-                            'WHERE id = ' + flagID + 
+                            'WHERE id = ' + flagID +
                             ' RETURNING id, type, message, color, note;';
         return queryString;
     },
@@ -803,10 +804,36 @@ var queries = {
     },
 
     getProfilePicture: function (clientID) {
-        var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID + 
+        var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
                             'AND type=\'profile_picture\';';
         return queryString;
-    }
+    },
+
+    createCasePlan: function (payload) {
+        var queryString = 'INSERT INTO caseplan (client_id, case_manager_id, date, note, ) VALUES (' +
+            '\'' + parseProperty(payload.clientID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.caseManagerID) + '\'' + ', ' +
+            '\'' + parseProperty(payload.date) + '\'' + ', ' +
+            '\'' + parseProperty(payload.note) + '\'' + ', ';
+
+        return queryString;
+    },
+
+    editCasePlan: function (payload) {
+        var queryString = 'UPDATE client SET ';
+        queryString += 'caseplan = ' + '\'' + payload.text + '\'' + ' ';
+        queryString += 'WHERE id = ' + '\'' + payload.clientID + '\'' + ' ';
+
+        queryString += 'RETURNING caseplan;';
+
+        return queryString;
+    },
+
+    getCasePlan: function (clientID) {
+        var queryString = 'SELECT caseplan FROM client WHERE id =' + clientID + ";";
+
+        return queryString;
+    },
 };
 
 module.exports = queries;

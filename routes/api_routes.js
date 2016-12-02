@@ -245,6 +245,21 @@ var apiRoutes = [
         handler: Api.changeCurrentUserPassword
     },
     {
+        method: 'POST',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.createCasePlan
+    },
+    {
+        method: 'GET',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.getCasePlan
+    },
+    {
+        method: 'PUT',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.editCasePlan
+    },
+    {
         method: 'Delete',
         path: '/users/{userId}',
         handler: Api.deleteUser
@@ -278,7 +293,7 @@ var apiRoutes = [
                 //output: 'stream',
                 //parse: false
             }
-        }, 
+        },
         handler: Api.uploadFile
     },
     {
