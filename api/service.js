@@ -513,13 +513,7 @@ var service = {
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
                 arr.push({
-                    id: local.id,
-                    clientID: local.client_id,
-                    caseManagerID: local.case_manager_id,
-                    date: local.date,
-                    category: local.category,
-                    caseManager: local.first_name + ' ' + local.last_name,
-                    note: local.note
+                    caseplan: local.caseplan
                 });
             }
             return callback(undefined, arr);
