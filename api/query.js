@@ -187,6 +187,23 @@ var query = {
         });
     },
 
+    addActivitiesToDropIn: function (postgres, dropinID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.addActivitiesToDropIn(dropinID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropinEnrollment: function (postgres, dropinID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

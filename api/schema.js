@@ -28,6 +28,16 @@ var schema = {
         comment: Joi.string().trim(),
         link: Joi.string().trim(),
         checked: Joi.boolean()
+    }).unknown(false),
+
+    addActivitiesToDropIn: Joi.object().keys({
+        activities: Joi.array().items(Joi.object().keys({
+            id: Joi.number().integer().required(),
+            room: Joi.string(),
+            comments: Joi.string(),
+            startTime: Joi.string(),
+            endTime: Joi.string()
+        }).required()).required()
     }).unknown(false)
 };
 

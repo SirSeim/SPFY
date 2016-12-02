@@ -128,6 +128,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToAddActivitiesToDropIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add activities to dropin!",
+            error: err
+        }).code(500);
+    },
+    gotAddActivitiesToDropIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added activities to dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,

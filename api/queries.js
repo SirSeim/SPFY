@@ -365,6 +365,41 @@ var queries = {
                         'match_drop_in_activity.drop_in_id = ' + dropin + ';';
         return queryString;
     },
+    addActivitiesToDropIn: function (dropinID, payload) {
+        var queryString = '';
+        for (var i = 0; i < payload.activities.length; i++) {
+            var local = payload.activities[i];
+            queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id';
+            if (local.room) {
+                queryString += ', room';
+            }
+            if (local.comments) {
+                queryString += ', comments';
+            }
+            if (local.startTime) {
+                queryString += ', start_time';
+            }
+            if (local.endTime) {
+                queryString += ', end_time';
+            }
+            queryString += ') VALUES (\'' + dropinID + '\', \'' + local.id + '\'';
+            if (local.room) {
+                queryString += ', \'' + local.room + '\'';
+            }
+            if (local.comments) {
+                queryString += ', \'' + local.comments + '\'';
+            }
+            if (local.startTime) {
+                queryString += ', \'' + local.startTime + '\'';
+            }
+            if (local.endTime) {
+                queryString += ', \'' + local.endTime + '\'';
+            }
+            queryString += '); ';
+        }
+        console.log(queryString);
+        return queryString;
+    },
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 

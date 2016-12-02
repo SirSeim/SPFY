@@ -76,6 +76,11 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/dropins/{dropin}/activities',
+        config: {
+            validate: {
+                payload: Schema.addActivitiesToDropIn
+            }
+        },
         handler: Api.addActivitiesToDropIn
     },
     {

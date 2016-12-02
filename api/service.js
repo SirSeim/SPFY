@@ -189,8 +189,8 @@ var service = {
         });
     },
 
-    addActivitiesToDropIn: function (postgres, dropinID, callback) {
-        Query.addActivitiesToDropIn(postgres, dropinID, function (err, result) {
+    addActivitiesToDropIn: function (postgres, dropinID, payload, callback) {
+        Query.addActivitiesToDropIn(postgres, dropinID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
