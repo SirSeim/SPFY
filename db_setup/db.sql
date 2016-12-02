@@ -69,7 +69,7 @@ CREATE TABLE client (
 );
 
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'asdfaf');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4, 'Hello');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2, 'Hello');

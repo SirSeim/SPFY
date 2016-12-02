@@ -9,7 +9,9 @@ $(function (event) {
     var clientMail;
     var clientLastMeeting;
     var clientCaseManager;
+    var clientCasePlan;
     var caseNotesTable = $('#casenotes tbody');
+
 
     var getCaseNotes = function (data) {
         $.ajax({
@@ -94,7 +96,7 @@ $(function (event) {
             $('#client-status').text(statusNames[data.result.rows[0].status]);
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
             $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
-
+            $('#note').append(data.result.rows[0].caseplan)
         });
     }
 
