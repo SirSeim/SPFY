@@ -7,3 +7,44 @@
     position: relative;
     top: -9px;
 }
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.side-nav {
+    background: #fff;
+    border: 1px solid #e2e5e8;
+    border-radius: 3px;
+    list-style-type: none;
+    margin: 0 0 1em;
+}
+
+.side-nav li {
+    border-bottom: 1px solid #e2e5e8;
+}
+
+.side-nav li.selected {
+    background: #f9f9f9;
+}
+
+.side-nav li.selected a {
+    border-left: 3px solid $spfy-blue;
+}
+
+.side-nav li a {
+    color: #2b2b2b;
+    display: block;
+    padding: 10px;
+    height: 51px;
+}
+
+a {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+a:hover {
+    cursor: pointer;
+}

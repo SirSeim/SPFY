@@ -3,7 +3,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/static/css/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,45 +25,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+</* line 116, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -180,13 +180,13 @@ html, body {
   display: inline-block;
   border-radius: 50%;
   width: 50%;
-  background-color: grey;
-  height: 15px;
-  width: 15px;
+  background-color: green;
+  height: 10px;
+  width: 10px;
   margin: 0 2px;
 }
 
-/* line 68, ../sass/partials/_base.scss */
+/* line 69, ../sass/partials/_base.scss */
 .dot-success {
   background-color: green;
 }
@@ -320,6 +320,55 @@ th {
   top: -9px;
 }
 
+/* line 11, ../sass/partials/_navbar.scss */
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+/* line 16, ../sass/partials/_navbar.scss */
+.side-nav {
+  background: #fff;
+  border: 1px solid #e2e5e8;
+  border-radius: 3px;
+  list-style-type: none;
+  margin: 0 0 1em;
+}
+
+/* line 24, ../sass/partials/_navbar.scss */
+.side-nav li {
+  border-bottom: 1px solid #e2e5e8;
+}
+
+/* line 28, ../sass/partials/_navbar.scss */
+.side-nav li.selected {
+  background: #f9f9f9;
+}
+
+/* line 32, ../sass/partials/_navbar.scss */
+.side-nav li.selected a {
+  border-left: 3px solid #02aef0;
+}
+
+/* line 36, ../sass/partials/_navbar.scss */
+.side-nav li a {
+  color: #2b2b2b;
+  display: block;
+  padding: 10px;
+  height: 51px;
+}
+
+/* line 43, ../sass/partials/_navbar.scss */
+a {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* line 48, ../sass/partials/_navbar.scss */
+a:hover {
+  cursor: pointer;
+}
+
 /* line 1, ../sass/partials/_clients.scss */
 #clientname {
   font-size: 20px;
@@ -345,48 +394,36 @@ th {
   border-bottom-width: 0;
 }*/
 /*these are temporary*/
-/* line 21, ../sass/partials/_clients.scss */
-.bullet:before {
-  content: "• ";
-  font-size: 10px;
-  color: green;
+/*.dot:before {
+    content: "• ";
+    font-size: 10px;
+    color: green;
 }
-
-/* line 26, ../sass/partials/_clients.scss */
 .okay-dot:before {
   content: "• ";
   font-size: 20px;
   color: green;
 }
-
-/* line 31, ../sass/partials/_clients.scss */
 .missing-dot:before {
   content: "• ";
   font-size: 20px;
   color: blue;
 }
-
-/* line 36, ../sass/partials/_clients.scss */
 .sick-dot:before {
   content: "• ";
   font-size: 20px;
   color: orange;
 }
-
-/* line 41, ../sass/partials/_clients.scss */
 .vulnerable-dot:before {
   content: "• ";
   font-size: 20px;
   color: purple;
 }
-
-/* line 46, ../sass/partials/_clients.scss */
 .dangerous-dot:before {
   content: "• ";
   font-size: 20px;
   color: red;
-}
-
+}*/
 /* line 52, ../sass/partials/_clients.scss */
 .steven-photo {
   width: 200px;
@@ -451,20 +488,22 @@ th {
 /* line 20, ../sass/partials/_search.scss */
 .qbAccess {
   background-color: #02aef0;
-  width: 20px;
+  width: 35px;
   float: left;
   height: 100%;
   position: absolute;
-  color: #CCC;
+  color: #9CC;
   text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
-/* line 30, ../sass/partials/_search.scss */
+/* line 32, ../sass/partials/_search.scss */
 .qbHeader {
   color: #FFF;
 }
 
-/* line 34, ../sass/partials/_search.scss */
+/* line 36, ../sass/partials/_search.scss */
 .qbSelect {
   width: 250px;
   background-color: #FFF;
@@ -472,19 +511,19 @@ th {
   margin-bottom: 10px;
 }
 
-/* line 41, ../sass/partials/_search.scss */
+/* line 43, ../sass/partials/_search.scss */
 .qbBlock {
   margin: 20px;
   line-height: 2;
 }
 
-/* line 46, ../sass/partials/_search.scss */
+/* line 48, ../sass/partials/_search.scss */
 .qbText {
   width: 250px;
   height: 25px;
 }
 
-/* line 51, ../sass/partials/_search.scss */
+/* line 53, ../sass/partials/_search.scss */
 #qbClose {
   float: right;
   color: #CFF;
@@ -492,13 +531,19 @@ th {
   padding: 10px;
 }
 
-/* line 58, ../sass/partials/_search.scss */
-.filterTable {
-  margin-left: 20px;
+/* line 60, ../sass/partials/_search.scss */
+.filterTableExtend {
+  margin-left: 300px;
   white-space: nowrap;
 }
 
-/* line 63, ../sass/partials/_search.scss */
+/* line 65, ../sass/partials/_search.scss */
+.filterTable {
+  margin-left: 35px;
+  white-space: nowrap;
+}
+
+/* line 70, ../sass/partials/_search.scss */
 .detailPane {
   background-color: #02aef0;
   width: 300px;
@@ -508,7 +553,7 @@ th {
   right: 0;
 }
 
-/* line 72, ../sass/partials/_search.scss */
+/* line 79, ../sass/partials/_search.scss */
 .dInset {
   background-color: #FFF;
   position: absolute;
@@ -516,9 +561,10 @@ th {
   margin-left: 25px;
   margin-top: 35px;
   height: 95%;
+  overflow: auto;
 }
 
-/* line 81, ../sass/partials/_search.scss */
+/* line 89, ../sass/partials/_search.scss */
 #dClose {
   float: left;
   color: #CFF;
@@ -526,44 +572,54 @@ th {
   padding: 10px;
 }
 
-/* line 88, ../sass/partials/_search.scss */
+/* line 96, ../sass/partials/_search.scss */
 #dHeader {
   text-align: center;
   font-size: 20px;
   padding-top: 10px;
 }
 
-/* line 94, ../sass/partials/_search.scss */
+/* line 102, ../sass/partials/_search.scss */
+.dDetail {
+  line-height: 1.5;
+}
+
+/* line 106, ../sass/partials/_search.scss */
 .ftRow {
   height: 40px;
   border: 1px solid #CCC;
 }
 
-/* line 99, ../sass/partials/_search.scss */
+/* line 111, ../sass/partials/_search.scss */
 .ftHead {
   font-weight: bold;
   background-color: #BFF;
   height: 40px;
 }
 
-/* line 105, ../sass/partials/_search.scss */
+/* line 117, ../sass/partials/_search.scss */
 .ftEven {
   background-color: #EFF;
 }
 
-/* line 109, ../sass/partials/_search.scss */
+/* line 121, ../sass/partials/_search.scss */
 .ftOdd {
   background-color: #DFF;
 }
 
-/* line 113, ../sass/partials/_search.scss */
+/* line 125, ../sass/partials/_search.scss */
 .ftCell {
   padding: 10px;
 }
 
-/* line 117, ../sass/partials/_search.scss */
+/* line 129, ../sass/partials/_search.scss */
 #allowScroll {
   overflow: auto;
+  width: 100%;
+  height: 100%;
+  height: -webkit-calc(100% - 50px);
+  height: -moz-calc(100% - 50px);
+  height: calc(100% - 50px);
 }
 
 /* line 1, ../sass/partials/_frontdesk.scss */
@@ -581,4 +637,1282 @@ button.badge-button.btn.btn-primary.btn-xs {
 /* line 12, ../sass/partials/_frontdesk.scss */
 span.badge {
   color: black !important;
+}
+
+/* line 16, ../sass/partials/_frontdesk.scss */
+.panel-horiscroll .panel-heading {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 80px;
+  white-space: nowrap;
+}
+
+/* plugins */
+/***
+Spectrum Colorpicker v1.8.0
+https://github.com/bgrins/spectrum
+Author: Brian Grinstead
+License: MIT
+***/
+/* line 8, ../sass/partials/_spectrum.scss */
+.sp-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  /* https://github.com/bgrins/spectrum/issues/40 */
+  z-index: 9999994;
+  overflow: hidden;
+}
+
+/* line 19, ../sass/partials/_spectrum.scss */
+.sp-container.sp-flat {
+  position: relative;
+}
+
+/* Fix for * { box-sizing: border-box; } */
+/* line 24, ../sass/partials/_spectrum.scss */
+.sp-container,
+.sp-container * {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio */
+/* line 32, ../sass/partials/_spectrum.scss */
+.sp-top {
+  position: relative;
+  width: 100%;
+  display: inline-block;
+}
+
+/* line 37, ../sass/partials/_spectrum.scss */
+.sp-top-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* line 44, ../sass/partials/_spectrum.scss */
+.sp-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 20%;
+}
+
+/* line 51, ../sass/partials/_spectrum.scss */
+.sp-hue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 84%;
+  height: 100%;
+}
+
+/* line 60, ../sass/partials/_spectrum.scss */
+.sp-clear-enabled .sp-hue {
+  top: 33px;
+  height: 77.5%;
+}
+
+/* line 65, ../sass/partials/_spectrum.scss */
+.sp-fill {
+  padding-top: 80%;
+}
+
+/* line 68, ../sass/partials/_spectrum.scss */
+.sp-sat, .sp-val {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* line 76, ../sass/partials/_spectrum.scss */
+.sp-alpha-enabled .sp-top {
+  margin-bottom: 18px;
+}
+
+/* line 79, ../sass/partials/_spectrum.scss */
+.sp-alpha-enabled .sp-alpha {
+  display: block;
+}
+
+/* line 82, ../sass/partials/_spectrum.scss */
+.sp-alpha-handle {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 6px;
+  left: 50%;
+  cursor: pointer;
+  border: 1px solid black;
+  background: white;
+  opacity: .8;
+}
+
+/* line 93, ../sass/partials/_spectrum.scss */
+.sp-alpha {
+  display: none;
+  position: absolute;
+  bottom: -14px;
+  right: 0;
+  left: 0;
+  height: 8px;
+}
+
+/* line 101, ../sass/partials/_spectrum.scss */
+.sp-alpha-inner {
+  border: solid 1px #333;
+}
+
+/* line 105, ../sass/partials/_spectrum.scss */
+.sp-clear {
+  display: none;
+}
+
+/* line 109, ../sass/partials/_spectrum.scss */
+.sp-clear.sp-clear-display {
+  background-position: center;
+}
+
+/* line 113, ../sass/partials/_spectrum.scss */
+.sp-clear-enabled .sp-clear {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  bottom: 0;
+  left: 84%;
+  height: 28px;
+}
+
+/* Don't allow text selection */
+/* line 124, ../sass/partials/_spectrum.scss */
+.sp-container, .sp-replacer, .sp-preview, .sp-dragger, .sp-slider, .sp-alpha, .sp-clear, .sp-alpha-handle, .sp-container.sp-dragging .sp-input, .sp-container button {
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/* line 131, ../sass/partials/_spectrum.scss */
+.sp-container.sp-input-disabled .sp-input-container {
+  display: none;
+}
+
+/* line 134, ../sass/partials/_spectrum.scss */
+.sp-container.sp-buttons-disabled .sp-button-container {
+  display: none;
+}
+
+/* line 137, ../sass/partials/_spectrum.scss */
+.sp-container.sp-palette-buttons-disabled .sp-palette-button-container {
+  display: none;
+}
+
+/* line 140, ../sass/partials/_spectrum.scss */
+.sp-palette-only .sp-picker-container {
+  display: none;
+}
+
+/* line 143, ../sass/partials/_spectrum.scss */
+.sp-palette-disabled .sp-palette-container {
+  display: none;
+}
+
+/* line 147, ../sass/partials/_spectrum.scss */
+.sp-initial-disabled .sp-initial {
+  display: none;
+}
+
+/* Gradients for hue, saturation and value instead of images.  Not pretty... but it works */
+/* line 153, ../sass/partials/_spectrum.scss */
+.sp-sat {
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#FFF), to(rgba(204, 154, 129, 0)));
+  background-image: -webkit-linear-gradient(left, #FFF, rgba(204, 154, 129, 0));
+  background-image: -moz-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
+  background-image: -o-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
+  background-image: -ms-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
+  background-image: linear-gradient(to right, #ffffff, rgba(204, 154, 129, 0));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr=#FFFFFFFF, endColorstr=#00CC9A81)";
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr='#FFFFFFFF', endColorstr='#00CC9A81');
+}
+
+/* line 163, ../sass/partials/_spectrum.scss */
+.sp-val {
+  background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#000000), to(rgba(204, 154, 129, 0)));
+  background-image: -webkit-linear-gradient(bottom, #000000, rgba(204, 154, 129, 0));
+  background-image: -moz-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
+  background-image: -o-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
+  background-image: -ms-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
+  background-image: linear-gradient(to top, #000000, rgba(204, 154, 129, 0));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00CC9A81, endColorstr=#FF000000)";
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00CC9A81', endColorstr='#FF000000');
+}
+
+/* line 174, ../sass/partials/_spectrum.scss */
+.sp-hue {
+  background: -moz-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  background: -ms-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  background: -o-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), color-stop(0.17, #ffff00), color-stop(0.33, #00ff00), color-stop(0.5, #00ffff), color-stop(0.67, #0000ff), color-stop(0.83, #ff00ff), to(#ff0000));
+  background: -webkit-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  background: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+}
+
+/* IE filters do not support multiple color stops.
+   Generate 6 divs, line them up, and do two color gradients for each.
+   Yes, really.
+ */
+/* line 187, ../sass/partials/_spectrum.scss */
+.sp-1 {
+  height: 17%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#ffff00');
+}
+
+/* line 191, ../sass/partials/_spectrum.scss */
+.sp-2 {
+  height: 16%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff00', endColorstr='#00ff00');
+}
+
+/* line 195, ../sass/partials/_spectrum.scss */
+.sp-3 {
+  height: 17%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ff00', endColorstr='#00ffff');
+}
+
+/* line 199, ../sass/partials/_spectrum.scss */
+.sp-4 {
+  height: 17%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffff', endColorstr='#0000ff');
+}
+
+/* line 203, ../sass/partials/_spectrum.scss */
+.sp-5 {
+  height: 16%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0000ff', endColorstr='#ff00ff');
+}
+
+/* line 207, ../sass/partials/_spectrum.scss */
+.sp-6 {
+  height: 17%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00ff', endColorstr='#ff0000');
+}
+
+/* line 212, ../sass/partials/_spectrum.scss */
+.sp-hidden {
+  display: none !important;
+}
+
+/* Clearfix hack */
+/* line 217, ../sass/partials/_spectrum.scss */
+.sp-cf:before, .sp-cf:after {
+  content: "";
+  display: table;
+}
+
+/* line 218, ../sass/partials/_spectrum.scss */
+.sp-cf:after {
+  clear: both;
+}
+
+/* line 219, ../sass/partials/_spectrum.scss */
+.sp-cf {
+  *zoom: 1;
+}
+
+/* Mobile devices, make hue slider bigger so it is easier to slide */
+@media (max-device-width: 480px) {
+  /* line 223, ../sass/partials/_spectrum.scss */
+  .sp-color {
+    right: 40%;
+  }
+
+  /* line 224, ../sass/partials/_spectrum.scss */
+  .sp-hue {
+    left: 63%;
+  }
+
+  /* line 225, ../sass/partials/_spectrum.scss */
+  .sp-fill {
+    padding-top: 60%;
+  }
+}
+/* line 227, ../sass/partials/_spectrum.scss */
+.sp-dragger {
+  border-radius: 5px;
+  height: 5px;
+  width: 5px;
+  border: 1px solid #fff;
+  background: #000;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* line 238, ../sass/partials/_spectrum.scss */
+.sp-slider {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  height: 3px;
+  left: -1px;
+  right: -1px;
+  border: 1px solid #000;
+  background: white;
+  opacity: .8;
+}
+
+/*
+Theme authors:
+Here are the basic themeable display options (colors, fonts, global widths).
+See http://bgrins.github.io/spectrum/themes/ for instructions.
+*/
+/* line 256, ../sass/partials/_spectrum.scss */
+.sp-container {
+  border-radius: 0;
+  background-color: #ECECEC;
+  border: solid 1px #f0c49B;
+  padding: 0;
+}
+
+/* line 262, ../sass/partials/_spectrum.scss */
+.sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue, .sp-clear {
+  font: normal 12px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 269, ../sass/partials/_spectrum.scss */
+.sp-top {
+  margin-bottom: 3px;
+}
+
+/* line 272, ../sass/partials/_spectrum.scss */
+.sp-color, .sp-hue, .sp-clear {
+  border: solid 1px #666;
+}
+
+/* Input */
+/* line 277, ../sass/partials/_spectrum.scss */
+.sp-input-container {
+  float: right;
+  width: 100px;
+  margin-bottom: 4px;
+}
+
+/* line 282, ../sass/partials/_spectrum.scss */
+.sp-initial-disabled .sp-input-container {
+  width: 100%;
+}
+
+/* line 285, ../sass/partials/_spectrum.scss */
+.sp-input {
+  font-size: 12px !important;
+  border: 1px inset;
+  padding: 4px 5px;
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  border-radius: 3px;
+  color: #222;
+}
+
+/* line 295, ../sass/partials/_spectrum.scss */
+.sp-input:focus {
+  border: 1px solid orange;
+}
+
+/* line 298, ../sass/partials/_spectrum.scss */
+.sp-input.sp-validation-error {
+  border: 1px solid red;
+  background: #fdd;
+}
+
+/* line 302, ../sass/partials/_spectrum.scss */
+.sp-picker-container, .sp-palette-container {
+  float: left;
+  position: relative;
+  padding: 10px;
+  padding-bottom: 300px;
+  margin-bottom: -290px;
+}
+
+/* line 309, ../sass/partials/_spectrum.scss */
+.sp-picker-container {
+  width: 172px;
+  border-left: solid 1px #fff;
+}
+
+/* Palettes */
+/* line 315, ../sass/partials/_spectrum.scss */
+.sp-palette-container {
+  border-right: solid 1px #ccc;
+}
+
+/* line 319, ../sass/partials/_spectrum.scss */
+.sp-palette-only .sp-palette-container {
+  border: 0;
+}
+
+/* line 323, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-el {
+  display: block;
+  position: relative;
+  float: left;
+  width: 24px;
+  height: 15px;
+  margin: 3px;
+  cursor: pointer;
+  border: solid 2px transparent;
+}
+
+/* line 333, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-el:hover, .sp-palette .sp-thumb-el.sp-thumb-active {
+  border-color: orange;
+}
+
+/* line 336, ../sass/partials/_spectrum.scss */
+.sp-thumb-el {
+  position: relative;
+}
+
+/* Initial */
+/* line 341, ../sass/partials/_spectrum.scss */
+.sp-initial {
+  float: left;
+  border: solid 1px #333;
+}
+
+/* line 345, ../sass/partials/_spectrum.scss */
+.sp-initial span {
+  width: 30px;
+  height: 25px;
+  border: none;
+  display: block;
+  float: left;
+  margin: 0;
+}
+
+/* line 354, ../sass/partials/_spectrum.scss */
+.sp-initial .sp-clear-display {
+  background-position: center;
+}
+
+/* Buttons */
+/* line 359, ../sass/partials/_spectrum.scss */
+.sp-palette-button-container,
+.sp-button-container {
+  float: right;
+}
+
+/* Replacer (the little preview div that shows up instead of the <input>) */
+/* line 365, ../sass/partials/_spectrum.scss */
+.sp-replacer {
+  margin: 0;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  border: solid 1px #91765d;
+  background: #eee;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* line 378, ../sass/partials/_spectrum.scss */
+.sp-replacer:hover, .sp-replacer.sp-active {
+  border-color: #F0C49B;
+  color: #111;
+}
+
+/* line 382, ../sass/partials/_spectrum.scss */
+.sp-replacer.sp-disabled {
+  cursor: default;
+  border-color: silver;
+  color: silver;
+}
+
+/* line 387, ../sass/partials/_spectrum.scss */
+.sp-dd {
+  padding: 2px 0;
+  height: 16px;
+  line-height: 16px;
+  float: right;
+  font-size: 10px;
+}
+
+/*
+.sp-preview {
+    position:relative;
+    width:25px;
+    height: 20px;
+    border: solid 1px #222;
+    margin-right: 5px;
+    float:left;
+    z-index: 0;
+}
+*/
+/* line 405, ../sass/partials/_spectrum.scss */
+.sp-palette {
+  *width: 220px;
+  max-width: 220px;
+}
+
+/* line 409, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-el {
+  width: 16px;
+  height: 16px;
+  margin: 2px 1px;
+  border: solid 1px #d0d0d0;
+}
+
+/* line 416, ../sass/partials/_spectrum.scss */
+.sp-container {
+  padding-bottom: 0;
+}
+
+/* Buttons: http://hellohappy.org/css3-buttons/ */
+/* line 422, ../sass/partials/_spectrum.scss */
+.sp-container button {
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: linear-gradient(to bottom, #eeeeee, #cccccc);
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  border-radius: 3px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1;
+  padding: 5px 4px;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  vertical-align: middle;
+}
+
+/* line 440, ../sass/partials/_spectrum.scss */
+.sp-container button:hover {
+  background-color: #dddddd;
+  background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+  background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+  background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+  background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+  background-image: linear-gradient(to bottom, #dddddd, #bbbbbb);
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #ddd;
+}
+
+/* line 452, ../sass/partials/_spectrum.scss */
+.sp-container button:active {
+  border: 1px solid #aaa;
+  border-bottom: 1px solid #888;
+  -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  -moz-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  -ms-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  -o-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+}
+
+/* line 461, ../sass/partials/_spectrum.scss */
+.sp-cancel {
+  font-size: 11px;
+  color: #d93f3f !important;
+  margin: 0;
+  padding: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+/* line 471, ../sass/partials/_spectrum.scss */
+.sp-cancel:hover {
+  color: #d93f3f !important;
+  text-decoration: underline;
+}
+
+/* line 477, ../sass/partials/_spectrum.scss */
+.sp-palette span:hover, .sp-palette span.sp-thumb-active {
+  border-color: #000;
+}
+
+/* line 481, ../sass/partials/_spectrum.scss */
+.sp-preview, .sp-alpha, .sp-thumb-el {
+  position: relative;
+  /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+  */
+}
+
+/* line 486, ../sass/partials/_spectrum.scss */
+.sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  border-radius: 50%;
+  width: 50%;
+  height: 10px;
+  width: 10px;
+  margin: 0 2px;
+}
+
+/* line 497, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-inner {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* line 502, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-light.sp-thumb-active .sp-thumb-inner {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeNpiYBhsgJFMffxAXABlN5JruT4Q3wfi/0DsT64h8UD8HmpIPCWG/KemIfOJCUB+Aoacx6EGBZyHBqI+WsDCwuQ9mhxeg2A210Ntfo8klk9sOMijaURm7yc1UP2RNCMbKE9ODK1HM6iegYLkfx8pligC9lCD7KmRof0ZhjQACDAAceovrtpVBRkAAAAASUVORK5CYII=);
+}
+
+/* line 506, ../sass/partials/_spectrum.scss */
+.sp-palette .sp-thumb-dark.sp-thumb-active .sp-thumb-inner {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAMdJREFUOE+tkgsNwzAMRMugEAahEAahEAZhEAqlEAZhEAohEAYh81X2dIm8fKpEspLGvudPOsUYpxE2BIJCroJmEW9qJ+MKaBFhEMNabSy9oIcIPwrB+afvAUFoK4H0tMaQ3XtlrggDhOVVMuT4E5MMG0FBbCEYzjYT7OxLEvIHQLY2zWwQ3D+9luyOQTfKDiFD3iUIfPk8VqrKjgAiSfGFPecrg6HN6m/iBcwiDAo7WiBeawa+Kwh7tZoSCGLMqwlSAzVDhoK+6vH4G0P5wdkAAAAASUVORK5CYII=);
+}
+
+/* line 510, ../sass/partials/_spectrum.scss */
+.sp-clear-display {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(data:image/gif;base64,R0lGODlhFAAUAPcAAAAAAJmZmZ2dnZ6enqKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq/Hx8fLy8vT09PX19ff39/j4+Pn5+fr6+vv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAUABQAAAihAP9FoPCvoMGDBy08+EdhQAIJCCMybCDAAYUEARBAlFiQQoMABQhKUJBxY0SPICEYHBnggEmDKAuoPMjS5cGYMxHW3IiT478JJA8M/CjTZ0GgLRekNGpwAsYABHIypcAgQMsITDtWJYBR6NSqMico9cqR6tKfY7GeBCuVwlipDNmefAtTrkSzB1RaIAoXodsABiZAEFB06gIBWC1mLVgBa0AAOw==);
+}
+
+/* ========================================================================
+ * bootstrap-switch - v3.3.2
+ * http://www.bootstrap-switch.org
+ * ========================================================================
+ * Copyright 2012-2013 Mattia Larentis
+ *
+ * ========================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================================
+ */
+/* line 22, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch {
+  display: inline-block;
+  direction: ltr;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #cccccc;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  line-height: 8px;
+  z-index: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+/* line 43, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-container {
+  display: inline-block;
+  top: 0;
+  border-radius: 4px;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* line 50, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off,
+.bootstrap-switch .bootstrap-switch-label {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block !important;
+  height: 100%;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* line 63, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off {
+  text-align: center;
+  z-index: 1;
+}
+
+/* line 68, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+  color: #fff;
+  background: #337ab7;
+}
+
+/* line 73, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
+  color: #fff;
+  background: #5bc0de;
+}
+
+/* line 78, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
+  color: #fff;
+  background: #5cb85c;
+}
+
+/* line 83, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+  background: #f0ad4e;
+  color: #fff;
+}
+
+/* line 88, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
+  color: #fff;
+  background: #d9534f;
+}
+
+/* line 93, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+  color: #000;
+  background: #eeeeee;
+}
+
+/* line 98, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-label {
+  text-align: center;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  z-index: 100;
+  color: #333333;
+  background: #ffffff;
+}
+
+/* line 106, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+/* line 110, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* line 114, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch input[type='radio'],
+.bootstrap-switch input[type='checkbox'] {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: -1;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+/* line 124, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* line 131, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* line 138, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
+  padding: 6px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+}
+
+/* line 145, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-disabled,
+.bootstrap-switch.bootstrap-switch-readonly,
+.bootstrap-switch.bootstrap-switch-indeterminate {
+  cursor: default !important;
+}
+
+/* line 150, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-label {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default !important;
+}
+
+/* line 163, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+  -webkit-transition: margin-left 0.3s;
+  -o-transition: margin-left 0.3s;
+  transition: margin-left 0.3s;
+}
+
+/* line 168, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* line 174, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+/* line 180, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-focused {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+/* line 186, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-off .bootstrap-switch-label {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* line 191, ../sass/partials/_bootstrap-switch.scss */
+.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-on .bootstrap-switch-label {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+/*
+ * This combined file was created by the DataTables downloader builder:
+ *   https://datatables.net/download
+ *
+ * To rebuild or modify this file with the latest versions of the included
+ * software please visit:
+ *   https://datatables.net/download/#bs/dt-1.10.12
+ *
+ * Included libraries:
+ *   DataTables 1.10.12
+ */
+/* line 13, ../sass/partials/_datatables.scss */
+table.dataTable {
+  clear: both;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  max-width: none !important;
+  border-collapse: separate !important;
+}
+
+/* line 20, ../sass/partials/_datatables.scss */
+table.dataTable td,
+table.dataTable th {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 26, ../sass/partials/_datatables.scss */
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+  text-align: center;
+}
+
+/* line 30, ../sass/partials/_datatables.scss */
+table.dataTable.nowrap th,
+table.dataTable.nowrap td {
+  white-space: nowrap;
+}
+
+/* line 35, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_length label {
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* line 40, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_length select {
+  width: 75px;
+  display: inline-block;
+}
+
+/* line 44, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_filter {
+  text-align: right;
+}
+
+/* line 47, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_filter label {
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* line 52, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0.5em;
+  display: inline-block;
+  width: auto;
+}
+
+/* line 57, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 8px;
+  white-space: nowrap;
+}
+
+/* line 61, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_paginate {
+  margin: 0;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* line 66, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
+/* line 70, ../sass/partials/_datatables.scss */
+div.dataTables_wrapper div.dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  margin-top: -26px;
+  text-align: center;
+  padding: 1em 0;
+}
+
+/* line 81, ../sass/partials/_datatables.scss */
+table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting,
+table.dataTable thead > tr > td.sorting_asc,
+table.dataTable thead > tr > td.sorting_desc,
+table.dataTable thead > tr > td.sorting {
+  padding-right: 30px;
+}
+
+/* line 87, ../sass/partials/_datatables.scss */
+table.dataTable thead > tr > th:active,
+table.dataTable thead > tr > td:active {
+  outline: none;
+}
+
+/* line 91, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  position: relative;
+}
+
+/* line 99, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: block;
+  font-family: 'Glyphicons Halflings';
+  opacity: 0.5;
+}
+
+/* line 111, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting:after {
+  opacity: 0.2;
+  content: "\e150";
+  /* sort */
+}
+
+/* line 116, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting_asc:after {
+  content: "\e155";
+  /* sort-by-attributes */
+}
+
+/* line 120, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting_desc:after {
+  content: "\e156";
+  /* sort-by-attributes-alt */
+}
+
+/* line 124, ../sass/partials/_datatables.scss */
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+  color: #eee;
+}
+
+/* line 129, ../sass/partials/_datatables.scss */
+div.dataTables_scrollHead table.dataTable {
+  margin-bottom: 0 !important;
+}
+
+/* line 133, ../sass/partials/_datatables.scss */
+div.dataTables_scrollBody table {
+  border-top: none;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* line 138, ../sass/partials/_datatables.scss */
+div.dataTables_scrollBody table thead .sorting:after,
+div.dataTables_scrollBody table thead .sorting_asc:after,
+div.dataTables_scrollBody table thead .sorting_desc:after {
+  display: none;
+}
+
+/* line 143, ../sass/partials/_datatables.scss */
+div.dataTables_scrollBody table tbody tr:first-child th,
+div.dataTables_scrollBody table tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 148, ../sass/partials/_datatables.scss */
+div.dataTables_scrollFoot table {
+  margin-top: 0 !important;
+  border-top: none;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 154, ../sass/partials/_datatables.scss */
+  div.dataTables_wrapper div.dataTables_length,
+  div.dataTables_wrapper div.dataTables_filter,
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: center;
+  }
+}
+/* line 161, ../sass/partials/_datatables.scss */
+table.dataTable.table-condensed > thead > tr > th {
+  padding-right: 20px;
+}
+
+/* line 164, ../sass/partials/_datatables.scss */
+table.dataTable.table-condensed .sorting:after,
+table.dataTable.table-condensed .sorting_asc:after,
+table.dataTable.table-condensed .sorting_desc:after {
+  top: 6px;
+  right: 6px;
+}
+
+/* line 171, ../sass/partials/_datatables.scss */
+table.table-bordered.dataTable th,
+table.table-bordered.dataTable td {
+  border-left-width: 0;
+}
+
+/* line 175, ../sass/partials/_datatables.scss */
+table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child,
+table.table-bordered.dataTable td:last-child,
+table.table-bordered.dataTable td:last-child {
+  border-right-width: 0;
+}
+
+/* line 180, ../sass/partials/_datatables.scss */
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+  border-bottom-width: 0;
+}
+
+/* line 185, ../sass/partials/_datatables.scss */
+div.dataTables_scrollHead table.table-bordered {
+  border-bottom-width: 0;
+}
+
+/* line 189, ../sass/partials/_datatables.scss */
+div.table-responsive > div.dataTables_wrapper > div.row {
+  margin: 0;
+}
+
+/* line 192, ../sass/partials/_datatables.scss */
+div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
+  padding-left: 0;
+}
+
+/* line 195, ../sass/partials/_datatables.scss */
+div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
+  padding-right: 0;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+span.multiselect-native-select {
+  position: relative;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+span.multiselect-native-select select {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px -1px -1px -3px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  left: 50%;
+  top: 30px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container {
+  position: absolute;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container .input-group {
+  margin: 5px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li {
+  padding: 0;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li > a.multiselect-all label {
+  font-weight: 700;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li.multiselect-group label {
+  margin: 0;
+  padding: 3px 20px 3px 20px;
+  height: 100%;
+  font-weight: 700;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li.multiselect-group-clickable label {
+  cursor: pointer;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li > a {
+  padding: 0;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li > a > label {
+  margin: 0;
+  height: 100%;
+  cursor: pointer;
+  font-weight: 400;
+  padding: 3px 20px 3px 40px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li > a > label.radio, .multiselect-container > li > a > label.checkbox {
+  margin: 0;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.multiselect-container > li > a > label > input[type=checkbox] {
+  margin-bottom: 5px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.form-inline .multiselect-container label.checkbox, .form-inline .multiselect-container label.radio {
+  padding: 3px 20px 3px 40px;
+}
+
+/* line 1, ../sass/partials/_bootstrap-multiselect.scss */
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
+  margin-left: -20px;
+  margin-right: 0;
+}
+
+.horiscroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+/* line 22, ../sass/partials/_frontdesk.scss */
+.thumbnail {
+  box-shadow: 1px 1px 10px #999;
+  margin: 2px;
+  max-height: 80px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
 }
