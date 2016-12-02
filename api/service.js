@@ -342,8 +342,8 @@ var service = {
         });
     },
 
-    getClientCaseNotes: function (postgres, data, callback) {
-        Query.getClientCaseNotes(postgres, data, function (err, result) {
+    getClientCaseNotes: function (postgres, clientID, callback) {
+        Query.getClientCaseNotes(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -359,7 +359,6 @@ var service = {
                     caseManagerID: local.case_manager_id,
                     date: local.date,
                     category: local.category,
-                    caseManager: local.first_name + ' ' + local.last_name,
                     note: local.note,
                     followUpNeeded: local.follow_up_needed,
                     dueDate: local.due_date,
