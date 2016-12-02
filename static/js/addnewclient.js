@@ -131,7 +131,7 @@ var IntakeForm = React.createClass({
         providedID: this.state.providedID,
         IDstate: this.state.IDstate,
         returning: {
-            id:"", 
+            id:"",
             firstname:"", 
             nickname: "", 
             lastname:"",
@@ -142,6 +142,13 @@ var IntakeForm = React.createClass({
             idstate: ""
           }
       }
+
+      // var picture = {
+      //   clientID: clientID,
+      //   name: name,
+      //   type: "profile_picture",
+      //   fileString: fileString
+      // }
       
       console.log("data sent");
       console.log(data);
@@ -178,6 +185,28 @@ var IntakeForm = React.createClass({
       });
       /**/
 
+      // $.ajax({
+      //     xhrFields: {
+      //         withCredentials: true
+      //     },
+      //     beforeSend: function (xhr) {
+      //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+      //     },
+      //     url: "api/files",
+      //     method: "POST",
+      //     data: picture,
+      //     success: function (data) {
+
+      //     },
+      //     error: function (xhr) {
+      //         console.error(xhr);
+
+      //         if (xhr.status === 401) {
+      //             localStorage.removeItem("authorization");
+      //         }
+      //     }
+      // });
+
       console.log("handleSubmit");
     };
   },
@@ -192,6 +221,9 @@ var IntakeForm = React.createClass({
     };
     this.setState({firstTime: boolVal});
   },
+  // handlePictureChange: function (e) {
+  //   this.setState({picture: e.target.value});
+  // },
   handleFirstNameChange: function (e) {
     this.setState({firstName: e.target.value.trim()});
   },
