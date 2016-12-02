@@ -190,7 +190,7 @@ var apiRoutes = [
         handler: Api.getCasePlan
     },
     {
-        method: 'POST',
+        method: 'PUT',
         path: '/clients/{clientID}/case_plan',
         handler: Api.editCasePlan
     }

@@ -96,10 +96,38 @@ $(function (event) {
             $('#client-status').text(statusNames[data.result.rows[0].status]);
             $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
             $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
-            $('#note').append(data.result.rows[0].caseplan)
+            $('#caseplan-text').text(data.result.rows[0].caseplan)
+        });
+    }
+    var editCasePlan = function (data){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/clients/" + data.id,
+            method: "PUT",
+            data: data,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
         });
     }
 
+    $("#submitplan").click(function(client){
+        alert("here");
+        editCasePlan(data);
+
+    })
     var editClient = function (data) {
         $.ajax({
             xhrFields: {

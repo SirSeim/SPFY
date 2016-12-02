@@ -638,14 +638,11 @@ var queries = {
     },
 
     editCasePlan: function (payload) {
-        var queryString = 'UPDATE caseplan SET ';
+        var queryString = 'UPDATE client SET ';
+        queryString += 'caseplan = ' + '\'' + parseProperty(payload.caseplan) + '\'' + ' ';
+        queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
-        queryString += 'client_id = ' + '\'' + parseProperty(payload.clientID) + '\'' + ',';
-        queryString += 'case_manager_id = ' + '\'' + parseProperty(payload.caseManagerID) + '\'' + ',';
-        queryString += 'date = ' + '\'' + parseProperty(payload.date) + '\'' + ',';
-        queryString += 'note = ' + '\'' + parseProperty(payload.note) + '\'' + ',';
-
-        queryString += 'RETURNING client_id, case_manager_id, date, note;';
+        queryString += 'RETURNING caseplan;';
 
         return queryString;
     },
