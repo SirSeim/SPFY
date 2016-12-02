@@ -140,6 +140,7 @@ var service = {
         });
     },
 
+
     getAllActivities: function (postgres, callback) {
         Query.getAllActivities(postgres, function (err, result) {
             if (err) {
@@ -187,6 +188,16 @@ var service = {
             return callback(undefined, arr);
         });
     },
+
+    addActivitiesToDropIn: function (postgres, dropinID, callback) {
+        Query.addActivitiesToDropIn(postgres, dropinID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    }
 
     getDropinEnrollment: function (postgres, dropinID, callback) {
         Query.getDropinEnrollment(postgres, dropinID, function (err, result) {

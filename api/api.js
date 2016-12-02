@@ -122,6 +122,16 @@ var api = {
         });
     },
 
+    addActivitiesToDropIn: function (request, reply) {
+        Service.addActivitiesToDropIn(request.postgres, request.params.dropin, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddActivitiesToDropIn(reply, err);
+            } else {
+                Respond.gotAddActivitiesToDropIn(reply, result);
+            }
+        });
+    },
+
     getDropinEnrollment: function (request, reply) {
         Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
