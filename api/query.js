@@ -402,6 +402,23 @@ var query = {
         });
     },
 
+    intakeCompleted: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.intakeCompleted(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     createCaseNote: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -425,6 +442,23 @@ var query = {
                 return callback(err);
             }
             client.query(Queries.getCheckIn(), function (err, result) {
+
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getIntake: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getIntake(), function (err, result) {
 
                 done();
                 if (err) {

@@ -161,6 +161,25 @@ var api = {
         });
     },
 
+    intakeCompleted: function (request, reply) {
+        Service.intakeCompleted(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToIntakeCompleted(reply, err);
+            } else {
+                Respond.intakeCompleted(reply, result);
+            }
+        });
+    },
+    getIntake: function (request, reply) {
+        Service.getIntake(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetIntake(reply, err);
+            } else {
+                Respond.gotIntake(reply, result);
+            }
+        });
+    },
+
     dataBrowserGetClients: function (request, reply) {
         Service.dataBrowserGetClients(request.postgres, function (err, result) {
             if (err) {

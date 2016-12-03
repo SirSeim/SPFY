@@ -514,6 +514,31 @@ var queries = {
         return queryString;
     },
 
+// have to create a table for Intake Needed to complete this part
+    intakeCompleted: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
+                            element.dropinID + ', ' +
+                            element.clientID + ', ' +
+                            '\'' + element.date + '\'' + ');';
+        });
+
+        return queryString;
+    },
+
+    getIntake: function () {
+        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
+
+        return queryString;
+    },
+
+    dataBrowserGetClients: function () {
+        var queryString = 'SELECT * FROM client;';
+
+        return queryString;
+    },
+
     dataBrowserSearchClients: function (data) {
         var searchText = "";
         if (data.columnType === 1043) { // string

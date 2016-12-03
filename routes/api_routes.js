@@ -99,6 +99,16 @@ var apiRoutes = [
         handler: Api.checkin
     },
     {
+        method: 'GET',
+        path: '/intake',
+        handler: Api.getIntake
+    },
+    {
+        method: 'POST',
+        path: '/intake',
+        handler: Api.intakeCompleted
+    },
+    {
         method: 'POST',
         path: '/activities',
         handler: Api.createDropinActivities

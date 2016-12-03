@@ -312,6 +312,37 @@ var service = {
         });
     },
 
+    intakeCompleted: function (postgres, payload, callback) {
+        Query.intakeCompleted(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
+
+    getIntake: function (postgres, callback) {
+        Query.getIntake(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    dropin: local.drop_in_id,
+                    client: local.client_id,
+                    date: local.date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     dataBrowserGetClients: function (postgres, callback) {
         Query.dataBrowserGetClients(postgres, function (err, result) {
             if (err) {
