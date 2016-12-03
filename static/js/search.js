@@ -1,6 +1,7 @@
 var Search = React.createClass({ 
   getInitialState: function () {
     return {
+      initial: true,
       displayDetail: false,
       displayQueryBuilder: true,
       detailData: {},
@@ -106,6 +107,15 @@ var Search = React.createClass({
     // search runs on the previous data, not the new one. This will be remedied soon.
     this.search();
   },
+  performSearch: function(data) {
+    this.setState({
+      currentSearchParameter: data,
+      currentData: "unused"
+    });
+    this.state.currentSearchParameter = data; // see above for why this is done
+    this.state.currentData = "unused";
+    this.search();
+  },
   search: function (data) {
     var props = {
       column: this.state.currentColumn,
@@ -155,7 +165,8 @@ var Search = React.createClass({
                                changeColumn={this.editPropColumn}
                                changeStatus={this.editPropStatus}
                                currentSearchParameter={this.state.currentSearchParameter}
-                               changeInput={this.editPropText} />
+                               changeInput={this.editPropText}
+                               performSearch={this.performSearch} />
         <DetailPane hidden={this.state.displayDetail} 
                     detailData={this.state.detailData}
                     close={this.closeDetail}
@@ -225,7 +236,8 @@ var QueryBuilderInterface = React.createClass({
                         currentSearchParameter={this.props.currentSearchParameter}
                         updateStatus={this.props.changeStatus}
                         changeColumn={this.props.changeColumn}
-                        changeInput={this.props.changeInput} />
+                        changeInput={this.props.changeInput}
+                        performSearch={this.props.performSearch} />
           {/* <ViewManager /> */}
         </div>
       </div>
@@ -268,8 +280,8 @@ var QueryBuilder = React.createClass({
   handleTextChange: function (e) {
     this.props.changeInput(e.target.value);
   },
-  handleDropdownChange: function (e) {
-    //
+  performSearch: function (e) {
+    this.props.performSearch(parseInt(e.target.value));
   },
   render: function () {
     var columns = [];
@@ -297,7 +309,7 @@ var QueryBuilder = React.createClass({
         <option value="1">Is Exactly</option>
       </select>;
     var columnIsBoolDropdown = 
-      <select className="qbSelect" onChange={this.handleStrictnessChange} value={this.props.currentSearchParameter}>
+      <select className="qbSelect" onChange={this.performSearch} value={this.props.currentSearchParameter}>
         <option value="0">Is True</option>
         <option value="1">Is False</option>
         <option value="2">Exists</option>
@@ -411,10 +423,13 @@ var FilterTableRow = React.createClass({
     var classNames = "ftRow " + colorClass;
     var person = this.props.person;
     var info = [];
+    var keyString;
+    var targetText;
     for (var prop in person) {
       if (person.hasOwnProperty(prop)) {
-        var keyString = person["id"] + prop + person[prop];
-        info.push(<td key={keyString} className={classNames}>{person[prop]}</td>)
+        keyString = person["id"] + prop + person[prop];
+        targetText = (person[prop] === null) ? "" : person[prop].toString();
+        info.push(<td key={keyString} className={classNames}>{targetText}</td>)
       }
     };
     return (

@@ -523,9 +523,7 @@ var queries = {
         var TYPE_STRING = 1043;
         var TYPE_INT = 23;
         var TYPE_BOOL = 16;
-
-        // Currently unused
-        // var TYPE_DATE = 1082;
+        var TYPE_DATE = 1082;
 
         var searchText = "";
 
@@ -536,13 +534,15 @@ var queries = {
             searchText = ' ' + operators[data.status] + ' ' + data.data;
         } else if (data.columnType === TYPE_BOOL) {
             if (data.status === 0 || data.status === 1) {
-                searchText = ' = ' + (data.status === 0 ? '1' : '0');
+                searchText = ' = ' + (data.status === 0 ? 'true' : 'false');
             } else {
                 searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
             }
         } else {
             searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
         }
+
+        console.log("????");
 
         var queryString = 'SELECT * FROM client WHERE ' +
                           data.column + searchText + ';';
