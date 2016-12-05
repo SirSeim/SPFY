@@ -545,5 +545,6 @@ CREATE TABLE file (
   client_id integer REFERENCES client (id),
   name varchar(45) DEFAULT NULL,
   type varchar(30) DEFAULT NULL,
+  date date DEFAULT NULL,
   base_64_string varchar DEFAULT NULL
 );
