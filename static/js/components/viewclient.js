@@ -132,6 +132,9 @@ $(function (event) {
                         $('#editflag-modal').modal('toggle');
                     });
                 });
+
+                getClientFiles($(client).data("id"));
+
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
                 $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
                 $('#caseplan-text').text(data.result.rows[0].caseplan);
@@ -282,6 +285,39 @@ $(function (event) {
             });
         };
 
+        var getClientFiles = function (data) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/' + data,
+                method: 'GET',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    var fileList = data.result.rows;
+                    var fileDiv = $('#files');
+                    fileDiv.empty();
+                    fileList.forEach(function (element) {
+                        var name = element.name.substr(element.name.lastIndexOf('\\') + 1);
+                        var link = '<a href="' + element.base_64_string + '">' + name + '</a><br />';
+                        fileDiv.append(link);
+                    });
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        }
+
         var getBase64 = function (file, callback) {
             var reader = new FileReader();
             reader.onload = callback;
@@ -314,6 +350,10 @@ $(function (event) {
             }
 
             addFile(data);
+        });
+
+        $('#cancel-file').click(function () {
+            $('#add-file-modal').modal('hide');
         });
 
         // *** *** ***
