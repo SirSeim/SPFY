@@ -359,12 +359,6 @@ li {
 }
 
 /* line 43, ../sass/partials/_navbar.scss */
-a {
-  font-weight: 400;
-  font-size: 20px;
-}
-
-/* line 48, ../sass/partials/_navbar.scss */
 a:hover {
   cursor: pointer;
 }

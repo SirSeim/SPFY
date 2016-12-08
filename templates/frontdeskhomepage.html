@@ -52,12 +52,10 @@
                     <h4>
                       Check-Ins
                     </h4>
-                    <input id="activity-search" type="text" class="form-control form-control-sm" maxlength="128" placeholder="Search" />
                     <h9>
                       <div id="total-new-today">14 New Today </div> 
                       <div id="total-youth-today">50 Total Checked-In </div>             
                     </h9>
-                    <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
                   </div>
                   <table id="checked-in" class="table table-hover">
                     <!-- DataTables just requires an empty <table> -->
@@ -66,10 +64,14 @@
             </div>
         </div> <!-- 3rd row -->
 
-        <div class="row">
-            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment</a></li>
-              <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
+        <div class="row" role="navigation">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">Activity Enrollment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">View Drop-In History</a>
+              </li>
             </ul>
 
             <div id="my-tab-content" class="tab-content">
