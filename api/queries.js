@@ -339,7 +339,7 @@ var queries = {
         return queryString;
     },
     getLatestDropIns: function (latest) {
-        var queryString = 'SELECT * FROM drop_in ORDER by date DESC LIMIT ' + latest + ';';
+        var queryString = 'SELECT * FROM drop_in ORDER BY date DESC LIMIT ' + latest + ';';
 
         return queryString;
     },

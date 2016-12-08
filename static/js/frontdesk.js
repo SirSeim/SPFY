@@ -32,6 +32,7 @@ $(function () {
                       $('#viewclient-modal').find('#client-name')
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
+                      $('#viewclient-modal #client-data-modal').data($(this).data());
                   });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
@@ -101,7 +102,7 @@ $(function () {
 
               for (var i = 0; i < selectedclients.length; i++) {
                   signups.push({
-                      dropinID: currentDropIn.id,
+                      dropinID: 2, // hard-coded
                       clientID: selectedclients[i].id,
                       date: moment().format("YYYY-MM-DD")
                   });

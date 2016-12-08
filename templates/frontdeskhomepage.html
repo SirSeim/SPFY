@@ -6,14 +6,15 @@
       {% include "components/_navbar.html" %}
 
 
-<!--         <div class="row">
-          <div class="page-header"><center>
-            <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
-            <h5 id="dropin-date" data-id="0">2222-01-01</h5>
+        <!-- <div class="row">
+          <div class="page-header">
+            <center>
+              <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
+              <h5 id="dropin-date" data-id="2">2222-01-01</h5>
 
             </center>
           </div>
-        </div>  --><!-- 1st row -->
+        </div>  --> <!-- 1st row -->
 
         <div class="row">
 
@@ -204,13 +205,14 @@
 
                 </div>
 
-{% include "modals/viewclient.html" %}
+{% include "modals/viewclient_modal.html" %}
 {% include "modals/addactivity.html" %}
 
 {% include "components/_basescript.html" %}
 
     <script type="text/babel" src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/modals/viewclient_modal.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
     <script src="/static/js/components/checkin.js"></script
