@@ -132,41 +132,15 @@ $(function (event) {
                         $('#editflag-modal').modal('toggle');
                     });
                 });
+
+                getClientFiles($(client).data("id"));
+
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
                 $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
                 $('#caseplan-text').text(data.result.rows[0].caseplan);
             });
 
-            $.ajax({
-                xhrFields: {
-                    withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                url: 'api/files/profile_picture/' + $(client).data("id"),
-                method: 'GET',
-                data: $(client).data("id"),
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (xhr) {
-                    console.log(xhr);
-                    if (xhr.status === 401) {
-                        localStorage.removeItem("authorization");
-                    }
-                }
-            }).done(function (data) {
-                var result = data.result;
-                if (result.rowCount > 0) {
-                    var url = result.rows['0'].base_64_string;
-                    var photo = document.querySelector('img[id=client-photo]');
-                    photo.src = url;
-                } else {
-                    var photo = document.querySelector('img[id=client-photo]');
-                    photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
-                }
-            });
+            getProfilePicture(client);
         };
 
         var editCasePlan = function (data){
@@ -282,6 +256,74 @@ $(function (event) {
             });
         };
 
+        var getProfilePicture = function (client) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/profile_picture/' + $(client).data("id"),
+                method: 'GET',
+                data: $(client).data("id"),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                var result = data.result;
+                if (result.rowCount > 0) {
+                    var url = result.rows['0'].base_64_string;
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = url;
+                } else {
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
+                }
+            });
+        };
+
+        var getClientFiles = function (data) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/' + data,
+                method: 'GET',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    var fileList = data.result.rows;
+                    var fileDiv = $('#files');
+                    fileDiv.empty();
+                    fileList.forEach(function (element) {
+                        var name = element.name.substr(element.name.lastIndexOf('\\') + 1);
+                        var date = element.date.substr(0, element.date.indexOf('T'));
+                        var type = element.type;
+                        var link = '<a href="' + element.base_64_string + '">' + name + '</a><p>Date: ' + date + '</p><p>Type: ' + type + '</p><br />';
+                        fileDiv.append(link);
+                    });
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
         var getBase64 = function (file, callback) {
             var reader = new FileReader();
             reader.onload = callback;
@@ -305,15 +347,27 @@ $(function (event) {
             var name = $('#file').val();
             var type = $('#file-type').val();
             var fileString = $('#base64').text();
+            var d = new Date();
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var date = ((''+month).length<2 ? '0' : '') + month + '/' +
+                ((''+day).length<2 ? '0' : '') + day +
+                '/' + d.getFullYear();
 
             var data = {
                 clientID: clientID,
                 name: name,
                 type: type,
+                date: date,
                 fileString: fileString
             }
 
             addFile(data);
+        });
+
+        $('#cancel-file').click(function () {
+            $('#add-file-modal').modal('hide');
         });
 
         // *** *** ***

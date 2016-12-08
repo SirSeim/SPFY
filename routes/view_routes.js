@@ -166,19 +166,6 @@ var viewRoutes = [
 
             });
         }
-    },
-
-    {
-        path: '/files',
-        method: 'GET',
-        config: {
-            auth: false
-        },
-        handler: function (req, res) {            
-            res.view('files.html', {
-
-            });
-        }
     }
 ];
 
