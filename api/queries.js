@@ -526,11 +526,11 @@ var queries = {
         var TYPE_DATE = 1082;
 
         var searchText = "";
+        var operators = ["=", "!=", ">", "<"];
 
         if (data.columnType === TYPE_STRING) {
             searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
         } else if (data.columnType === TYPE_INT) {
-            var operators = ["=", "!=", ">", "<"];
             searchText = ' ' + operators[data.status] + ' ' + data.data;
         } else if (data.columnType === TYPE_BOOL) {
             if (data.status === 0 || data.status === 1) {
@@ -539,10 +539,12 @@ var queries = {
                 searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
             }
         } else {
-            searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
+            if (data.status < 4) {
+                searchText = operators[data.status] + ' \'' + data.data + '\'';
+            } else  { 
+                searchText = (data.status === 5 ? ' NOT' : '') + ' BETWEEN ' + '\'' + data.data + '\' AND \'' + data.secondData + '\'';
+            }
         }
-
-        console.log("????");
 
         var queryString = 'SELECT * FROM client WHERE ' +
                           data.column + searchText + ';';
