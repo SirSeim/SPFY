@@ -748,6 +748,15 @@ var service = {
             }
             callback(undefined, result);
         });
+    },
+
+    getPrograms: function (postgres, callback) {
+        Query.getPrograms(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
     }
 };
 

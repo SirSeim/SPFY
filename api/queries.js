@@ -836,6 +836,12 @@ var queries = {
 
         return queryString;
     },
+
+    getPrograms: function () {
+        var queryString = 'select program_name FROM program';
+
+        return queryString;
+    }
 };
 
 module.exports = queries;

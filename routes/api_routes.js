@@ -295,6 +295,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/files/profile_picture/{clientID}',
         handler: Api.getProfilePicture
+    },
+    {
+        method: 'GET',
+        path: '/programs',
+        handler: Api.getPrograms
     }
 ];
 

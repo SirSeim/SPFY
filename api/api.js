@@ -670,6 +670,16 @@ var api = {
                 Respond.getProfilePicture(reply, result);
             }
         });
+    },
+
+    getPrograms: function (request, reply) {
+        Service.getPrograms(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetPrograms(reply,err);
+            } else {
+                Respond.getPrograms(reply,result)
+            }
+        });
     }
 };
 

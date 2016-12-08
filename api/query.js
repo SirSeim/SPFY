@@ -876,6 +876,20 @@ var query = {
                 return callback(undefined, result);
             });
         });
+    },
+    getPrograms: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getPrograms(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            })
+        })
     }
 
     // getClient: function (postgres, payload, callback) {

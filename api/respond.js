@@ -742,6 +742,20 @@ var respond = {
             message: "Successfully got client's profile picture",
             result: result
         }).code(200);
+    },
+    failedToGetPrograms: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get programs",
+            error: err
+        }).code(500);
+    },
+    getPrograms: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got programs",
+            result: result
+        }).code(200);
     }
 
 };
