@@ -357,6 +357,7 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
+  /*program_id integer REFERENCES program (id),*/
   activity_name varchar(45) DEFAULT NULL,
   ongoing boolean DEFAULT NULL,
   start_date date DEFAULT NULL,

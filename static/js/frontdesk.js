@@ -417,6 +417,10 @@ $(function () {
                 header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
             });
         });
+
+        $("#createNewActivity").on("click", function () {
+            $("#createactivity-modal").modal("toggle");
+        });
     };
 
     var globalData = []
