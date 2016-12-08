@@ -25,30 +25,30 @@
 
         <div class="row">
 
-          <div class="col-sm-3">
+          <div class="col-sm-4">
                 {% include "components/_clientprofiletable.html" %}
           </div>
-          <div class="col-sm-3">
-            <div class="panel panel-default">
-              <div class="panel-heading">
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-header">
                 <h4>
                   Selected Clients
                 </h4>
               </div>
               <ul id="selected-clients">
               </ul>
-              <button id="checkin-button" type="button" class="btn btn-default">Check-In</button>
+              <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
             </div>
           </div>
-          <div id="checkin-feedback" class="col-sm-3">
+          <div id="checkin-feedback" class="col-sm-4">
 
           </div>
         </div> <!-- 2nd row -->
 
         <div class="row">
-            <div class="col-sm-10">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
+            <div class="col-sm-12">
+              <div class="card">
+                  <div class="card-header">
                     <h4>
                       Check-Ins
                     </h4>
@@ -75,10 +75,10 @@
             </ul>
 
             <div id="my-tab-content" class="tab-content">
-             <div class="tab-pane active" id="activity-enrollment">
+             <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
 
-                <div class="panel panel-default">
-                  <div class="panel-heading"> <!-- Activity Thumbnails -->
+                <div class="card">
+                  <div class="card-header"> <!-- Activity Thumbnails -->
                   <!-- <div class="btn-toolbar" role="toolbar">
                       <div class="btn-group" role="group">
                         <button type="button" class="btn btn-secondary">
@@ -191,16 +191,16 @@
                         </button>
                       </div> -->
                     
-                      <div id="activities" class="panel-body">
+                      <div id="activities" class="card-block">
                       </div>
                     </div>
                   
                 </div>
-                <div class="tab-pane" id="viewdrop-in">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="tab-pane" id="viewdrop-in" role="tabpanel">
+                  <div class="card">
+                    <div class="card-header">
                     </div>
-                    <div class="panel-body">
+                    <div class="card-block">
                     </div>
                   </div>
 

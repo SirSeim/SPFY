@@ -33,7 +33,7 @@ $(function () {
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
                   });
-            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
+            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-secondary btn-sm">Select</button>');
         });
           var currentDropIn = {};
 
@@ -363,7 +363,7 @@ $(function () {
                 var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
                 $('#activity-tables').append(
                     '<div class="col-sm-4">' + 
-                    '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
+                    '<div class="card enrollment-panel"><div class="card-header">' +
                     '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
                     '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
                     '<thead><tr><th name="participants"></th></tr></thead>' + 
@@ -443,7 +443,7 @@ $(function () {
 //         return '<tr><td class="col-xs-2">' + moment(checkin.date).format('M/D/YY') +
 //                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
 //                 '<td class="col-xs-2">' +
-//                 '<button id="editcheck-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+//                 '<button id="editcheck-inbutton" type="button" class="btn btn-secondary btn-sm">Edit</button></td></tr>';
 //     };
 
 //     var populateCheckIn = function () {
