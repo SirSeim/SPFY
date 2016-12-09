@@ -189,11 +189,13 @@ CREATE TABLE status (
   note varchar(100) DEFAULT NULL
 );
 
-INSERT INTO status (type, message, color, note) VALUES ('Checked-In', 'No', '#02AEF0', '(name) checked in at (time, day)');
+INSERT INTO status (type, message, color, note) VALUES ('Checked-In', '3:30 PM', '#02AEF0', '(name) checked in at (time, day)');
 -- INSERT INTO status (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
 INSERT INTO status (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
 INSERT INTO status (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
 INSERT INTO status (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
+INSERT INTO status (type, message, color, note) VALUES ('E&E', 'enrolled', '#02AEF0', '(name) is enrolled in Education & Employment.');
+INSERT INTO status (type, message, color, note) VALUES ('CM', 'enrolled', '#02AEF0', '(name) is enrolled in Case Management.');
 
 DROP TABLE IF EXISTS profile_status;
 
@@ -205,7 +207,8 @@ CREATE TABLE profile_status (
 
 INSERT INTO profile_status (client_id, status_id) VALUES (1, 1);
 INSERT INTO profile_status (client_id, status_id) VALUES (1, 3);
-
+INSERT INTO profile_status (client_id, status_id) VALUES (1, 5);
+INSERT INTO profile_status (client_id, status_id) VALUES (1, 6);
 
 
 DROP TABLE IF EXISTS prescreen;
@@ -544,7 +547,6 @@ CREATE TABLE notifications (
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Another notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Yet another notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for set flags modal', '/index', 'FALSE');
 
 DROP TABLE IF EXISTS file;
 

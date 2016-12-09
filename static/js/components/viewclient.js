@@ -120,6 +120,11 @@ $(function (event) {
                              'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
                              '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
                     });
+                    $('.badge-button').popover({ container: 'body' });
+                    $('.badge-button').click(function (event) {
+                        $(this).popover('toggle');
+                        event.stopPropagation();
+                    });
                     $('#client-statuses li a.status-edit').click(function (event) {
                         $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
                         $('#editstatus-modal').modal('toggle');
@@ -434,24 +439,6 @@ $(function (event) {
             editClient(data);
 
         });
-
-        var popOnHover = function (id) {
-            id = '#' + id;
-            $(id).hover( function () {
-                $(id).popover('toggle');
-            });
-        };
-        var popOnClick = function (id) {
-            id = '#' + id;
-            $(id).click( function () {
-                $(id).popover('toggle');
-            });
-        };
-
-        popOnClick('follow-up');
-        popOnClick('housing');
-        popOnClick('shower');
-        popOnClick('legal');
 
         // $('#shower').hover( function () {
         //     $('#shower').popover('toggle');

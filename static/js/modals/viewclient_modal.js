@@ -6,6 +6,52 @@ $(function () {
         var clients = JSON.parse(window.sessionStorage.clients);
 
         var populateModal = function () {
+            // will work to reduce ajax calls
+
+            // ** statuses
+            console.log($('#viewclient-modal').css("z-index"));
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/statuses/1',
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                $('#client-badges').empty();
+                data.result.rows.forEach(function (status) {
+                    $('#client-badges').append(
+                        '<button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  status.type + '"' +
+                         'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
+                         '<a class="status-edit" href="#">edit</a></button>'); // title and data-content attributes are for hover popover
+                });
+                $('.badge-button').popover({ container: 'body' });
+                $('.badge-button').click(function (event) {
+                    $(this).popover('toggle');
+                    event.stopPropagation();
+                });
+                $('#client-badges a.status-edit').click(function (event) {
+                    // $('#editstatus-modal').css("z-index", $('#viewclient-modal').css("z-index") * 30);
+                    // console.log($('#editstatus-modal').css("z-index"));
+                    $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
+                    $('#editstatus-modal').modal('toggle');
+                });
+            });
+
+            // ** enrollment
+
             $.ajax({
                 xhrFields: {
                     withCredentials: true

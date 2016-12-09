@@ -15,22 +15,22 @@ $(function () {
         // that are already associated with that particular status
 
         statuses.forEach(function (status, index) {
-            $('#status-select').append('<option ' + window.dataString + ' value="' + index + '">' + 
+            $('#status-select').append('<option ' + window.dataString(status) + ' value="' + index + '">' + 
                                         status.type + '</option>');
         });
 
         $('#status-select').change(function (event) {
-            alert("changed!");
+            // ajax call here maybe?
         });
 
         $('#setstatus-submit-button').click(function (event) {
 
-            // hardcoding notification for now
-            // see db.sql for notification id = 4
+            // hardcoding this for now
             var data = {
-                notificationId: 4
-                // in future will have multiple user id's here
-                // if current user sets notification for others
+                type: 4,
+                comment: 'Test notification for set statuses modal',
+                link: '/index',
+                checked: 'FALSE'
             };
 
             $.ajax({
@@ -40,7 +40,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/notifications/1/set", // hardcoding current user for now
+                url: "api/users/1/notifications", // hardcoding current user for now
                 method: "POST",
                 data: data,
                 success: function (data) {
