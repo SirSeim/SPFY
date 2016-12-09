@@ -13,15 +13,14 @@ $(function () {
       url: 'api/programs',
       method: "GET",
       success: function (data) {
-        $("#createActivityPrograms").append(function () {
-            var tableRows = [];
+            console.log("Adding!");
+            console.log(data.result.rows);
+            var counter = 1;
             data.result.rows.forEach(function (element) {
                 console.log(element.program_name);
-                tableRows.push(
-                    "<option value=\'" + element.program_name + "\'>" + element.program_name + "</option>"
-                );
+                $("#createActivityPrograms").append("<option value=\'" + counter + "\'>" + element.program_name + "</option>");
+                counter++;
             });
-        });
       },
       error: function (xhr) {
         console.error(xhr);

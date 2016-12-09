@@ -675,9 +675,9 @@ var api = {
     getPrograms: function (request, reply) {
         Service.getPrograms(request.postgres, function (err, result) {
             if (err) {
-                Respond.failedToGetPrograms(reply,err);
+                Respond.failedToGetPrograms(reply, err);
             } else {
-                Respond.getPrograms(reply,result)
+                Respond.getPrograms(reply, result);
             }
         });
     }

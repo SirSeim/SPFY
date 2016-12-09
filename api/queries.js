@@ -523,7 +523,6 @@ var queries = {
         var TYPE_STRING = 1043;
         var TYPE_INT = 23;
         var TYPE_BOOL = 16;
-        var TYPE_DATE = 1082;
 
         var searchText = "";
         var operators = ["=", "!=", ">", "<"];
@@ -538,11 +537,12 @@ var queries = {
             } else {
                 searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
             }
-        } else {
+        } else { // DATE: 1082
             if (data.status < 4) {
                 searchText = operators[data.status] + ' \'' + data.data + '\'';
-            } else  { 
-                searchText = (data.status === 5 ? ' NOT' : '') + ' BETWEEN ' + '\'' + data.data + '\' AND \'' + data.secondData + '\'';
+            } else { 
+                searchText = (data.status === 5 ? ' NOT' : '') + ' BETWEEN ' + '\'' + 
+                    data.data + '\' AND \'' + data.secondData + '\'';
             }
         }
 

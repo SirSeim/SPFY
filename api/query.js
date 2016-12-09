@@ -888,8 +888,8 @@ var query = {
                     return callback(err);
                 }
                 return callback(undefined, result);
-            })
-        })
+            });
+        });
     }
 
     // getClient: function (postgres, payload, callback) {
