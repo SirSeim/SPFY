@@ -92,13 +92,6 @@ $(function (event) {
 
                 // getCaseNotes(client.match(/[0-9]+/)['0']);
 
-                var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
-
-                $('#client-status').text(currentStatus.name);
-
-                $('#client-status').data("id", currentStatus.id)
-                                   .data("name", currentStatus.name);
-
 
                 $.ajax({
                     xhrFields: {
@@ -194,7 +187,6 @@ $(function (event) {
                 data: data,
                 success: function (data) {
                     console.log(data);
-                    var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
                     $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
                     $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
                     $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].intake_age + '</td>');
@@ -202,9 +194,6 @@ $(function (event) {
                     $('#client-email').replaceWith('<td id="client-email">' + data.result.rows[0].email + '</td>');
                     $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
                     $('#case-manager').replaceWith('<td id="case-manager">' + data.result.rows[0].case_manager + '</td>');
-                    $('#client-status').replaceWith('<td id="client-status">' + currentStatus.name + '</td>');
-                    $('#client-status').data("id", currentStatus.id)
-                                       .data("name", currentStatus.name);
                     $('#edit-client').show();
                     $('#cancel-edit').hide();
                     $('#submit-edit').hide();
@@ -381,13 +370,6 @@ $(function (event) {
             clientMail = $('#client-email')['0'].textContent;
             clientLastMeeting = $('#last-meeting')['0'].textContent;
             clientCaseManager = $('#case-manager')['0'].textContent;
-            clientStatus = { name: $('#client-status')['0'].textContent, id: $('#client-status').data("id") };
-            var statusString = '';
-            statuses.forEach(function (status) {
-                statusString += '<li data-id="' + status.id + '" data-name="' + status.name + '"><a href="#">' + status.name + '</a></li>';
-            });
-            console.log("client status pulled");
-            console.log(clientStatus);
             $('#client-name').replaceWith('<div id="client-name-container" class="col-sm-8"><input type="text" id="client-name" class="form-control" value="' + clientName + '" /></div>');
             $('#edit-client').hide();
             $('#cancel-edit').show();
@@ -399,11 +381,6 @@ $(function (event) {
             $('#client-email').replaceWith('<input type="text" id="client-email" class="form-control" value="' + clientMail + '" />');
             $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
             $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
-            $('#client-status').replaceWith(
-                '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    clientStatus.name + '<span class="caret"></span></button>' +
-                    '<ul class="dropdown-menu" aria-labelledby="client-status">' +
-                    statusString + '</ul></div>');
 
             $('.dropdown-menu li a').click(function (event) {
                 $(this).parents('.dropdown').find('.btn').data("id", $(this).parent().data("id"));
@@ -425,9 +402,6 @@ $(function (event) {
             $('#client-email').replaceWith('<td id="client-email">' + clientMail + '</td>');
             $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
             $('#case-manager').replaceWith('<td id="case-manager">' + clientCaseManager + '</td>');
-            $('#client-status').replaceWith('<td id="client-status">' + clientStatus.name + '</td>');
-            $('#client-status').data("id", clientStatus.id)
-                               .data("name", clientStatus.name);
         });
 
         $('#submit-edit').click(function () {
@@ -443,7 +417,6 @@ $(function (event) {
             var email = $('#client-email')['0'].value;
             var lastMeeting = $('#last-meeting')['0'].value;
             var caseManager = $('#case-manager')['0'].value;
-            var status = $('#client-status').data("id");
 
             var data = {
                 id: id,
@@ -455,8 +428,7 @@ $(function (event) {
                 phoneNumber: phoneNumber,
                 email: email,
                 lastMeeting: lastMeeting,
-                caseManager: caseManager,
-                status: status // currently, statuses are stored in db with their own id's
+                caseManager: caseManager
             };
 
             editClient(data);

@@ -838,7 +838,7 @@ var query = {
             }
             // var data = Queries.editFlag(clientID);
             // // unstringify the data passed in
-            client.query(Queries.getClientFlags(clientID), function (err, result) {
+            client.query(Queries.getClientStatuses(clientID), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {

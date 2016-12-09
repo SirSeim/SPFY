@@ -711,7 +711,7 @@ var service = {
     },
 
     getClientStatuses: function (postgres, clientID, callback) {
-        Query.getClientFlags(postgres, clientID, function (err, result) {
+        Query.getClientStatuses(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }

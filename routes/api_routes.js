@@ -153,6 +153,11 @@ var apiRoutes = [
         path: '/statuses/{statusID}',
         handler: Api.editStatus
     },
+    {
+        method: 'GET',
+        path: '/statuses/{clientID}',
+        handler: Api.getClientStatuses
+    },
     // {
     //     method: 'GET',
     //     path: '/flags',

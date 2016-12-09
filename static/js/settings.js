@@ -34,14 +34,14 @@ $(function () {
             // }
 
             if (colorcol.length !== 0 || typecol.length !== 0 || messagecol.length !== 0 || notecol.length !== 0) {
-                console.log("inside flag cancel");
-                $(colorcol).empty().html('<button type="button" class="btn btn-primary flag"><span class="badge"></span></button>');
-                $(colorcol).children('.btn.btn-primary.flag').css("background-image", 'none');
-                $(colorcol).children('.btn.btn-primary.flag').css("background-color", $(colorcol).data("color"));
+                console.log("inside status cancel");
+                $(colorcol).empty().html('<button type="button" class="btn btn-primary status"><span class="badge"></span></button>');
+                $(colorcol).children('.btn.btn-primary.status').css("background-image", 'none');
+                $(colorcol).children('.btn.btn-primary.status').css("background-color", $(colorcol).data("color"));
                 $(typecol).empty().html($(typecol).data("type"));
                 $(messagecol).empty().html($(messagecol).data("message"));
                 $(notecol).empty().html($(notecol).data("note"));
-                $(element).find('#submit-flag').parent().replaceWith('<td>' + editButton + '</td>');
+                $(element).find('#submit-status').parent().replaceWith('<td>' + editButton + '</td>');
             }
         };
 
@@ -388,8 +388,8 @@ $(function () {
     };
 
     var globalData = []
-    // globalData.push(window.sessionStorage.statuses);
-    globalData.push(window.sessionStorage.flags);
+    globalData.push(window.sessionStorage.statuses);
+    // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");

@@ -667,7 +667,7 @@ var api = {
     },
 
     getClientStatuses: function (request, reply) {
-        Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
+        Service.getClientStatuses(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetClientStatuses(reply, err);
             } else {
