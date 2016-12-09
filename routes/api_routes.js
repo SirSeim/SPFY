@@ -153,6 +153,26 @@ var apiRoutes = [
         path: '/statuses/{statusID}',
         handler: Api.editStatus
     },
+    // {
+    //     method: 'GET',
+    //     path: '/flags',
+    //     handler: Api.getFlags
+    // },
+    // {
+    //     method: 'POST',
+    //     path: '/flags',
+    //     handler: Api.createFlag
+    // },
+    // {
+    //     method: 'PUT',
+    //     path: '/flags/{flagID}',
+    //     handler: Api.editFlag
+    // },
+    // {
+    //     method: 'GET',
+    //     path: '/flags/{clientID}',
+    //     handler: Api.getClientFlags
+    // },
     {
         method: 'GET',
         path: '/users',
@@ -253,26 +273,6 @@ var apiRoutes = [
         method: 'Delete',
         path: '/users/{userId}',
         handler: Api.deleteUser
-    },
-    {
-        method: 'GET',
-        path: '/flags',
-        handler: Api.getFlags
-    },
-    {
-        method: 'POST',
-        path: '/flags',
-        handler: Api.createFlag
-    },
-    {
-        method: 'PUT',
-        path: '/flags/{flagID}',
-        handler: Api.editFlag
-    },
-    {
-        method: 'GET',
-        path: '/flags/{clientID}',
-        handler: Api.getClientFlags
     },
     {
         method: 'POST',

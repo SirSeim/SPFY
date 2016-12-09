@@ -99,30 +99,30 @@ $(function () {
         },
     });
 
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        },
-        url: "api/flags",
-        method: "GET",
-        success: function (data) {
-            console.log(data);
-            window.sessionStorage.flags = JSON.stringify(data.result);
-            window.sessionStorageListeners.forEach(function (listener) {
-                listener.ready();
-            });
-        },
-        error: function (xhr) {
-            console.error(xhr);
+    // $.ajax({
+    //     xhrFields: {
+    //         withCredentials: true
+    //     },
+    //     beforeSend: function (xhr) {
+    //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+    //     },
+    //     url: "api/flags",
+    //     method: "GET",
+    //     success: function (data) {
+    //         console.log(data);
+    //         window.sessionStorage.flags = JSON.stringify(data.result);
+    //         window.sessionStorageListeners.forEach(function (listener) {
+    //             listener.ready();
+    //         });
+    //     },
+    //     error: function (xhr) {
+    //         console.error(xhr);
 
-            if (xhr.status === 401) {
-                localStorage.removeItem("authorization");
-            }
-        },
-    });
+    //         if (xhr.status === 401) {
+    //             localStorage.removeItem("authorization");
+    //         }
+    //     },
+    // });
 
     $.ajax({
         xhrFields: {

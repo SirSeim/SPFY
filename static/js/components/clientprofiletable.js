@@ -15,14 +15,15 @@ $(function (event) {
         clients.forEach(function (client) {
             var display = ['<span class="dot"></span>' + client.firstName + ' ' +
             client.lastName];
-            console.log(client);
             table.append(window.buildRow(client, display));
         });
         // what if profiles don't come through?
         // need code for edge case
         $(table).children('tr').get().forEach(function (clientRow) {
-            var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
-            $(clientRow).find('.dot').css('background-color', currentStatus.color);
+            if ($(clientRow).data("status")) {
+                var currentStatus = window.getDataById(statuses, $(clientRow).data("status"));
+                $(clientRow).find('.dot').css('background-color', currentStatus.color);
+            }
         });
         
         $('#client-search').keyup(function () {

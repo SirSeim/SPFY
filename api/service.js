@@ -604,6 +604,57 @@ var service = {
         Query.deleteUser(postgres, userId, callback);
     },
 
+    // getStatuses: function (postgres, callback) {
+    //     Query.getStatuses(postgres, function (err, result) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         if (!result.rows[0]) {
+    //             return callback();
+    //         }
+    //         var arr = [];
+    //         for (var i = 0; i < result.rows.length; i++) {
+    //             var local = result.rows[i];
+    //             arr.push({
+    //                 id: local.id,
+    //                 name: local.name,
+    //                 color: local.color
+    //             });
+    //         }
+    //         return callback(undefined, arr);
+    //     });
+    // },
+
+    // createStatus: function (postgres, payload, callback) {
+    //     Query.createStatus(postgres, payload, function (err, result) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         callback(undefined, result);
+    //     });
+    // },
+
+    // editStatus: function (postgres, statusID, payload, callback) {
+    //     Query.editStatus(postgres, statusID, payload, function (err, result) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         if (!result.rows[0]) {
+    //             return callback();
+    //         }
+    //         var arr = [];
+    //         for (var i = 0; i < result.rows.length; i++) {
+    //             var local = result.rows[i];
+    //             arr.push({
+    //                 id: local.id,
+    //                 name: local.name,
+    //                 color: local.color
+    //             });
+    //         }
+    //         callback(undefined, arr);
+    //     });
+    // },
+
     getStatuses: function (postgres, callback) {
         Query.getStatuses(postgres, function (err, result) {
             if (err) {
@@ -617,25 +668,18 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    name: local.name,
-                    color: local.color
+                    type: local.type,
+                    color: local.color,
+                    message: local.message,
+                    note: local.note
                 });
             }
-            return callback(undefined, arr);
+            callback(undefined, arr);
         });
     },
 
     createStatus: function (postgres, payload, callback) {
         Query.createStatus(postgres, payload, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            callback(undefined, result);
-        });
-    },
-
-    uploadFile: function (postgres, payload, callback) {
-        Query.uploadFile(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -656,27 +700,6 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    name: local.name,
-                    color: local.color
-                });
-            }
-            callback(undefined, arr);
-        });
-    },
-
-    getFlags: function (postgres, callback) {
-        Query.getFlags(postgres, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            if (!result.rows[0]) {
-                return callback();
-            }
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
                     type: local.type,
                     color: local.color,
                     message: local.message,
@@ -687,57 +710,7 @@ var service = {
         });
     },
 
-    editCasePlan: function (postgres, data, callback) {
-        Query.editCasePlan(postgres, data, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            return callback(undefined, result);
-        });
-    },
-
-    createFlag: function (postgres, payload, callback) {
-        Query.createFlag(postgres, payload, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            callback(undefined, result);
-        });
-    },
-
-    getClientFiles: function (postgres, clientID, callback) {
-        Query.getClientFiles(postgres, clientID, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            callback(undefined, result);
-        });
-    },
-
-    editFlag: function (postgres, flagID, payload, callback) {
-        Query.editFlag(postgres, flagID, payload, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            if (!result.rows[0]) {
-                return callback();
-            }
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    type: local.type,
-                    color: local.color,
-                    message: local.message,
-                    note: local.note
-                });
-            }
-            callback(undefined, arr);
-        });
-    },
-
-    getClientFlags: function (postgres, clientID, callback) {
+    getClientStatuses: function (postgres, clientID, callback) {
         Query.getClientFlags(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
@@ -758,6 +731,33 @@ var service = {
             // }
             // callback(undefined, arr);
             callback(undefined, result);
+        });
+    },
+
+    uploadFile: function (postgres, payload, callback) {
+        Query.uploadFile(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getClientFiles: function (postgres, clientID, callback) {
+        Query.getClientFiles(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editCasePlan: function (postgres, data, callback) {
+        Query.editCasePlan(postgres, data, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
         });
     },
 
