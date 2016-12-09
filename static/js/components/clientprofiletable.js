@@ -7,7 +7,7 @@ $(function (event) {
         var status = $('.dot');
         var table = $('#clients tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
-        var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
+        // var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
         var clients = JSON.parse(window.sessionStorage.clients);
 
 

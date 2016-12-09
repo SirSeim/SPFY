@@ -19,12 +19,20 @@ $(function () {
     });
 
     $('#status-submit-button').click(function (event) {
+        // var data = {
+        //     name: $('#status-name').val(),
+        //     color: colorString
+        // };
+
         var data = {
-            name: $('#status-name').val(),
-            color: colorString
+            color: colorString,
+            type: $('#status-type').val() ? $('#status-type').val() : '[status type]',
+            message: $('#status-message').val() ? $('#status-message').val() : '[status message]',
+            note: $('#status-note').val() ? $('#status-note').val() : '[status note]'
         };
 
-        if (data.name && data.color) {
+        // if (data.name && data.color) {
+        if (data.color && data.type && data.message && data.note) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -47,6 +55,7 @@ $(function () {
                 }   
             });
         }
+        
         $('#new-status-modal').modal('toggle');
 
     });

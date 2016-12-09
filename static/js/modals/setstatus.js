@@ -1,10 +1,10 @@
 $(function () {
     
-    var setupSetFlagModal = function () {
-        var flags = JSON.parse(window.sessionStorage.flags);
+    var setupSetStatusModal = function () {
+        var statuses = JSON.parse(window.sessionStorage.statuses);
 
         // TODO 
-        // give users ability to customize notifications when setting a flag
+        // give users ability to customize notifications when setting a status
         // basically creating the notification after deciding they want to set one
         // option for who will receive the notification
 
@@ -12,18 +12,18 @@ $(function () {
         // but will also have option to set for other users or everyone
 
         // that said, there should be a panel listing the alerts
-        // that are already associated with that particular flag
+        // that are already associated with that particular status
 
-        flags.forEach(function (flag, index) {
-            $('#flag-select').append('<option ' + window.dataString + ' value="' + index + '">' + 
-                                        flag.type + '</option>');
+        statuses.forEach(function (status, index) {
+            $('#status-select').append('<option ' + window.dataString + ' value="' + index + '">' + 
+                                        status.type + '</option>');
         });
 
-        $('#flag-select').change(function (event) {
+        $('#status-select').change(function (event) {
             alert("changed!");
         });
 
-        $('#setflag-submit-button').click(function (event) {
+        $('#setstatus-submit-button').click(function (event) {
 
             // hardcoding notification for now
             // see db.sql for notification id = 4
@@ -54,21 +54,21 @@ $(function () {
                     }
                 }
             }).done(function (data) {
-                $('#setflag-modal').modal('toggle');
+                $('#setstatus-modal').modal('toggle');
             });
         });
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.flags);
+    globalData.push(window.sessionStorage.statuses);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");
-        setupSetFlagModal();
+        setupSetStatusModal();
     } else {
         console.log("waiting for call");
         window.sessionStorageListeners.push({
-            ready: setupSetFlagModal
+            ready: setupSetStatusModal
         });
     }
 

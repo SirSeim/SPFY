@@ -11,10 +11,10 @@ $(function (event) {
         var clientCaseManager;
         var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
-        var flags = JSON.parse(window.sessionStorage.flags);
+        // var flags = JSON.parse(window.sessionStorage.flags);
 
-        $('#setflag-button').click(function (event) {
-            $('#setflag-modal').modal('toggle');
+        $('#setstatus-button').click(function (event) {
+            $('#setstatus-modal').modal('toggle');
         });
 
         var getCaseNotes = function (data) {
@@ -107,7 +107,7 @@ $(function (event) {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                     },
-                    url: 'api/flags/1',
+                    url: 'api/statuses/1',
                     method: 'GET',
                     success: function (data) {
                         console.log(data);
@@ -120,16 +120,16 @@ $(function (event) {
                         }
                     }
                 }).done(function (data) {
-                    $('#client-flags').empty();
-                    data.result.rows.forEach(function (flag) {
-                        $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
-                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                    $('#client-statuses').empty();
+                    data.result.rows.forEach(function (status) {
+                        $('#client-statuses').append(
+                            '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  status.type + '"' +
+                             'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
+                             '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
                     });
-                    $('#client-flags li a.flag-edit').click(function (event) {
-                        $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Flag');
-                        $('#editflag-modal').modal('toggle');
+                    $('#client-statuses li a.status-edit').click(function (event) {
+                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
+                        $('#editstatus-modal').modal('toggle');
                     });
                 });
 
@@ -488,7 +488,7 @@ $(function (event) {
 
     var globalData = [];
     globalData.push(window.sessionStorage.statuses);
-    globalData.push(window.sessionStorage.flags);
+    // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");
