@@ -67,6 +67,7 @@ $(function () {
               },
               success: function (data) {
                     console.log("Activity added!");
+                    $("#createactivity-modal").modal("toggle");
               },
               error: function (xhr) {
                 console.error(xhr);
@@ -77,7 +78,6 @@ $(function () {
               }
             });
         }
-        //$("#createactivity-modal").modal("toggle");
     })
 
 });
