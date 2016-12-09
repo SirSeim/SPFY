@@ -63,7 +63,7 @@ a img {
   border: none;
 }
 
-</* line 116, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -640,11 +640,32 @@ span.badge {
 }
 
 /* line 16, ../sass/partials/_frontdesk.scss */
-.panel-horiscroll .panel-heading {
+.horiscroll {
   overflow-x: scroll;
   overflow-y: hidden;
-  height: 80px;
   white-space: nowrap;
+}
+
+/* line 22, ../sass/partials/_frontdesk.scss */
+.thumbnail {
+  box-shadow: 1px 1px 10px #999;
+  margin: 2px;
+  max-height: 80px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+
+/* line 1, ../sass/partials/_modals.scss */
+#checkin-checkbox {
+  zoom: 2.0;
+}
+
+/* line 5, ../sass/partials/_modals.scss */
+.checkin-checkbox-label {
+  font-size: 100%;
 }
 
 /* plugins */
@@ -1897,22 +1918,4 @@ span.multiselect-native-select select {
 .form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
   margin-left: -20px;
   margin-right: 0;
-}
-
-.horiscroll {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-
-/* line 22, ../sass/partials/_frontdesk.scss */
-.thumbnail {
-  box-shadow: 1px 1px 10px #999;
-  margin: 2px;
-  max-height: 80px;
-  cursor: pointer;
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
-  vertical-align: top;
 }

@@ -812,7 +812,8 @@ var queries = {
     getProfilePicture: function (clientID) {
         var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
                             'AND type=\'profile_picture\'' + 
-                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + ' AND type=\'profile_picture\');';
+                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + 
+                            ' AND type=\'profile_picture\');';
         return queryString;
     },
 

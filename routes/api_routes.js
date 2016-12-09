@@ -44,7 +44,7 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
-        method: 'POST',
+        method: 'PUT',
         path: '/clients/{clientID}',
         handler: Api.editClient
     },

@@ -190,7 +190,7 @@ $(function (event) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
                 url: "api/clients/" + data.id,
-                method: "POST",
+                method: "PUT",
                 data: data,
                 success: function (data) {
                     console.log(data);

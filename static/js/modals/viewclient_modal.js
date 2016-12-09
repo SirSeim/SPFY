@@ -2,11 +2,10 @@ $(function () {
 
     var setupViewClientModal = function () {
         console.log($('#dropin-date').data('id'));
-        console.log($('#client-data-modal').data());
+        console.log($('#client-modal-data').data());
         var clients = JSON.parse(window.sessionStorage.clients);
 
         var populateModal = function () {
-            alert('modal');
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -73,8 +72,8 @@ $(function () {
                         console.log(activities);
                         $('#participation-modal tbody').empty();
                         enrollment.forEach(function (enroll) {
-                            console.log(enroll.client_id === $('#client-data-modal').data("id"));
-                            if (enroll.client_id === $('#client-data-modal').data("id")) {
+                            console.log(enroll.client_id === $('#client-modal-data').data("id"));
+                            if (enroll.client_id === $('#client-modal-data').data("id")) {
                                 console.log(window.getDataById(activities, enroll.activity_id).name);
                                 $('#participation-modal tbody').append('<tr><td>' + window.getDataById(activities, enroll.activity_id).name + '</td></tr>');
                             }
@@ -85,7 +84,10 @@ $(function () {
         }
 
         $('#viewclient-modal').on('shown.bs.modal', populateModal);
+
     }
+
+    
 
     var globalData = []
     globalData.push(window.sessionStorage.statuses);
