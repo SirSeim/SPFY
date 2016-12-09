@@ -31,6 +31,53 @@ $(function () {
       }
     });
 
+    $("#createactivity-modal-save-button").on('click', function () {
+        var name = $("#createActivityName").val().trim();
+        var location = $("#createActivityLocation").val().trim();
+        var startTime = $('#createActivityStart').combodate('getValue', 'HH:mm');
+        var endTime = $('#createActivityEnd').combodate('getValue', 'HH:mm');
+        var program = $("#createActivityPrograms").val();
+        console.log(name);
+        console.log(location);
+        console.log(startTime);
+        console.log(endTime);
+        console.log(program)
+        if (name === "" || location === "" || program === 0) {
+            $(".activityWarning").removeClass("hidden");
+        } else {
+            if (!$(".activityWarning").hasClass("hidden")) {
+                $(".activityWarning").addClass("hidden");
+            };
+            $.ajax({
+              xhrFields: {
+                withCredentials: true
+              },
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+              },
+              url: 'api/activity',
+              method: "POST",
+              data: { 
+                programid: program,
+                activityname: name,
+                location: location, 
+                ongoing: true,
+                starttime: startTime,
+                endtime: endTime
+              },
+              success: function (data) {
+                    console.log("Activity added!");
+              },
+              error: function (xhr) {
+                console.error(xhr);
 
+                if (xhr.status === 401) {
+                  localStorage.removeItem("authorization");
+                }
+              }
+            });
+        }
+        //$("#createactivity-modal").modal("toggle");
+    })
 
 });

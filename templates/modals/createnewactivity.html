@@ -8,17 +8,18 @@
           </div>
           <div class="modal-body">
             Activity Name: <input type="text" id="createActivityName"> <br>
-            Location: <input type="text" id="createActivityLocation"> <br>
+            Location: <input type="text" id="createActivityLocation">  <br>
             Start Time: <input type="text" id="createActivityStart" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
             End Time: <input type="text" id="createActivityEnd" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
             Program: 
             <select id="createActivityPrograms" name="programs" value="select">
-              <option value="select">Select a Program</option>
-            </select>
+              <option value="0">Select a Program</option>
+            </select> <br>
+            <span class="activityWarning warning hidden">Your activity must have a name, location, and program.</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="flag-submit-button">Submit</button>
+            <button type="button" class="btn btn-primary" id="createactivity-modal-save-button">Submit</button>
           </div>
         </div>
       </div>

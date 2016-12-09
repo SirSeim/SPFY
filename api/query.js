@@ -278,7 +278,7 @@ var query = {
                 return callback(err);
             }
 
-            payload = JSON.parse(payload.expression);
+            // payload = JSON.parse(payload.expression);
             var data = Queries.createActivity(payload);
 
             client.query(data.string, data.params, function (err, result) {

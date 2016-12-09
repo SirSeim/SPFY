@@ -341,6 +341,14 @@ CREATE TABLE program (
 );
 
 INSERT INTO program (program_name) VALUES ('Education & Employment');
+INSERT INTO program (program_name) VALUES ('Health & Wellness');
+INSERT INTO program (program_name) VALUES ('Arts & Healing');
+INSERT INTO program (program_name) VALUES ('Advocacy');
+INSERT INTO program (program_name) VALUES ('Pregnancy & Parenting');
+INSERT INTO program (program_name) VALUES ('Legal');
+INSERT INTO program (program_name) VALUES ('Case Management');
+INSERT INTO program (program_name) VALUES ('Drop In');
+
 
 DROP TABLE IF EXISTS subprogram;
 
@@ -357,17 +365,18 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
-  /*program_id integer REFERENCES program (id),*/
+  program_id integer REFERENCES program (id),
   activity_name varchar(45) DEFAULT NULL,
+  location varchar(45) DEFAULT NULL,
   ongoing boolean DEFAULT NULL,
-  start_date date DEFAULT NULL,
-  end_date date DEFAULT NULL
+  start_time time DEFAULT NULL,
+  end_time time DEFAULT NULL
 );
 
-INSERT INTO activity (activity_name) VALUES ('Medical Care');
-INSERT INTO activity (activity_name) VALUES ('Medi-Cal Registration');
-INSERT INTO activity (activity_name) VALUES ('HIV Testing');
-INSERT INTO activity (activity_name) VALUES ('Dental Care');
+INSERT INTO activity (activity_name, program_id) VALUES ('Medical Care', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('Medi-Cal Registration', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('HIV Testing', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('Dental Care', 2);
 
 DROP TABLE IF EXISTS drop_in;
 

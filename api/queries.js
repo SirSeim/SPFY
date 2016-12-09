@@ -118,10 +118,12 @@ var profileProperties = [
 
 // again, working on solution to avoid doing this
 var activityProperties = [
+    'program_id',
     'activity_name',
+    'location', 
     'ongoing',
-    'start_date',
-    'end_date'
+    'start_time',
+    'end_time'
 ];
 
 // *** Postgres allows rows with duplicate data, so currently
@@ -415,7 +417,6 @@ var queries = {
     },
 
     createActivity: function (payload) {
-        // WTF IS GOING ON HERE
         var queryString = 'INSERT INTO activity (';
 
         var payloadNames = [];
