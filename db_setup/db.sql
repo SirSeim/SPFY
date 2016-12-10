@@ -532,7 +532,7 @@ CREATE TABLE match_roles_paths_verbs (
   id SERIAL PRIMARY KEY,
   roles_id integer REFERENCES roles (id),
   paths_id integer REFERENCES paths (id),
-  verbs_id integer REFERENCES roles (id)
+  verbs_id integer REFERENCES verbs (id)
 );
 
 DROP TABLE IF EXISTS users;
