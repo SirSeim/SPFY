@@ -47,7 +47,31 @@ $(function () {
                     // console.log($('#editstatus-modal').css("z-index"));
                     $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
                     $('#editstatus-modal').modal('toggle');
+                    event.stopPropagation();
                 });
+                $('#editstatus-modal .close').click(function (event) {
+                    // need to manually set this to override modal's close event
+                    // that way it only closes this modal and not other modals
+                    $('#editstatus-modal').modal('hide');
+                    event.stopPropagation();
+                });
+                $('#editstatus-modal .btn.cancel').click(function (event) {
+                    // need to manually set this to override modal's close event
+                    // that way it only closes this modal and not other modals
+                    $('#editstatus-modal').modal('hide');
+                    event.stopPropagation();
+                });
+                // $(document).on('show.bs.modal', '#editstatus-modal', function () {
+                //     alert("here")
+                //     var zIndex = Math.max.apply(null, Array.prototype.map.call(document.querySelectorAll('*'), function(el) {
+                //       return + el.style.zIndex;
+                //     })) + 10;
+                //     $(this).css('z-index', zIndex);
+                //     setTimeout(function() {
+                //         $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                //     }, 0);
+                // });
+
             });
 
             // ** enrollment

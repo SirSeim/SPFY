@@ -128,6 +128,7 @@ $(function (event) {
                     $('#client-statuses li a.status-edit').click(function (event) {
                         $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
                         $('#editstatus-modal').modal('toggle');
+                        event.stopPropagation();
                     });
                 });
 
