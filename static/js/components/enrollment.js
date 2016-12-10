@@ -70,9 +70,17 @@ $(function (event) {
            selectedActivities.push($(this).text());
            $('#activities-bar').append('<div class="thumbnail"><div class="caption"><span class="' +
                                         $(this).parent().data('category') + '"><p>'+ $(this).text() + 
-                                        '</p></div></div>');
+                                        '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
         });
-        console.log(selectedActivities);
+
+        $(".thumbnail-dismiss").click(function (event) {
+            $(this).parent().parent().parent().parent().remove();
+        });
+
+    });
+
+    $(".thumbnail-dismiss").click(function (event) {
+        $(this).parent().parent().parent().parent().parent().remove();
     });
     
 

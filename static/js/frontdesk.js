@@ -316,9 +316,7 @@ $(function () {
         //             </div></div>")
         // });
 
-        $(".thumbnail-dismiss").click(function (event) {
-             $(this).parent().parent().parent().parent().remove();
-        });
+
 
 
         // $.ajax({
