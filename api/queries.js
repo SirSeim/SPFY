@@ -512,6 +512,16 @@ var queries = {
         return queryString;
     },
 
+    checkout: function (payload) {
+        var queryString = "";
+        payload.forEach(function (element) {
+            queryString += 'DELETE FROM check_in WHERE drop_in_id = ' + element.dropinID + ' AND ' +
+                            'client_id = ' + element.clientID + ' RETURNING id, drop_in_id, client_id, date;';
+        });
+
+        return queryString;
+    },
+
     getCheckIn: function () {
         var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
 

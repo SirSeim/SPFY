@@ -408,7 +408,26 @@ var query = {
                 return callback(err);
             }
 
+            payload = JSON.parse(payload.expression);
             client.query(Queries.checkin(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    checkout: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            payload = JSON.parse(payload.expression);
+            client.query(Queries.checkout(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

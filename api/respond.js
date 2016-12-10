@@ -289,6 +289,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToCheckOut: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout!",
+            error: err
+        }).code(500);
+    },
+    checkout: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success checking out!",
+            result: result
+        }).code(200);
+    },
     dataBrowserGetClients: function (reply, result) {
         reply({
             statusCode: 200,

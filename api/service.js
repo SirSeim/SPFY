@@ -311,7 +311,14 @@ var service = {
             return callback(undefined, result);
         });
     },
-
+    checkout: function (postgres, payload, callback) {
+        Query.checkout(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(undefined, result);
+        });
+    },
     getCheckIn: function (postgres, callback) {
         Query.getCheckIn(postgres, function (err, result) {
             if (err) {

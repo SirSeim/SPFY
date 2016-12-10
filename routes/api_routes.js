@@ -99,6 +99,11 @@ var apiRoutes = [
         handler: Api.checkin
     },
     {
+        method: 'DELETE',
+        path: '/checkin',
+        handler: Api.checkout
+    },
+    {
         method: 'POST',
         path: '/activities',
         handler: Api.createDropinActivities

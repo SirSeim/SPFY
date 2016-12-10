@@ -165,6 +165,15 @@ var api = {
             }
         });
     },
+    checkout: function (request, reply) {
+        Service.checkout(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCheckOut(reply, err);
+            } else {
+                Respond.checkout(reply, result);
+            }
+        });
+    },
     getCheckIn: function (request, reply) {
         Service.getCheckIn(request.postgres, function (err, result) {
             if (err) {
@@ -174,7 +183,6 @@ var api = {
             }
         });
     },
-
     dataBrowserGetClients: function (request, reply) {
         Service.dataBrowserGetClients(request.postgres, function (err, result) {
             if (err) {

@@ -121,7 +121,7 @@ $(function () {
                   method: "POST",
                   contentType: "application/json",
                   dataType: "json",
-                  data: JSON.stringify(signups),
+                  data: { expression: JSON.stringify(data) }, // Hapi doesn't parse arrays by default, need to stringify it
                   success: function (data) {
                       console.log(data);
                       var clientString = "";
