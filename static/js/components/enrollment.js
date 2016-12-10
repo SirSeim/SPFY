@@ -49,11 +49,28 @@ $(function (event) {
         // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
     });
 
+    $('#activities1 button').click(function (event) {
+        if ($(this).hasClass("active") ) {
+            $(this).removeClass("active");
+        } else {
+            $(this).addClass("active");
+        }
+            
+    });
+
+    $('#activities2 button').click(function (event) {
+        $(this).addClass("active");
+    });
+
+    $('#activities3 button').click(function (event) {
+        $(this).addClass("active");
+    });
+
     var selectedActivities = [];
 
     // .delegate adds event listeners to each element with designated class
     // (in this case, every "td" element)
-    // adding an "click" event listener with the function that should execute
+    // adding a "click" event listener with the function that should execute
     // when the event is detected
     $('#activities').delegate("td", "click", function (event) {
         var name = $(this)[0].innerText;
