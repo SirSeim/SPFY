@@ -14,27 +14,27 @@
               <div class="well" style="max-height: 400px;overflow: auto;">
                <!-- <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Activity</a> -->
                <!-- SHOWERS EXAMPLE: add, allow time slot -->
-              <div class="list-group" id="activities1">
-                    <button type="button" class="list-group-item list-group-item-action">Medical</button>
-                    <button type="button" class="list-group-item list-group-item-action">Dental</button>
-                    <button type="button" class="list-group-item list-group-item-action">HIV Testing</button>
-                    <button type="button" class="list-group-item list-group-item-action">Medi-Cal Registration</button>
-                    <button type="button" class="list-group-item list-group-item-action">Counseling</button>
-                    <button type="button" class="list-group-item list-group-item-action">Creative Expression</button>
-                    <button type="button" class="list-group-item list-group-item-action">Mindfulness</button>
-                    <button type="button" class="list-group-item list-group-item-action">Yoga</button>
-                    <button type="button" class="list-group-item list-group-item-action">Creative Writing</button>
-                    <button type="button" class="list-group-item list-group-item-action">Drumming</button>
-                    <button type="button" class="list-group-item list-group-item-action">Music</button>
-                    <button type="button" class="list-group-item list-group-item-action">Substance Abuse Support</button>
-                  </div>
+                <div class="list-group activities-add" data-category="health">
+                  <button type="button" class="list-group-item list-group-item-action">Medical</button>
+                  <button type="button" class="list-group-item list-group-item-action">Dental</button>
+                  <button type="button" class="list-group-item list-group-item-action">HIV Testing</button>
+                  <button type="button" class="list-group-item list-group-item-action">Medi-Cal Registration</button>
+                  <button type="button" class="list-group-item list-group-item-action">Counseling</button>
+                  <button type="button" class="list-group-item list-group-item-action">Creative Expression</button>
+                  <button type="button" class="list-group-item list-group-item-action">Mindfulness</button>
+                  <button type="button" class="list-group-item list-group-item-action">Yoga</button>
+                  <button type="button" class="list-group-item list-group-item-action">Creative Writing</button>
+                  <button type="button" class="list-group-item list-group-item-action">Drumming</button>
+                  <button type="button" class="list-group-item list-group-item-action">Music</button>
+                  <button type="button" class="list-group-item list-group-item-action">Substance Abuse Support</button>
+                </div>
               </div>
             </div>
             <div class="col-xs-4">
               <h6 class="text-center">Education & Employment</h6>
               <div class="well" style="max-height: 400px;overflow: auto;">
                 <!-- <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Activity</a> -->
-              <div class="list-group" id="activities2">
+              <div class="list-group activities-add" data-category="art">
                     <button type="button" class="list-group-item list-group-item-action">Digital Arts Lab</button>
                     <button type="button" class="list-group-item list-group-item-action">Experiential Learning</button>
                     <button type="button" class="list-group-item list-group-item-action">Five Keys Charter School</button>
@@ -54,7 +54,7 @@
               <h6 class="text-center">Other</h6>
               <div class="well" style="max-height: 400px;overflow: auto;">
                 <!-- <a href="#" class="list-group-item"><span class="fa fa-plus" aria-hidden="true"></span> New Activity</a> -->
-                  <div class="list-group" id="activities3">
+                  <div class="list-group activities-add" data-category="other">
                     <button type-"button" class="list-group-item list-group-item-action">Legal</button>
                     <button type-"button" class="list-group-item list-group-item-action">Case Management</button>
                   </div>
@@ -64,7 +64,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="create-thumbnail">Add</button>
+            <button type="button" class="btn btn-primary" id="create-thumbnail" data-dismiss="modal">Add</button>
           </div>
         </div>
       </div>
