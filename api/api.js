@@ -73,13 +73,27 @@ var api = {
     },
 
     getDropIns: function (request, reply) {
-        Service.getDropIns(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetDropIns(reply, err);
+        if (request.query.latest) {
+            if (parseInt(request.query.latest)) {
+                Service.getLatestDropIns(request.postgres, parseInt(request.query.latest), function (err, result) {
+                    if (err) {
+                        Respond.failedToGetDropIns(reply, err);
+                    } else {
+                        Respond.gotDropIns(reply, result);
+                    }
+                });
             } else {
-                Respond.gotDropIns(reply, result);
+                Respond.badGetDropIns(reply, "invalid latest number");
             }
-        });
+        } else {
+            Service.getDropIns(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetDropIns(reply, err);
+                } else {
+                    Respond.gotDropIns(reply, result);
+                }
+            });
+        }
     },
 
     getDropIn: function (request, reply) {
