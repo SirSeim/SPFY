@@ -467,17 +467,85 @@ INSERT INTO case_note (client_id, case_manager_id, date, category, note, follow_
 -- INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 3, '2016-10-31', 'CM', 'This is an initial note');
 -- INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (2, 2, '2016-10-31', 'CM', 'This is another initial note');
 -- INSERT INTO caseplan (client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date) VALUES (3, 1, '2016-10-31', 'CM', 'This is an initial note');
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE roles (
+  id SERIAL PRIMARY KEY,
+  name varchar(45) NOT NULL
+);
+
+INSERT INTO roles (name) VALUES ('superadmin');
+
+DROP TABLE IF EXISTS paths;
+
+CREATE TABLE paths (
+  id SERIAL PRIMARY KEY,
+  name varchar(70) NOT NULL
+);
+
+INSERT INTO paths (name) VALUES ('/api/hello');
+INSERT INTO paths (name) VALUES ('/api/clients');
+INSERT INTO paths (name) VALUES ('/api/casemanagers');
+INSERT INTO paths (name) VALUES ('/api/clients/?');
+INSERT INTO paths (name) VALUES ('/api/dropins');
+INSERT INTO paths (name) VALUES ('/api/dropins/?');
+INSERT INTO paths (name) VALUES ('/api/dropins/?/activities');
+INSERT INTO paths (name) VALUES ('/api/dropins/?/enrollment');
+INSERT INTO paths (name) VALUES ('/api/enroll/?');
+INSERT INTO paths (name) VALUES ('/api/enroll');
+INSERT INTO paths (name) VALUES ('/api/checkin');
+INSERT INTO paths (name) VALUES ('/api/activities');
+INSERT INTO paths (name) VALUES ('/api/search/clients');
+INSERT INTO paths (name) VALUES ('/api/search/clients/?');
+INSERT INTO paths (name) VALUES ('/api/case_notes');
+INSERT INTO paths (name) VALUES ('/api/case_notes/?');
+INSERT INTO paths (name) VALUES ('/api/status');
+INSERT INTO paths (name) VALUES ('/api/status/?');
+INSERT INTO paths (name) VALUES ('/api/users');
+INSERT INTO paths (name) VALUES ('/api/users/?');
+INSERT INTO paths (name) VALUES ('/api/users/?/password');
+INSERT INTO paths (name) VALUES ('/api/users/?/notifications');
+INSERT INTO paths (name) VALUES ('/api/users/?/notifications/?');
+INSERT INTO paths (name) VALUES ('/api/sessions');
+INSERT INTO paths (name) VALUES ('/api/notifications/types');
+INSERT INTO paths (name) VALUES ('/api/clients/?/case_plan');
+INSERT INTO paths (name) VALUES ('/api/flags');
+INSERT INTO paths (name) VALUES ('/api/flags/?');
+INSERT INTO paths (name) VALUES ('/api/files');
+INSERT INTO paths (name) VALUES ('/api/files/?');
+
+DROP TABLE IF EXISTS verbs;
+
+CREATE TABLE verbs (
+  id SERIAL PRIMARY KEY,
+  name varchar(45) NOT NULL
+);
+
+INSERT INTO verbs (name) VALUES ('GET');
+INSERT INTO verbs (name) VALUES ('POST');
+INSERT INTO verbs (name) VALUES ('PUT');
+INSERT INTO verbs (name) VALUES ('DELETE');
+
+DROP TABLE IF EXISTS match_roles_paths_verbs;
+
+CREATE TABLE match_roles_paths_verbs (
+  id SERIAL PRIMARY KEY,
+  roles_id integer REFERENCES roles (id),
+  paths_id integer REFERENCES paths (id),
+  verbs_id integer REFERENCES roles (id)
+);
 
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username varchar(45) NOT NULL,
-  hashed_password varchar(70) NOT NULL
+  hashed_password varchar(70) NOT NULL,
+  role_id integer REFERENCES roles (id)
 );
 
 -- inserting user 'test' to login with password 'passwordisnone'
-INSERT INTO users (username, hashed_password) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u');
+INSERT INTO users (username, hashed_password, role_id) VALUES ('test', '$2a$10$DAInVRGKZJ4pmb64YDJxXe2zgt4N3/FbxHkhC23yv8Dwv0uHeov6u', 1);
 
 DROP TABLE IF EXISTS notification_types;
 
