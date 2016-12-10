@@ -680,7 +680,17 @@ var api = {
                 Respond.getPrograms(reply, result);
             }
         });
-    }
+    },
+
+    uploadSpreadsheet: function (request, reply) {
+        Service.uploadSpreadsheet(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToUploadSpreadsheet(reply, err);
+            } else {
+                Respond.uploadSpreadsheet(reply, result);
+            }
+        });
+    },
 };
 
 

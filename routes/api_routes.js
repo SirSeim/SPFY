@@ -300,7 +300,13 @@ var apiRoutes = [
         method: 'GET',
         path: '/programs',
         handler: Api.getPrograms
+    },
+    {
+        method: 'POST',
+        path: '/uploadSpreadsheet',
+        handler: Api.uploadSpreadsheet
     }
+    
 ];
 
 // api in this case is a plugin run by the Hapi node package

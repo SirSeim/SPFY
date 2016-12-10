@@ -1,3 +1,5 @@
+var xlsx = require('node-xlsx');
+
 var parseProperty = function(property) {
     // if (typeof property === 'boolean') {
     //     property = property === true ? '1' : '0';
@@ -839,7 +841,22 @@ var queries = {
     },
 
     getPrograms: function () {
-        var queryString = 'select program_name FROM program';
+        var queryString = 'SELECT program_name FROM program';
+
+        return queryString;
+    },
+    uploadSpreadsheet: function (formdata) {
+        console.log(formdata.file);
+        console.log(formdata.type);
+        var sheet;
+        try {
+            sheet = xlsx.parse(formdata.file);
+            console.log(sheet[0].data);
+        } catch (err) {
+            console.log(err);
+        }
+
+        var queryString = 'SELECT * FROM program'; // garbage temp string
 
         return queryString;
     }

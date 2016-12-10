@@ -757,6 +757,15 @@ var service = {
             }
             callback(undefined, result);
         });
+    },
+
+    uploadSpreadsheet: function (postgres, formdata, callback) {
+        Query.uploadSpreadsheet(postgres, formdata, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
     }
 };
 

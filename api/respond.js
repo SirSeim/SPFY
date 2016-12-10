@@ -756,6 +756,20 @@ var respond = {
             message: "Successfully got programs",
             result: result
         }).code(200);
+    },
+    failedToUploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 500,
+            message: "Failed to upload spreadsheet",
+            result: result
+        }).code(500);
+    },
+    uploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully uploaded spreadsheet",
+            result: result
+        }).code(200);
     }
 
 };
