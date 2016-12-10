@@ -400,16 +400,22 @@ $(function () {
                 } else {
                     formData = new FormData();
                     formData.set("file", file);
-                    formData.set("type", "10");
+                    formData.set("type", $("#uploadSpreadsheetSelect").val());
                     filename = file.name;
                 }
             }
         });
 
+        $("#uploadSpreadsheetSelect").on("change", function (event) {
+            if (formData !== undefined) {
+                formData.set("type", $(this).val());
+            }
+        })
+
         $('#submitSpreadsheet').on('click', function (event) {
             if (formData === undefined) {
                 console.log("Error message here.");
-            } else if ($("#uploadSpreadsheetSelect").val() === "0") {
+            } else if (formData.get("type") === "0") {
                 console.log("Also an error.");
             } else {
                 $.ajax({

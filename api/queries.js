@@ -846,17 +846,58 @@ var queries = {
         return queryString;
     },
     uploadSpreadsheet: function (formdata) {
-        console.log(formdata.file);
-        console.log(formdata.type);
+
+        var removeEmptyArrays = function (data) {
+            data = 
+                data.filter(function (e) {
+                    return e.length !== 0;
+                });
+            return data;
+        };
+
+        var trimAllArrays = function (data) {
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].length; j++) {
+                    if (typeof data[i][j] === "string" && data[i][j] !== undefined) {
+                        data[i][j] = data[i][j].trim();
+                    }
+                }
+                var longestString = data[i].reduce(function (a, b) { return a.length > b.length ? a : b; });
+                if (longestString.length === 0) {
+                    data[i] = data[i].filter(function (e) {
+                        return e.length !== 0 && e !== undefined && e !== null;
+                    });
+                }
+            }
+            return data;
+        };
+
         var sheet;
+        var queryString = "";
+
         try {
             sheet = xlsx.parse(formdata.file);
-            console.log(sheet[0].data);
         } catch (err) {
-            console.log(err);
+            return err;
         }
 
-        var queryString = 'SELECT * FROM program'; // garbage temp string
+        if (formdata.type === "1") { // Importing Case Management Caseload
+            var data = removeEmptyArrays(sheet[0].data); // remove empty arrays first
+            data = trimAllArrays(data); // trim all strings
+            data = removeEmptyArrays(data); // remove any new empty arrays
+
+            console.log(data);
+        } else if (formdata.type === "4") { // Importing Backpack and Sleeping Bad Waitlist
+            data = sheet[0].data;
+            queryString += 'INSERT INTO backpack_sleepingbag_waitlist (client_id, backpack, sleepingBag, ask_date) VALUES (';
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].length; j++) {
+                    console.log(data[i][j]); 
+                }
+            }
+        }
+
+        queryString = 'SELECT * FROM program'; // garbage temp string
 
         return queryString;
     }

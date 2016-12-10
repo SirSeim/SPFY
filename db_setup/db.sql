@@ -557,3 +557,13 @@ CREATE TABLE file (
   type varchar(30) DEFAULT NULL,
   base_64_string varchar DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS backpack_sleepingbag_waitlist;
+
+CREATE TABLE backpack_sleepingbag_waitlist (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  backpack boolean DEFAULT false,
+  sleepingbag boolean DEFAULT false,
+  ask_date date DEFAULT NULL
+);
