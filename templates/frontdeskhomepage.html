@@ -59,7 +59,8 @@
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment</a></li>
+              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment
+                   <button type="button" class="btn btn-success" id="add-new-activity"> + </button></a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
             </ul>
 
@@ -79,21 +80,13 @@
                         <button type="button" class="btn btn-default">
                            <i class="fa fa-futbol-o" aria-hidden="true"></i>
                         </button> -->
-                        <div class="horiscroll" id='activities-bar'>
-                            <div class="thumbnail" id="medical">
-                              
-                              <div class="caption"><span class="health">
-                                <p>Medical <button type="button" class="data-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span>
-                              </div>
-                            </div>
-
-                        
-                            <div class="thumbnail" id="add-new-activity">
+                        <div class="horiscroll" id="activities-bar">                 
+<!--                             <div class="thumbnail" id="add-new-activity">
                               <div class="caption">
                                 <p>+</p>
                               </div>
-                            </div>
-                        </div>        
+                            </div> -->
+                        </div>     
                          
                   </div>
                       <!-- Button trigger Add New Activity Modal -->
@@ -103,10 +96,10 @@
                         </button>
                       </div> -->
                     
-                      <div id="activities" class="panel-body">
+                      <div id="activity-display" class="panel-body">
 
                         <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
-                        <h4> Activity Title </h4>
+                        <h4 id="activity-title"> Activity Title </h4>
 
                         <table class="table table-hover">
                           <thead>

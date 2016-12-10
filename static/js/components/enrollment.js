@@ -65,6 +65,7 @@ $(function (event) {
     // adding a "click" event listener with the function that should execute
     // when the event is detected
     $("#create-thumbnail").click(function (event) {
+        $('#activities-bar').empty();
         selectedActivities = [];
         $('.activities-add button.active').each(function (index, element) {
            selectedActivities.push($(this).text());
@@ -77,11 +78,21 @@ $(function (event) {
             $(this).parent().parent().parent().parent().remove();
         });
 
+        $(".thumbnail").click(function (event) {
+            $("#activity-title").empty();
+            $("#activity-title").append($(this).text());
+        })
+
     });
 
     $(".thumbnail-dismiss").click(function (event) {
         $(this).parent().parent().parent().parent().parent().remove();
     });
+
+    $(".thumbnail").click(function (event) {
+        $("#activity-title").empty();
+        $("#activity-title").append($(this).text());
+    })
     
 
     // $('#activities').delegate("button", "click", function (event) {
