@@ -400,6 +400,25 @@ var queries = {
         console.log(queryString);
         return queryString;
     },
+    getDropinActivity: function (dropinID, activityID) {
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
+                            'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                            'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
+                            'WHERE activity.id = match_drop_in_activity.activity_id ' +
+                            'AND match_drop_in_activity.drop_in_id = ' + dropinID +
+                            ' AND match_drop_in_activity.activity_id = ' + activityID + ';';
+
+        return queryString;
+    },
+    getDropinActivityEnrollment: function (dropinID, activityID) {
+        var queryString = 'SELECT client.id, client.first_name, client.last_name FROM client WHERE ' +
+                    'client.id IN (SELECT enrollment.client_id FROM enrollment, match_drop_in_activity ' +
+                    'WHERE enrollment.drop_in_activity_id = match_drop_in_activity.id AND ' +
+                    'match_drop_in_activity.drop_in_id = ' + dropinID +
+                    ' AND match_drop_in_activity.activity_id = ' + activityID + ');';
+
+        return queryString;
+    },
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 

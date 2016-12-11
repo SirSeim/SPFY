@@ -199,6 +199,46 @@ var service = {
         });
     },
 
+    getDropinActivity: function (postgres, dropinID, activityID, callback) {
+        Query.getDropinActivity(postgres, dropinID, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var local = result.rows[0];
+            if (!local) {
+                return callback();
+            }
+            return callback(undefined, {
+                id: local.id,
+                name: local.activity_name,
+                room: local.room,
+                comments: local.comments,
+                startTime: local.start_time,
+                endTime: local.end_time
+            });
+        });
+    },
+
+    getDropinActivityEnrollment: function (postgres, dropinID, activityID, callback) {
+        Query.getDropinActivityEnrollment(postgres, dropinID, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    firstName: local.first_name,
+                    lastName: local.last_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     getDropinEnrollment: function (postgres, dropinID, callback) {
         Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
             if (err) {

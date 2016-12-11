@@ -142,6 +142,34 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got activity for dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropinActivityEnrollment: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivityEnrollment: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,

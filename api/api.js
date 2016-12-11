@@ -132,6 +132,26 @@ var api = {
         });
     },
 
+    getDropinActivity: function (request, reply) {
+        Service.getDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivity(reply, err);
+            } else {
+                Respond.getDropinActivity(reply, result);
+            }
+        });
+    },
+
+    getDropinActivityEnrollment: function (request, reply) {
+        Service.getDropinActivityEnrollment(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivityEnrollment(reply, err);
+            } else {
+                Respond.getDropinActivityEnrollment(reply, result);
+            }
+        });
+    },
+
     getDropinEnrollment: function (request, reply) {
         Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
