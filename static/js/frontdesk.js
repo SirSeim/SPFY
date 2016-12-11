@@ -283,6 +283,9 @@ $(function () {
 
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();
+            window.sessionStorageListeners.push({
+                ready: setupCheckin
+            });
         } else {
             window.sessionStorageListeners.push({
                 ready: setupCheckin

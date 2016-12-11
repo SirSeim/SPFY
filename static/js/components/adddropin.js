@@ -22,21 +22,27 @@ $(function () {
               listener.ready();
           });
           $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
-          $("#drop-in-dropdown").append('<a class="dropdown-item" href="#">' +
+          $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[1].id + '">' +
                                         moment(data.result[1].date).format('dddd L') + 
                                         '</a>')
-                                .append('<a class="dropdown-item" href="#">' +
+                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[2].id + '">' +
                                         moment(data.result[2].date).format('dddd L') + 
                                         '</a>')
-                                .append('<a class="dropdown-item" href="#">' +
+                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[3].id + '">' +
                                         moment(data.result[3].date).format('dddd L') + 
                                         '</a>')
-                                .append('<a class="dropdown-item" href="#">' +
+                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[4].id + '">' +
                                         moment(data.result[4].date).format('dddd L') + 
-                                        '</a>')
-                                .append('<a class="dropdown-item" href="#">' +
-                                        moment(data.result[5].date).format('dddd L') + 
                                         '</a>');
+          $(".dropin-date-item").click(function (event) {
+            console.log("BITCH");
+            jThis = $(this);
+            $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
+            window.sessionStorage.frontdeskDropinId = jThis.data("id");
+            window.sessionStorageListeners.forEach(function (listener) {
+                listener.ready();
+            });
+          });
         }).fail(function (xhr, textStatus, errorThrown) {
           console.log(xhr);
         });
