@@ -257,7 +257,7 @@ var service = {
                 var local = result.rows[i];
                 arr.push(local.client_id);
             }
-            return callback(undefined,{
+            return callback(undefined, {
                 dropin: parseInt(dropinID),
                 activity: parseInt(activityID),
                 clients: arr

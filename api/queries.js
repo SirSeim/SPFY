@@ -420,7 +420,7 @@ var queries = {
 
         return queryString;
     },
-    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) { // eslint-disable-line no-unused-vars
+    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
         var queryString = '';
         payload.clients.forEach(function (clientID) {
             queryString += 'INSERT INTO enrollment (drop_in_activity_id, client_id) SELECT ' +
@@ -428,7 +428,7 @@ var queries = {
                     'match_drop_in_activity.drop_in_id = ' +
                     dropinID + ' AND match_drop_in_activity.activity_id = ' +
                     activityID + ' AND NOT EXISTS (SELECT enrollment.id FROM enrollment, match_drop_in_activity ' +
-                    'WHERE enrollment.client_id = ' + clientID +' AND enrollment.drop_in_activity_id = ' +
+                    'WHERE enrollment.client_id = ' + clientID + ' AND enrollment.drop_in_activity_id = ' +
                     'match_drop_in_activity.id AND match_drop_in_activity.drop_in_id = ' +
                     dropinID + ' AND match_drop_in_activity.activity_id = ' +
                     activityID + ') RETURNING client_id;';
