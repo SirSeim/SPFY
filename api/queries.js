@@ -323,14 +323,9 @@ var queries = {
     },
 
     createDropIn: function (payload) {
-        var queryString = 'INSERT INTO drop_in (date) VALUES ( $1 ) RETURNING date;'; // [payload.date]
-        var params = [];
-        params.push('\'' + payload.date + '\'');
-        var queryData = {
-            string: queryString,
-            params: params
-        };
-        return queryData;
+        var queryString = 'INSERT INTO drop_in (date) VALUES (\'' + payload.date + '\') RETURNING id, date;';
+
+        return queryString;
     },
 
     getDropIns: function () {

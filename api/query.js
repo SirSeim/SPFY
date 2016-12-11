@@ -172,11 +172,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
-            payload = JSON.parse(payload.expression);
-            var data = Queries.createDropIn(payload);
-            // unstringify the data passed in
-            client.query(data.string, data.params, function (err, result) {
+            client.query(Queries.createDropIn(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

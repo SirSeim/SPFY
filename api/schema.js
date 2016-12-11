@@ -30,6 +30,10 @@ var schema = {
         checked: Joi.boolean()
     }).unknown(false),
 
+    createDropIn: Joi.object().keys({
+        date: Joi.string().isoDate().required()
+    }).unknown(false),
+
     addActivitiesToDropIn: Joi.object().keys({
         activities: Joi.array().items(Joi.object().keys({
             id: Joi.number().integer().required(),

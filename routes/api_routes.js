@@ -56,6 +56,11 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/dropins',
+        config: {
+            validate: {
+                payload: Schema.createDropIn
+            }
+        },
         handler: Api.createDropIn
     },
     {

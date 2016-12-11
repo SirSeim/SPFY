@@ -91,7 +91,11 @@ var service = {
             if (err) {
                 return callback(err);
             }
-            callback(undefined, result);
+            var local = result.rows[0];
+            callback(undefined, {
+                id: local.id,
+                date: local.date
+            });
         });
     },
 
