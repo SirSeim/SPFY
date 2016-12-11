@@ -175,7 +175,7 @@ var service = {
             if (!result.rows[0]) {
                 return callback();
             }
-
+            console.log(result.rows[0]);
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -185,7 +185,9 @@ var service = {
                     room: local.room,
                     comments: local.comments,
                     startTime: local.start_time,
-                    endTime: local.end_time
+                    endTime: local.end_time,
+                    programId: local.program_id,
+                    programName: local.program_name
                 });
             }
             return callback(undefined, arr);

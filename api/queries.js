@@ -359,10 +359,10 @@ var queries = {
     getDropinActivities: function (dropin) {
 
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
-                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
-                        'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
-                        'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
-                        'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+                'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                'match_drop_in_activity.end_time, program.id AS program_id, program.program_name FROM activity, ' +
+                'match_drop_in_activity, program WHERE activity.id = match_drop_in_activity.activity_id ' +
+                'AND match_drop_in_activity.drop_in_id = ' + dropin + ' AND activity.program_id = program.id;';
         return queryString;
     },
     addActivitiesToDropIn: function (dropinID, payload) {
