@@ -140,27 +140,6 @@ var service = {
         });
     },
 
-
-    getAllActivities: function (postgres, callback) {
-        Query.getAllActivities(postgres, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    name: local.activity_name,
-                    ongoing: local.ongoing,
-                    startDate: local.start_date,
-                    endDate: local.end_date
-                });
-            }
-            return callback(undefined, arr);
-        });
-    },
-
     getDropinActivities: function (postgres, dropin, callback) {
         Query.getDropinActivities(postgres, dropin, function (err, result) {
             if (err) {
@@ -631,8 +610,6 @@ var service = {
     },
 
     getCasePlan: function (postgres, data, callback) {
-        console.log('We are inside of service.js');
-
         Query.getCasePlan(postgres, data, function (err, result) {
             if (err) {
                 return callback(err);

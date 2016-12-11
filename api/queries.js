@@ -397,7 +397,7 @@ var queries = {
             }
             queryString += '); ';
         }
-        console.log(queryString);
+
         return queryString;
     },
     getDropinActivity: function (dropinID, activityID) {

@@ -143,7 +143,8 @@ var api = {
     },
 
     getDropinActivityEnrollment: function (request, reply) {
-        Service.getDropinActivityEnrollment(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+        Service.getDropinActivityEnrollment(request.postgres,
+        request.params.dropinID, request.params.activityID, function (err, result) {
             if (err) {
                 Respond.failedToGetDropinActivityEnrollment(reply, err);
             } else {
@@ -601,7 +602,6 @@ var api = {
         });
     },
     getCasePlan: function (request, reply) {
-        console.log('We are inside of api.js');
         Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetCasePlan(reply, err);

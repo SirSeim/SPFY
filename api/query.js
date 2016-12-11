@@ -306,23 +306,6 @@ var query = {
         });
     },
 
-    getAllActivities: function (postgres, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getAllActivities(), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
     getActivityDropIns: function (postgres, activity, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -815,7 +798,6 @@ var query = {
     },
 
     getCasePlan: function (postgres, clientID, callback) {
-        console.log('We are inside of query.js');
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
