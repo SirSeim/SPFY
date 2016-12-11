@@ -220,7 +220,9 @@ var service = {
                 room: local.room,
                 comments: local.comments,
                 startTime: local.start_time,
-                endTime: local.end_time
+                endTime: local.end_time,
+                programId: local.program_id,
+                programName: local.program_name
             });
         });
     },
