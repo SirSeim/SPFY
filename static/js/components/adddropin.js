@@ -4,7 +4,7 @@ $(function () {
              $("#newDropInModal").modal("toggle");
         });
 
-        $("#dropin-date-input").attr("value", moment().format("YYYY-MM-DD"));
+        $("#dropin-date-input").val(moment().format("YYYY-MM-DD"));
 
         $.ajax({
           xhrFields: {
@@ -49,7 +49,7 @@ $(function () {
               url: "/api/dropins",
               method: "POST",
               data: {
-                  date: moment($("#dropin-date-input").attr("value")).toISOString()
+                  date: moment($("#dropin-date-input").val()).toISOString()
               }
             }).done(function (data, textStatus, xhr) {
               console.log(data);
