@@ -1,36 +1,4 @@
 $(function () {
-    
-
-    // $('#createdropin').click( function (event) {
-    //     var data = {
-    //         date: currentDate
-    //     }
-
-    //     $.ajax({
-    //         xhrFields: {
-    //             withCredentials: true
-    //         },
-    //         beforeSend: function (xhr) {
-    //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-    //         },
-    //         url: "api/dropins",
-    //         method: "POST",
-    //         data: { expression: JSON.stringify(data) },
-    //         success: function (data) {
-    //             console.log(data);
-
-    //             //clean up the date
-    //             $('#dropin-feedback').empty().text(
-    //               'New Drop-In for ' + data.result.rows[0].date + ' created.');
-    //         },
-    //         error: function (xhr) {
-    //             console.error(xhr);
-
-    //             if (xhr.status === 401) {
-    //                 localStorage.removeItem("authorization");
-    //             }
-    //         }
-    //     });
 
         $("#add-new-dropin").click(function (event) {
              $("#newDropInModal").modal("toggle");
@@ -72,28 +40,12 @@ $(function () {
           console.log(xhr);
         });
 
-        // $.ajax({
-        //     xhrFields: {
-        //         withCredentials: true
-        //     },
-        //     beforeSend: function (xhr) {
-        //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        //     },
-        //     url: 'api/activities',
-        //     method: 'POST',
-        //     data: { expression: JSON.stringify(activityData) },
-        //     success: function (data) {
-        //         console.log(data);
-        //     },
-        //     error: function (xhr) {
-        //         console.error(xhr);
-
-        //         if (xhr.status === 401) {
-        //             localStorage.removeItem("authorization");
-        //         }
-        //     }
-        // });
-
-    // });
+        $("#create-dropin").click( function (event) {
+            url:"/api/dropins"
+            method: 'POST',
+            data: {
+                date: $("#dropin-date-input").attr("value")
+            }
+        });
 
 });
