@@ -581,9 +581,9 @@ var queries = {
 
     removeCheckinForDropin: function (dropinID, payload) {
         var queryString = "";
-        payload.clients.forEach(function (element) {
-            queryString += 'DELETE FROM check_in WHERE drop_in_id = ' + element.dropinID + ' AND ' +
-                            'client_id = ' + element.clientID + ' RETURNING client_id;';
+        payload.clients.forEach(function (clientID) {
+            queryString += 'DELETE FROM check_in WHERE drop_in_id = ' + dropinID + ' AND ' +
+                            'client_id = ' + clientID + ' RETURNING client_id;';
         });
 
         return queryString;
