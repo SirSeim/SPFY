@@ -377,6 +377,10 @@ CREATE TABLE drop_in (
 
 INSERT INTO drop_in (date) VALUES ('2016-10-16');
 INSERT INTO drop_in (date) VALUES ('2016-10-17');
+INSERT INTO drop_in (date) VALUES ('2016-10-31');
+INSERT INTO drop_in (date) VALUES ('2016-11-04');
+INSERT INTO drop_in (date) VALUES ('2016-11-16');
+INSERT INTO drop_in (date) VALUES ('2016-11-21');
 
 DROP TABLE IF EXISTS match_drop_in_activity;
 
