@@ -309,15 +309,25 @@ $(function () {
              $("#newActivityModal").modal("toggle");
         });
 
-        // $("#create-thumbnail").click(function (event) {
-        //      $("#horiscroll").append("<div class=\"thumbnail\" data-id=\"3\">
-        //             <div class="caption"><span class="health">
-        //                 <p>Dental</p>
-        //             </div></div>")
-        // });
+        $.ajax({
+          xhrFields: {
+            withCredentials: true
+          },
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+          },
+          url: "/api/dropins?lastest=3",
+          method: "GET",
+          data: {
+              checked: true
+          }
+        }).done(function (data, textStatus, xhr) {
+          console.log(data);
+          $("#drop-in-date").text(data.result[0].date)
 
-
-
+        }).fail(function (xhr, textStatus, errorThrown) {
+          console.log(xhr);
+        });
 
         // $.ajax({
         //     xhrFields: {
@@ -336,7 +346,7 @@ $(function () {
         //         console.error(xhr);
 
         //         if (xhr.status === 401) {
-        //             localStorage.removeItem("authorization");
+        //             localStorage.removeItem("authorization);
         //         }
         //     }
         // }).then(function (data) {
