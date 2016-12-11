@@ -38,6 +38,7 @@ $(function () {
         });
 
         $("#create-dropin").click( function (event) {
+            console.log("clicked");
             $.ajax({
               xhrFields: {
                 withCredentials: true
@@ -48,10 +49,13 @@ $(function () {
               url: "/api/dropins",
               method: "POST",
               data: {
-                  date: $("#dropin-date-input").attr("value")
+                  date: moment($("#dropin-date-input").attr("value")).toISOString()
               }
             }).done(function (data, textStatus, xhr) {
               console.log(data);
+              //refresh check-in
+              //refresh activities & their enrollment
+
             }).fail(function (xhr, textStatus, errorThrown) {
               console.log(xhr);
             });
