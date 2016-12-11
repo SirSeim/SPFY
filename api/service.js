@@ -164,27 +164,6 @@ var service = {
         });
     },
 
-
-    getAllActivities: function (postgres, callback) {
-        Query.getAllActivities(postgres, function (err, result) {
-            if (err) {
-                return callback(err);
-            }
-            var arr = [];
-            for (var i = 0; i < result.rows.length; i++) {
-                var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    name: local.activity_name,
-                    ongoing: local.ongoing,
-                    startDate: local.start_date,
-                    endDate: local.end_date
-                });
-            }
-            return callback(undefined, arr);
-        });
-    },
-
     getDropinActivities: function (postgres, dropin, callback) {
         Query.getDropinActivities(postgres, dropin, function (err, result) {
             if (err) {
@@ -215,6 +194,56 @@ var service = {
 
     addActivitiesToDropIn: function (postgres, dropinID, payload, callback) {
         Query.addActivitiesToDropIn(postgres, dropinID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
+    getDropinActivity: function (postgres, dropinID, activityID, callback) {
+        Query.getDropinActivity(postgres, dropinID, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var local = result.rows[0];
+            if (!local) {
+                return callback();
+            }
+            return callback(undefined, {
+                id: local.id,
+                name: local.activity_name,
+                room: local.room,
+                comments: local.comments,
+                startTime: local.start_time,
+                endTime: local.end_time
+            });
+        });
+    },
+
+    getDropinActivityEnrollment: function (postgres, dropinID, activityID, callback) {
+        Query.getDropinActivityEnrollment(postgres, dropinID, activityID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    firstName: local.first_name,
+                    lastName: local.last_name
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        Query.addEnrollmentToDropinActivity(postgres, dropinID, activityID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -621,8 +650,6 @@ var service = {
     },
 
     getCasePlan: function (postgres, data, callback) {
-        console.log('We are inside of service.js');
-
         Query.getCasePlan(postgres, data, function (err, result) {
             if (err) {
                 return callback(err);

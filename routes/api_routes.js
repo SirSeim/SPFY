@@ -90,6 +90,26 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}',
+        handler: Api.getDropinActivity
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        handler: Api.getDropinActivityEnrollment
+    },
+    {
+        method: 'POST',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        config: {
+            validate: {
+                payload: Schema.addEnrollmentToDropinActivity
+            }
+        },
+        handler: Api.addEnrollmentToDropinActivity
+    },
+    {
+        method: 'GET',
         path: '/dropins/{dropinID}/enrollment',
         handler: Api.getDropinEnrollment
     },

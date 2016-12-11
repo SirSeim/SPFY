@@ -146,6 +146,37 @@ var api = {
         });
     },
 
+    getDropinActivity: function (request, reply) {
+        Service.getDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivity(reply, err);
+            } else {
+                Respond.getDropinActivity(reply, result);
+            }
+        });
+    },
+
+    getDropinActivityEnrollment: function (request, reply) {
+        Service.getDropinActivityEnrollment(request.postgres,
+        request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivityEnrollment(reply, err);
+            } else {
+                Respond.getDropinActivityEnrollment(reply, result);
+            }
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (request, reply) {
+        Service.addEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.addEnrollmentToDropinActivity(reply, result);
+            }
+        });
+    },
+
     getDropinEnrollment: function (request, reply) {
         Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
@@ -595,7 +626,6 @@ var api = {
         });
     },
     getCasePlan: function (request, reply) {
-        console.log('We are inside of api.js');
         Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetCasePlan(reply, err);

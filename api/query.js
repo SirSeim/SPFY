@@ -217,6 +217,57 @@ var query = {
         });
     },
 
+    getDropinActivity: function (postgres, dropinID, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivity(dropinID, activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinActivityEnrollment: function (postgres, dropinID, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivityEnrollment(dropinID, activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.addEnrollmentToDropinActivity(dropinID, activityID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropinEnrollment: function (postgres, dropinID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -275,23 +326,6 @@ var query = {
             }
 
             client.query(Queries.createDropInActivities(payload), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-
-    getAllActivities: function (postgres, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-
-            client.query(Queries.getAllActivities(), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -794,7 +828,6 @@ var query = {
     },
 
     getCasePlan: function (postgres, clientID, callback) {
-        console.log('We are inside of query.js');
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
