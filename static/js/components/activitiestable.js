@@ -9,7 +9,11 @@ $(function (event) {
           beforeSend: function (xhr) {
               xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
           },
-          url: "/api/dropins/" + dropinId + "/activities/",
+          window.sessionStorage.frontdeskDropinId = data.result[0].id;
+          window.sessionStorageListeners.forEach(function (listener) {
+              listener.ready();
+          });
+          url: "/api/dropins/" + data.result[0].id + "/activities/",
           method: "PUT",
           data: {
               checked: true
