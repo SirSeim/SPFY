@@ -419,7 +419,7 @@ var queries = {
 
         return queryString;
     },
-    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) { // eslint-disable-line no-unused-vars
         var queryString = '';
 
         return queryString;

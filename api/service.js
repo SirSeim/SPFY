@@ -175,7 +175,7 @@ var service = {
             if (!result.rows[0]) {
                 return callback();
             }
-            console.log(result.rows[0]);
+
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
@@ -377,7 +377,7 @@ var service = {
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
-                arr.push(local.client_id)
+                arr.push(local.client_id);
             }
             return callback(undefined, {
                 dropin: parseInt(dropinID),
