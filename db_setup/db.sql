@@ -425,16 +425,15 @@ DROP TABLE IF EXISTS check_in;
 CREATE TABLE check_in (
   id SERIAL PRIMARY KEY,
   drop_in_id integer REFERENCES drop_in (id),
-  client_id integer REFERENCES client (id),
-  date date DEFAULT NULL
+  client_id integer REFERENCES client (id)
 );
 
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 4, '2016-10-20T07:00:00.000Z');
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 3, '2016-10-20T07:00:00.000Z');
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 5, '2016-10-20T07:00:00.000Z');
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 7, '2016-10-20T07:00:00.000Z');
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 1, '2016-10-20T07:00:00.000Z');
-INSERT INTO check_in (drop_in_id, client_id, date) VALUES (2, 10, '2016-10-20T07:00:00.000Z');
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 4);
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 3);
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 5);
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 7);
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 1);
+INSERT INTO check_in (drop_in_id, client_id) VALUES (2, 10);
 
 DROP TABLE IF EXISTS case_note;
 
