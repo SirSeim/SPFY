@@ -397,7 +397,7 @@ var respond = {
     getClientCaseNotes: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully got client's case notes.",
+            message: "Successfully got client's case notes!",
             result: result
         }).code(200);
     },
