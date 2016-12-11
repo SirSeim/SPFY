@@ -65,6 +65,8 @@ $(function (event) {
         // (in this case, every "td" element)
         // adding a "click" event listener with the function that should execute
         // when the event is detected
+        
+
         $("#create-thumbnail").click(function (event) {
             $('#activities-bar').empty();
             selectedActivities = [];

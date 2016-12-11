@@ -9,24 +9,12 @@ $(function (event) {
           beforeSend: function (xhr) {
               xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
           },
-          window.sessionStorage.frontdeskDropinId = data.result[0].id;
-          window.sessionStorageListeners.forEach(function (listener) {
-              listener.ready();
-          });
-          url: "/api/dropins/" + data.result[0].id + "/activities/",
-          method: "PUT",
-          data: {
-              checked: true
-          }
+          url: "/api/dropins/" + frontdeskDropinId + "/activities/" + {activityID} + "/enrollment",
+          method: "GET",
         }).done(function (data, textStatus, xhr) {
-          console.log(data);
-          jThis.prop('disabled', false);
-          updateAlertsbadge();
+
         }).fail(function (xhr, textStatus, errorThrown) {
-          console.log(xhr);
-          jThis.prop('disabled', false);
-          jThis.prop('checked', false);
-          updateAlertsbadge();
+
         });
 
         $.ajax({
