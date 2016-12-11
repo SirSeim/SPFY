@@ -279,14 +279,70 @@ $(function () {
             });
         }
 
+        var setupActivitiesForDropin = function () {
+            $.ajax({
+                xhrFields: {
+                withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities",
+                  method: "GET",
+                  success: function (data) {
+                      console.log(data);
+                  },
+                  error: function (data) {
+                      console.error(data);
+                  }
+            }).done(function (data) {
+                console.log(data);
+                data.result.forEach(function (activity) {
+                    $('#activities-bar').append('<div class="thumbnail" data-id="' + activity.id + '" data-program-id="' +
+                                            activity.programId + '"><div class="caption"><span class="' +
+                                            activity.programName + '"><p>' + activity.name + 
+                                            '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
+                });
+                // data.result.forEach(function (activity) {
+                //     if (activity.programId === 2) {
+                //         $("#health-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else if (activity.programId === 3) {
+                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else if (activity.programId === 4) {
+                //         //need to fix the 4 well issue
+                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else {
+                //         $("#other-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     }
+
+                // });
+
+                // $('.activities-add button').click(function (event) {
+                //     if ($(this).hasClass("active") ) {
+                //         $(this).removeClass("active");
+                //     } else {
+                //         $(this).addClass("active");
+                //     }
+                        
+                // });
+            });
+        };
+
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();
+            setupActivitiesForDropin();
             window.sessionStorageListeners.push({
                 ready: setupCheckin
+            });
+            window.sessionStorageListeners.push({
+                ready: setupActivitiesForDropin
             });
         } else {
             window.sessionStorageListeners.push({
                 ready: setupCheckin
+            });
+            window.sessionStorageListeners.push({
+                ready: setupActivitiesForDropin
             });
         }
         /*
@@ -316,8 +372,37 @@ $(function () {
             event.preventDefault();
         });
 
+        var updateAddActivities = function () {
+            $('#activities-bar').each(function (element) {
+                console.log("BITHCINDFGDF");
+                var jElement = $(element);
+                var programId = jElement.data('program-id');
+                var activityId = jElement.data('id');
+
+                if (programId === 2) {
+                    $("#health-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else if (programId === 3) {
+                    $("#art-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else if (programId === 4) {
+                    // Needs to actually use a 4th well
+                    $("#art-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else {
+                    $("#other-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                }
+            })
+        };
+
         $("#add-new-activity").click(function (event) {
-             $("#newActivityModal").modal("toggle");
+            updateAddActivities();
+            $("#newActivityModal").modal("toggle");
         });
 
 

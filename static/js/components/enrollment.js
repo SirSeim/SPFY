@@ -49,16 +49,6 @@ $(function (event) {
     //     // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
     // });
 
-
-        $('.activities-add button').click(function (event) {
-            if ($(this).hasClass("active") ) {
-                $(this).removeClass("active");
-            } else {
-                $(this).addClass("active");
-            }
-                
-        });
-
         var selectedActivities = [];
 
         var thumbnailClickHandler = function (event) {
@@ -114,7 +104,8 @@ $(function (event) {
             $('.activities-add button.active').each(function (index, element) {
                 var jThis = $(this);
                 selectedActivities.push(jThis.text());
-                $('#activities-bar').append('<div class="thumbnail" data-id="' + jThis.data("id") + '"><div class="caption"><span class="' +
+                $('#activities-bar').append('<div class="thumbnail" data-id="' + jThis.data("id") + '" data-program-id="' +
+                                            jThis.parent().data('category') + '"><div class="caption"><span class="' +
                                             jThis.parent().data('category') + '"><p>'+ jThis.text() + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
             });
