@@ -13,10 +13,14 @@ $(function () {
           beforeSend: function (xhr) {
               xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
           },
-          url: "/api/dropins?lastest=5",
+          url: "/api/dropins?latest=5",
           method: "GET"
         }).done(function (data, textStatus, xhr) {
           console.log(data);
+          window.sessionStorage.frontdeskDropinId = data.result[0].id;
+          window.sessionStorageListeners.forEach(function (listener) {
+              listener.ready();
+          });
           $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
           $("#drop-in-dropdown").append('<a class="dropdown-item" href="#">' +
                                         moment(data.result[1].date).format('dddd L') + 
