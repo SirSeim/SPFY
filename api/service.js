@@ -252,7 +252,16 @@ var service = {
                 return callback(err);
             }
 
-            return callback(undefined, result);
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.client_id);
+            }
+            return callback(undefined,{
+                dropin: parseInt(dropinID),
+                activity: parseInt(activityID),
+                clients: arr
+            });
         });
     },
 

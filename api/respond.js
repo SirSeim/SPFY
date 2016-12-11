@@ -177,6 +177,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToAddEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    addEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,
