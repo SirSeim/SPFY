@@ -14,10 +14,7 @@ $(function () {
               xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
           },
           url: "/api/dropins?lastest=5",
-          method: "GET",
-          data: {
-              checked: true
-          }
+          method: "GET"
         }).done(function (data, textStatus, xhr) {
           console.log(data);
           $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
@@ -41,11 +38,23 @@ $(function () {
         });
 
         $("#create-dropin").click( function (event) {
-            url:"/api/dropins"
-            method: 'POST',
-            data: {
-                date: $("#dropin-date-input").attr("value")
-            }
+            $.ajax({
+              xhrFields: {
+                withCredentials: true
+              },
+              beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+              },
+              url: "/api/dropins",
+              method: "POST",
+              data: {
+                  date: $("#dropin-date-input").attr("value")
+              }
+            }).done(function (data, textStatus, xhr) {
+              console.log(data);
+            }).fail(function (xhr, textStatus, errorThrown) {
+              console.log(xhr);
+            });
         });
 
 });
