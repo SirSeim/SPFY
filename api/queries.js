@@ -848,14 +848,17 @@ var queries = {
     uploadSpreadsheet: function (formdata) {
 
         var removeEmptyArrays = function (data) {
+            console.log("removing..");
             data = 
                 data.filter(function (e) {
                     return e.length !== 0;
                 });
+            console.log("Done.");
             return data;
         };
 
         var trimAllArrays = function (data) {
+            console.log("Trimming...");
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
                     if (typeof data[i][j] === "string" && data[i][j] !== undefined) {
@@ -869,7 +872,75 @@ var queries = {
                     });
                 }
             }
+            console.log("done.");
             return data;
+        };
+
+        var processSheet = function (data) {
+            console.log("Beginning processing...");
+            var processedData = removeEmptyArrays(data);
+            processedData = trimAllArrays(processedData);
+            processedData = removeEmptyArrays(processedData);
+            return processedData;
+        };
+
+        // https://github.com/SheetJS/js-xlsx
+        var parseDateAndTime = function (v, opts, b2) {
+            var date = v | 0;
+            var time = Math.floor(86400 * (v - date)); 
+            var dow = 0;
+            var dout = [];
+            var out = {
+                D: date, 
+                T: time, 
+                u: 86400 * (v - date) - time,
+                y: 0,
+                m: 0,
+                d: 0,
+                H: 0,
+                M: 0,
+                S: 0,
+                q: 0
+            };
+            if (Math.abs(out.u) < 1e-6) {
+                out.u = 0;
+            }
+            if (out.u > 0.999) {
+                out.u = 0;
+                if (++time === 86400) { 
+                    time = 0; 
+                    ++date; 
+                }
+            }
+            if (date === 60) {
+                dout = b2 ? [1317, 10, 29] : [1900, 2, 29]; 
+                dow = 3;
+            } else if (date === 0) {
+                dout = b2 ? [1317, 8, 29] : [1900, 1, 0]; 
+                dow = 6;
+            } else {
+                if (date > 60) { 
+                    --date;
+                }
+                // 1 = Jan 1 1900 
+                var d = new Date(1900, 0, 1);
+                d.setDate(d.getDate() + date - 1);
+                dout = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
+                dow = d.getDay();
+                if (date < 60) {
+                    dow = (dow + 6) % 7;
+                }
+            }
+            out.y = dout[0]; 
+            out.m = dout[1]; 
+            out.d = dout[2];
+            out.S = time % 60; 
+            time = Math.floor(time / 60);
+            out.M = time % 60; 
+            time = Math.floor(time / 60);
+            out.H = time;
+            out.q = dow;
+            return out;
         };
 
         var sheet;
@@ -882,10 +953,7 @@ var queries = {
         }
 
         if (formdata.type === "1") { // Importing Case Management Caseload
-            var data = removeEmptyArrays(sheet[0].data); // remove empty arrays first
-            data = trimAllArrays(data); // trim all strings
-            data = removeEmptyArrays(data); // remove any new empty arrays
-
+            var data = processSheet(sheet[0].data);
             console.log(data);
         } else if (formdata.type === "4") { // Importing Backpack and Sleeping Bad Waitlist
             data = sheet[0].data;
@@ -895,7 +963,20 @@ var queries = {
                     console.log(data[i][j]); 
                 }
             }
+        } else if (formdata.type === "8") { // Importing Youth Master List
+            console.log("I'M IN.");
+            var dropin = processSheet(sheet[0].data);
+            var intake = processSheet(sheet[1].data);
+            var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
+            var test2 = intake[1][0] % 1;
+            console.log(intake);
+            console.log(parseDateAndTime(intake[1][0]));
+            console.log(test);
+            console.log(test2);
+            console.log(dropin);
         }
+
+        
 
         queryString = 'SELECT * FROM program'; // garbage temp string
 
