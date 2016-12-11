@@ -338,17 +338,25 @@ var service = {
         });
     },
 
-    checkin: function (postgres, payload, callback) {
-        Query.checkin(postgres, payload, function (err, result) {
+    addCheckinForDropin: function (postgres, dropinID, payload, callback) {
+        Query.addCheckinForDropin(postgres, dropinID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
-            return callback(undefined, result);
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.client_id)
+            }
+            return callback(undefined, {
+                dropin: parseInt(dropinID),
+                clients: arr
+            });
         });
     },
 
-    getCheckIn: function (postgres, callback) {
-        Query.getCheckIn(postgres, function (err, result) {
+    getCheckInForDropin: function (postgres, dropinID, callback) {
+        Query.getCheckInForDropin(postgres, dropinID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -358,14 +366,12 @@ var service = {
             var arr = [];
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
-                arr.push({
-                    id: local.id,
-                    dropin: local.drop_in_id,
-                    client: local.client_id,
-                    date: local.date
-                });
+                arr.push(local.client_id);
             }
-            return callback(undefined, arr);
+            return callback(undefined, {
+                dropin: parseInt(dropinID),
+                clients: arr
+            });
         });
     },
 

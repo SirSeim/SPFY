@@ -530,20 +530,21 @@ var queries = {
         return queryString;
     },
 
-    checkin: function (payload) {
+    addCheckinForDropin: function (dropinID, payload) {
         var queryString = "";
-        payload.forEach(function (element) {
-            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
-                            element.dropinID + ', ' +
-                            element.clientID + ', ' +
-                            '\'' + element.date + '\'' + ') RETURNING drop_in_id, client_id, date;';
+        payload.clients.forEach(function (clientID) {
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id) SELECT \'' +
+                    dropinID + '\', \'' +
+                    clientID + '\' WHERE NOT EXISTS (SELECT id FROM check_in WHERE drop_in_id = \'' +
+                    dropinID + '\' AND client_id = \'' +
+                    clientID + '\') RETURNING drop_in_id, client_id;';
         });
 
         return queryString;
     },
 
-    getCheckIn: function () {
-        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
+    getCheckInForDropin: function (dropinID) {
+        var queryString = 'SELECT client_id FROM check_in WHERE drop_in_id = ' + dropinID + ';';
 
         return queryString;
     },

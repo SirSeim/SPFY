@@ -275,28 +275,28 @@ var respond = {
             error: err
         }).code(500);
     },
-    failedToCheckIn: function (reply, err) {
+    failedToAddCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to check-in!",
             error: err
         }).code(500);
     },
-    checkin: function (reply, result) {
+    addCheckinForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success checking in!",
             result: result
         }).code(200);
     },
-    failedToGetCheckIn: function (reply, err) {
+    failedToGetCheckInForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get checkin!",
             error: err
         }).code(500);
     },
-    gotCheckIn: function (reply, result) {
+    getCheckInForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting checkin!",

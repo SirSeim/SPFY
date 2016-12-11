@@ -432,13 +432,13 @@ var query = {
         });
     },
 
-    checkin: function (postgres, payload, callback) {
+    addCheckinForDropin: function (postgres, dropinID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.checkin(payload), function (err, result) {
+            client.query(Queries.addCheckinForDropin(dropinID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -466,12 +466,12 @@ var query = {
         });
     },
 
-    getCheckIn: function (postgres, callback) {
+    getCheckInForDropin: function (postgres, dropinID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.getCheckIn(), function (err, result) {
+            client.query(Queries.getCheckInForDropin(dropinID), function (err, result) {
 
                 done();
                 if (err) {

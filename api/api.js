@@ -176,21 +176,21 @@ var api = {
         });
     },
 
-    checkin: function (request, reply) {
-        Service.checkin(request.postgres, request.payload, function (err, result) {
+    addCheckinForDropin: function (request, reply) {
+        Service.addCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCheckIn(reply, err);
+                Respond.failedToAddCheckinForDropin(reply, err);
             } else {
-                Respond.checkin(reply, result);
+                Respond.addCheckinForDropin(reply, result);
             }
         });
     },
-    getCheckIn: function (request, reply) {
-        Service.getCheckIn(request.postgres, function (err, result) {
+    getCheckInForDropin: function (request, reply) {
+        Service.getCheckInForDropin(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
-                Respond.failedToGetCheckIn(reply, err);
+                Respond.failedToGetCheckInForDropin(reply, err);
             } else {
-                Respond.gotCheckIn(reply, result);
+                Respond.getCheckInForDropin(reply, result);
             }
         });
     },

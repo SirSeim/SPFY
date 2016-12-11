@@ -105,13 +105,18 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/checkin',
-        handler: Api.getCheckIn
+        path: '/dropins/{dropinID}/checkin',
+        handler: Api.getCheckInForDropin
     },
     {
         method: 'POST',
-        path: '/checkin',
-        handler: Api.checkin
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.addCheckinForDropin
+            }
+        },
+        handler: Api.addCheckinForDropin
     },
     {
         method: 'POST',

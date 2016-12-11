@@ -42,6 +42,10 @@ var schema = {
             startTime: Joi.string(),
             endTime: Joi.string()
         }).required()).required()
+    }).unknown(false),
+
+    addCheckinForDropin: Joi.object().keys({
+        clients: Joi.array().items(Joi.number().integer().required()).required()
     }).unknown(false)
 };
 
