@@ -226,7 +226,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotActivity: function (reply, result) {
+    getActivity: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activity!",
