@@ -288,7 +288,12 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    name: local.activity_name
+                    name: local.activity_name,
+                    ongoing: local.ongoing,
+                    startDate: local.start_date,
+                    endDate: local.end_date,
+                    programId: local.program_id,
+                    programName: local.program_name
                 });
             }
             return callback(undefined, arr);

@@ -442,7 +442,9 @@ var queries = {
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
+                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, program ' +
+                'WHERE activity.program_id = program.id;';
 
         return queryString;
     },
