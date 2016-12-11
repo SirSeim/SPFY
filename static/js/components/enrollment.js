@@ -49,13 +49,53 @@ $(function (event) {
     //     // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
     // });
 
-    // var selectedActivities = [];
+    $('.activities-add button').click(function (event) {
+        if ($(this).hasClass("active") ) {
+            $(this).removeClass("active");
+        } else {
+            $(this).addClass("active");
+        }
+            
+    });
 
-    // // .delegate adds event listeners to each element with designated class
-    // // (in this case, every "td" element)
-    // // adding an "click" event listener with the function that should execute
-    // // when the event is detected
-    // $('#activities').delegate("td", "click", function (event) {
+    var selectedActivities = [];
+
+    // .delegate adds event listeners to each element with designated class
+    // (in this case, every "td" element)
+    // adding a "click" event listener with the function that should execute
+    // when the event is detected
+    $("#create-thumbnail").click(function (event) {
+        $('#activities-bar').empty();
+        selectedActivities = [];
+        $('.activities-add button.active').each(function (index, element) {
+           selectedActivities.push($(this).text());
+           $('#activities-bar').append('<div class="thumbnail"><div class="caption"><span class="' +
+                                        $(this).parent().data('category') + '"><p>'+ $(this).text() + 
+                                        '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
+        });
+
+        $(".thumbnail-dismiss").click(function (event) {
+            $(this).parent().parent().parent().parent().remove();
+        });
+
+        $(".thumbnail").click(function (event) {
+            $("#activity-title").empty();
+            $("#activity-title").append($(this).text());
+        })
+
+    });
+
+    $(".thumbnail-dismiss").click(function (event) {
+        $(this).parent().parent().parent().parent().parent().remove();
+    });
+
+    $(".thumbnail").click(function (event) {
+        $("#activity-title").empty();
+        $("#activity-title").append($(this).text());
+    })
+    
+
+    // $('#activities').delegate("button", "click", function (event) {
     //     var name = $(this)[0].innerText;
     //     if (!selectedActivities.includes(name)) {
     //         selectedActivities.push(name);
@@ -69,91 +109,91 @@ $(function (event) {
     //     }
     // });
 
-    // var selectedclients = [];
+    var selectedclients = [];
 
-    // $('#clients').delegate("td", "click", function () {
-    //     var client = $(this)[0].innerText;
-    //     if (!selectedclients.includes(client)) {
-    //         selectedclients.push(client);
-    //     }
-    //     $('#selected-clients').empty();
-    //     for (var i = 0; i < selectedclients.length; i++) {
-    //         $('#selected-clients').append('<li class="list-group-item client">'
-    //                 + selectedclients[i]
-    //                 + '</li>');
+    $('#clients').delegate("td", "click", function () {
+        var client = $(this)[0].innerText;
+        if (!selectedclients.includes(client)) {
+            selectedclients.push(client);
+        }
+        $('#selected-clients').empty();
+        for (var i = 0; i < selectedclients.length; i++) {
+            $('#selected-clients').append('<li class="list-group-item client">'
+                    + selectedclients[i]
+                    + '</li>');
 
-    //     }
-    // });
+        }
+    });
 
-    // $('#enroll-button').click(function (event) {
-    //     var signups = [];
-    //     var activityids = [];
+    $('#enroll-button').click(function (event) {
+        var signups = [];
+        var activityids = [];
  
-    //     for (var i = 0; i < allActivities.length; i++) {
-    //         if (selectedActivities.includes(allActivities[i].name)) {
-    //             activityids.push(allActivities[i].id);
-    //         }
-    //     }
+        for (var i = 0; i < allActivities.length; i++) {
+            if (selectedActivities.includes(allActivities[i].name)) {
+                activityids.push(allActivities[i].id);
+            }
+        }
 
-    //     for (var i = 0; i < selectedclients.length; i++) {
-    //         for (var j = 0; j < activityids.length; j++) {
-    //             signups.push({
-    //                 dropinID: currentDropIn.id,
-    //                 clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
-    //                 activityID: activityids[j]
-    //             });
-    //         }
-    //     }
+        for (var i = 0; i < selectedclients.length; i++) {
+            for (var j = 0; j < activityids.length; j++) {
+                signups.push({
+                    dropinID: currentDropIn.id,
+                    clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
+                    activityID: activityids[j]
+                });
+            }
+        }
 
-    //     $.ajax({
-    //         url: "api/enroll",
-    //         method: "POST",
-    //         data: { expression: JSON.stringify(signups) },
-    //         success: function (data) {
-    //             console.log(data);
-    //             var clientString = "";
-    //             for (var i = 0; i < selectedclients.length; i++) {
-    //                 clientString += selectedclients[i] + '<br>';
-    //             }
-    //             var activityString = "";
-    //             for (var i = 0; i < selectedActivities.length; i++) {
-    //                 activityString += selectedActivities[i] + '<br>';
-    //             }
+        $.ajax({
+            url: "api/enroll",
+            method: "POST",
+            data: { expression: JSON.stringify(signups) },
+            success: function (data) {
+                console.log(data);
+                var clientString = "";
+                for (var i = 0; i < selectedclients.length; i++) {
+                    clientString += selectedclients[i] + '<br>';
+                }
+                var activityString = "";
+                for (var i = 0; i < selectedActivities.length; i++) {
+                    activityString += selectedActivities[i] + '<br>';
+                }
 
-    //             $('#checkin-enrollment-feedback').empty().append(
-    //                 '<div><h4>Clients Successfully Enrolled</h4>' +
-    //                 '<h4>Clients</h4>' + clientString +
-    //                 '<h4>Activities</h4>' + activityString +
-    //                 '</div>');
+                $('#checkin-enrollment-feedback').empty().append(
+                    '<div><h4>Clients Successfully Enrolled</h4>' +
+                    '<h4>Clients</h4>' + clientString +
+                    '<h4>Activities</h4>' + activityString +
+                    '</div>');
 
-    //             $('#selected-clients').empty();
-    //             $('#selected-activities').empty();
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //             $('#enrollment-feedback').empty().append(
-    //                 '<div><h4>Enrollment failed</h4>');
-    //         }
-    //     });
-    // });
+                $('#selected-clients').empty();
+                $('#selected-activities').empty();
+            },
+            error: function (data) {
+                console.error(data);
+                $('#enrollment-feedback').empty().append(
+                    '<div><h4>Enrollment failed</h4>');
+            }
+        });
+    });
     
-    // // var activityData = {
-    // //     activityName: "Medical Care",
-    // //     ongoing: false,
-    // //     startDate: '2016-10-20',
-    // //     endDate: '2016-10-22'
-    // // };
+    // var activityData = {
+    //     activityName: "Medical Care",
+    //     ongoing: false,
+    //     startDate: '2016-10-20',
+    //     endDate: '2016-10-22'
+    // };
 
-    // // $.ajax({
-    // //     url: "api/activity",
-    // //     method: "POST",
-    // //     data: { expression: JSON.stringify(activityData) },
-    // //     success: function (data) {
-    // //         console.log()
-    // //         console.log(data);
-    // //     },
-    // //     error: function (data) {
-    // //         console.error(data);
-    // //     }
-    // // });
+    // $.ajax({
+    //     url: "api/activity",
+    //     method: "POST",
+    //     data: { expression: JSON.stringify(activityData) },
+    //     success: function (data) {
+    //         console.log()
+    //         console.log(data);
+    //     },
+    //     error: function (data) {
+    //         console.error(data);
+    //     }
+    // });
 });
