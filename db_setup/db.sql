@@ -399,22 +399,21 @@ DROP TABLE IF EXISTS enrollment;
 
 CREATE TABLE enrollment (
   id SERIAL PRIMARY KEY,
-  drop_in_id integer REFERENCES drop_in (id),
-  client_id integer REFERENCES client (id),
-  activity_id integer REFERENCES activity (id)
+  drop_in_activity_id integer REFERENCES match_drop_in_activity (id),
+  client_id integer REFERENCES client (id)
 );
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 4);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 3, 4);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 4);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (1, 2);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (1, 3);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (1, 4);
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 2, 3);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 3);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 1, 3);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (2, 2);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (2, 4);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (2, 1);
 
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 4, 1);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 5, 1);
-INSERT INTO enrollment (drop_in_id, client_id, activity_id) VALUES (2, 7, 1);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (3, 4);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (3, 5);
+INSERT INTO enrollment (drop_in_activity_id, client_id) VALUES (3, 7);
 
 DROP TABLE IF EXISTS check_in;
 
