@@ -348,14 +348,14 @@ var respond = {
     failedToRemoveCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to checkout client from dropin!",
+            message: "Unable to checkout clients from dropin!",
             error: err
         }).code(500);
     },
     removeCheckinForDropin: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success checking out client from dropin!",
+            message: "Success checking out clients from dropin!",
             result: result
         }).code(200);
     },
