@@ -61,6 +61,15 @@ $(function (event) {
 
         var selectedActivities = [];
 
+        var thumbnailClickHandler = function (event) {
+            var jThis = $(this);
+
+            $("#activity-title").empty();
+            $("#activity-title").append(jThis.text());
+
+            
+        };
+
         // .delegate adds event listeners to each element with designated class
         // (in this case, every "td" element)
         // adding a "click" event listener with the function that should execute
@@ -71,9 +80,10 @@ $(function (event) {
             $('#activities-bar').empty();
             selectedActivities = [];
             $('.activities-add button.active').each(function (index, element) {
-               selectedActivities.push($(this).text());
-               $('#activities-bar').append('<div class="thumbnail"><div class="caption"><span class="' +
-                                            $(this).parent().data('category') + '"><p>'+ $(this).text() + 
+                var jThis = $(this);
+                selectedActivities.push(jThis.text());
+                $('#activities-bar').append('<div class="thumbnail" data-id="' + jThis.data("id") + '"><div class="caption"><span class="' +
+                                            jThis.parent().data('category') + '"><p>'+ jThis.text() + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
             });
 
@@ -81,10 +91,7 @@ $(function (event) {
                 $(this).parent().parent().parent().parent().remove();
             });
 
-            $(".thumbnail").click(function (event) {
-                $("#activity-title").empty();
-                $("#activity-title").append($(this).text());
-            })
+            $(".thumbnail").click(thumbnailClickHandler);
 
         });
 
@@ -92,10 +99,7 @@ $(function (event) {
             $(this).parent().parent().parent().parent().parent().remove();
         });
 
-        $(".thumbnail").click(function (event) {
-            $("#activity-title").empty();
-            $("#activity-title").append($(this).text());
-        })
+        $(".thumbnail").click(thumbnailClickHandler);
         
 
         // $('#activities').delegate("button", "click", function (event) {
