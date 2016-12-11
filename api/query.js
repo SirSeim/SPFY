@@ -483,14 +483,13 @@ var query = {
         });
     },
 
-    checkout: function (postgres, payload, callback) {
+    removeCheckinForDropin: function (postgres, dropinID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            payload = JSON.parse(payload.expression);
-            client.query(Queries.checkout(payload), function (err, result) {
+            client.query(Queries.removeCheckinForDropin(dropinID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

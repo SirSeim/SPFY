@@ -579,11 +579,11 @@ var queries = {
         return queryString;
     },
 
-    checkout: function (payload) {
+    removeCheckinForDropin: function (dropinID, payload) {
         var queryString = "";
-        payload.forEach(function (element) {
+        payload.clients.forEach(function (element) {
             queryString += 'DELETE FROM check_in WHERE drop_in_id = ' + element.dropinID + ' AND ' +
-                            'client_id = ' + element.clientID + ' RETURNING id, drop_in_id, client_id, date;';
+                            'client_id = ' + element.clientID + ' RETURNING client_id;';
         });
 
         return queryString;

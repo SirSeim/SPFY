@@ -217,12 +217,12 @@ var api = {
             }
         });
     },
-    checkout: function (request, reply) {
-        Service.checkout(request.postgres, request.payload, function (err, result) {
+    removeCheckinForDropin: function (request, reply) {
+        Service.removeCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCheckOut(reply, err);
+                Respond.failedToRemoveCheckinForDropin(reply, err);
             } else {
-                Respond.checkout(reply, result);
+                Respond.removeCheckinForDropin(reply, result);
             }
         });
     },

@@ -140,8 +140,13 @@ var apiRoutes = [
     },
     {
         method: 'DELETE',
-        path: '/checkin',
-        handler: Api.checkout
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.removeCheckinForDropin
+            }
+        },
+        handler: Api.removeCheckinForDropin
     },
     {
         method: 'POST',

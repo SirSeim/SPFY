@@ -345,17 +345,17 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToCheckOut: function (reply, err) {
+    failedToRemoveCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to checkout!",
+            message: "Unable to checkout client from dropin!",
             error: err
         }).code(500);
     },
-    checkout: function (reply, result) {
+    removeCheckinForDropin: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success checking out!",
+            message: "Success checking out client from dropin!",
             result: result
         }).code(200);
     },

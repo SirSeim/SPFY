@@ -397,8 +397,8 @@ var service = {
         });
     },
 
-    checkout: function (postgres, payload, callback) {
-        Query.checkout(postgres, payload, function (err, result) {
+    removeCheckinForDropin: function (postgres, dropinID, payload, callback) {
+        Query.removeCheckinForDropin(postgres, dropinID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

@@ -50,6 +50,10 @@ var schema = {
 
     addEnrollmentToDropinActivity: Joi.object().keys({
         clients: Joi.array().items(Joi.number().integer().required()).required()
+    }).unknown(false),
+
+    removeCheckinForDropin: Joi.object().keys({
+        clients: Joi.array().items(Joi.number().integer().required()).required()
     }).unknown(false)
 };
 
