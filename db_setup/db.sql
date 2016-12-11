@@ -340,6 +340,9 @@ CREATE TABLE program (
   program_name varchar(45) DEFAULT NULL
 );
 
+INSERT INTO program (program_name) VALUES ('Other');
+INSERT INTO program (program_name) VALUES ('Health & Wellness');
+INSERT INTO program (program_name) VALUES ('Arts & Creativity');
 INSERT INTO program (program_name) VALUES ('Education & Employment');
 
 DROP TABLE IF EXISTS subprogram;
@@ -358,15 +361,20 @@ DROP TABLE IF EXISTS activity;
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
   activity_name varchar(45) DEFAULT NULL,
-  ongoing boolean DEFAULT NULL,
+  ongoing boolean DEFAULT true,
   start_date date DEFAULT NULL,
-  end_date date DEFAULT NULL
+  end_date date DEFAULT NULL,
+  program_id integer REFERENCES program (id) DEFAULT 1
 );
 
-INSERT INTO activity (activity_name) VALUES ('Medical Care');
-INSERT INTO activity (activity_name) VALUES ('Medi-Cal Registration');
-INSERT INTO activity (activity_name) VALUES ('HIV Testing');
-INSERT INTO activity (activity_name) VALUES ('Dental Care');
+INSERT INTO activity (activity_name, program_id) VALUES ('Medical Care', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('Medi-Cal Registration', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('HIV Testing', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('Dental Care', 2);
+INSERT INTO activity (activity_name, program_id) VALUES ('Digital Arts Lab', 4);
+INSERT INTO activity (activity_name, program_id) VALUES ('Mock Interviews', 4);
+INSERT INTO activity (activity_name, program_id) VALUES ('Life Skills Program', 4);
+INSERT INTO activity (activity_name) VALUES ('Legal');
 
 DROP TABLE IF EXISTS drop_in;
 
