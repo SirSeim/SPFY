@@ -101,11 +101,7 @@ $(function () {
               var signups = [];
 
               for (var i = 0; i < selectedclients.length; i++) {
-                  signups.push({
-                      dropinID: currentDropIn.id,
-                      clientID: selectedclients[i].id,
-                      date: moment().format("YYYY-MM-DD")
-                  });
+                  signups.push(selectedclients[i].id);
               }
 
               $.ajax({
@@ -115,15 +111,17 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                  url: "/api/checkin",
+                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
                   method: "POST",
                   contentType: "application/json",
                   dataType: "json",
-                  data: JSON.stringify(signups),
+                  data: JSON.stringify({
+                    clients: signups
+                  }),
                   success: function (data) {
                       console.log(data);
                       var clientString = "";
-                      var checkedInClients = data.result.rows;
+                      var checkedInClients = data.result;
                       for (var i = 0; i < checkedInClients.length; i++) {
                           var client = window.getDataById(clients, checkedInClients[i].client_id);
                           clientString += client.firstName + ' ' + client.lastName + '<br>';
