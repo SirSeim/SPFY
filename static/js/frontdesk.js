@@ -323,8 +323,13 @@ $(function () {
           }
         }).done(function (data, textStatus, xhr) {
           console.log(data);
-          $("#drop-in-date").text(data.result[0].date)
-
+          $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
+          $("#drop-in-dropdown").append('<a class="dropdown-item" href="#">' +
+                                        moment(data.result[1].date).format('dddd L') + 
+                                        '</a>')
+                                .append('<a class="dropdown-item" href="#">' +
+                                        moment(data.result[2].date).format('dddd L') + 
+                                        '</a>');
         }).fail(function (xhr, textStatus, errorThrown) {
           console.log(xhr);
         });
