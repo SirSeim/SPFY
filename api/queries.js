@@ -419,6 +419,11 @@ var queries = {
 
         return queryString;
     },
+    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+        var queryString = '';
+
+        return queryString;
+    }
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 

@@ -153,6 +153,16 @@ var api = {
         });
     },
 
+    addEnrollmentToDropinActivity: function (request, reply) {
+        Service.addEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.addEnrollmentToDropinActivity(reply, result);
+            }
+        });
+    },
+
     getDropinEnrollment: function (request, reply) {
         Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {

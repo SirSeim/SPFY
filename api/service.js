@@ -218,6 +218,16 @@ var service = {
         });
     },
 
+    addEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        Query.addEnrollmentToDropinActivity(postgres, dropinID, activityID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(undefined, result);
+        });
+    },
+
     getDropinEnrollment: function (postgres, dropinID, callback) {
         Query.getDropinEnrollment(postgres, dropinID, function (err, result) {
             if (err) {
