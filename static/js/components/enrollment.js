@@ -67,7 +67,39 @@ $(function (event) {
             $("#activity-title").empty();
             $("#activity-title").append(jThis.text());
 
-            
+            $.ajax({
+                xhrFields: {
+                  withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities/" + jThis.data("id") + "/enrollment",
+                method: "GET",
+                success: function (data) {
+                    console.log("/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities/" + jThis.data("id") + "/enrollment");
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.error(data);
+                }
+            }).done(function (data, textStatus, xhr) {
+                $('#activities-table').empty();
+                var table = $('#activities-table').DataTable({
+                    // data: dataset,
+                    columns: Object.keys(data.results[0]).map(function (propName) {
+                              return { name: propName, data: propName, title: propName };
+                            }) // setting property names as column headers for now
+                });
+                
+                // manually setting these for testing
+                // will probably have these in a local "check-in table settings"
+                // button attached to the table later on
+                table.column(5).visible(false);
+                table.column(6).visible(false);
+            }).fail(function (xhr, textStatus, errorThrown) {
+
+            });
         };
 
         // .delegate adds event listeners to each element with designated class

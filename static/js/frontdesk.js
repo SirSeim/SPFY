@@ -32,9 +32,6 @@ $(function () {
                       $('#viewclient-modal').find('#client-name')
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
-                      $('#viewclient-modal #client-modal-data').data($(this).data());
-                      console.log($(this).data("checkedin"));
-                      $('#viewclient-modal #checkin-checkbox').prop("checked", window.getDataById(clients, $(this).data("id")).checkedin);
                   });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
@@ -244,42 +241,38 @@ $(function () {
                     }
                 });
                 clients.forEach(function (client) {
-                  checkins.forEach(function (checkin) {
-                      if (checkin === client.id) {
-                          client.checkedin = true;
-                          // dataset.push(client);
-                          var row = table.row.add({
-                              // moment(checkin.date).format('MM-DD-YY'),
-                              id: client.id,
-                              firstName: client.firstName,
-                              lastName: client.lastName,
-                              dob: moment(client.dob).format('MM-DD-YY'),
-                              status: '<span class="dot"></span>',
-                              phone: client.phone,
-                              email: client.email,
-                              checkedin: true
-                          }).draw();
-                          $(row.node()).data({ // node() returns the actual html tag
-                              // moment(checkin.date).format('MM-DD-YY'),
-                              id: client.id,
-                              firstName: client.firstName,
-                              lastName: client.lastName,
-                              dob: moment(client.dob).format('MM-DD-YY'),
-                              status: client.status,
-                              checkedin: true
-                          });
-                          var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                          $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
-                          // according to stackoverflow, need to manually reattach event handlers
-                          // to dynamically added elements, even for modals
-                          $(row.node()).data('toggle', 'modal')
-                                       .data('target', '#viewclient-modal')
-                                       .on('click', function (event) {
-                                          $('#viewclient-modal').find('#client-name')
-                                                                .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
-                                          $('#viewclient-modal').modal('toggle');
-                                          $('#viewclient-modal #checkin-checkbox').prop('checked', true);
-                                       });
+                    checkins.forEach(function (checkin) {
+                        if (checkin === client.id) {
+                            // dataset.push(client);
+                            var row = table.row.add({
+                                // moment(checkin.date).format('MM-DD-YY'),
+                                id: client.id,
+                                firstName: client.firstName,
+                                lastName: client.lastName,
+                                dob: moment(client.dob).format('MM-DD-YY'),
+                                status: '<span class="dot"></span>',
+                                phone: client.phone,
+                                email: client.email
+                            }).draw();
+                            $(row.node()).data({ // node() returns the actual html tag
+                                // moment(checkin.date).format('MM-DD-YY'),
+                                id: client.id,
+                                firstName: client.firstName,
+                                lastName: client.lastName,
+                                dob: moment(client.dob).format('MM-DD-YY'),
+                                status: client.status 
+                            }); 
+                            var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                            $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                            // according to stackoverflow, need to manually reattach event handlers
+                            // to dynamically added elements, even for modals
+                            $(row.node()).data('toggle', 'modal')
+                                         .data('target', '#viewclient-modal')
+                                         .on('click', function (event) {
+                                              $('#viewclient-modal').find('#client-name')
+                                                                    .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                              $('#viewclient-modal').modal('toggle');
+                                         });
                         }
                     });
                 });
