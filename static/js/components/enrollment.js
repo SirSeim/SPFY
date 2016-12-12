@@ -29,18 +29,10 @@ $(function (event) {
             }
         }).done(function (data, textStatus, xhr) {
             $('#activities-table').empty();
-            var table = $('#activities-table').DataTable({
-                // data: dataset,
-                columns: Object.keys(data.results[0]).map(function (propName) {
-                          return { name: propName, data: propName, title: propName };
-                        }) // setting property names as column headers for now
-            });
+
+            //populate the rows with clients
+            $("#activities-table-body").append('<tr><td>'+ data.result.firstName + " " + data.result.lastName +'</td></tr>');
             
-            // manually setting these for testing
-            // will probably have these in a local "check-in table settings"
-            // button attached to the table later on
-            table.column(5).visible(false);
-            table.column(6).visible(false);
         }).fail(function (xhr, textStatus, errorThrown) {
 
         });
@@ -148,88 +140,24 @@ $(function (event) {
         });
     });
 
+    //onSearch activities table functionality
+    $('#activity-client-search').keyup(function (event) {
 
-// ----------------------
-// HISTORY OF THIS PAGE
-// ----------------------
+        // $("#activities-onSearch-table-body").append('<tr><td>' + ED INSERTS SEARCH STUFF HERE - BUTTON BELOW + '</td>'
+        //                                             +'<td><button type="button" class="btn btn-success btn-sm">'
+        //                                             +'<i class="fa fa-plus"></i></button></td></tr>');
 
-// var allActivities = [];
-    // var currentDropIn = {};
-
-    // // ajax chaining to ensure that asynchronous calls run smoothly
-    // // .then and .done only run after the initial request goes through
-    // $.ajax({
-    //     url: "api/dropins",
-    //     method: "GET",
-    //     success: function (data) {
-    //         console.log("drop-ins");
-    //         console.log(data);
-    //     },
-    //     error: function (data) {
-    //         console.error(data);
-    //     }
-    // }).then(function (data) {
-    //     var dropins = data.result;
-    //     currentDropIn = dropins[dropins.length - 1];
-    // }).then(function () {
-    //     return $.ajax({
-    //         url: "api/dropins/" + currentDropIn.id + "/activities",
-    //         method: "GET",
-    //         success: function (data) {
-    //             console.log(data);
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //         }
-    //     });
-    // }).done(function (data) {
-    //     allActivities = data.result ? data.result.slice() : 
-    //             [{   id: 2,
-    //                 name: 'Medi-Cal Registration',
-    //                 room: 'Clinic',
-    //                 comments: '',
-    //                 startTime: '12:30:00',
-    //                 endTime: '13:30:00'
-    //             }];
-    //     // hardcoding at least one activity into each drop-in to avoid "no activities" errors
-    //     // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
-    // });
+       $('#enroll').click(function (event) {
+        //enroll the selected client into the activity
+       });
 
 
-    // $('#activities').delegate("button", "click", function (event) {
-    //     var name = $(this)[0].innerText;
-    //     if (!selectedActivities.includes(name)) {
-    //         selectedActivities.push(name);
-    //     }
-    //     // refreshSelectedActivities();
-    //     $('#selected-activities').empty();
-    //     for (var i = 0; i < selectedActivities.length; i++) {
-    //         $('#selected-activities').append('<li class="list-group-item activity">'
-    //                 + selectedActivities[i]
-    //                 + '</li>');
-    //     }
-    // });
-
+        if ( !$('#activity-client-search').val()) {
+            $("#activities-onSearch-table-body").empty();
+        }
+    });
+        
 
     
-    // var activityData = {
-    //     activityName: "Medical Care",
-    //     ongoing: false,
-    //     startDate: '2016-10-20',
-    //     endDate: '2016-10-22'
-    // };
-
-    // $.ajax({
-    //     url: "api/activity",
-    //     method: "POST",
-    //     data: { expression: JSON.stringify(activityData) },
-    //     success: function (data) {
-    //         console.log()
-    //         console.log(data);
-    //     },
-    //     error: function (data) {
-    //         console.error(data);
-    //     }
-    // });
 
 });
