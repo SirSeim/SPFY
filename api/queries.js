@@ -991,6 +991,7 @@ var queries = {
                 y: 0,
                 m: 0,
                 d: 0,
+                date: "",
                 H: 0,
                 M: 0,
                 S: 0,
@@ -1028,6 +1029,7 @@ var queries = {
             out.y = dout[0]; 
             out.m = dout[1]; 
             out.d = dout[2];
+            out.date = new Date(out.y, out.m - 1, out.d).toISOString();
             out.S = time % 60; 
             time = Math.floor(time / 60);
             out.M = time % 60; 
@@ -1058,21 +1060,54 @@ var queries = {
                 }
             }
         } else if (formdata.type === "8") { // Importing Youth Master List
-            console.log("I'M IN.");
             var dropin = processSheet(sheet[0].data);
             var intake = processSheet(sheet[1].data);
-            var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
-            var test2 = intake[1][0] % 1;
-            console.log(intake);
-            console.log(parseDateAndTime(intake[1][0]));
-            console.log(test);
-            console.log(test2);
-            console.log(dropin);
+            var date;
+            var headers = [];
+            var dates = [];
+            var visits = [];
+
+            for (var i = 0; i < dropin.length; i++) {
+                for (var j = 0; j < dropin[i].length; j++) {
+                    if (i === 0 && j <= 8) {
+                        headers.push(dropin[i][j]);
+                    } else if (i === 0 && j > 8) {
+                        if (typeof dropin[i][j] === "string" 
+                            && (dropin[i][j].toLowerCase().includes("visits") 
+                            || dropin[i][j].toLowerCase().includes("unduplicated"))) {
+                            visits.push(j);
+                        } else {
+                            console.log(dropin[i][j])
+                            dates.push(j);
+                            date = parseDateAndTime(dropin[i][j]);
+                            queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
+                            "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
+                        }
+                    }
+                    /*if (dropin[i][j] != undefined) {
+                        if (typeof dropin[i][j] === "number" && dropin[i][j] > 40000) {
+                            date = parseDateAndTime(dropin[i][j]);
+                            dropin[i][j] = date.date;
+                        }
+                        //console.log(dropin[i][j]);
+                    }*/
+                }
+            }
+
+            //console.log(headers);
+            //console.log(dates);
+
+
+            //var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
+            //var test2 = intake[1][0] % 1;
+            //console.log(intake);
+            //console.log(parseDateAndTime(intake[1][0]));
+            //console.log(test);
+            //console.log(test2);
+            //console.log(dropin);
         }
 
-        
-
-        queryString = 'SELECT * FROM program'; // garbage temp string
+        console.log(queryString);
 
         return queryString;
     }
