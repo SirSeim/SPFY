@@ -108,8 +108,7 @@ $(function (event) {
                                             jThis.parent().data('category') + '"><div class="caption"><span class="' +
                                             jThis.parent().data('category') + '"><p>'+ jThis.text() + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
-            });
-
+                });
             $(".thumbnail-dismiss").click(function (event) {
                 $(this).parent().parent().parent().parent().remove();
             });
@@ -139,21 +138,6 @@ $(function (event) {
         //     }
         // });
 
-        var selectedclients = [];
-
-        $('#clients').delegate("td", "click", function () {
-            var client = $(this)[0].innerText;
-            if (!selectedclients.includes(client)) {
-                selectedclients.push(client);
-            }
-            $('#selected-clients').empty();
-            for (var i = 0; i < selectedclients.length; i++) {
-                $('#selected-clients').append('<li class="list-group-item client">'
-                        + selectedclients[i]
-                        + '</li>');
-
-            }
-        });
 
         $('#enroll-button').click(function (event) {
             var signups = [];

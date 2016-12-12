@@ -400,6 +400,9 @@ INSERT INTO drop_in (date) VALUES ('2016-10-31');
 INSERT INTO drop_in (date) VALUES ('2016-11-04');
 INSERT INTO drop_in (date) VALUES ('2016-11-16');
 INSERT INTO drop_in (date) VALUES ('2016-11-21');
+-- there are dropins here that might not be populated with clients checked in
+-- or activities chosen, so frontend will return error because it is looking
+-- for data that the DB doesn't have
 
 DROP TABLE IF EXISTS match_drop_in_activity;
 
