@@ -126,6 +126,26 @@ var api = {
         });
     },
 
+    getIntake: function (request, reply) {
+        Service.getIntake(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetIntake(reply, err);
+            } else {
+                Respond.getIntake(reply, result);
+            }
+        });
+    },
+
+    intakeCompleted: function (request, reply) {
+        Service.intakeCompleted(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToIntakeCompleted(reply, err);
+            } else {
+                Respond.intakeCompleted(reply, result);
+            }
+        });
+    },
+
     getActivity: function (request, reply) {
         Service.getActivity(request.postgres, request.params.activityID, function (err, result) {
             if (err) {
