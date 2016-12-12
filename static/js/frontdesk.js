@@ -14,6 +14,8 @@
 
 $(function () {
 
+  window.clickHandlers = window.clickHandlers || {};
+
   $.ajax({
         xhrFields: {
             withCredentials: true
@@ -422,6 +424,8 @@ $(function () {
                                             activity.programName + '"><p>' + activity.name + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
                 });
+
+                $(".thumbnail").click(window.clickHandlers.enrollmentThumbnail);
                 // data.result.forEach(function (activity) {
                 //     if (activity.programId === 2) {
                 //         $("#health-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
