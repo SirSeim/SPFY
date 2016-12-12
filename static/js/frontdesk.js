@@ -418,9 +418,7 @@ $(function () {
             });
         });
 
-        $("#createNewActivity").on("click", function () {
-            $("#createactivity-modal").modal("toggle");
-        });
+        
     };
 
     var globalData = []

@@ -443,6 +443,7 @@ $(function () {
                 });
             };
         });
+
     };
 
     var globalData = []

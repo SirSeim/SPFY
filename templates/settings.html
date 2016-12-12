@@ -12,6 +12,7 @@
             <li class="account link selected"><a href="#account-settings">Account</a></li>
             <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
             <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
+            <li class="client-profile link"><a href="#create-new-activity">Create New Activity</a></li>
             <li class="import-data link"><a href="#import-data-settings">Import Data</a></li>
           </ul>
           </ul>
@@ -62,6 +63,34 @@
                 
                 </tbody>
               </table>
+            </div>
+          </div> <!-- Flag Notificaitons -->
+        </div>
+
+        <div id="create-new-activity" class="hidden">
+          <div id="create-activity">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4>
+                  Create New Activity
+                </h4>
+                <p>Determine which flags you would like to receive alerts for.</p>
+              </div>
+              <div>
+                Activity Name: <input type="text" id="createActivityName"> <br>
+                Location: <input type="text" id="createActivityLocation">  <br>
+                Start Time: <input type="text" id="createActivityStart" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
+                End Time: <input type="text" id="createActivityEnd" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
+                Program: 
+                <select id="createActivityPrograms" name="programs" value="select">
+                  <option value="0">Select a Program</option>
+                </select> <br>
+                <span class="activityWarning warning hidden">Your activity must have a name, location, and program.</span>
+              </div>
+              <div>
+                <button type="button" class="btn btn-primary" id="createactivity-modal-save-button">Submit</button>
+              </div>
+              </div>
             </div>
           </div> <!-- Flag Notificaitons -->
         </div>
@@ -159,11 +188,13 @@
 
 {% include "modals/newstatus.html" %}
 {% include "modals/newflag.html" %}
+{% include "modals/createnewactivity.html" %}
 {% include "components/_basescript.html" %}
   
   <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->
   <script type="text/babel" src="/static/js/settings.js"></script>
   <script src="/static/js/modals/newstatus.js"></script>
   <script src="/static/js/modals/newflag.js"></script>
+  <script src="/static/js/createnewactivity.js"></script>
   
 {% include "components/_footer.html" %}

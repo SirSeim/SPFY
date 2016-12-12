@@ -17,7 +17,6 @@ $(function () {
             console.log(data.result.rows);
             var counter = 1;
             data.result.rows.forEach(function (element) {
-                console.log(element.program_name);
                 $("#createActivityPrograms").append("<option value=\'" + counter + "\'>" + element.program_name + "</option>");
                 counter++;
             });
@@ -37,11 +36,6 @@ $(function () {
         var startTime = $('#createActivityStart').combodate('getValue', 'HH:mm');
         var endTime = $('#createActivityEnd').combodate('getValue', 'HH:mm');
         var program = $("#createActivityPrograms").val();
-        console.log(name);
-        console.log(location);
-        console.log(startTime);
-        console.log(endTime);
-        console.log(program)
         if (name === "" || location === "" || program === 0) {
             $(".activityWarning").removeClass("hidden");
         } else {
@@ -67,7 +61,6 @@ $(function () {
               },
               success: function (data) {
                     console.log("Activity added!");
-                    $("#createactivity-modal").modal("toggle");
               },
               error: function (xhr) {
                 console.error(xhr);
