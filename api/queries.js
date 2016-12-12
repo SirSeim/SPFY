@@ -442,17 +442,17 @@ var queries = {
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, activity.start_time, ' +
-                'activity.end_time, activity.program_id AS program_id, program.program_name FROM activity, program ' +
-                'WHERE activity.program_id = program.id;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, ' +
+                'program.program_name FROM activity, program WHERE activity.program_id = program.id;';
 
         return queryString;
     },
 
     getActivity: function (activity) {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, activity.start_time, ' +
-                'activity.end_time, activity.program_id AS program_id, program.program_name FROM activity, ' +
-                'program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, program.program_name ' +
+                'FROM activity, program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
 
         return queryString;
     },
