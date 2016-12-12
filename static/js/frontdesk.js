@@ -18,6 +18,7 @@ $(function () {
 
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var clients = JSON.parse(window.sessionStorage.clients);
+        var checkinTable;
 
         // modify the clientprofiletable once it comes onto the page
         // to include 'select' button specific to checkin process
@@ -177,7 +178,7 @@ $(function () {
                 var dataset = [];
                 var checkins = data.result.clients;
                 $('#checked-in tbody').empty();
-                var table = $('#checked-in').DataTable({
+                checkinTable = $('#checked-in').DataTable({
                     // data: dataset,
                     columns: Object.keys(clients[0]).map(function (propName) {
                               return { name: propName, data: propName, title: propName };
@@ -187,8 +188,8 @@ $(function () {
                 // manually setting these for testing
                 // will probably have these in a local "check-in table settings"
                 // button attached to the table later on
-                table.column(5).visible(false);
-                table.column(6).visible(false);
+                checkinTable.column(5).visible(false);
+                checkinTable.column(6).visible(false);
     
                 // initial solution for parametrizing tables
                 // add button for toggling column visibility
@@ -213,19 +214,19 @@ $(function () {
                     numberDisplayed: 2,
                     onChange: function (option, checked) {
                         if (checked) {
-                          table.column($(option).attr('title') + ':name').visible(true);
+                          checkinTable.column($(option).attr('title') + ':name').visible(true);
                         } else {
-                          table.column($(option).attr('title') + ':name').visible(false, false); // 2nd false prevents Datatables from recalculating layout
+                          checkinTable.column($(option).attr('title') + ':name').visible(false, false); // 2nd false prevents Datatables from recalculating layout
                         }
                     },
                     onSelectAll: function () {
                         $('#column-select option:selected').each(function (index) {
-                            table.column($(this).attr('title') + ':name').visible(true);
+                            checkinTable.column($(this).attr('title') + ':name').visible(true);
                         });
                     },
                     onDeselectAll: function () {
                         $('#column-select option').each(function (index) {
-                            table.column($(this).attr('title') + ':name').visible(false, false);
+                            checkinTable.column($(this).attr('title') + ':name').visible(false, false);
                         });
                     }
                 });
@@ -233,8 +234,8 @@ $(function () {
     
                 // preselecting default column visibility
                 // later this data will come from local settings
-                table.columns().every(function () { // every() is built-in from Datatables
-                    // the table context is automatically set to the appropriate table for each column that has been selected
+                checkinTable.columns().every(function () { // every() is built-in from Datatables
+                    // the checkinTable context is automatically set to the appropriate checkinTable for each column that has been selected
                     // i.e. "this" is a column
                     if (this.visible()) {
                         $('#column-select').multiselect('select', this.index());
@@ -244,7 +245,7 @@ $(function () {
                     checkins.forEach(function (checkin) {
                         if (checkin === client.id) {
                             // dataset.push(client);
-                            var row = table.row.add({
+                            var row = checkinTable.row.add({
                                 // moment(checkin.date).format('MM-DD-YY'),
                                 id: client.id,
                                 firstName: client.firstName,
@@ -252,7 +253,8 @@ $(function () {
                                 dob: moment(client.dob).format('MM-DD-YY'),
                                 status: '<span class="dot"></span>',
                                 phone: client.phone,
-                                email: client.email
+                                email: client.email,
+                                checkedin: true
                             }).draw();
                             $(row.node()).data({ // node() returns the actual html tag
                                 // moment(checkin.date).format('MM-DD-YY'),
@@ -278,6 +280,74 @@ $(function () {
                 });
             });
         }
+
+        $('#checkin-button').click(function (event) {
+            if (checkinTable) {
+                // alert("table still here!");
+                $.ajax({
+                  xhrFields: {
+                      withCredentials: true
+                  },
+                  beforeSend: function (xhr) {
+                      xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                  },
+                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
+                  method: "GET",
+                  success: function (data) {
+                      console.log(data);
+                  },
+                  error: function (xhr) {
+                      console.error(xhr);
+      
+                      if (xhr.status === 401) {
+                          localStorage.removeItem("authorization");
+                      }
+                  }
+                }).done(function (data) {
+                    if (data.result.clients) {
+                        checkinTable.clear();
+                        var checkins = data.result.clients;
+                        clients.forEach(function (client) {
+                          checkins.forEach(function (checkin) {
+                              if (checkin === client.id) {
+                                  // dataset.push(client);
+                                  var row = checkinTable.row.add({
+                                      // moment(checkin.date).format('MM-DD-YY'),
+                                      id: client.id,
+                                      firstName: client.firstName,
+                                      lastName: client.lastName,
+                                      dob: moment(client.dob).format('MM-DD-YY'),
+                                      status: '<span class="dot"></span>',
+                                      phone: client.phone,
+                                      email: client.email,
+                                      checkedin: true
+                                  }).draw();
+                                  $(row.node()).data({ // node() returns the actual html tag
+                                      // moment(checkin.date).format('MM-DD-YY'),
+                                      id: client.id,
+                                      firstName: client.firstName,
+                                      lastName: client.lastName,
+                                      dob: moment(client.dob).format('MM-DD-YY'),
+                                      status: client.status 
+                                  }); 
+                                  var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                  $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                                  // according to stackoverflow, need to manually reattach event handlers
+                                  // to dynamically added elements, even for modals
+                                  $(row.node()).data('toggle', 'modal')
+                                               .data('target', '#viewclient-modal')
+                                               .on('click', function (event) {
+                                                    $('#viewclient-modal').find('#client-name')
+                                                                          .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                                    $('#viewclient-modal').modal('toggle');
+                                               });
+                              }
+                          });
+                        });
+                      }
+                });
+            }
+        });
 
         var setupActivitiesForDropin = function () {
             $.ajax({

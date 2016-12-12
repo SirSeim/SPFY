@@ -594,6 +594,8 @@ var queries = {
     },
 
     getCheckInForDropin: function (dropinID) {
+        console.log("queries.js ====================");
+        console.log(dropinID);
         var queryString = 'SELECT client_id FROM check_in WHERE drop_in_id = ' + dropinID + ';';
 
         return queryString;
