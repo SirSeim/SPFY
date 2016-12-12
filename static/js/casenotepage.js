@@ -96,6 +96,8 @@ $(function (event) {
     getClients();
     getAllCaseManagers();
 
+    $("#date").placeholder(moment().format("YYYY-MM-DD"));
+
     $('#dropdownMenuButton').click(function () {
         console.log("dropdown button clicked");
         console.log(this.data);
