@@ -38,8 +38,9 @@ $(function (event) {
                     }
                 }
             }).done(function (data) {
-                if (data.result) {
+                if (data.result && !$.fn.DataTable.isDataTable('#casenotes')) {
                     var notes = data.result;
+                    var table = $('#casenotes');
                     $('#casenotes tbody').empty();
                     var table = $('#casenotes').DataTable({
                         columns: Object.keys(notes[0]).map(function (propName) {
