@@ -942,17 +942,14 @@ var queries = {
     uploadSpreadsheet: function (formdata) {
 
         var removeEmptyArrays = function (data) {
-            console.log("removing..");
             data = 
                 data.filter(function (e) {
                     return e.length !== 0;
                 });
-            console.log("Done.");
             return data;
         };
 
         var trimAllArrays = function (data) {
-            console.log("Trimming...");
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
                     if (typeof data[i][j] === "string" && data[i][j] !== undefined) {
@@ -966,12 +963,10 @@ var queries = {
                     });
                 }
             }
-            console.log("done.");
             return data;
         };
 
         var processSheet = function (data) {
-            console.log("Beginning processing...");
             var processedData = removeEmptyArrays(data);
             processedData = trimAllArrays(processedData);
             processedData = removeEmptyArrays(processedData);
@@ -1065,10 +1060,13 @@ var queries = {
             var date;
             var headers = [];
             var dates = [];
+            var dateIndexes = [];
             var visits = [];
 
             for (var k = 0; k < dropin.length; k++) {
                 for (var m = 0; m < dropin[k].length; m++) {
+
+                    // headers
                     if (k === 0 && m <= 8) {
                         headers.push(dropin[k][m]);
                     } else if (k === 0 && m > 8) {
@@ -1077,11 +1075,37 @@ var queries = {
                             dropin[k][m].toLowerCase().includes("unduplicated"))) {
                             visits.push(m);
                         } else {
-                            console.log(dropin[k][m]);
-                            dates.push(m);
+                            dateIndexes.push(m);
                             date = parseDateAndTime(dropin[k][m]);
+                            dates.push(date.date);
+                            // Create dropin dates if they don't already exist.
                             queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
-                            "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
+                                "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
+                        }
+                    }
+
+                    // Skip Row 1 because it doesn't seem to have anything...
+
+                    // Clients
+                    if (k >= 2) {
+                        if (m <= 8) {
+                            if (dropin[k][0] === undefined && dropin[k][1] === undefined) {
+                                // If they have no name or anything, skip.
+                                m = dropin[k].length; 
+                            } else if (dropin[k][0] != "TOTALS") {
+                                queryString += "INSERT INTO client (first_name, last_name, gender, race, date_of_birth, " +
+                                "intake_age, reference) SELECT \'" + dropin[k][0] + "\', \'" + dropin[k][1] + "\', " + 
+                                (dropin[k][2] === undefined ? "NULL, " : "\'" + dropin[k][2] + "\', ") + // gender
+                                (dropin[k][3] === undefined ? "NULL, " : "\'" + dropin[k][3] + "\', ") + // race
+                                (dropin[k][4] === undefined ? "NULL, " : "\'" + parseDateAndTime(dropin[k][4]).date + "\', ") +
+                                (dropin[k][5] === undefined ? "NULL, " : "\'" + dropin[k][5] + "\', ") + // age
+                                (dropin[k][6] === undefined ? "NULL " : "\'" + dropin[k][6] + "\' ") +  // ref
+                                "WHERE NOT EXISTS (SELECT first_name FROM client WHERE first_name = \'" + dropin[k][0] + 
+                                "\' AND last_name = \'" + dropin[k][1] + "\');"; // eventually: Update if is detected
+                                m = 8;
+                            } else {
+                                // Total Math
+                            }
                         }
                     }
                     
@@ -1108,7 +1132,7 @@ var queries = {
             // console.log(dropin);
         }
 
-        console.log(queryString);
+        //console.log(queryString);
 
         return queryString;
     }

@@ -131,6 +131,8 @@ CREATE TABLE client (
   last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
   person_completing_intake varchar(65) DEFAULT NULL,
+  gender varchar(45) DEFAULT NULL,
+  race varchar(45) DEFAULT NULL,
   intake_date date DEFAULT NULL,
   hmis_consent boolean DEFAULT NULL,
   first_time boolean DEFAULT NULL,
@@ -586,3 +588,12 @@ CREATE TABLE backpack_sleepingbag_waitlist (
   sleepingbag boolean DEFAULT false,
   ask_date date DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS monthly_statistics;
+
+CREATE TABLE monthly_statistics (
+  id SERIAL PRIMARY KEY,
+  month varchar(45) DEFAULT NULL,
+  unduplicated_youth integer DEFAULT 0,
+  total_youth integer DEFAULT 0
+)
