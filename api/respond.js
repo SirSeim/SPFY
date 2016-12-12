@@ -100,6 +100,13 @@ var respond = {
             result: result
         }).code(200);
     },
+    badGetDropIns: function (reply, reason) {
+        reply({
+            statusCode: 400,
+            message: "Bad request for getting dropins!",
+            error: reason
+        }).code(400);
+    },
     failedTocreateDropIns: function (reply, err) {
         reply({
             statusCode: 500,
@@ -128,6 +135,62 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToAddActivitiesToDropIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add activities to dropin!",
+            error: err
+        }).code(500);
+    },
+    gotAddActivitiesToDropIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added activities to dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got activity for dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropinActivityEnrollment: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivityEnrollment: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToAddEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    addEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,
@@ -142,14 +205,14 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetActivities: function (reply, err) {
+    failedToGetAllActivities: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get activities!",
             error: err
         }).code(500);
     },
-    gotActivities: function (reply, result) {
+    getAllActivities: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activities!",
@@ -163,7 +226,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotActivity: function (reply, result) {
+    getActivity: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activity!",
@@ -254,31 +317,45 @@ var respond = {
             error: err
         }).code(500);
     },
-    failedToCheckIn: function (reply, err) {
+    failedToAddCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to check-in!",
             error: err
         }).code(500);
     },
-    checkin: function (reply, result) {
+    addCheckinForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success checking in!",
             result: result
         }).code(200);
     },
-    failedToGetCheckIn: function (reply, err) {
+    failedToGetCheckInForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get checkin!",
             error: err
         }).code(500);
     },
-    gotCheckIn: function (reply, result) {
+    getCheckInForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting checkin!",
+            result: result
+        }).code(200);
+    },
+    failedToRemoveCheckinForDropin: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout clients from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeCheckinForDropin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success checking out clients from dropin!",
             result: result
         }).code(200);
     },
@@ -320,7 +397,7 @@ var respond = {
     getClientCaseNotes: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully got client's case notes.",
+            message: "Successfully got client's case notes!",
             result: result
         }).code(200);
     },
@@ -352,21 +429,21 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUserByUsername: function (reply, err) {
+    failedToGetUserByQuery: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get User!",
             error: err
         }).code(500);
     },
-    gotUserByUsername: function (reply, result) {
+    gotUserByQuery: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Successfully got User!",
             result: result
         }).code(200);
     },
-    noUserByUsernameFound: function (reply) {
+    noUserByQueryFound: function (reply) {
         reply({
             statusCode: 404,
             message: "No such User found!"
@@ -391,6 +468,33 @@ var respond = {
             message: "Successfully created User!",
             result: result
         }).code(200);
+    },
+    userDoesNotExist: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "Username does not exist!"
+        }).code(404);
+    },
+    getUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got User!",
+            result: result
+        }).code(200);
+    },
+    failedToUpdateUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to update User!",
+            error: err
+        }).code(500);
+    },
+    updateUser: function (reply, result, token) {
+        reply({
+            statusCode: 200,
+            message: "Successfully updated User!",
+            result: result
+        }).code(200).header("Authorization", token);
     },
     failedToComparePasswords: function (reply, err) {
         reply({
@@ -432,67 +536,25 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetUsersNotificationsById: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to get user notifications!",
-            error: err
-        }).code(500);
-    },
-    getUsersNotificationsById: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully got all notifications for a user based on id",
-            result: result
-        }).code(200);
-    },
-    failedToCreateNotificationById: function (reply, err) {
+    failedToCreateNotification: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to create a new notification for a user",
             error: err
         }).code(500);
     },
-    createNotificationById: function (reply, result) {
+    createNotification: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully created a new notification for a user",
+            message: "Successfully created a new notification for a user!",
             result: result
         }).code(200);
-    },
-    failedToGetUsersNotificationsByToken: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to create a new notification for a user",
-            error: err
-        }).code(500);
-    },
-    getUsersNotificationsByToken: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully got all notifications for a user based on token",
-            result: result
-        }).code(200);
-    },
-    createNotificationByToken: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully created a new notification for a user",
-            result: result
-        }).code(200);
-    },
-    failedToGetUserById: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to get User!",
-            error: err
-        }).code(500);
     },
     noSuchUserExists: function (reply) {
         reply({
-            statusCode: 401,
+            statusCode: 404,
             message: "User does not exist!"
-        }).code(401);
+        }).code(404);
     },
     passNoMatch: function (reply) {
         reply({
@@ -500,34 +562,54 @@ var respond = {
             message: "Passwords do not match!"
         }).code(401);
     },
-    // failedToUpdateUsersNotificationsById: function (reply, err) {
-    //     reply({
-    //         statusCode: 500,
-    //         message: "Unable to update an existing User notifications!",
-    //         error: err
-    //     }).code(500);
-    // },
-    // updateUsersNotificationsById: function (reply, result, token) {
-    //     reply({
-    //         statusCode: 200,
-    //         message: "Successfully Updated an existing notification based on user's id and notification id",
-    //         result: result
-    //     }).code(200);
-    // },
-    // failedToUpdateUsersNotificationsByToken: function (reply, err) {
-    //     reply({
-    //         statusCode: 500,
-    //         message: "Unable to update an existing User notifications!",
-    //         error: err
-    //     }).code(500);
-    // },
-    // updateUsersNotificationsByToken: function (reply, result, token) {
-    //     reply({
-    //         statusCode: 200,
-    //         message: "Successfully Updated an existing notification based on user's token and notification id",
-    //         result: result
-    //     }).code(200).header("Authorization", token);
-    // },
+    failedToGetNotificationById: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get the notification!",
+            error: err
+        }).code(500);
+    },
+    noSuchNotificationExists: function (reply) {
+        reply({
+            statusCode: 404,
+            message: "No such notification for that user!"
+        }).code(404);
+    },
+    getUsersNotificationsById: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got notification!",
+            result: result
+        }).code(200);
+    },
+    failedToUpdateUsersNotification: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to update the notification!",
+            error: err
+        }).code(500);
+    },
+    updateUsersNotification: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully updated notification for user!",
+            result: result
+        }).code(200);
+    },
+    failedToGetNotificationTypes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get notification types!",
+            error: err
+        }).code(500);
+    },
+    getNotificationTypes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got notification types!",
+            result: result
+        }).code(200);
+    },
     failedToChangeUserPassword: function (reply, err) {
         reply({
             statusCode: 500,
@@ -538,9 +620,219 @@ var respond = {
     changeCurrentUserPassword: function (reply, result, token) {
         reply({
             statusCode: 200,
-            message: "Successfully logged in!",
+            message: "Successfully changed User password!",
             result: result
         }).code(200).header("Authorization", token);
+    },
+    failedToGetCasePlan: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's case plan!",
+            error: err
+        }).code(500);
+    },
+    getCasePlan: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's case plan.",
+            result: result
+        }).code(200);
+    },
+    failedToEditCasePlan: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit case plan!",
+            error: err
+        }).code(500);
+    },
+    editCasePlan: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully edited case plan.",
+            result: result
+        }).code(200);
+    },
+    failedToCreateCasePlan: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create case plan!",
+            error: err
+        }).code(500);
+    },
+    createCasePlan: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created case plan.",
+            result: result
+        }).code(200);
+    },
+    failedToDeleteUser: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete User!",
+            error: err
+        }).code(500);
+    },
+    deleteUser: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted User!",
+            result: result
+        }).code(200);
+    },
+    failedToGetStatuses: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get statuses!",
+            error: err
+        }).code(500);
+    },
+    getStatuses: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got statuses!",
+            result: result
+        }).code(200);
+    },
+    failedToCreateStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create status!",
+            error: err,
+        }).code(500);
+    },
+    createStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating status!",
+            result: result
+        }).code(200);
+    },
+    failedToEditStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit status!",
+            error: err,
+        }).code(500);
+    },
+    editStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing status!",
+            result: result
+        }).code(200);
+    },
+    failedToGetFlags: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get flags!",
+            error: err
+        }).code(500);
+    },
+    getFlags: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got flags!",
+            result: result
+        }).code(200);
+    },
+    failedToCreateFlag: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create flag!",
+            error: err,
+        }).code(500);
+    },
+    createFlag: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success creating flag!",
+            result: result
+        }).code(200);
+    },
+    failedToEditFlag: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit flag!",
+            error: err,
+        }).code(500);
+    },
+    editFlag: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing flag!",
+            result: result
+        }).code(200);
+    },
+    failedToGetClientFlags: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client flags!",
+            error: err,
+        }).code(500);
+    },
+    getClientFlags: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success getting client flags!",
+            result: result
+        }).code(200);
+    },
+    failedToUploadFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to upload file",
+            error: err
+        }).code(500);
+    },
+    uploadFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully uploaded file",
+            result: result
+        }).code(200);
+    },
+    failedToGetClientFiles: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's files",
+            error: err
+        }).code(500);
+    },
+    getClientFiles: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's files",
+            result: result
+        }).code(200);
+    },
+    failedToGetProfilePicture: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get client's profile picture",
+            error: err
+        }).code(500);
+    },
+    getProfilePicture: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got client's profile picture",
+            result: result
+        }).code(200);
+    },
+    failedToDeleteFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete file",
+            error: err
+        }).code(500);
+    },
+    deleteFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted file",
+            result: result
+        }).code(200);
     }
 
 };

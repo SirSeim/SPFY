@@ -44,7 +44,7 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
-        method: 'POST',
+        method: 'PUT',
         path: '/clients/{clientID}',
         handler: Api.editClient
     },
@@ -56,6 +56,11 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/dropins',
+        config: {
+            validate: {
+                payload: Schema.createDropIn
+            }
+        },
         handler: Api.createDropIn
     },
     {
@@ -74,6 +79,36 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
+        method: 'POST',
+        path: '/dropins/{dropin}/activities',
+        config: {
+            validate: {
+                payload: Schema.addActivitiesToDropIn
+            }
+        },
+        handler: Api.addActivitiesToDropIn
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}',
+        handler: Api.getDropinActivity
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        handler: Api.getDropinActivityEnrollment
+    },
+    {
+        method: 'POST',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        config: {
+            validate: {
+                payload: Schema.addEnrollmentToDropinActivity
+            }
+        },
+        handler: Api.addEnrollmentToDropinActivity
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/enrollment',
         handler: Api.getDropinEnrollment
@@ -90,13 +125,28 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/checkin',
-        handler: Api.getCheckIn
+        path: '/dropins/{dropinID}/checkin',
+        handler: Api.getCheckInForDropin
     },
     {
         method: 'POST',
-        path: '/checkin',
-        handler: Api.checkin
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.addCheckinForDropin
+            }
+        },
+        handler: Api.addCheckinForDropin
+    },
+    {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.removeCheckinForDropin
+            }
+        },
+        handler: Api.removeCheckinForDropin
     },
     {
         method: 'GET',
@@ -115,12 +165,22 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/clients/search',
+        path: '/activities',
+        handler: Api.getAllActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activityID}',
+        handler: Api.getActivity
+    },
+    {
+        method: 'GET',
+        path: '/search/clients',
         handler: Api.dataBrowserGetClients
     },
     {
         method: 'GET',
-        path: '/clients/search/{data}',
+        path: '/search/clients/{data}',
         handler: Api.dataBrowserSearchClients
     },
     {
@@ -150,6 +210,21 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/statuses',
+        handler: Api.getStatuses
+    },
+    {
+        method: 'POST',
+        path: '/statuses',
+        handler: Api.createStatus
+    },
+    {
+        method: 'PUT',
+        path: '/statuses/{statusID}',
+        handler: Api.editStatus
+    },
+    {
+        method: 'GET',
         path: '/users',
         handler: Api.getUserList
     },
@@ -164,6 +239,16 @@ var apiRoutes = [
         handler: Api.createUser
     },
     {
+        method: 'GET',
+        path: '/users/{userId}',
+        handler: Api.getUser
+    },
+    {
+        method: 'PUT',
+        path: '/users/{userId}',
+        handler: Api.updateUser
+    },
+    {
         method: 'POST',
         path: '/sessions',
         config: {
@@ -176,58 +261,115 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/users/notifications',
+        path: '/users/{userId}/notifications',
         handler: Api.getUsersNotifications
     },
     {
-        method: 'GET',
+        method: 'POST',
         path: '/users/{userId}/notifications',
+        config: {
+            validate: {
+                payload: Schema.notification
+            }
+        },
+        handler: Api.createNotification
+    },
+    {
+        method: 'GET',
+        path: '/users/{userId}/notifications/{noteId}',
         handler: Api.getUsersNotificationsById
     },
     {
-        method: 'POST',
-        path: '/users/{userId}/notifications',
-        handler: Api.createNotificationById
+        method: 'PUT',
+        path: '/users/{userId}/notifications/{noteId}',
+        config: {
+            validate: {
+                payload: Schema.updateNotification
+            }
+        },
+        handler: Api.updateUsersNotification
     },
-    // {
-    //     method: 'PUT',
-    //     path: '/users/{userId}/notifications/{noteId}',
-    //     config: {
-    //         validate: {
-    //             payload: Schema.updateUsersNotificationsById
-    //         }
-    //     },
-    //     handler: Api.updateUsersNotificationsByID
-    // },
     {
         method: 'GET',
-        path: '/users/self/notifications',
-        handler: Api.getUsersNotificationsByToken
+        path: '/notifications/types',
+        handler: Api.getNotificationTypes
     },
-    {
-        method: 'POST',
-        path: '/users/self/notifications',
-        handler: Api.createNotificationByToken
-    },
-    // {
-    //     method: 'PUT',
-    //     path: '/users/self/notifications/{noteId}',
-    //     config: {
-    //         validate: {
-    //             payload: Schema.updateUsersNotificationsByToken
-    //         }
-    //     },
-    //     handler: Api.updateUsersNotificationsByToken
-    // },
     {
         method: 'PUT',
-        path: '/users/password',
+        path: '/users/{userId}/password',
         config: {
             validate: {
                 payload: Schema.changeCurrentUserPassword
             }
         },
         handler: Api.changeCurrentUserPassword
+    },
+    {
+        method: 'POST',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.createCasePlan
+    },
+    {
+        method: 'GET',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.getCasePlan
+    },
+    {
+        method: 'PUT',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.editCasePlan
+    },
+    {
+        method: 'Delete',
+        path: '/users/{userId}',
+        handler: Api.deleteUser
+    },
+    {
+        method: 'GET',
+        path: '/flags',
+        handler: Api.getFlags
+    },
+    {
+        method: 'POST',
+        path: '/flags',
+        handler: Api.createFlag
+    },
+    {
+        method: 'PUT',
+        path: '/flags/{flagID}',
+        handler: Api.editFlag
+    },
+    {
+        method: 'GET',
+        path: '/flags/{clientID}',
+        handler: Api.getClientFlags
+    },
+    {
+        method: 'POST',
+        path: '/files',
+        config: {
+            payload: {
+                maxBytes: 209715200,
+                //output: 'stream',
+                //parse: false
+            }
+        },
+        handler: Api.uploadFile
+    },
+    {
+        method: 'GET',
+        path: '/files/{clientID}',
+        handler: Api.getClientFiles
+    },
+    {
+        method: 'GET',
+        path: '/files/profile_picture/{clientID}',
+        handler: Api.getProfilePicture
+    },
+    {
+        method: 'POST',
+        path: '/files/delete/{fileID}',
+        handler: Api.deleteFile
     }
 ];
 

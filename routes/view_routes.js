@@ -124,7 +124,7 @@ var viewRoutes = [
         },
         handler: function (req, res) {
             res.view('editclient.html', {
-                
+
             });
         }
     },
@@ -150,6 +150,19 @@ var viewRoutes = [
         },
         handler: function (req, res) {
             res.view('login.html', {
+
+            });
+        }
+    },
+
+    {
+        path: '/settings',
+        method: 'GET',
+        config: {
+            auth: false
+        },
+        handler: function (req, res) {
+            res.view('settings.html', {
 
             });
         }

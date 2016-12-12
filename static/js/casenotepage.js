@@ -4,8 +4,6 @@ $(function (event) {
     var caseManagerDropdown = $('#case-manager-dropdown');
 
     var createCaseNote = function (data) {
-        console.log('createCaseNote called');
-        console.log(data);
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -29,7 +27,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-            
+
         });
     };
 
@@ -60,7 +58,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-            
+
         });
     };
 
@@ -123,6 +121,7 @@ $(function (event) {
     });
 
     $('#submit').click(function () {
+        console.log("hello");
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#date')['0'].value;

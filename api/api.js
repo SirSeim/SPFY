@@ -73,13 +73,27 @@ var api = {
     },
 
     getDropIns: function (request, reply) {
-        Service.getDropIns(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetDropIns(reply, err);
+        if (request.query.latest) {
+            if (parseInt(request.query.latest)) {
+                Service.getLatestDropIns(request.postgres, parseInt(request.query.latest), function (err, result) {
+                    if (err) {
+                        Respond.failedToGetDropIns(reply, err);
+                    } else {
+                        Respond.gotDropIns(reply, result);
+                    }
+                });
             } else {
-                Respond.gotDropIns(reply, result);
+                Respond.badGetDropIns(reply, "invalid latest number");
             }
-        });
+        } else {
+            Service.getDropIns(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetDropIns(reply, err);
+                } else {
+                    Respond.gotDropIns(reply, result);
+                }
+            });
+        }
     },
 
     getDropIn: function (request, reply) {
@@ -102,12 +116,74 @@ var api = {
         });
     },
 
+    getAllActivities: function (request, reply) {
+        Service.getAllActivities(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetAllActivities(reply, err);
+            } else {
+                Respond.getAllActivities(reply, result);
+            }
+        });
+    },
+
+    getActivity: function (request, reply) {
+        Service.getActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivity(reply, err);
+            } else {
+                Respond.getActivity(reply, result);
+            }
+        });
+    },
+
     getDropinActivities: function (request, reply) {
         Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
                 Respond.failedToGetDropinActivities(reply, err);
             } else {
                 Respond.gotDropinActivities(reply, result);
+            }
+        });
+    },
+
+    addActivitiesToDropIn: function (request, reply) {
+        Service.addActivitiesToDropIn(request.postgres, request.params.dropin, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddActivitiesToDropIn(reply, err);
+            } else {
+                Respond.gotAddActivitiesToDropIn(reply, result);
+            }
+        });
+    },
+
+    getDropinActivity: function (request, reply) {
+        Service.getDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivity(reply, err);
+            } else {
+                Respond.getDropinActivity(reply, result);
+            }
+        });
+    },
+
+    getDropinActivityEnrollment: function (request, reply) {
+        Service.getDropinActivityEnrollment(request.postgres,
+        request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivityEnrollment(reply, err);
+            } else {
+                Respond.getDropinActivityEnrollment(reply, result);
+            }
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (request, reply) {
+        Service.addEnrollmentToDropinActivity(request.postgres,
+        request.params.dropinID, request.params.activityID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.addEnrollmentToDropinActivity(reply, result);
             }
         });
     },
@@ -142,44 +218,33 @@ var api = {
         });
     },
 
-    checkin: function (request, reply) {
-        Service.checkin(request.postgres, request.payload, function (err, result) {
+    addCheckinForDropin: function (request, reply) {
+        Service.addCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCheckIn(reply, err);
+                Respond.failedToAddCheckinForDropin(reply, err);
             } else {
-                Respond.checkin(reply, result);
+                Respond.addCheckinForDropin(reply, result);
             }
         });
     },
-    getCheckIn: function (request, reply) {
-        Service.getCheckIn(request.postgres, function (err, result) {
+    removeCheckinForDropin: function (request, reply) {
+        Service.removeCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToGetCheckIn(reply, err);
+                Respond.failedToRemoveCheckinForDropin(reply, err);
             } else {
-                Respond.gotCheckIn(reply, result);
+                Respond.removeCheckinForDropin(reply, result);
             }
         });
     },
-
-    intakeCompleted: function (request, reply) {
-        Service.intakeCompleted(request.postgres, request.payload, function (err, result) {
+    getCheckInForDropin: function (request, reply) {
+        Service.getCheckInForDropin(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
-                Respond.failedToIntakeCompleted(reply, err);
+                Respond.failedToGetCheckInForDropin(reply, err);
             } else {
-                Respond.intakeCompleted(reply, result);
+                Respond.getCheckInForDropin(reply, result);
             }
         });
     },
-    getIntake: function (request, reply) {
-        Service.getIntake(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetIntake(reply, err);
-            } else {
-                Respond.gotIntake(reply, result);
-            }
-        });
-    },
-
     dataBrowserGetClients: function (request, reply) {
         Service.dataBrowserGetClients(request.postgres, function (err, result) {
             if (err) {
@@ -263,17 +328,20 @@ var api = {
     },
 
     getUserList: function (request, reply) {
-        if (request.query.username) {
-            Service.getUserByUsername(request.postgres, request.query.username, function (err, user) {
+        if (request.query.username || request.query.id) {
+            Service.getUserByQuery(request.postgres, {
+                id: request.query.id,
+                username: request.query.username
+            }, function (err, user) {
                 if (err) {
-                    Respond.failedToGetUserByUsername(reply, err);
+                    Respond.failedToGetUserByQuery(reply, err);
                 } else if (user) {
-                    Respond.gotUserByUsername(reply, {
+                    Respond.gotUserByQuery(reply, {
                         id: user.id,
                         username: user.username
                     });
                 } else {
-                    Respond.noUserByUsernameFound(reply);
+                    Respond.noUserByQueryFound(reply);
                 }
             });
         } else {
@@ -288,9 +356,11 @@ var api = {
     },
 
     createUser: function (request, reply) {
-        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+        Service.getUserByQuery(request.postgres, {
+            username: request.payload.username
+        }, function (err, user) {
             if (err) {
-                Respond.failedToGetUserByUsername(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (user) {
                 Respond.usernameAlreadyExists(reply);
             } else {
@@ -305,10 +375,74 @@ var api = {
         });
     },
 
-    login: function (request, reply) {
-        Service.getUserByUsername(request.postgres, request.payload.username, function (err, user) {
+    getUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
             if (err) {
-                Respond.failedToGetUserByUsername(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Respond.getUser(reply, {
+                    id: user.id,
+                    username: user.username
+                });
+            }
+        });
+    },
+
+    updateUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.userDoesNotExist(reply);
+            } else {
+                Service.updateUser(request.postgres, userQuery.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUser(reply, err);
+                    } else {
+                        Service.genToken({
+                            id: userQuery.id,
+                            username: request.payload.username
+                        }, function (err, token) {
+                            if (err) {
+                                Respond.failedToGenToken(reply, err);
+                            } else {
+                                Respond.updateUser(reply, result, token);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    },
+
+    login: function (request, reply) {
+        Service.getUserByQuery(request.postgres, {
+            username: request.payload.username
+        }, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (!user) {
                 Respond.userPassNoMatch(reply);
             } else {
@@ -335,9 +469,19 @@ var api = {
     },
 
     changeCurrentUserPassword: function (request, reply) {
-        Service.getUserById(request.postgres, request.auth.credentials.id, function (err, user) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
             if (err) {
-                Respond.failedToGetUserById(reply, err);
+                Respond.failedToGetUserByQuery(reply, err);
             } else if (!user) {
                 Respond.noSuchUserExists(reply);
             } else {
@@ -370,8 +514,42 @@ var api = {
         });
     },
 
+    deleteUser: function (request, reply) {
+        var userQuery;
+        if (request.params.userId === 'self') {
+            userQuery = {
+                id: request.auth.credentials.id
+            };
+        } else {
+            userQuery = {
+                id: request.params.userId
+            };
+        }
+        Service.getUserByQuery(request.postgres, userQuery, function (err, user) {
+            if (err) {
+                Respond.failedToGetUserByQuery(reply, err);
+            } else if (!user) {
+                Respond.noSuchUserExists(reply);
+            } else {
+                Service.deleteUser(request.postgres, user.id, function (err, result) {
+                    if (err) {
+                        Respond.failedToDeleteUser(reply, err);
+                    } else {
+                        Respond.deleteUser(reply, result);
+                    }
+                });
+            }
+        });
+    },
+
     getUsersNotifications: function (request, reply) {
-        Service.getUsersNotifications(request.postgres, request.auth.credentials, function (err, result) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getUsersNotifications(request.postgres, userId, function (err, result) {
             if (err) {
                 Respond.failedToGetUsersNotifications(reply, err);
             } else {
@@ -380,63 +558,214 @@ var api = {
         });
     },
 
-    getUsersNotificationsById: function (request, reply) {
-        Service.getUsersNotificationsById(request.postgres, request.params.userId, function (err, result) {
+    createCasePlan: function (request, reply) {
+        Service.createCasePlan(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToGetUsersNotificationsById(reply, err);
+                Respond.failedToCreateCasePlan(reply, err);
             } else {
-                Respond.getUsersNotificationsById(reply, result);
+                Respond.createCasePlan(reply, result);
+            }
+        });
+    },
+    createNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.createNotification(request.postgres, userId, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateNotification(reply, err);
+            } else {
+                Respond.createNotification(reply, result);
             }
         });
     },
 
-    createNotificationById: function (request, reply) {
-        request.payload.userId = request.params.userId;
-        Service.createNotificationById(request.postgres, request.payload, function (err, result) {
+    getUsersNotificationsById: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
             if (err) {
-                Respond.failedToCreateNotificationById(reply, err);
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
             } else {
-                Respond.createNotificationById(reply, result);
+                Respond.getUsersNotificationsById(reply, note);
             }
         });
     },
-    getUsersNotificationsByToken: function (request, reply) {
-        Service.getUsersNotificationsByToken(request.postgres, function (err, result) {
+
+    updateUsersNotification: function (request, reply) {
+        var userId;
+        if (request.params.userId === 'self') {
+            userId = request.auth.credentials.id;
+        } else {
+            userId = parseInt(request.params.userId);
+        }
+        Service.getNotificationById(request.postgres, request.params.noteId, function (err, note) {
             if (err) {
-                Respond.failedToGetUsersNotificationsByToken(reply, err);
+                Respond.failedToGetNotificationById(reply, err);
+            } else if (!note || note.userId !== userId) {
+                Respond.noSuchNotificationExists(reply);
             } else {
-                Respond.getUsersNotificationsByToken(reply, result);
+                Service.updateUsersNotification(request.postgres, note.id, request.payload, function (err, result) {
+                    if (err) {
+                        Respond.failedToUpdateUsersNotification(reply, err);
+                    } else {
+                        Respond.updateUsersNotification(reply, result);
+                    }
+                });
             }
         });
     },
-    createNotificationByToken: function (request, reply) {
-        Service.createNotificationByToken(request.postgres, request.payload, function (err, result) {
+
+    uploadFile: function (request, reply) {
+        Service.uploadFile(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateNotificationByToken(reply, err);
+                Respond.failedToUploadFile(reply, err);
             } else {
-                Respond.createNotificationByToken(reply, result);
+                Respond.uploadFile(reply, result);
             }
         });
     },
-    // updateUsersNotificationsById: function (request, reply) {
-    //     Service.getUserById(request.postgres, request.params.userId, request.params.noteId, function (err, user) {
-    //       if (err) {
-    //           Respond.failedToUpdateUsersNotificationsById(reply, err);
-    //       } else {
-    //           Respond.updateUsersNotificationsById(reply, result);
-    //       }
-    //     });
-    // },
-    // updateUsersNotificationsByToken: function (request, reply) {
-    //     Service.getUserById(request.postgres, request.params.noteId, function (err, user) {
-    //       if (err) {
-    //           Respond.failedToUpdateUsersNotificationsByToken(reply, err);
-    //       } else {
-    //           Respond.updateUsersNotificationsByToken(reply, result);
-    //       }
-    //     });
-    // }
+
+    deleteFile: function (request, reply) {
+        Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
+            if (err) {
+                Respond.failedToDeleteFile(reply, err);
+            } else {
+                Respond.deleteFile(reply, result);
+            }
+        });
+    },
+
+    getNotificationTypes: function (request, reply) {
+        Service.getNotificationTypes(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetNotificationTypes(reply, err);
+            } else {
+                Respond.getNotificationTypes(reply, result);
+            }
+        });
+    },
+    getCasePlan: function (request, reply) {
+        Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCasePlan(reply, err);
+            } else {
+                Respond.getCasePlan(reply, result);
+            }
+        });
+
+    },
+
+    editCasePlan: function (request, reply) {
+        Service.editCasePlan(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditCasePlan(reply, err);
+            } else {
+                Respond.editCasePlan(reply, result);
+            }
+        });
+    },
+
+    getClientFiles: function (request, reply) {
+        Service.getClientFiles(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientFiles(reply, err);
+            } else {
+                Respond.getClientFiles(reply, result);
+            }
+        });
+    },
+
+    getStatuses: function (request, reply) {
+        Service.getStatuses(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetStatuses(reply, err);
+            } else {
+                Respond.getStatuses(reply, result);
+            }
+        });
+    },
+
+    createStatus: function (request, reply) {
+        Service.createStatus(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateStatus(reply, err);
+            } else {
+                Respond.createStatus(reply, result);
+            }
+        });
+    },
+
+    editStatus: function (request, reply) {
+        Service.editStatus(request.postgres, request.params.statusID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditStatus(reply, err);
+            } else {
+                Respond.editStatus(reply, result);
+            }
+        });
+    },
+
+    getFlags: function (request, reply) {
+        Service.getFlags(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetFlags(reply, err);
+            } else {
+                Respond.getFlags(reply, result);
+            }
+        });
+    },
+
+    createFlag: function (request, reply) {
+        Service.createFlag(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateFlag(reply, err);
+            } else {
+                Respond.createFlag(reply, result);
+            }
+        });
+    },
+
+    editFlag: function (request, reply) {
+        Service.editFlag(request.postgres, request.params.flagID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditFlag(reply, err);
+            } else {
+                Respond.editFlag(reply, result);
+            }
+        });
+    },
+
+    getClientFlags: function (request, reply) {
+        Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientFlags(reply, err);
+            } else {
+                Respond.getClientFlags(reply, result);
+            }
+        });
+    },
+
+    getProfilePicture: function (request, reply) {
+        Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetProfilePicture(reply, err);
+            } else {
+                Respond.getProfilePicture(reply, result);
+            }
+        });
+    }
 };
 
 
 module.exports = api;
+Contact GitHub API Training Shop Blog About

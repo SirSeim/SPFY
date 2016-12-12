@@ -6,29 +6,34 @@
 
     <div class="row">
         <div class="col-sm-2">
-          
+
           {% include "components/_clientprofiletable.html" %}
 
         </div>
 
         <h3 id="cm-page-filler">Choose a profile</h3>
-        
+
         <div id="view-client-tabs" class="col-sm-8 hidden">
 
             {% include "components/_viewclient.html" %}
 
         </div> <!--col-sm-8-->
 
-        
+
     </div> <!--outer row-->
 
 
 </div> <!--container-->
 
+{% include "modals/setflag.html" %}
+{% include "modals/editflag.html" %}
 {% include "components/_basescript.html" %}
 
     <script src="/static/js/casemanager.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/modals/setflag.js"></script>
+    <script src="/static/js/modals/editflag.js"></script>
+    <script src="/static/js/components/deletefile.js"></script>
     <script src="/static/js/components/viewclient.js"></script>
     <script src="/static/js/casenotepage.js"></script>
 
