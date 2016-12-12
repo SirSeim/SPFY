@@ -109,6 +109,16 @@ var apiRoutes = [
         handler: Api.addEnrollmentToDropinActivity
     },
     {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        config: {
+            validate: {
+                payload: Schema.removeEnrollmentToDropinActivity
+            }
+        },
+        handler: Api.removeEnrollmentToDropinActivity
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/enrollment',
         handler: Api.getDropinEnrollment

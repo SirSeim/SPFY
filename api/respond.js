@@ -317,6 +317,20 @@ var respond = {
             error: err
         }).code(500);
     },
+    failedToRemoveEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout clients from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success removing enrollment!",
+            result: result
+        }).code(200);
+    },
     failedToAddCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,

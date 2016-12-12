@@ -436,6 +436,18 @@ var queries = {
 
         return queryString;
     },
+    removeEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+        var queryString = "";
+        payload.clients.forEach(function (clientID) {
+            queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
+                '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
+                'match_drop_in_activity.drop_in_id = ' + dropinID + 'AND match_drop_in_activity.activity_id ='
+                + activityID + ') AND enrollment.client_id =' + clientID + ');';
+        });
+
+        return queryString;
+
+    }
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 
@@ -563,6 +575,8 @@ var queries = {
 
         return queryString;
     },
+
+    remo
 
     getEnrollmentByActivity: function (activityID) {
         var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
@@ -897,8 +911,8 @@ var queries = {
 
     getProfilePicture: function (clientID) {
         var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
-                            'AND type=\'profile_picture\'' + 
-                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + 
+                            'AND type=\'profile_picture\'' +
+                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID +
                             ' AND type=\'profile_picture\');';
         return queryString;
     },

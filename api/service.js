@@ -390,6 +390,25 @@ var service = {
         });
     },
 
+    removeEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        Query.removeEnrollmentToDropinActivity(postgres, dropinID, activityID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.client_id);
+            }
+            return callback(undefined, {
+                dropin: parseInt(dropinID),
+                activity: parseInt(activityID),
+                clients: arr
+            });
+        });
+    },
+
     addCheckinForDropin: function (postgres, dropinID, payload, callback) {
         Query.addCheckinForDropin(postgres, dropinID, payload, function (err, result) {
             if (err) {
