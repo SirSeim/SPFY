@@ -13,27 +13,17 @@ $(function () {
           beforeSend: function (xhr) {
               xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
           },
-          url: "/api/dropins?latest=5",
+          url: "/api/dropins?latest=6",
           method: "GET"
         }).done(function (data, textStatus, xhr) {
           console.log(data);
-          window.sessionStorage.frontdeskDropinId = data.result[0].id;
-          window.sessionStorageListeners.forEach(function (listener) {
-              listener.ready();
-          });
           $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
-          $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[1].id + '">' +
-                                        moment(data.result[1].date).format('dddd L') + 
-                                        '</a>')
-                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[2].id + '">' +
-                                        moment(data.result[2].date).format('dddd L') + 
-                                        '</a>')
-                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[3].id + '">' +
-                                        moment(data.result[3].date).format('dddd L') + 
-                                        '</a>')
-                                .append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[4].id + '">' +
-                                        moment(data.result[4].date).format('dddd L') + 
-                                        '</a>');
+          for (var i = 1; i < data.result.length; i++) {
+              $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + window.sessionStorage.frontdeskDropinId + '">' +
+                                            moment(data.result[i].date).format('dddd L') + 
+                                            '</a>');
+          }
+
           $(".dropin-date-item").click(function (event) {
             jThis = $(this);
             $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));

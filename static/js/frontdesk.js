@@ -14,6 +14,31 @@
 
 $(function () {
 
+  $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+          console.log("drop-ins");
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+        }
+  }).done(function (data) {
+    window.sessionStorage.frontdeskDropinId = data.result[0].id;
+    window.frontdeskRefreshListeners.forEach(function (listener) {
+        listener.refresh();
+    });
+  });
+
+    
+
     var setupFrontDesk = function () {
 
         var statuses = JSON.parse(window.sessionStorage.statuses);
@@ -152,6 +177,26 @@ $(function () {
         $('#clients tbody').css("height", 100);
 
         // $('#checked-in').DataTable();
+
+        /*
+            If headers not showing up, need to specify them manually.
+            DataTables documentation doesn't mention this
+
+            data = this.SearchController.resultSet;
+            this.$tableContainer.dataTable({
+                data:    data,
+                columns: [
+                {
+                    data: "H",
+                    title: "Thickness"
+                },
+                {
+                    data: "InstanceId",
+                    title: "Instance ID"
+                }]
+            });
+
+        */
 
         var setupCheckin = function () {
             $.ajax({
@@ -345,25 +390,6 @@ $(function () {
                 ready: setupActivitiesForDropin
             });
         }
-        /*
-            If headers not showing up, need to specify them manually.
-            DataTables documentation doesn't mention this
-
-            data = this.SearchController.resultSet;
-            this.$tableContainer.dataTable({
-                data:    data,
-                columns: [
-                {
-                    data: "H",
-                    title: "Thickness"
-                },
-                {
-                    data: "InstanceId",
-                    title: "Instance ID"
-                }]
-            });
-
-        */
 
         $(".tablinks").click(function (event) {
             var currentTabID = $(this).attr('href');
@@ -404,6 +430,20 @@ $(function () {
             updateAddActivities();
             $("#newActivityModal").modal("toggle");
         });
+
+        var globalData = []
+        globalData.push(window.sessionStorage.statuses);
+        globalData.push(window.sessionStorage.clients);
+
+        if (globalData.every((array) => array)) {
+            console.log("call arrived");
+            setupFrontDesk();
+        } else {
+            console.log("waiting for call");
+            window.sessionStorageListeners.push({
+                ready: setupFrontDesk
+            });
+        }
 
 
         // $.ajax({
@@ -519,20 +559,6 @@ $(function () {
         //     });
         // });
     };
-
-    var globalData = []
-    globalData.push(window.sessionStorage.statuses);
-    globalData.push(window.sessionStorage.clients);
-
-    if (globalData.every((array) => array)) {
-        console.log("call arrived");
-        setupFrontDesk();
-    } else {
-        console.log("waiting for call");
-        window.sessionStorageListeners.push({
-            ready: setupFrontDesk
-        });
-    }
 });
 
 
