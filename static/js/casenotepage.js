@@ -31,7 +31,7 @@ $(function (event) {
         });
     };
 
-    var getClients = function () {
+    var getClientDropdown = function (clientID) {
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -39,16 +39,17 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/clients',
+            url: 'api/clients/' + clientID,
+            data: clientID,
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                var clientDropdown = $('#client-dropdown');
+                var client = data.result.rows[0];
                 clientDropdown.empty();
-                data.result.forEach(function (client) {
-                    clientDropdown.append('<option value="' + client.id +
-                        '">' + client.firstName + ' ' + client.lastName +
+                clientDropdown.append('<option value="' + client.id +
+                        '">' + client.first_name + ' ' + client.last_name +
                         '</option>');
-                });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -74,12 +75,8 @@ $(function (event) {
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                var caseManagerDropdown = $('#case-note-case-manager-dropdown');
                 caseManagerDropdown.empty();
-                data.result.rows.forEach(function (caseManager) {
-                    caseManagerDropdown.append('<option value="' + caseManager.id +
-                        '">' + caseManager.first_name + ' ' + caseManager.last_name +
-                        '</option>');
-                });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -93,10 +90,13 @@ $(function (event) {
         });
     };
 
-    getClients();
-    getAllCaseManagers();
+    $('#addcasenote').click(function () {
+        var clientID = $('#case-note-client-id').text();
+        getClientDropdown(clientID);
+        getAllCaseManagers();
+    });
 
-    $("#date").placeholder(moment().format("YYYY-MM-DD"));
+    //$("#date").placeholder(moment().format("YYYY-MM-DD"));
 
     $('#dropdownMenuButton').click(function () {
         console.log("dropdown button clicked");

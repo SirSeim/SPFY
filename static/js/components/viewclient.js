@@ -227,6 +227,8 @@ $(function (event) {
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
                 $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
                 $('#caseplan-text').text(data.result.rows[0].caseplan);
+
+                $('#case-note-client-id').text($(client).data("id"));
             });
 
             getProfilePicture(client);
