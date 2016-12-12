@@ -124,7 +124,7 @@ $(function (event) {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
         var createEnrolledClientItem = function (client) {
-            return '<tr><td class="enrolled-name">' + client.firstName + ' ' + client.lastName +
+            return '<tr><td class="enroll-name">' + client.firstName + ' ' + client.lastName +
                     '</td><td><button class="fa fa-times btn btn-danger btn-sm enrolled-client" data-id="' +
                     client.id + '"></button></td></tr>';
         };
@@ -194,7 +194,7 @@ $(function (event) {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
         var createAddEnrollClientItem = function (client) {
-            return '<tr><td class="add-enroll-name">' + client.firstName + ' ' + client.lastName + '</td>' +
+            return '<tr><td class="enroll-name">' + client.firstName + ' ' + client.lastName + '</td>' +
                     '<td><button type="button" class="btn btn-success btn-sm add-enroll-client" data-id="' + client.id + '">' +
                     '<i class="fa fa-plus"></i></button></td></tr>';
         };
@@ -237,26 +237,54 @@ $(function (event) {
             jAddEnrollTable.append(createAddEnrollClientItem(client));
         });
         $(".add-enroll-client").click(enrollClient);
-        // if ($('#activity-client-search').val() === '') {
-        //     $(".add-enroll-client").parent().parent().hide();
-        // }
+        if ($('#activity-client-search').val() === '') {
+            $(".add-enroll-client").parent().parent().hide();
+        }
 
     };
 
     //onSearch activities table functionality
     $('#activity-client-search').keyup(function (event) {
+        var search = $('#activity-client-search');
+        var enrolled = $('.enrolled-client').parent().parent();
+        var toAdd = $(".add-enroll-client").parent().parent();
 
-        // $("#activities-onSearch-table-body").append('<tr><td>' + ED INSERTS SEARCH STUFF HERE - BUTTON BELOW + '</td>'
-        //                                             +'<td><button type="button" class="btn btn-success btn-sm">'
-        //                                             +'<i class="fa fa-plus"></i></button></td></tr>');
+        var clientInEnrolled = function (name) {
+            var result = false;
+            enrolled.each(function (i, e) {
+                if ($(e).find('.enroll-name').text().toLowerCase() === name.toLowerCase()) {
+                    result = true;
+                }
+            });
+            return result;
+        };
 
-       $('#enroll').click(function (event) {
-        //enroll the selected client into the activity
-       });
+        if (search.val() === '') {
+            enrolled.show();
+            toAdd.hide();
+        } else {
+            enrolled.hide().filter(function  (i, e) {
+                return $(e).find('.enroll-name').text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+            }).show();
 
+            var shown = 5;
+            var i = 0;
+            toAdd.hide().filter(function (i, e) {
+                if (clientInEnrolled($(e).find('.enroll-name').text())) {
+                    return false;
+                }
+                var toShow = $(e).find('.enroll-name').text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+                // if (toShow) {
+                //     if (shown < i) {
+                //         return false;
+                //     }
+                //     i++;
+                //     return true;
+                // }
+                // return false;
 
-        if ( !$('#activity-client-search').val()) {
-            $("#activities-onSearch-table-body").empty();
+                return toShow;
+            }).show()
         }
     });
         
