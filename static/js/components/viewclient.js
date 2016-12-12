@@ -212,7 +212,7 @@ $(function (event) {
                     $('#client-flags').empty();
                     data.result.rows.forEach(function (flag) {
                         $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flag.type + '"' +
                              'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
                              '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
                     });
@@ -498,7 +498,7 @@ $(function (event) {
             $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
             $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
             $('#client-status').replaceWith(
-                '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                     clientStatus.name + '<span class="caret"></span></button>' +
                     '<ul class="dropdown-menu" aria-labelledby="client-status">' +
                     statusString + '</ul></div>');
