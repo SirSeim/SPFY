@@ -77,6 +77,11 @@ $(function (event) {
                 console.log(data);
                 var caseManagerDropdown = $('#case-note-case-manager-dropdown');
                 caseManagerDropdown.empty();
+                data.result.rows.forEach(function (caseManager) {
+                    caseManagerDropdown.append('<option value="' + caseManager.id +
+                        '">' + caseManager.first_name + ' ' + caseManager.last_name +
+                        '</option>');
+                 });
             },
             error: function (xhr) {
                 console.log(xhr);
