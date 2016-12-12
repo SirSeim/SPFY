@@ -6,6 +6,7 @@
       {% include "components/_navbar.html" %}
 
 
+<<<<<<< HEAD
 <!--         <div class="row">
           <div class="page-header"><center>
             <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
@@ -16,12 +17,31 @@
             <button class="badge-button btn btn-primary btn-sm" type="button">
               <span id="total-new-today" class="badge">14</span> Total New Youth Today
             </button>
+=======
+        <div class="row">
+
+            <!-- OLD HEADER 
+            <center>
+>>>>>>> app-test
             <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
             <h5 id="dropin-date" data-id="0">2222-01-01</h5>
+            </center> -->
+            <div>
+              <h5> Drop-In: <div id="drop-in-date">  </div>
+                <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    History
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+                    <li class="dropdown-header">Click To View Past Drop-In</li>
+                  </div>
+                </div>
+              </h5>
+            </div>
 
-            </center>
-          </div>
-        </div>  --><!-- 1st row -->
+
+        </div> <!-- 1st row -->
 
         <div class="row">
 
@@ -64,6 +84,7 @@
             </div>
         </div> <!-- 3rd row -->
 
+<<<<<<< HEAD
         <div class="row" role="navigation">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
               <li class="nav-item">
@@ -72,11 +93,19 @@
               <li class="nav-item">
                 <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">View Drop-In History</a>
               </li>
+=======
+        <div class="row">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment
+                   <button type="button" class="btn btn-success" id="add-new-activity"> + </button></a></li>
+              <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
+>>>>>>> app-test
             </ul>
 
             <div id="my-tab-content" class="tab-content">
              <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
 
+<<<<<<< HEAD
                 <div class="card">
                   <div class="card-header"> <!-- Activity Thumbnails -->
                   <!-- <div class="btn-toolbar" role="toolbar">
@@ -177,13 +206,19 @@
                               </div>
                             </div>
                             <div class="thumbnail" id="addNew">
+=======
+                <div class="panel panel-default">
+                  <div class="panel-heading"> 
+                        <div class="horiscroll" id="activities-bar">                 
+<!--                             <div class="thumbnail" id="add-new-activity">
+>>>>>>> app-test
                               <div class="caption">
                                 <p>+</p>
                               </div>
-                            </div>
-                        </div>        
+                            </div> -->
+                        </div>     
                          
-                      </div>
+                  </div>
                       <!-- Button trigger Add New Activity Modal -->
                       <!-- <div class="btn-group" role="group"> 
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
@@ -191,7 +226,18 @@
                         </button>
                       </div> -->
                     
+<<<<<<< HEAD
                       <div id="activities" class="card-block">
+=======
+                      <div class="panel-body">
+
+                        <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
+                        <h4 id="activity-title"> Activity Title </h4>
+
+                        <table class="table table-hover" id='activities'>
+                        </table>
+
+>>>>>>> app-test
                       </div>
                     </div>
                   
@@ -211,17 +257,19 @@
 
     </div> <!--container-->
 
-<div id="react-test">
-
-                </div>
+<div id="react-test"></div>
 
 {% include "modals/viewclient.html" %}
+{% include "modals/addnewdropin.html" %}
 {% include "modals/addactivity.html" %}
 
 {% include "components/_basescript.html" %}
 
     <script type="text/babel" src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/modals/viewclient.js"></script>
+    <script src="/static/js/modals/addactivity.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
-    <script src="/static/js/components/checkin.js"></script
+    <script src="/static/js/components/adddropin.js"></script>
+    <script src="/static/js/components/checkin.js"></script>

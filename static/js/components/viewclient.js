@@ -9,15 +9,15 @@ $(function (event) {
         var clientMail;
         var clientLastMeeting;
         var clientCaseManager;
-        var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
+        var client;
 
         $('#setflag-button').click(function (event) {
             $('#setflag-modal').modal('toggle');
         });
 
-        var getCaseNotes = function (data) {
+        var getCaseNotes = function (clientID) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -25,9 +25,8 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/case_notes/" + data,
+                url: "api/case_notes/" + clientID,
                 method: "GET",
-                data: data.clientID,
                 success: function (data) {
                     console.log(data);
                 },
@@ -39,21 +38,111 @@ $(function (event) {
                     }
                 }
             }).done(function (data) {
-                caseNotesTable.empty();
-                data.result.forEach(function (note) {
-                    caseNotesTable.append('<tr>' +
-                        '<td>' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
-                        '<td>' + note.category + '</td>' + 
-                        '<td>' + note.caseManager + '</td>' + 
-                        '<td>' + note.note +  '</td>' + 
-                        '<td><button type="button" class="edit-note btn btn-secondary btn-sm">Edit</button></td>' + 
-                        '</tr>');
-                });
+                if (data.result) {
+                    var notes = data.result;
+                    $('#casenotes tbody').empty();
+                    var table = $('#casenotes').DataTable({
+                        columns: Object.keys(notes[0]).map(function (propName) {
+                              return { name: propName, data: propName, title: propName };
+                            }) // setting property names as column headers for now
+                    });
+
+                    // manually setting these for testing
+                    // will probably have these in a local "check-in table settings"
+                    // button attached to the table later on
+                    table.column(5).visible(false);
+                    table.column(6).visible(false);
+                    table.column(7).visible(false);
+                    table.column(8).visible(false);
+                    
+                    $('#casenotes_wrapper').find('div.row:first div.col-sm-6:first')
+                        .append(
+                        '<div class="datatables_columns_visible" id="datatables_columns_visible">' +
+                        '<label>Show columns <select multiple="multiple" name="multiselect[]" id="column-select"></select>' +
+                        '</label></div>')
+                        .find('div').wrap('<div class="col-sm-6"></div>');
+
+                    var options = [];
+
+                    Object.keys(notes[0]).forEach(function (propName, index) {
+                        options.push({label: propName, title: propName, value: index});
+                    });
+
+                    $('#column-select').multiselect({
+                        includeSelectAllOption: true,
+                        enableHTML: false, // to protect against XSS injections
+                        nonSelectedText: 'None',
+                        disableIfEmpty: true,
+                        numberDisplayed: 2,
+                        onChange: function (option, checked) {
+                            if (checked) {
+                              table.column($(option).attr('title') + ':name').visible(true);
+                            } else {
+                              table.column($(option).attr('title') + ':name').visible(false, false); // 2nd false prevents Datatables from recalculating layout
+                            }
+                        },
+                        onSelectAll: function () {
+                            $('#column-select option:selected').each(function (index) {
+                                table.column($(this).attr('title') + ':name').visible(true);
+                            });
+                        },
+                        onDeselectAll: function () {
+                            $('#column-select option').each(function (index) {
+                                table.column($(this).attr('title') + ':name').visible(false, false);
+                            });
+                        }
+                    });
+
+                    $('#column-select').multiselect('dataprovider', options);
+                    
+                    // preselecting default column visibility
+                    // later this data will come from local settings
+                    table.columns().every(function () { // every() is built-in from Datatables
+                        // the table context is automatically set to the appropriate table for each column that has been selected
+                        // i.e. "this" is a column
+                        if (this.visible()) {
+                            $('#column-select').multiselect('select', this.index());
+                        }
+                    });
+
+                    notes.forEach(function (note) {
+                        var row = table.row.add({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        }).draw();
+
+                        $(row.node()).data({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        });
+                    });
+                }
             });
         };
-
-        $('#casenotes').DataTable();
-        
+            
+        /*
+            <tr>
+              <td>1/10/15</td>
+              <td>CM</td>
+              <td>Ben Perkins</td>
+              <td>This is the beginning of a case note.</td>
+              <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+            </tr>
+        */
         var displayClientProfile = function (client) {
             $.ajax({
                 xhrFields: {
@@ -90,7 +179,7 @@ $(function (event) {
                 $('#client-phonenumber').text( data.result.rows[0].phone_number);
                 $('#client-email').text(data.result.rows[0].email);
 
-                // getCaseNotes(client.match(/[0-9]+/)['0']);
+                getCaseNotes($('#client-id')['0'].textContent);
 
                 var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
 
@@ -98,7 +187,7 @@ $(function (event) {
 
                 $('#client-status').data("id", currentStatus.id)
                                    .data("name", currentStatus.name);
-                    
+
 
                 $.ajax({
                     xhrFields: {
@@ -132,9 +221,18 @@ $(function (event) {
                         $('#editflag-modal').modal('toggle');
                     });
                 });
+
+                getClientFiles($(client).data("id"));
+
                 $('#casenotes-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Notes');
+                $('#caseplan-title').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name + '\'s Case Plan');
+                $('#caseplan-text').text(data.result.rows[0].caseplan);
             });
-            
+
+            getProfilePicture(client);
+        };
+
+        var editCasePlan = function (data){
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -142,30 +240,35 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: 'api/files/profile_picture/' + $(client).data("id"),
-                method: 'GET',
-                data: $(client).data("id"),
+                url: "api/clients/" + data.clientID + "/case_plan",
+                method: "PUT",
+                data: data,
                 success: function (data) {
                     console.log(data);
                 },
                 error: function (xhr) {
-                    console.log(xhr);
+                    console.error(xhr);
+
                     if (xhr.status === 401) {
                         localStorage.removeItem("authorization");
                     }
                 }
-            }).done(function (data) {
-                var result = data.result;
-                if (result.rowCount > 0) {
-                    var url = result.rows['0'].base_64_string;
-                    var photo = document.querySelector('img[id=client-photo]');
-                    photo.src = url;
-                } else {
-                    var photo = document.querySelector('img[id=client-photo]');
-                    photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
-                }
             });
         };
+
+        $("#submitplan").click(function(event){;
+            var clientID = $('#client-id')['0'].textContent;
+            console.log(clientID);
+            var text = $('#caseplan-text').val();
+
+            var data = {
+                clientID: clientID,
+                text: text
+            }
+            editCasePlan(data);
+            location.reload();
+
+        });
 
         var editClient = function (data) {
             $.ajax({
@@ -176,7 +279,7 @@ $(function (event) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
                 url: "api/clients/" + data.id,
-                method: "POST",
+                method: "PUT",
                 data: data,
                 success: function (data) {
                     console.log(data);
@@ -210,9 +313,10 @@ $(function (event) {
         $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
+            client = $(this);
         });
 
-        // *** Files *** 
+        // *** Files ***
 
         var addFile = function (data) {
             $.ajax({
@@ -229,10 +333,86 @@ $(function (event) {
                     console.log(data);
                     alert('SUCCESS: File has been uploaded');
                     $('#add-file-modal').modal('hide');
+                    displayClientProfile(client)
                 },
                 error: function (xhr) {
                     console.log(xhr);
                     alert('ERROR: File failed to upload');
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
+        var getProfilePicture = function (client) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/profile_picture/' + $(client).data("id"),
+                method: 'GET',
+                data: $(client).data("id"),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                var result = data.result;
+                if (result.rowCount > 0) {
+                    var url = result.rows['0'].base_64_string;
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = url;
+                } else {
+                    var photo = document.querySelector('img[id=client-photo]');
+                    photo.src = 'http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg';
+                }
+            });
+        };
+
+        var getClientFiles = function (data) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/files/' + data,
+                method: 'GET',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    var fileList = data.result.rows;
+                    var fileDiv = $('#files');
+                    fileDiv.empty();
+                    fileDiv.append('<div class="row">' +
+                    '<h4 class="col-xs-3"> File </h4>' +
+                    '<h4 class="col-xs-3"> Date </h4>' +
+                    '<h4 class="col-xs-3"> Type </h4>' +
+                    '<h4 class="col-xs-2"> Delete </h4></div><br /');
+                    fileList.forEach(function (element) {
+                        var id = element.id
+                        var name = element.name.substr(element.name.lastIndexOf('\\') + 1);
+                        var date = element.date.substr(0, element.date.indexOf('T'));
+                        var type = element.type;
+                        var row = '<div class="row"><p class="col-xs-1" hidden>' + id + '</p><a class="col-xs-3" href="' + element.base_64_string + '">' + name + '</a><p class="col-xs-3">' + date + '</p><p class="col-xs-3">' + type + '</p>';
+                        row += '<a class="col-xs-1" onclick=deleteFile(this)><span class="glyphicon glyphicon-remove"></span></a></div><br />';
+                        fileDiv.append(row);
+                    });
+                },
+                error: function (xhr) {
+                    console.log(xhr);
                     if (xhr.status === 401) {
                         localStorage.removeItem("authorization");
                     }
@@ -265,15 +445,27 @@ $(function (event) {
             var name = $('#file').val();
             var type = $('#file-type').val();
             var fileString = $('#base64').text();
+            var d = new Date();
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var date = ((''+month).length<2 ? '0' : '') + month + '/' +
+                ((''+day).length<2 ? '0' : '') + day +
+                '/' + d.getFullYear();
 
             var data = {
                 clientID: clientID,
                 name: name,
                 type: type,
+                date: date,
                 fileString: fileString
             }
 
             addFile(data);
+        });
+
+        $('#cancel-file').click(function () {
+            $('#add-file-modal').modal('hide');
         });
 
         // *** *** ***
@@ -289,7 +481,7 @@ $(function (event) {
             clientCaseManager = $('#case-manager')['0'].textContent;
             clientStatus = { name: $('#client-status')['0'].textContent, id: $('#client-status').data("id") };
             var statusString = '';
-            statuses.forEach(function (status) {    
+            statuses.forEach(function (status) {
                 statusString += '<li data-id="' + status.id + '" data-name="' + status.name + '"><a href="#">' + status.name + '</a></li>';
             });
             console.log("client status pulled");
@@ -350,7 +542,7 @@ $(function (event) {
             var lastMeeting = $('#last-meeting')['0'].value;
             var caseManager = $('#case-manager')['0'].value;
             var status = $('#client-status').data("id");
-            
+
             var data = {
                 id: id,
                 firstName: firstName,
@@ -366,9 +558,9 @@ $(function (event) {
             };
 
             editClient(data);
-            
+
         });
-        
+
         var popOnHover = function (id) {
             id = '#' + id;
             $(id).hover( function () {

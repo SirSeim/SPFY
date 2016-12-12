@@ -1,9 +1,9 @@
 $(function (event) {
 
-    var clientDropdown = $('#client-dropdown');
     var caseManagerDropdown = $('#case-manager-dropdown');
 
-    var createCaseNote = function (data) {
+    var createCasePlan = function (data) {
+        console.log('createCasePlan called');
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -11,12 +11,12 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/case_notes',
+            url: 'api/clients/1/case_plan',
             method: 'POST',
             data: data,
             success: function (data) {
                 console.log(data);
-                alert('SUCCESS! Case note has been successfully added');
+                alert('SUCCESS! Case plan has been successfully added');
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -31,7 +31,7 @@ $(function (event) {
         });
     };
 
-    var getClients = function () {
+    var getCasePlan = function () {
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -39,16 +39,10 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/clients',
+            url: 'api/clients/1/case_plan',
             method: 'GET',
             success: function (data) {
                 console.log(data);
-                clientDropdown.empty();
-                data.result.forEach(function (client) {
-                    clientDropdown.append('<option value="' + client.id +
-                        '">' + client.firstName + ' ' + client.lastName +
-                        '</option>');
-                });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -93,7 +87,7 @@ $(function (event) {
         });
     };
 
-    getClients();
+    getCasePlan();
     getAllCaseManagers();
 
     $('#dropdownMenuButton').click(function () {
@@ -101,49 +95,18 @@ $(function (event) {
         console.log(this.data);
     });
 
-    $('#followup-checkbox').click(function () {
-        if ($('input[name=followup-checkbox]:checked').length !== 0) {
-            $('#followup-area')
-                .empty()
-                .append('<label for="due-date"'
-                    + 'class="col-xs-2 col-form-label">Due Date</label>'
-                    + '<div class="col-xs-">'
-                    + '<input type="text" placeholder="mm/dd/yy" id="due-date">'
-                    + '</div>')
-                .append('<label for="reminder-date"'
-                    + 'class="col-xs-2 col-form-label">Set Reminder Date</label>'
-                    + '<div class="col-xs-">'
-                    + '<input type="text" placeholder="mm/dd/yy" id="reminder-date">'
-                    + '</div>');
-        } else if ($('input[name=followup-checkbox]:checked').length === 0) {
-            $('#followup-area').empty();
-        }
-    });
-
-    $('#submit').click(function () {
-        console.log("hello");
-        var clientID = $('#client-dropdown').val();
+    $('#submitplan').click(function () {
+        console.log('clicked');
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#date')['0'].value;
-        var category = $('#category')['0'].value;
         var note = $('#note')['0'].value;
-        var followUpNeeded = $('input[name=followup-checkbox]:checked').length === 0 ? false : true;
-        var dueDate;
-        var reminderDate;
-        dueDate = $('#due-date')['0'] === undefined ? null : $('#due-date')['0'].value;
-        reminderDate = $('#due-date')['0'] === undefined ? null : $('#reminder-date')['0'].value;
 
         var data = {
-            clientID: clientID,
             caseManagerID: caseManagerID,
             date: date,
-            category: category,
-            note: note,
-            followUpNeeded: followUpNeeded,
-            dueDate: dueDate,
-            reminderDate
+            note: note
         };
 
-        createCaseNote(data);
+        createCasePlan(data);
     });
 });

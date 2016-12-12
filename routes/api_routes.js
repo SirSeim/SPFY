@@ -44,7 +44,7 @@ var apiRoutes = [
         handler: Api.getClient
     },
     {
-        method: 'POST',
+        method: 'PUT',
         path: '/clients/{clientID}',
         handler: Api.editClient
     },
@@ -56,6 +56,11 @@ var apiRoutes = [
     {
         method: 'POST',
         path: '/dropins',
+        config: {
+            validate: {
+                payload: Schema.createDropIn
+            }
+        },
         handler: Api.createDropIn
     },
     {
@@ -74,6 +79,36 @@ var apiRoutes = [
         handler: Api.getDropinActivities
     },
     {
+        method: 'POST',
+        path: '/dropins/{dropin}/activities',
+        config: {
+            validate: {
+                payload: Schema.addActivitiesToDropIn
+            }
+        },
+        handler: Api.addActivitiesToDropIn
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}',
+        handler: Api.getDropinActivity
+    },
+    {
+        method: 'GET',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        handler: Api.getDropinActivityEnrollment
+    },
+    {
+        method: 'POST',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        config: {
+            validate: {
+                payload: Schema.addEnrollmentToDropinActivity
+            }
+        },
+        handler: Api.addEnrollmentToDropinActivity
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/enrollment',
         handler: Api.getDropinEnrollment
@@ -90,18 +125,43 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/checkin',
-        handler: Api.getCheckIn
+        path: '/dropins/{dropinID}/checkin',
+        handler: Api.getCheckInForDropin
     },
     {
         method: 'POST',
-        path: '/checkin',
-        handler: Api.checkin
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.addCheckinForDropin
+            }
+        },
+        handler: Api.addCheckinForDropin
+    },
+    {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/checkin',
+        config: {
+            validate: {
+                payload: Schema.removeCheckinForDropin
+            }
+        },
+        handler: Api.removeCheckinForDropin
     },
     {
         method: 'POST',
         path: '/activities',
         handler: Api.createDropinActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities',
+        handler: Api.getAllActivities
+    },
+    {
+        method: 'GET',
+        path: '/activities/{activityID}',
+        handler: Api.getActivity
     },
     {
         method: 'GET',
@@ -235,6 +295,21 @@ var apiRoutes = [
         handler: Api.changeCurrentUserPassword
     },
     {
+        method: 'POST',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.createCasePlan
+    },
+    {
+        method: 'GET',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.getCasePlan
+    },
+    {
+        method: 'PUT',
+        path: '/clients/{clientID}/case_plan',
+        handler: Api.editCasePlan
+    },
+    {
         method: 'Delete',
         path: '/users/{userId}',
         handler: Api.deleteUser
@@ -268,7 +343,7 @@ var apiRoutes = [
                 //output: 'stream',
                 //parse: false
             }
-        }, 
+        },
         handler: Api.uploadFile
     },
     {
@@ -280,6 +355,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/files/profile_picture/{clientID}',
         handler: Api.getProfilePicture
+    },
+    {
+        method: 'POST',
+        path: '/files/delete/{fileID}',
+        handler: Api.deleteFile
     }
 ];
 

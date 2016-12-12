@@ -15,8 +15,8 @@ $(function (event) {
         clients.forEach(function (client) {
             var display = ['<span class="dot"></span>' + client.firstName + ' ' +
             client.lastName];
+            console.log(client);
             table.append(window.buildRow(client, display));
-
         });
         // what if profiles don't come through?
         // need code for edge case
