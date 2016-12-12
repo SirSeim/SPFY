@@ -323,18 +323,18 @@ var queries = {
     },
 
     createDropIn: function (payload) {
-        var queryString = 'INSERT INTO drop_in (date) VALUES ( $1 ) RETURNING date;'; // [payload.date]
-        var params = [];
-        params.push('\'' + payload.date + '\'');
-        var queryData = {
-            string: queryString,
-            params: params
-        };
-        return queryData;
+        var queryString = 'INSERT INTO drop_in (date) VALUES (\'' + payload.date + '\') RETURNING id, date;';
+
+        return queryString;
     },
 
     getDropIns: function () {
         var queryString = 'SELECT id, date FROM drop_in;';
+
+        return queryString;
+    },
+    getLatestDropIns: function (latest) {
+        var queryString = 'SELECT * FROM drop_in ORDER BY date DESC LIMIT ' + latest + ';';
 
         return queryString;
     },
@@ -359,10 +359,81 @@ var queries = {
     getDropinActivities: function (dropin) {
 
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
-                        'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
-                        'match_drop_in_activity.end_time FROM activity, match_drop_in_activity ' +
-                        'WHERE activity.id = match_drop_in_activity.activity_id AND ' +
-                        'match_drop_in_activity.drop_in_id = ' + dropin + ';';
+                'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                'match_drop_in_activity.end_time, program.id AS program_id, program.program_name FROM activity, ' +
+                'match_drop_in_activity, program WHERE activity.id = match_drop_in_activity.activity_id ' +
+                'AND match_drop_in_activity.drop_in_id = ' + dropin + ' AND activity.program_id = program.id;';
+        return queryString;
+    },
+    addActivitiesToDropIn: function (dropinID, payload) {
+        var queryString = '';
+        for (var i = 0; i < payload.activities.length; i++) {
+            var local = payload.activities[i];
+            queryString += 'INSERT INTO match_drop_in_activity (drop_in_id, activity_id';
+            if (local.room) {
+                queryString += ', room';
+            }
+            if (local.comments) {
+                queryString += ', comments';
+            }
+            if (local.startTime) {
+                queryString += ', start_time';
+            }
+            if (local.endTime) {
+                queryString += ', end_time';
+            }
+            queryString += ') VALUES (\'' + dropinID + '\', \'' + local.id + '\'';
+            if (local.room) {
+                queryString += ', \'' + local.room + '\'';
+            }
+            if (local.comments) {
+                queryString += ', \'' + local.comments + '\'';
+            }
+            if (local.startTime) {
+                queryString += ', \'' + local.startTime + '\'';
+            }
+            if (local.endTime) {
+                queryString += ', \'' + local.endTime + '\'';
+            }
+            queryString += '); ';
+        }
+
+        return queryString;
+    },
+    getDropinActivity: function (dropinID, activityID) {
+        var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
+                'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
+                'match_drop_in_activity.end_time, program.id AS program_id, program.program_name ' +
+                'FROM activity, match_drop_in_activity, program WHERE activity.id = ' +
+                'match_drop_in_activity.activity_id AND match_drop_in_activity.drop_in_id = ' +
+                dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                activityID + ' AND activity.program_id = program.id;';
+
+        return queryString;
+    },
+    getDropinActivityEnrollment: function (dropinID, activityID) {
+        var queryString = 'SELECT client.id, client.first_name, client.last_name FROM client WHERE ' +
+                    'client.id IN (SELECT enrollment.client_id FROM enrollment, match_drop_in_activity ' +
+                    'WHERE enrollment.drop_in_activity_id = match_drop_in_activity.id AND ' +
+                    'match_drop_in_activity.drop_in_id = ' + dropinID +
+                    ' AND match_drop_in_activity.activity_id = ' + activityID + ');';
+
+        return queryString;
+    },
+    addEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+        var queryString = '';
+        payload.clients.forEach(function (clientID) {
+            queryString += 'INSERT INTO enrollment (drop_in_activity_id, client_id) SELECT ' +
+                    'match_drop_in_activity.id, \'' + clientID + '\' FROM match_drop_in_activity WHERE ' +
+                    'match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + ' AND NOT EXISTS (SELECT enrollment.id FROM enrollment, match_drop_in_activity ' +
+                    'WHERE enrollment.client_id = ' + clientID + ' AND enrollment.drop_in_activity_id = ' +
+                    'match_drop_in_activity.id AND match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + ') RETURNING client_id;';
+        });
+
         return queryString;
     },
     getDropinEnrollment: function (dropinID) {
@@ -371,13 +442,17 @@ var queries = {
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT id, activity_name FROM activity;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
+                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, program ' +
+                'WHERE activity.program_id = program.id;';
 
         return queryString;
     },
 
     getActivity: function (activity) {
-        var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
+                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, ' +
+                'program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
 
         return queryString;
     },
@@ -495,20 +570,33 @@ var queries = {
         return queryString;
     },
 
-    checkin: function (payload) {
+    addCheckinForDropin: function (dropinID, payload) {
         var queryString = "";
-        payload.forEach(function (element) {
-            queryString += 'INSERT INTO check_in (drop_in_id, client_id, date) VALUES( ' +
-                            element.dropinID + ', ' +
-                            element.clientID + ', ' +
-                            '\'' + element.date + '\'' + ') RETURNING drop_in_id, client_id, date;';
+        payload.clients.forEach(function (clientID) {
+            queryString += 'INSERT INTO check_in (drop_in_id, client_id) SELECT \'' +
+                    dropinID + '\', \'' +
+                    clientID + '\' WHERE NOT EXISTS (SELECT id FROM check_in WHERE drop_in_id = \'' +
+                    dropinID + '\' AND client_id = \'' +
+                    clientID + '\') RETURNING drop_in_id, client_id;';
         });
 
         return queryString;
     },
 
-    getCheckIn: function () {
-        var queryString = 'SELECT id, drop_in_id, client_id, date FROM check_in';
+    removeCheckinForDropin: function (dropinID, payload) {
+        var queryString = "";
+        payload.clients.forEach(function (clientID) {
+            queryString += 'DELETE FROM check_in WHERE drop_in_id = ' + dropinID + ' AND ' +
+                            'client_id = ' + clientID + ' RETURNING client_id;';
+        });
+
+        return queryString;
+    },
+
+    getCheckInForDropin: function (dropinID) {
+        console.log("queries.js ====================");
+        console.log(dropinID);
+        var queryString = 'SELECT client_id FROM check_in WHERE drop_in_id = ' + dropinID + ';';
 
         return queryString;
     },
@@ -789,23 +877,31 @@ var queries = {
     },
 
     uploadFile: function (payload) {
-        var queryString = 'INSERT INTO file (client_id, name, type, base_64_string) VALUES (\'' +
+        var queryString = 'INSERT INTO file (client_id, name, type, date, base_64_string) VALUES (\'' +
                             payload.clientID + '\', \'' +
                             payload.name + '\', \'' +
                             payload.type + '\', \'' +
+                            payload.date + '\', \'' +
                             payload.fileString + '\');';
 
         return queryString;
     },
 
+    deleteFile: function (fileID) {
+        var queryString = 'DELETE FROM file WHERE id = ' + fileID + ';';
+        return queryString;
+    },
+
     getClientFiles: function (clientID) {
-        var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT id, name, type, date, base_64_string FROM file WHERE client_id = ' + clientID + ';';
         return queryString;
     },
 
     getProfilePicture: function (clientID) {
         var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
-                            'AND type=\'profile_picture\';';
+                            'AND type=\'profile_picture\'' + 
+                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + 
+                            ' AND type=\'profile_picture\');';
         return queryString;
     },
 

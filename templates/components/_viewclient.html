@@ -1,227 +1,205 @@
-<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a class="tablinks" href="#client-info" data-toggle="tab">Info</a></li>
-            <li><a class="tablinks" href="#case-management" data-toggle="tab">CM</a></li>
-            <li><a class="tablinks" href="#caseplan" data-toggle="tab">Case Plan</a></li>
-            <li><a class="tablinks" href="#documents" data-toggle="tab">Documents</a></li>
-            <li><a class="tablinks" href="#referrals" data-toggle="tab">Referrals</a></li>
-            <li><a class="tablinks" href="#other" data-toggle="tab">Other</a></li>
-          </ul>
-          <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="client-info">
-
-              <div class="row">
-                <h1 id="client-id" style="display: none;">1</h1>
-                <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
-                <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
-                <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
-                <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
-              </div>
-                <div class="row">
-                  <div class="col-xs-2"><img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg"></div>
-                  <div class="col-xs-10"id="client-badges">
-                    <div class="row">
-
-                        <button id="follow-up" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
-                          Follow Up <span id="follow-up-status" class="badge">Needed</span>
-                        </button>
-
-
-                        <button id="housing" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Housing" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-                          Housing <span id="housing-status" class="badge">Complete</span>
-                        </button>
-
-                      <!-- <a class="tablinks" href="#case-management"> -->
-                        <button id="shower" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-                          Shower
-                          <span id="shower-status" class="badge">1</span>
-                        </button>
-                     <!--  </a> -->
-                    </div>
-                    <div class="row">
-                      <button id="legal" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="Legal" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-                        Legal <span id="legal-status" class="badge">Ongoing</span>
-                      </button>
-                    </div>
-                  </div>
-                <div class="col-xs-2">
-                  <img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg">
-                </div>
-                <div class="col-xs-10">
-                  <h1 id="client-id" style="display: none;">1</h1>
-                  <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
-                  <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
-                  <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
-                  <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
-                </div>
-              </div>
-
-              <div class="row">
-                <table id="clientInfoTable">
-                  <tr>
-                    <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
-                    <td><h4>Age</h4></td><td id="client-age">00</td>
-                  </tr>
-                  <tr>
-                    <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
-                    <td><h4>Email</h4></td><td id="client-email">Not Given</td>
-                  </tr>
-                  <tr>
-                    <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
-                    <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
-                    <td><h4>Status</h4></td></td><td id="client-status">Okay</td>
-                  </tr>
-                </table>
-              </div> <!-- info table -->
-
-            </div> <!-- client-info tab -->
-
-            <div class="row">
-              <div class="col-xs-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                  <h3>Flags</h3>
-                  <button id="setflag-button" type="button" class="btn btn-default">Set Flag</button>
-                  </div>
-                    <ul id="client-flags">
-
-                    </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="case-management">
-                <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 id="casenotes-title">
-                    Client's Case Notes
-                  </h4>
-                  <form class="casenotes-form casenotes-right" align="right">
-                    <div class="form-group">
-                    <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
-                    <button type="search" class="btn btn-default" align="right">Search</button>
-                    </div>
-                  </form>
-                </div>
-                <table id="casenotes" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Category</th>
-                      <th>Case Manager</th>
-                      <th>Preview</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1/10/15</td>
-                      <td>CM</td>
-                      <td>Ben Perkins</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>2/1/15</td>
-                      <td>CM</td>
-                      <td>Jeanine Espejo-Watkins</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>3/20/16</td>
-                      <td>CM</td>
-                      <td>Rebecca McGuire</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>5/15/16</td>
-                      <td>E&amp;E</td>
-                      <td>Chris Beckette</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <button id="addcasenote" class="btn btn-default" data-toggle="modal" data-target="#add-note-modal">Add New Case Note</button>
-              <div class="modal fade" id="add-note-modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      Add Case Note
-                    </div>
-                    <div class="modal-body">
-                      {% include "components/_addcasenote.html" %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="caseplan">
-                <h3 id="caseplan-title">
-                    Client's Case Plan
-                </h3>
-                <div class="row">
-                  <div class="form-group row">
-                    <label for="case-manager-dropdown" class="col-xs-2 col-form-label">Case Manager</label>
-                    <div class="col-xs-2">
-                      <select id="case-manager-dropdown">
-                        <option value="1">Jeanine Espejo-Watkins</option>
-                        <option value="1">John Doe</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="date" class="col-xs-2 col-form-label">Date</label>
-                    <div class="col-xs-2">
-                      <input type="text" placeholder="mm/dd/yy" id="date">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="example-text-input" class="col-xs-2 col-form-label">Case Plan</label>
-                    <div class="col-xs-12">
-                    <textarea id="caseplan-text" class="form-control" rows="10"></textarea>
-                    </div>
-                  </div>
-                </div>
-                  <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
-            </div>
-            <div class="tab-pane" id="documents">
-                <h3>Client Documents</h3>
-                <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
-                <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        Add File
-                      </div>
-                      <div class="modal-body">
-                        <div id="base64" hidden></div>
-                        <div class="row">
-                          <input id="file" class="col-md-6" type="file" />
-                          <label for="file-type" class="col-md-2">File Type:</label>
-                          <select id="file-type" class="col-md-3">
-                            <option value="profile_picture">Profile Picture</option>
-                            <option value="document">Document</option>
-                            <option value="photo">Photo</option>
-                            <option value="compressed">Compressed Folder</option>
-                          </select>
-                        </div>
-                        </br>
-                        <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="files"></div>
-            </div>
-            <div class="tab-pane" id="referrals">
-                <h3>Referrals</h3>
-                <p></p>
-            </div>
-            <div class="tab-pane" id="other">
-                <h3>Other</h3>
-                <p></p>
-            </div>
+<ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active tablinks" href="#client-info" data-toggle="tab" role="tab">Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link tablinks" href="#case-management" data-toggle="tab" role="tab">CM</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link tablinks" href="#documents" data-toggle="tab" role="tab">Documents</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link tablinks" href="#referrals" data-toggle="tab" role="tab">Referrals</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link tablinks" href="#other" data-toggle="tab" role="tab">Other</a>
+  </li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+  <div class="tab-pane active" id="client-info" role="tabpanel">
+    <div class="row">
+      <h1 id="client-id" style="display: none;">1</h1>
+      <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
+      <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
+      <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
+      <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg">
+      </div>
+      <div class="col-xs-10"id="client-badges">
+        <div class="row">
+          
+            <button id="follow-up" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
+              Follow Up <span id="follow-up-status" class="badge">Needed</span> 
+            </button>
+          
+          
+            <button id="housing" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Housing" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+              Housing <span id="housing-status" class="badge">Complete</span>
+            </button>
+          
+          <!-- <a class="tablinks" href="#case-management"> -->
+            <button id="shower" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+              Shower 
+              <span id="shower-status" class="badge">1</span>
+            </button>
+         <!--  </a> -->
         </div>
+        <div class="row">
+          <button id="legal" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Legal" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+            Legal <span id="legal-status" class="badge">Ongoing</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <table id="clientInfoTable">
+        <tr>
+          <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
+          <td><h4>Age</h4></td><td id="client-age">00</td>
+        </tr>
+        <tr>
+          <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
+          <td><h4>Email</h4></td><td id="client-email">Not Given</td>
+        </tr>
+        <tr>
+          <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
+          <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
+          <td><h4>Status</h4></td></td><td id="client-status">Okay</td>
+        </tr>
+      </table>
+    </div> <!-- info table -->
+  </div> <!-- client-info tab -->
+
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="card">
+        <div class="card-header">
+        <h3>Flags</h3>
+        <button id="setflag-button" type="button" class="btn btn-secondary">Set Flag</button>
+        </div>                  
+          <ul id="client-flags">
+
+          </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="case-management" role="tabpanel">
+    <div class="card">
+      <div class="card-header">
+        <h4 id="casenotes-title">
+          Client's Case Notes
+        </h4>
+        <form class="casenotes-form casenotes-right" align="right">
+          <div class="form-group">
+          <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
+          <button type="search" class="btn btn-secondary" align="right">Search</button>
+          </div>
+        </form>
+      </div>
+      <table id="casenotes" class="table table-hover">
+        
+      </table>
+    </div>
+    <button id="addcasenote" class="btn btn-secondary" data-toggle="modal" data-target="#add-note-modal">
+      Add New Case Note
+    </button>
+
+    {% include "modals/addcasenote.html" %}  
+  </div>  
+  <div class="tab-pane" id="caseplan">
+    <h3 id="caseplan-title">
+        Client's Case Plan
+    </h3>
+    <div class="row">
+      <div class="form-group row">
+        <label for="case-manager-dropdown" class="col-xs-2 col-form-label">Case Manager</label>
+        <div class="col-xs-2">
+          <select id="case-manager-dropdown">
+            <option value="1">Jeanine Espejo-Watkins</option>
+            <option value="1">John Doe</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="date" class="col-xs-2 col-form-label">Date</label>
+        <div class="col-xs-2">
+          <input type="text" placeholder="mm/dd/yy" id="date">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-text-input" class="col-xs-2 col-form-label">Case Plan</label>
+        <div class="col-xs-12">
+        <textarea id="caseplan-text" class="form-control" rows="10"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
+  </div>
+  <div class="tab-pane" id="documents">
+    <h3>Client Documents</h3>
+    <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
+    <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            Add File
+          </div>
+          <div class="modal-body">
+            <div id="base64" hidden>
+            </div>
+            <div class="row">
+              <input id="file" class="col-md-6" type="file" />
+              <label for="file-type" class="col-md-2">File Type:</label>
+              <select id="file-type" class="col-md-3">
+                <option value="profile_picture">Profile Picture</option>
+                <option value="document">Document</option>
+                <option value="photo">Photo</option>
+                <option value="compressed">Compressed Folder</option>
+              </select>
+            </div>
+            </br>
+            <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
+            <button class="btn btn-danger" type="button" id="cancel-file">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="files">
+    </div>      
+  </div>
+
+  <div class="tab-pane" id="documents" role="tabpanel">
+    <h3>Client Documents</h3>
+    <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
+    <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            Add File
+          </div>
+          <div class="modal-body">
+            <div id="base64" hidden>
+            </div>
+            <div class="row">
+              <input id="file" class="col-md-6" type="file" />
+              <label for="file-type" class="col-md-2">File Type:</label>
+              <select id="file-type" class="col-md-3">
+                <option value="profile_picture">Profile Picture</option>
+                <option value="document">Document</option>
+                <option value="photo">Photo</option>
+                <option value="compressed">Compressed Folder</option>
+              </select>
+            </div>
+            </br>
+            <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

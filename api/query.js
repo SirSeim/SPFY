@@ -134,6 +134,23 @@ var query = {
         });
     },
 
+    getLatestDropIns: function (postgres, latest, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getLatestDropIns(latest), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropIn: function (postgres, dropin, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -155,11 +172,7 @@ var query = {
             if (err) {
                 return callback(err);
             }
-
-            payload = JSON.parse(payload.expression);
-            var data = Queries.createDropIn(payload);
-            // unstringify the data passed in
-            client.query(data.string, data.params, function (err, result) {
+            client.query(Queries.createDropIn(payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -177,6 +190,74 @@ var query = {
             }
 
             client.query(Queries.getDropinActivities(dropin), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    addActivitiesToDropIn: function (postgres, dropinID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.addActivitiesToDropIn(dropinID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinActivity: function (postgres, dropinID, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivity(dropinID, activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getDropinActivityEnrollment: function (postgres, dropinID, activityID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getDropinActivityEnrollment(dropinID, activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.addEnrollmentToDropinActivity(dropinID, activityID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -385,13 +466,30 @@ var query = {
         });
     },
 
-    checkin: function (postgres, payload, callback) {
+    addCheckinForDropin: function (postgres, dropinID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.checkin(payload), function (err, result) {
+            client.query(Queries.addCheckinForDropin(dropinID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    removeCheckinForDropin: function (postgres, dropinID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.removeCheckinForDropin(dropinID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -419,12 +517,12 @@ var query = {
         });
     },
 
-    getCheckIn: function (postgres, callback) {
+    getCheckInForDropin: function (postgres, dropinID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.getCheckIn(), function (err, result) {
+            client.query(Queries.getCheckInForDropin(dropinID), function (err, result) {
 
                 done();
                 if (err) {
@@ -747,7 +845,6 @@ var query = {
     },
 
     getCasePlan: function (postgres, clientID, callback) {
-        console.log('We are inside of query.js');
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
@@ -868,6 +965,22 @@ var query = {
             }
 
             client.query(Queries.getProfilePicture(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    deleteFile: function (postgres, fileID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.deleteFile(fileID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
