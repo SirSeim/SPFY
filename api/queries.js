@@ -436,23 +436,35 @@ var queries = {
 
         return queryString;
     },
+    removeEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+        var queryString = "";
+        payload.clients.forEach(function (clientID) {
+            queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
+                '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
+                'match_drop_in_activity.drop_in_id = ' + dropinID + ' AND match_drop_in_activity.activity_id = '+ activityID +
+                ') AND enrollment.client_id = ' + clientID + ' RETURNING client_id;';
+        });
+
+        return queryString;
+
+    },
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
-                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, program ' +
-                'WHERE activity.program_id = program.id;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, ' +
+                'program.program_name FROM activity, program WHERE activity.program_id = program.id;';
 
         return queryString;
     },
 
     getActivity: function (activity) {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
-                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, ' +
-                'program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, program.program_name ' +
+                'FROM activity, program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
 
         return queryString;
     },
@@ -899,8 +911,8 @@ var queries = {
 
     getProfilePicture: function (clientID) {
         var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
-                            'AND type=\'profile_picture\'' + 
-                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + 
+                            'AND type=\'profile_picture\'' +
+                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID +
                             ' AND type=\'profile_picture\');';
         return queryString;
     },
