@@ -1092,7 +1092,7 @@ var queries = {
                             if (dropin[k][0] === undefined && dropin[k][1] === undefined) {
                                 // If they have no name or anything, skip.
                                 m = dropin[k].length; 
-                            } else if (dropin[k][0] != "TOTALS") {
+                            } else if (dropin[k][0] !== "TOTALS") {
                                 queryString += "INSERT INTO client (first_name, last_name, gender, race, date_of_birth, " +
                                 "intake_age, reference) SELECT \'" + dropin[k][0] + "\', \'" + dropin[k][1] + "\', " + 
                                 (dropin[k][2] === undefined ? "NULL, " : "\'" + dropin[k][2] + "\', ") + // gender
@@ -1132,7 +1132,7 @@ var queries = {
             // console.log(dropin);
         }
 
-        //console.log(queryString);
+        // console.log(queryString);
 
         return queryString;
     }
