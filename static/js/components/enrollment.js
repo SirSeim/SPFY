@@ -139,21 +139,6 @@ $(function (event) {
         //     }
         // });
 
-        var selectedclients = [];
-
-        $('#clients').delegate("td", "click", function () {
-            var client = $(this)[0].innerText;
-            if (!selectedclients.includes(client)) {
-                selectedclients.push(client);
-            }
-            $('#selected-clients').empty();
-            for (var i = 0; i < selectedclients.length; i++) {
-                $('#selected-clients').append('<li class="list-group-item client">'
-                        + selectedclients[i]
-                        + '</li>');
-
-            }
-        });
 
         $('#enroll-button').click(function (event) {
             var signups = [];

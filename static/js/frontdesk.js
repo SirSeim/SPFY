@@ -35,6 +35,7 @@ $(function () {
                       $('#viewclient-modal').modal('toggle');
                   });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
+            event.stopPropagation();
         });
 
           var currentDropIn = {};
@@ -105,6 +106,9 @@ $(function () {
                   signups.push(selectedclients[i].id);
               }
 
+              // make sure to clear selectedclients after using data
+              selectedclients = [];
+              
               $.ajax({
                 xhrFields: {
                 withCredentials: true
