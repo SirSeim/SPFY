@@ -663,6 +663,31 @@ span.badge {
   vertical-align: top;
 }
 
+/* line 33, ../sass/partials/_frontdesk.scss */
+.health {
+  color: green;
+}
+
+/* line 37, ../sass/partials/_frontdesk.scss */
+.art {
+  color: orange;
+}
+
+/* line 41, ../sass/partials/_frontdesk.scss */
+.education {
+  color: red;
+}
+
+/* line 1, ../sass/partials/_modals.scss */
+#checkin-checkbox {
+  zoom: 2.0;
+}
+
+/* line 5, ../sass/partials/_modals.scss */
+.checkin-checkbox-label {
+  font-size: 100%;
+}
+
 /* plugins */
 /***
 Spectrum Colorpicker v1.8.0

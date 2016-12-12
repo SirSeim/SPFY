@@ -1,6 +1,6 @@
 $(function () {
 
-    // functions and requests to cache data globally
+    // this file is for functions and requests to cache data globally
     // to be accessed from anywhere in the app
     
     window.parseDate = function (dateString) {
@@ -135,6 +135,9 @@ $(function () {
         method: "GET",
         success: function (data) {
             console.log(data);
+            data.result.forEach(function (client) {
+                client.checkedin = false; // adding this here to use in front desk
+            });
             window.sessionStorage.clients = JSON.stringify(data.result);
             window.sessionStorageListeners.forEach(function (listener) {
                 listener.ready();

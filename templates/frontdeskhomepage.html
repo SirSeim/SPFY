@@ -6,14 +6,29 @@
       {% include "components/_navbar.html" %}
 
 
-<!--         <div class="row">
-          <div class="page-header"><center>
+        <div class="row">
+
+            <!-- OLD HEADER 
+            <center>
             <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
             <h5 id="dropin-date" data-id="0">2222-01-01</h5>
+            </center> -->
+            <div>
+              <h5> Drop-In: <div id="drop-in-date">  </div>
+                <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    History
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+                    <li class="dropdown-header">Click To View Past Drop-In</li>
+                  </div>
+                </div>
+              </h5>
+            </div>
 
-            </center>
-          </div>
-        </div>  --><!-- 1st row -->
+
+        </div> <!-- 1st row -->
 
         <div class="row">
 
@@ -59,7 +74,8 @@
 
         <div class="row">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment</a></li>
+              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment
+                   <button type="button" class="btn btn-success" id="add-new-activity"> + </button></a></li>
               <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
             </ul>
 
@@ -67,112 +83,16 @@
              <div class="tab-pane active" id="activity-enrollment">
 
                 <div class="panel panel-default">
-                  <div class="panel-heading"> <!-- Activity Thumbnails -->
-<!--                     <div class="btn-toolbar" role="toolbar">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default">
-                          <i class="fa fa-user-md" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                           <i class="fa fa-music" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                           <i class="fa fa-futbol-o" aria-hidden="true"></i>
-                        </button> -->
-                        <div class="horiscroll">
-                            <div class="thumbnail" id="medical">
-                              <div class="caption"><span class="health">
-                                <p>Medical</p></span>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="dental">
-                              <div class="caption"><span class="health">
-                                <p>Dental</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="hivtesting">
-                              <div class="caption"><span class="health">
-                                <p>HIV Testing</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="medicalregistration">
-                              <div class="caption"><span class="health">
-                                <p>Medi-Cal</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="counseling">
-                              <div class="caption"><span class="health">
-                                <p>Counseling</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="legal">
-                              <div class="caption"><span class="health">
-                                <p>Legal</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="creativeexpression">
-                              <div class="caption"><span class="art">
-                                <p>Create Expression</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="clay">
-                              <div class="caption"><span class="art">
-                                <p>Clay</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="yoga">
-                              <div class="caption"><span class="art">
-                                <p>Yoga</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="mindfulness">
-                              <div class="caption"><span class="art">
-                                <p>Mindfulness</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="drumming">
-                              <div class="caption"><span class="art">
-                                <p>Drumming</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="music">
-                              <div class="caption"><span class="art">
-                                <p>Music</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="3dart">
-                              <div class="caption"><span class="education">
-                                <p>3D Art</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="musicproduction">
-                              <div class="caption"><span class="education">
-                                <p>Music Production</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="garden">
-                              <div class="caption"><span class="education">
-                                <p>Garden</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="shower">
-                              <div class="caption">
-                                <p>Shower</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="clothing">
-                              <div class="caption">
-                                <p>Clothing Closet</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="createNewActivity">
+                  <div class="panel-heading"> 
+                        <div class="horiscroll" id="activities-bar">                 
+<!--                             <div class="thumbnail" id="add-new-activity">
                               <div class="caption">
                                 <p>+</p>
                               </div>
-                            </div>
-                        </div>        
+                            </div> -->
+                        </div>     
                          
-                      </div>
+                  </div>
                       <!-- Button trigger Add New Activity Modal -->
 <!--                       <div class="btn-group" role="group"> 
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newActivityModal">
@@ -180,7 +100,14 @@
                         </button>
                       </div> -->
                     
-                      <div id="activities" class="panel-body">
+                      <div class="panel-body">
+
+                        <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
+                        <h4 id="activity-title"> Activity Title </h4>
+
+                        <table class="table table-hover" id='activities'>
+                        </table>
+
                       </div>
                     </div>
                   
@@ -200,17 +127,22 @@
 
     </div> <!--container-->
 
-<div id="react-test">
-
-                </div>
+<div id="react-test"></div>
 
 {% include "modals/viewclient.html" %}
+{% include "modals/addnewdropin.html" %}
 {% include "modals/addactivity.html" %}
 
 {% include "components/_basescript.html" %}
 
     <script type="text/babel" src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
+    <script src="/static/js/modals/viewclient.js"></script>
+    <script src="/static/js/modals/addactivity.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="/static/js/components/adddropin.js"></script>
+>>>>>>> app-test
     <script src="/static/js/components/checkin.js"></script>

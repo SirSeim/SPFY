@@ -43,16 +43,6 @@
                       </button>
                     </div>
                   </div>
-                <div class="col-xs-2">
-                  <img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg">
-                </div>
-                <div class="col-xs-10">
-                  <h1 id="client-id" style="display: none;">1</h1>
-                  <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
-                  <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
-                  <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
-                  <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
-                </div>
               </div>
 
               <div class="row">
@@ -103,45 +93,7 @@
                   </form>
                 </div>
                 <table id="casenotes" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Category</th>
-                      <th>Case Manager</th>
-                      <th>Preview</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1/10/15</td>
-                      <td>CM</td>
-                      <td>Ben Perkins</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>2/1/15</td>
-                      <td>CM</td>
-                      <td>Jeanine Espejo-Watkins</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>3/20/16</td>
-                      <td>CM</td>
-                      <td>Rebecca McGuire</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                    <tr>
-                      <td>5/15/16</td>
-                      <td>E&amp;E</td>
-                      <td>Chris Beckette</td>
-                      <td>This is the beginning of a case note.</td>
-                      <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
-                    </tr>
-                  </tbody>
+                  
                 </table>
               </div>
               <button id="addcasenote" class="btn btn-default" data-toggle="modal" data-target="#add-note-modal">Add New Case Note</button>
@@ -210,11 +162,13 @@
                         </div>
                         </br>
                         <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
+                        <button class="btn btn-danger" type="button" id="cancel-file">Cancel</button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div id="files"></div>
+                <div id="files">
+                </div>
             </div>
             <div class="tab-pane" id="referrals">
                 <h3>Referrals</h3>
