@@ -108,8 +108,7 @@ $(function (event) {
                                             jThis.parent().data('category') + '"><div class="caption"><span class="' +
                                             jThis.parent().data('category') + '"><p>'+ jThis.text() + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
-            });
-
+                });
             $(".thumbnail-dismiss").click(function (event) {
                 $(this).parent().parent().parent().parent().remove();
             });

@@ -23,7 +23,7 @@ $(function () {
         // modify the clientprofiletable once it comes onto the page
         // to include 'select' button specific to checkin process
         $('#clients tbody tr').get().forEach(function (row) {
-            console.log($(row));
+            // console.log($(row));
             $(row).addClass("clickable-row")
                   .data("toggle", "modal") // for some reason modal isn't working
                   .data("target", "#viewclient-modal")
@@ -34,7 +34,8 @@ $(function () {
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
                   });
-            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
+            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-outline-primary btn-sm">Select</button>');
+            console.log($(row));
             event.stopPropagation();
         });
 

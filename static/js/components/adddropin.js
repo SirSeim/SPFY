@@ -21,7 +21,7 @@ $(function () {
           window.sessionStorageListeners.forEach(function (listener) {
               listener.ready();
           });
-          $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
+          $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do, YYYY'));
           $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + data.result[1].id + '">' +
                                         moment(data.result[1].date).format('dddd L') + 
                                         '</a>')

@@ -1,26 +1,21 @@
 {% include "components/_header.html" %}
-
   <div class="container">
-    <!-- make this header highlight the frontdesk selection -->
     {% include "components/_navbar.html" %}
-    <div class="row">
-      <!-- OLD HEADER 
-      <center>
-      <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
-      <h5 id="dropin-date" data-id="0">2222-01-01</h5>
-      </center> -->
-      <div>
-        <h5> Drop-In: <div id="drop-in-date">  </div>
-          <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
-          <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              History
-            </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
-              <li class="dropdown-header">Click To View Past Drop-In</li>
-            </div>
+    <div class="row py-1">
+      <div class="card card-block" style="background-color: #F5F5F5; border-color: #E0E0E0;">
+        <h1 class="card-title">Drop-in for: <strong id="drop-in-date"></strong></h1>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-success btn-lg" id="add-new-dropin">
+            Add
+            <i class="fa fa-plus"></i>
+          </button>
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            History
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+            <li class="dropdown-header">Click To View Past Drop-In</li>
           </div>
-        </h5>
+        </div>
       </div>
     </div> <!-- 1st row -->
 
@@ -70,8 +65,11 @@
         <li class="nav-item">
           <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
             Activity Enrollment
-            <button type="button" class="btn btn-success" id="add-new-activity"> + </button>
-          </a></li>
+            <button type="button" class="btn btn-success btn-sm" id="add-new-activity">
+              <i class="fa fa-plus"></i>
+            </button>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">
             View Drop-In History
