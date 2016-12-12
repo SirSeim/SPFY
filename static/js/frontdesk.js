@@ -14,6 +14,7 @@
 
 $(function () {
 
+<<<<<<< Updated upstream
   // $.ajax({
   //       xhrFields: {
   //           withCredentials: true
@@ -36,6 +37,30 @@ $(function () {
   //       listener.refresh();
   //   });
   // });
+=======
+  $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "api/dropins",
+        method: "GET",
+        success: function (data) {
+          console.log("drop-ins");
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+        }
+  }).done(function (data) {
+    // window.sessionStorage.frontdeskDropinId = data.result[0].id;
+    // window.frontdeskRefreshListeners.forEach(function (listener) {
+    //     listener.refresh();
+    // });
+  });
+>>>>>>> Stashed changes
 
     
 
@@ -502,6 +527,7 @@ $(function () {
 
         $("#add-new-activity").click(function (event) {
             updateAddActivities();
+            console.log('CLICKED');
             $("#newActivityModal").modal("toggle");
         });
 
