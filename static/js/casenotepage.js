@@ -96,11 +96,7 @@ $(function (event) {
         getAllCaseManagers();
     });
 
-<<<<<<< Updated upstream
-    //$("#date").placeholder(moment().format("YYYY-MM-DD"));
-=======
     $("#addcasenote-date").val(moment().format("YYYY-MM-DDTHH:mm:ss"));
->>>>>>> Stashed changes
 
     $('#dropdownMenuButton').click(function () {
         console.log("dropdown button clicked");
