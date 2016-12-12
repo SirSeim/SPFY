@@ -417,6 +417,7 @@ $(function () {
                       console.error(data);
                   }
             }).done(function (data) {
+                console.log("/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities");
                 console.log(data);
                 data.result.forEach(function (activity) {
                     $('#activities-bar').append('<div class="thumbnail" data-id="' + activity.id + '" data-program-id="' +

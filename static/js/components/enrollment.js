@@ -125,17 +125,49 @@ $(function (event) {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
         var createEnrolledClientItem = function (client) {
-            return '<tr><td>' + client.firstName + ' ' +
-                    client.lastName + '</td><td><button class="fa fa-times btn btn-danger btn-sm" data-id="' +
+            return '<tr><td class="enrolled-name">' + client.firstName + ' ' + client.lastName +
+                    '</td><td><button class="fa fa-times btn btn-danger btn-sm enrolled-client" data-id="' +
                     client.id + '"></button></td></tr>';
+        };
+
+        var unEnrollClient = function (event) {
+            var jThis = $(this);
+            jThis.prop('disabled', true);
+
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+                method: "DELETE",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    clients: [
+                        jThis.data("id")
+                    ]
+                }),
+                success: function (data) {
+                    console.log(data);
+                    jThis.parent().parent().remove();
+                    populateAddEnrollTable();
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+                    jThis.prop('disabled', false);
+                }
+            });
         };
 
         $.ajax({
             xhrFields: {
-              withCredentials: true
+                withCredentials: true
             },
             beforeSend: function (xhr) {
-              xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
             url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
             method: "GET",
@@ -149,6 +181,7 @@ $(function (event) {
                         console.log(client);
                         jEnrolled.append(createEnrolledClientItem(client));
                     });
+                    $('.enrolled-client').click(unEnrollClient);
                 }
             },
             error: function (xhr) {
@@ -162,7 +195,7 @@ $(function (event) {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
         var createAddEnrollClientItem = function (client) {
-            return '<tr><td>' + client.firstName + ' ' + client.lastName + '</td>' +
+            return '<tr><td class="add-enroll-name">' + client.firstName + ' ' + client.lastName + '</td>' +
                     '<td><button type="button" class="btn btn-success btn-sm add-enroll-client" data-id="' + client.id + '">' +
                     '<i class="fa fa-plus"></i></button></td></tr>';
         };
@@ -173,10 +206,10 @@ $(function (event) {
 
             $.ajax({
                 xhrFields: {
-                  withCredentials: true
+                    withCredentials: true
                 },
                 beforeSend: function (xhr) {
-                  xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
                 url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
                 method: "POST",
@@ -200,10 +233,14 @@ $(function (event) {
         };
 
         var jAddEnrollTable = $("#activities-onSearch-table-body");
+        jAddEnrollTable.empty();
         clients.forEach(function (client) {
             jAddEnrollTable.append(createAddEnrollClientItem(client));
         });
         $(".add-enroll-client").click(enrollClient);
+        if ($('#activity-client-search').val() === '') {
+            $(".add-enroll-client").parent().parent().hide();
+        }
 
     };
 

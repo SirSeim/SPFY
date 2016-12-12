@@ -16,9 +16,14 @@ $(function () {
           url: "/api/dropins?latest=6",
           method: "GET"
         }).done(function (data, textStatus, xhr) {
+          console.log("TTTTTTT");
           console.log(data);
+          window.sessionStorage.frontdeskDropinId = data.result[0].id;
+          window.sessionStorageListeners.forEach(function (listener) {
+              listener.ready();
+          });
           $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
-          for (var i = 1; i < data.result.length; i++) {
+          for (var i = 0; i < data.result.length; i++) {
               $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + window.sessionStorage.frontdeskDropinId + '">' +
                                             moment(data.result[i].date).format('dddd L') + 
                                             '</a>');
