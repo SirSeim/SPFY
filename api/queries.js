@@ -447,7 +447,7 @@ var queries = {
 
         return queryString;
 
-    }
+    },
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 
@@ -575,8 +575,6 @@ var queries = {
 
         return queryString;
     },
-
-    remo
 
     getEnrollmentByActivity: function (activityID) {
         var queryString = "SELECT client_id FROM enrollment WHERE activity_id = " + activityID + ";";
