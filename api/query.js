@@ -416,13 +416,13 @@ var query = {
             });
         });
     },
-    removeEnrollmentToDropinActivity: function (postgres, dropinID, payload, callback) {
+    removeEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
 
-            client.query(Queries.removeEnrollmentToDropinActivity(dropinID, payload), function (err, result) {
+            client.query(Queries.removeEnrollmentToDropinActivity(dropinID, activityID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
