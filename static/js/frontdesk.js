@@ -324,10 +324,10 @@ $(function () {
                 console.log(data);
                 $('#activities-bar').empty();
                 data.result.forEach(function (activity) {
-                    $('#activities-bar').append('<div class="thumbnail" data-id="' + activity.id + '" data-program-id="' +
-                                            activity.programId + '"><div class="caption"><span class="' +
-                                            activity.programName + '"><p>' + activity.name + 
-                                            '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
+                    $('#activities-bar').append('<div class="card card-inverse text-xs-center activity-card ' +
+                                            jThis.parent().data('category') + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + jThis.data("id") + '" data-program-id="' +
+                                            jThis.parent().data('category') + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ jThis.text() + 
+                                            '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
                 });
             });
         };
