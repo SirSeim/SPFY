@@ -360,11 +360,12 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
+  program_id integer REFERENCES program (id) DEFAULT 1,
   activity_name varchar(45) DEFAULT NULL,
+  location varchar(45) DEFAULT NULL,
   ongoing boolean DEFAULT true,
-  start_date date DEFAULT NULL,
-  end_date date DEFAULT NULL,
-  program_id integer REFERENCES program (id) DEFAULT 1
+  start_time time DEFAULT NULL,
+  end_time time DEFAULT NULL
 );
 
 INSERT INTO activity (activity_name, program_id) VALUES ('Medical Care', 2);
