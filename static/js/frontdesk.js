@@ -99,27 +99,27 @@ $(function () {
                 console.log("HERE");
                 // alert("table still here!");
                 $.ajax({
-                  xhrFields: {
-                      withCredentials: true
-                  },
-                  beforeSend: function (xhr) {
-                      xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                  },
-                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
-                  method: "GET",
-                  success: function (data) {
-                      console.log(data);
-                  },
-                  error: function (xhr) {
-                      console.error(xhr);
-      
-                      if (xhr.status === 401) {
-                          localStorage.removeItem("authorization");
-                      }
-                  }
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
+                    method: "GET",
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }
                 }).done(function (data) {
+                    checkinTable.clear();
                     if (data.result.clients) {
-                        checkinTable.clear();
                         var checkins = data.result.clients;
                         clients.forEach(function (client) {
                           checkins.forEach(function (checkin) {
@@ -176,8 +176,6 @@ $(function () {
         });
 
         $('#clients tbody').css("height", 100);
-
-        // $('#checked-in').DataTable();
 
         var setupCheckin = function () {
             $.ajax({
@@ -306,7 +304,7 @@ $(function () {
             });
         }
 
-        var setupActivitiesForDropin = function () {
+        var populateActivitiesForDropin = function () {
             $.ajax({
                 xhrFields: {
                 withCredentials: true
@@ -333,23 +331,23 @@ $(function () {
             });
         };
 
+
+
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();
-            setupActivitiesForDropin();
-            window.sessionStorageListeners.push({
-                ready: setupCheckin
-            });
-            window.sessionStorageListeners.push({
-                ready: setupActivitiesForDropin
-            });
+            populateActivitiesForDropin();
         } else {
             window.sessionStorageListeners.push({
                 ready: setupCheckin
             });
             window.sessionStorageListeners.push({
-                ready: setupActivitiesForDropin
+                ready: populateActivitiesForDropin
             });
         }
+
+        window.frontDeskRefresh = window.frontDeskRefresh || [];
+        window.frontDeskRefresh.push(populateActivitiesForDropin);
+        window.frontDeskRefresh.push(refreshCheckinTable);
 
         $(".tablinks").click(function (event) {
             var currentTabID = $(this).attr('href');

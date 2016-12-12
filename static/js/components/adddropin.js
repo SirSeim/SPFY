@@ -38,9 +38,12 @@ $(function () {
             jThis = $(this);
             $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
             window.sessionStorage.frontdeskDropinId = jThis.data("id");
-            window.sessionStorageListeners.forEach(function (listener) {
-                listener.ready();
-            });
+            if (window.frontDeskRefresh) {
+              window.frontDeskRefresh.forEach(function (f) {
+                console.log("refreshing");
+                f();
+              });
+            }
           });
         }).fail(function (xhr, textStatus, errorThrown) {
           console.log(xhr);
