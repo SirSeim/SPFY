@@ -819,6 +819,20 @@ var respond = {
             message: "Successfully got client's profile picture",
             result: result
         }).code(200);
+    },
+    failedToDeleteFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete file",
+            error: err
+        }).code(500);
+    },
+    deleteFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted file",
+            result: result
+        }).code(200);
     }
 
 };

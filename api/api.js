@@ -625,6 +625,16 @@ var api = {
         });
     },
 
+    deleteFile: function (request, reply) {
+        Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
+            if (err) {
+                Respond.failedToDeleteFile(reply, err);
+            } else {
+                Respond.deleteFile(reply, result);
+            }
+        });
+    },
+
     getNotificationTypes: function (request, reply) {
         Service.getNotificationTypes(request.postgres, function (err, result) {
             if (err) {

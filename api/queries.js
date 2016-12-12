@@ -881,8 +881,13 @@ var queries = {
         return queryString;
     },
 
+    deleteFile: function (fileID) {
+        var queryString = 'DELETE FROM file WHERE id = ' + fileID + ';';
+        return queryString;
+    },
+
     getClientFiles: function (clientID) {
-        var queryString = 'SELECT name, type, date, base_64_string FROM file WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT id, name, type, date, base_64_string FROM file WHERE client_id = ' + clientID + ';';
         return queryString;
     },
 
