@@ -1,275 +1,137 @@
 {% include "components/_header.html" %}
 
-    <div class="container">
-
-      <!-- make this header highlight the frontdesk selection -->
-      {% include "components/_navbar.html" %}
-
-
-<<<<<<< HEAD
-<!--         <div class="row">
-          <div class="page-header"><center>
-            <h1> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h1>
-            <h2 id="dropin-date" data-id="0">2222-01-01</h2>
-            <button class="badge-button btn btn-primary btn-sm" type="button">
-              <span id="total-youth-today" class="badge">50</span> Total Youth Checked-In
+  <div class="container">
+    <!-- make this header highlight the frontdesk selection -->
+    {% include "components/_navbar.html" %}
+    <div class="row">
+      <!-- OLD HEADER 
+      <center>
+      <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
+      <h5 id="dropin-date" data-id="0">2222-01-01</h5>
+      </center> -->
+      <div>
+        <h5> Drop-In: <div id="drop-in-date">  </div>
+          <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
+          <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              History
             </button>
-            <button class="badge-button btn btn-primary btn-sm" type="button">
-              <span id="total-new-today" class="badge">14</span> Total New Youth Today
-            </button>
-=======
-        <div class="row">
-
-            <!-- OLD HEADER 
-            <center>
->>>>>>> app-test
-            <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
-            <h5 id="dropin-date" data-id="0">2222-01-01</h5>
-            </center> -->
-            <div>
-              <h5> Drop-In: <div id="drop-in-date">  </div>
-                <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
-                <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    History
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
-                    <li class="dropdown-header">Click To View Past Drop-In</li>
-                  </div>
-                </div>
-              </h5>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+              <li class="dropdown-header">Click To View Past Drop-In</li>
             </div>
-
-
-        </div> <!-- 1st row -->
-
-        <div class="row">
-
-          <div class="col-sm-4">
-                {% include "components/_clientprofiletable.html" %}
           </div>
-          <div class="col-sm-4">
-            <div class="card">
+        </h5>
+      </div>
+    </div> <!-- 1st row -->
+
+    <div class="row">
+
+      <div class="col-sm-4">
+            {% include "components/_clientprofiletable.html" %}
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>
+              Selected Clients
+            </h4>
+          </div>
+          <ul id="selected-clients">
+          </ul>
+          <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
+        </div>
+      </div>
+      <div id="checkin-feedback" class="col-sm-4">
+
+      </div>
+    </div> <!-- 2nd row -->
+
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
               <div class="card-header">
                 <h4>
-                  Selected Clients
+                  Check-Ins
                 </h4>
+                <h9>
+                  <div id="total-new-today">14 New Today </div> 
+                  <div id="total-youth-today">50 Total Checked-In </div>             
+                </h9>
               </div>
-              <ul id="selected-clients">
-              </ul>
-              <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
+              <table id="checked-in" class="table table-hover">
+                <!-- DataTables just requires an empty <table> -->
+              </table>
+            </div>
+        </div>
+    </div> <!-- 3rd row -->
+
+    <div class="row" role="navigation">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
+            Activity Enrollment
+            <button type="button" class="btn btn-success" id="add-new-activity"> + </button>
+          </a></li>
+        <li class="nav-item">
+          <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">
+            View Drop-In History
+          </a>
+        </li>
+      </ul>
+
+      <div id="my-tab-content" class="tab-content">
+       <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
+          <div class="card">
+            <div class="card-header"> 
+              <div class="horiscroll" id="activities-bar">                 
+                  <!-- <div class="thumbnail" id="add-new-activity">
+                    <div class="caption">
+                      <p>+</p>
+                    </div>
+                  </div> -->
+              </div>                 
+            </div>
+            <!-- Button trigger Add New Activity Modal -->
+            <!-- <div class="btn-group" role="group"> 
+              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </div> -->
+            <div class="card-block">
+              <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
+              <h4 id="activity-title"> Activity Title </h4>
+              <table class="table table-hover" id='activities'>
+              </table>
             </div>
           </div>
-          <div id="checkin-feedback" class="col-sm-4">
-
-          </div>
-        </div> <!-- 2nd row -->
-
-        <div class="row">
-            <div class="col-sm-12">
-              <div class="card">
-                  <div class="card-header">
-                    <h4>
-                      Check-Ins
-                    </h4>
-                    <h9>
-                      <div id="total-new-today">14 New Today </div> 
-                      <div id="total-youth-today">50 Total Checked-In </div>             
-                    </h9>
-                  </div>
-                  <table id="checked-in" class="table table-hover">
-                    <!-- DataTables just requires an empty <table> -->
-                  </table>
-                </div>
+        </div>
+        <div class="tab-pane" id="viewdrop-in" role="tabpanel">
+          <div class="card">
+            <div class="card-header">
             </div>
-        </div> <!-- 3rd row -->
-
-<<<<<<< HEAD
-        <div class="row" role="navigation">
-            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">Activity Enrollment</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">View Drop-In History</a>
-              </li>
-=======
-        <div class="row">
-            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment
-                   <button type="button" class="btn btn-success" id="add-new-activity"> + </button></a></li>
-              <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
->>>>>>> app-test
-            </ul>
-
-            <div id="my-tab-content" class="tab-content">
-             <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
-
-<<<<<<< HEAD
-                <div class="card">
-                  <div class="card-header"> <!-- Activity Thumbnails -->
-                  <!-- <div class="btn-toolbar" role="toolbar">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-secondary">
-                          <i class="fa fa-user-md" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-secondary">
-                           <i class="fa fa-music" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-secondary">
-                           <i class="fa fa-futbol-o" aria-hidden="true"></i>
-                        </button> -->
-                        <div class="horiscroll">
-                            <div class="thumbnail" id="medical">
-                              <div class="caption"><span class="health">
-                                <p>Medical</p></span>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="dental">
-                              <div class="caption"><span class="health">
-                                <p>Dental</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="hivtesting">
-                              <div class="caption"><span class="health">
-                                <p>HIV Testing</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="medicalregistration">
-                              <div class="caption"><span class="health">
-                                <p>Medi-Cal</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="counseling">
-                              <div class="caption"><span class="health">
-                                <p>Counseling</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="legal">
-                              <div class="caption"><span class="health">
-                                <p>Legal</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="creativeexpression">
-                              <div class="caption"><span class="art">
-                                <p>Create Expression</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="clay">
-                              <div class="caption"><span class="art">
-                                <p>Clay</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="yoga">
-                              <div class="caption"><span class="art">
-                                <p>Yoga</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="mindfulness">
-                              <div class="caption"><span class="art">
-                                <p>Mindfulness</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="drumming">
-                              <div class="caption"><span class="art">
-                                <p>Drumming</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="music">
-                              <div class="caption"><span class="art">
-                                <p>Music</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="3dart">
-                              <div class="caption"><span class="education">
-                                <p>3D Art</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="musicproduction">
-                              <div class="caption"><span class="education">
-                                <p>Music Production</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="garden">
-                              <div class="caption"><span class="education">
-                                <p>Garden</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="shower">
-                              <div class="caption">
-                                <p>Shower</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="clothing">
-                              <div class="caption">
-                                <p>Clothing Closet</p>
-                              </div>
-                            </div>
-                            <div class="thumbnail" id="addNew">
-=======
-                <div class="panel panel-default">
-                  <div class="panel-heading"> 
-                        <div class="horiscroll" id="activities-bar">                 
-<!--                             <div class="thumbnail" id="add-new-activity">
->>>>>>> app-test
-                              <div class="caption">
-                                <p>+</p>
-                              </div>
-                            </div> -->
-                        </div>     
-                         
-                  </div>
-                      <!-- Button trigger Add New Activity Modal -->
-                      <!-- <div class="btn-group" role="group"> 
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
-                          <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                      </div> -->
-                    
-<<<<<<< HEAD
-                      <div id="activities" class="card-block">
-=======
-                      <div class="panel-body">
-
-                        <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
-                        <h4 id="activity-title"> Activity Title </h4>
-
-                        <table class="table table-hover" id='activities'>
-                        </table>
-
->>>>>>> app-test
-                      </div>
-                    </div>
-                  
-                </div>
-                <div class="tab-pane" id="viewdrop-in" role="tabpanel">
-                  <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-block">
-                    </div>
-                  </div>
+            <div class="card-block">
+            </div>
+          </div>
 
 
-              </div> <!-- Drop-In Enrollment Tab pane -->
-            </div> <!-- Tab container -->
-        </div> <!-- 4th row -->
+        </div> <!-- Drop-In Enrollment Tab pane -->
+      </div> <!-- Tab container -->
+    </div> <!-- 4th row -->
+  </div> <!--container-->
 
-    </div> <!--container-->
+  <div id="react-test"></div>
 
-<div id="react-test"></div>
+  {% include "modals/viewclient.html" %}
+  {% include "modals/addnewdropin.html" %}
+  {% include "modals/addactivity.html" %}
 
-{% include "modals/viewclient.html" %}
-{% include "modals/addnewdropin.html" %}
-{% include "modals/addactivity.html" %}
+  {% include "components/_basescript.html" %}
 
-{% include "components/_basescript.html" %}
-
-    <script type="text/babel" src="/static/js/frontdesk.js"></script>
-    <script src="/static/js/components/clientprofiletable.js"></script>
-    <script src="/static/js/modals/viewclient.js"></script>
-    <script src="/static/js/modals/addactivity.js"></script>
-    <script src="/static/js/components/activitiestable.js"></script>
-    <script src="/static/js/components/enrollment.js"></script>
-    <script src="/static/js/components/adddropin.js"></script>
-    <script src="/static/js/components/checkin.js"></script>
+  <script type="text/babel" src="/static/js/frontdesk.js"></script>
+  <script src="/static/js/components/clientprofiletable.js"></script>
+  <script src="/static/js/modals/viewclient.js"></script>
+  <script src="/static/js/modals/addactivity.js"></script>
+  <script src="/static/js/components/activitiestable.js"></script>
+  <script src="/static/js/components/enrollment.js"></script>
+  <script src="/static/js/components/adddropin.js"></script>
+  <script src="/static/js/components/checkin.js"></script>
