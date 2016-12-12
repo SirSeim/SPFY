@@ -1,17 +1,3 @@
-
-// var ActivityTable = React.createClass({
-//     render: function () {
-//         return (
-//             <div className="text"></div>
-//         )
-//     }
-// });
-
-// ReactDOM.render(
-//   <ActivityTable />,
-//   document.getElementById('react-test')
-// );
-
 $(function () {
 
     var setupFrontDesk = function () {
@@ -25,128 +11,162 @@ $(function () {
         $('#clients tbody tr').get().forEach(function (row) {
             // console.log($(row));
             $(row).addClass("clickable-row")
-                  .data("toggle", "modal") // for some reason modal isn't working
-                  .data("target", "#viewclient-modal")
-                  // according to stackoverflow, need to manually reattach event handlers
-                  // to dynamically added elements, even for modals
-                  .on('click', function (event) {
-                      $('#viewclient-modal').find('#client-name')
-                                            .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
-                      $('#viewclient-modal').modal('toggle');
-                  });
+            .data("toggle", "modal") // for some reason modal isn't working
+            .data("target", "#viewclient-modal")
+            // according to stackoverflow, need to manually reattach event handlers
+            // to dynamically added elements, even for modals
+            .on('click', function (event) {
+                $('#viewclient-modal').find('#client-name')
+                .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
+                $('#viewclient-modal').modal('toggle');
+            });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-outline-primary btn-sm">Select</button>');
             console.log($(row));
             event.stopPropagation();
         });
 
-          var currentDropIn = {};
+        var selectedclients = [];
 
-          // once "Create Drop-In" feature is done, dropin session will
-          // be created beforehand and will be stored in the frontend,
-          // will be able to retrieve without ajax calls
-          $.ajax({
+        // Add people from Client Profiles to Selected Clients
+        $('[name="select-button"]').click(function (event) {
+            var client = $(event.target).parents('tr').data();
+            console.log(client);
+            if (!selectedclients.includes(client)) {
+                selectedclients.push(client);
+            }
+            $('#selected-clients').empty();
+            for (var i = 0; i < selectedclients.length; i++) {
+                $('#selected-clients').append('<li class="list-group-item client">' +
+                        selectedclients[i].firstname + ' ' + selectedclients[i].lastname +
+                        '</li>');
+
+            }
+            event.stopPropagation();
+        });
+
+        var sendUpClientsForCheckin = function (callback) {
+            var signups = [];
+
+            for (var i = 0; i < selectedclients.length; i++) {
+                signups.push(selectedclients[i].id);
+            }
+
+            // make sure to clear selectedclients after using data
+            selectedclients = [];
+            
+            $.ajax({
                 xhrFields: {
                     withCredentials: true
                 },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/dropins",
-                method: "GET",
+                url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    clients: signups
+                }),
                 success: function (data) {
-                  console.log("drop-ins");
-                  console.log(data);
+                    console.log(data);
+                    var clientString = "";
+                    var checkedInClients = data.result;
+                    for (var i = 0; i < checkedInClients.length; i++) {
+                        var client = window.getDataById(clients, checkedInClients[i].client_id);
+                        clientString += client.firstName + ' ' + client.lastName + '<br>';
+                    }
+
+                    $('#checkin-feedback').empty().append(
+                        '<div><h4>Clients Successfully Checked In</h4>' +
+                         clientString +
+                        '</div>');
+
+                    $('#selected-clients').empty();
+                    return callback();
                 },
                 error: function (data) {
-                  console.error(data);
+                    console.error(data);
+                    $('#checkin-feedback').empty().append(
+                        '<div><h4>Check In failed</h4>');
+                    return callback();
                 }
-          }).then(function (data) {
-              var dropins = data.result;
-              currentDropIn = dropins[dropins.length - 1];
-          }).then(function () {
-              return $.ajax({
-                xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-                  url: "api/dropins/" + currentDropIn.id,
+            });
+        };
+
+        var refreshCheckinTable = function () {
+            if (checkinTable) {
+                console.log("HERE");
+                // alert("table still here!");
+                $.ajax({
+                  xhrFields: {
+                      withCredentials: true
+                  },
+                  beforeSend: function (xhr) {
+                      xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                  },
+                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
                   method: "GET",
                   success: function (data) {
                       console.log(data);
                   },
-                  error: function (data) {
-                      console.error(data);
-                  }
-              });
-          });
-
-          var selectedclients = [];
-
-          $('[name="select-button"]').click(function (event) {
-              var client = $(event.target).parents('tr').data();
-              console.log(client);
-              if (!selectedclients.includes(client)) {
-                  selectedclients.push(client);
-              }
-              $('#selected-clients').empty();
-              for (var i = 0; i < selectedclients.length; i++) {
-                  $('#selected-clients').append('<li class="list-group-item client">' +
-                          selectedclients[i].firstname + ' ' + selectedclients[i].lastname +
-                          '</li>');
-
-              }
-              event.stopPropagation();
-          });
-
-          $('#checkin-button').click(function (event) {
-              var signups = [];
-
-              for (var i = 0; i < selectedclients.length; i++) {
-                  signups.push(selectedclients[i].id);
-              }
-
-              // make sure to clear selectedclients after using data
-              selectedclients = [];
-              
-              $.ajax({
-                xhrFields: {
-                withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
-                  method: "POST",
-                  contentType: "application/json",
-                  dataType: "json",
-                  data: JSON.stringify({
-                    clients: signups
-                  }),
-                  success: function (data) {
-                      console.log(data);
-                      var clientString = "";
-                      var checkedInClients = data.result;
-                      for (var i = 0; i < checkedInClients.length; i++) {
-                          var client = window.getDataById(clients, checkedInClients[i].client_id);
-                          clientString += client.firstName + ' ' + client.lastName + '<br>';
+                  error: function (xhr) {
+                      console.error(xhr);
+      
+                      if (xhr.status === 401) {
+                          localStorage.removeItem("authorization");
                       }
-
-                      $('#checkin-feedback').empty().append(
-                          '<div><h4>Clients Successfully Checked In</h4>' +
-                           clientString +
-                          '</div>');
-
-                      $('#selected-clients').empty();
-                  },
-                  error: function (data) {
-                      console.error(data);
-                      $('#checkin-feedback').empty().append(
-                          '<div><h4>Check In failed</h4>');
                   }
-              });
-          });
+                }).done(function (data) {
+                    if (data.result.clients) {
+                        checkinTable.clear();
+                        var checkins = data.result.clients;
+                        clients.forEach(function (client) {
+                          checkins.forEach(function (checkin) {
+                              if (checkin === client.id) {
+                                  // dataset.push(client);
+                                  var row = checkinTable.row.add({
+                                      // moment(checkin.date).format('MM-DD-YY'),
+                                      id: client.id,
+                                      firstName: client.firstName,
+                                      lastName: client.lastName,
+                                      dob: moment(client.dob).format('MM-DD-YY'),
+                                      status: '<span class="dot"></span>',
+                                      phone: client.phone,
+                                      email: client.email,
+                                      checkedin: true
+                                  }).draw();
+                                  $(row.node()).data({ // node() returns the actual html tag
+                                      // moment(checkin.date).format('MM-DD-YY'),
+                                      id: client.id,
+                                      firstName: client.firstName,
+                                      lastName: client.lastName,
+                                      dob: moment(client.dob).format('MM-DD-YY'),
+                                      status: client.status 
+                                  }); 
+                                  var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                  $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                                  // according to stackoverflow, need to manually reattach event handlers
+                                  // to dynamically added elements, even for modals
+                                  $(row.node()).data('toggle', 'modal')
+                                               .data('target', '#viewclient-modal')
+                                               .on('click', function (event) {
+                                                    $('#viewclient-modal').find('#client-name')
+                                                                          .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                                    $('#viewclient-modal').modal('toggle');
+                                               });
+                              }
+                          });
+                        });
+                      }
+                });
+            }
+        };
+
+        $('#checkin-button').click(function (event) {
+            console.log("THERE");
+            sendUpClientsForCheckin(refreshCheckinTable);
+        });
         
 
         $('#viewclient-modal-save-button').click(function (event) {
@@ -286,74 +306,6 @@ $(function () {
             });
         }
 
-        $('#checkin-button').click(function (event) {
-            if (checkinTable) {
-                // alert("table still here!");
-                $.ajax({
-                  xhrFields: {
-                      withCredentials: true
-                  },
-                  beforeSend: function (xhr) {
-                      xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                  },
-                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
-                  method: "GET",
-                  success: function (data) {
-                      console.log(data);
-                  },
-                  error: function (xhr) {
-                      console.error(xhr);
-      
-                      if (xhr.status === 401) {
-                          localStorage.removeItem("authorization");
-                      }
-                  }
-                }).done(function (data) {
-                    if (data.result.clients) {
-                        checkinTable.clear();
-                        var checkins = data.result.clients;
-                        clients.forEach(function (client) {
-                          checkins.forEach(function (checkin) {
-                              if (checkin === client.id) {
-                                  // dataset.push(client);
-                                  var row = checkinTable.row.add({
-                                      // moment(checkin.date).format('MM-DD-YY'),
-                                      id: client.id,
-                                      firstName: client.firstName,
-                                      lastName: client.lastName,
-                                      dob: moment(client.dob).format('MM-DD-YY'),
-                                      status: '<span class="dot"></span>',
-                                      phone: client.phone,
-                                      email: client.email,
-                                      checkedin: true
-                                  }).draw();
-                                  $(row.node()).data({ // node() returns the actual html tag
-                                      // moment(checkin.date).format('MM-DD-YY'),
-                                      id: client.id,
-                                      firstName: client.firstName,
-                                      lastName: client.lastName,
-                                      dob: moment(client.dob).format('MM-DD-YY'),
-                                      status: client.status 
-                                  }); 
-                                  var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                                  $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
-                                  // according to stackoverflow, need to manually reattach event handlers
-                                  // to dynamically added elements, even for modals
-                                  $(row.node()).data('toggle', 'modal')
-                                               .data('target', '#viewclient-modal')
-                                               .on('click', function (event) {
-                                                    $('#viewclient-modal').find('#client-name')
-                                                                          .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
-                                                    $('#viewclient-modal').modal('toggle');
-                                               });
-                              }
-                          });
-                        });
-                      }
-                });
-            }
-        });
-
         var setupActivitiesForDropin = function () {
             $.ajax({
                 xhrFields: {
@@ -378,28 +330,6 @@ $(function () {
                                             activity.programName + '"><p>' + activity.name + 
                                             '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
                 });
-                // data.result.forEach(function (activity) {
-                //     if (activity.programId === 2) {
-                //         $("#health-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
-                //     } else if (activity.programId === 3) {
-                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
-                //     } else if (activity.programId === 4) {
-                //         //need to fix the 4 well issue
-                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
-                //     } else {
-                //         $("#other-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
-                //     }
-
-                // });
-
-                // $('.activities-add button').click(function (event) {
-                //     if ($(this).hasClass("active") ) {
-                //         $(this).removeClass("active");
-                //     } else {
-                //         $(this).addClass("active");
-                //     }
-                        
-                // });
             });
         };
 
@@ -420,25 +350,6 @@ $(function () {
                 ready: setupActivitiesForDropin
             });
         }
-        /*
-            If headers not showing up, need to specify them manually.
-            DataTables documentation doesn't mention this
-
-            data = this.SearchController.resultSet;
-            this.$tableContainer.dataTable({
-                data:    data,
-                columns: [
-                {
-                    data: "H",
-                    title: "Thickness"
-                },
-                {
-                    data: "InstanceId",
-                    title: "Instance ID"
-                }]
-            });
-
-        */
 
         $(".tablinks").click(function (event) {
             var currentTabID = $(this).attr('href');
@@ -479,123 +390,9 @@ $(function () {
             updateAddActivities();
             $("#newActivityModal").modal("toggle");
         });
-
-
-        // $.ajax({
-        //     xhrFields: {
-        //         withCredentials: true
-        //     },
-        //     beforeSend: function (xhr) {
-        //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        //     },
-        //     url: "api/dropins",
-        //     method: "GET",
-        //     success: function (data) {
-        //         console.log("drop-ins");
-        //         console.log(data);
-        //     },
-        //     error: function (xhr) {
-        //         console.error(xhr);
-
-        //         if (xhr.status === 401) {
-        //             localStorage.removeItem("authorization);
-        //         }
-        //     }
-        // }).then(function (data) {
-        //     // get today's dropin session
-        //     var dropins = data.result;
-        //     var currentDropIn = dropins[dropins.length - 1];
-        //     $('#dropin-date').text(moment(currentDropIn.date).format('MMM Do YYYY'));
-        //     console.log(currentDropIn);
-        //     $('#dropin-date').data("id", currentDropIn.id);
-        // }).then(function () {
-        //     // get activities associated in today's dropin
-        //     return $.ajax({
-        //         xhrFields: {
-        //             withCredentials: true
-        //         },
-        //         beforeSend: function (xhr) {
-        //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        //         },
-        //         url: "api/dropins/" + $('#dropin-date').data("id") + "/activities",
-        //         method: "GET",
-        //         success: function (data) {
-        //             console.log(data);
-        //         },
-        //         error: function (xhr) {
-        //             console.error(xhr);
-
-        //             if (xhr.status === 401) {
-        //                 localStorage.removeItem("authorization");
-        //             }
-        //         }
-        //     });
-        // }).then(function (data) {
-        //     // makes a table for each activity
-        //     var activities = data.result;
-        //     console.log(activities);
-        //     $('#activities').append('<div id="activity-tables" class="row"></div>');
-        //     activities.forEach(function (activity) {
-        //         var idName = activity.name.toLowerCase().replace(/[\s]/, '-');
-        //         $('#activity-tables').append(
-        //             '<div class="col-sm-4">' + 
-        //             '<div class="panel panel-default enrollment-panel"><div class="panel-heading">' +
-        //             '<h4>' + activity.name + '</h4><input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" /></div>' +
-        //             '<table id="' + idName + '-table" data-id="' + activity.id + '" class="table table-hover activity">' +
-        //             '<thead><tr><th name="participants"></th></tr></thead>' + 
-        //             '<tbody></tbody></table></div></div>');
-        //     });
-        // }).then(function () {
-        //     // get the clients enrolled in each activity in today's dropin
-        //     return $.ajax({
-        //         xhrFields: {
-        //             withCredentials: true
-        //         },
-        //         beforeSend: function (xhr) {
-        //             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        //         },
-        //         url: "api/dropins/" + $('#dropin-date').data("id") + "/enrollment",
-        //         method: "GET",
-        //         success: function (data) {
-        //             console.log(data);
-        //         },
-        //         error: function (xhr) {
-        //             console.error(xhr);
-
-        //             if (xhr.status === 401) {
-        //                 localStorage.removeItem("authorization");
-        //             }
-        //         }
-        //     });
-        // }).done(function (data) {
-        //     var enrollment = data.result.rows;
-        //     // get clientprofiles from profiles listed in clientprofiletable.html
-        //     var profiles = $('#clients').find('tr');
-        //     // for each activity table, add a client profile if that client is enrolled
-        //     $('.table.activity').get().forEach(function (table) {
-        //         enrollment.forEach(function (enroll) {
-        //             if (enroll.activity_id === $(table).data("id")) {
-        //                 var client = window.getDataById(clients, enroll.client_id);
-        //                 var status = window.getDataById(statuses, client.status);
-        //                 var display = ['<span class="dot"></span>' + client.firstName + ' ' + client.lastName];
-        //                 var trAttributes = [
-        //                     'class="clickable-row"',
-        //                     'data-toggle="modal"',
-        //                     'data-target="#viewclient-modal"'
-        //                 ];
-        //                 $(table).append(window.buildRow(client, display, trAttributes));
-        //                 $(table).find('tr').last().find('span.dot').css('background-color', status.color);
-        //             }
-        //         });
-        //     });
-        //     // count number of youth enrolled in each activity
-        //     $('.enrollment-panel').find('[name="participants"]').get().forEach(function (header) {
-        //         header.innerText = "Participants: " + $(header).parents('.enrollment-panel').find('tbody').find('td').length;
-        //     });
-        // });
     };
 
-    var globalData = []
+    var globalData = [];
     globalData.push(window.sessionStorage.statuses);
     globalData.push(window.sessionStorage.clients);
 
@@ -609,127 +406,3 @@ $(function () {
         });
     }
 });
-
-
-// ==========================================
-
-// // From:http://bootsnipp.com/snippets/featured/checked-list-group
-
-//     var createPastCheckIn = function (checkin) {
-//         return '<tr><td class="col-xs-2">' + moment(checkin.date).format('M/D/YY') +
-//                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
-//                 '<td class="col-xs-2">' +
-//                 '<button id="editcheck-inbutton" type="button" class="btn btn-secondary btn-sm">Edit</button></td></tr>';
-//     };
-
-//     var populateCheckIn = function () {
-//         var table = $('#checked-in tbody');
-
-//         $.ajax({
-//             url: "/api/checkin",
-//             method: "GET",
-//             success: function (data) {
-//                 table.empty();
-//                 data.result.forEach(function (element) {
-//                     table.append(createPastCheckIn(element));
-//                 });
-//                 console.log(data);
-//             },
-//             error: function (data) {
-//                 console.error(data);
-//             }
-//         });
-//     };
-
-//     populateCheckIn();
-
-//     $(function () {
-//         $('.list-group.checked-list-box .list-group-item').each(function () {
-
-//             // Settings
-//             var $widget = $(this),
-//                 $checkbox = $('<input type="checkbox" class="hidden" />'),
-//                 color = ($widget.data('color') ? $widget.data('color') : "primary"),
-//                 style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-//                 settings = {
-//                     on: {
-//                         icon: 'fa fa-check'
-//                     },
-//                     off: {
-//                         icon: 'fa fa-unchecked'
-//                     }
-//                 };
-
-//             $widget.css('cursor', 'pointer')
-//             $widget.append($checkbox);
-
-//             // Event Handlers
-//             $widget.on('click', function () {
-//                 $checkbox.prop('checked', !$checkbox.is(':checked'));
-//                 $checkbox.triggerHandler('change');
-//                 updateDisplay();
-//             });
-//             $checkbox.on('change', function () {
-//                 updateDisplay();
-//             });
-
-
-//             // Actions
-//             function updateDisplay() {
-//                 var isChecked = $checkbox.is(':checked');
-
-//                 // Set the button's state
-//                 $widget.data('state', (isChecked) ? "on" : "off");
-
-//                 // Set the button's icon
-//                 $widget.find('.state-icon')
-//                     .removeClass()
-//                     .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-//                 // Update the button's color
-//                 if (isChecked) {
-//                     $widget.addClass(style + color + ' active');
-//                 } else {
-//                     $widget.removeClass(style + color + ' active');
-//                 }
-//             }
-
-//             // Initialization
-//             function init() {
-
-//                 if ($widget.data('checked') == true) {
-//                     $checkbox.prop('checked', !$checkbox.is(':checked'));
-//                 }
-
-//                 updateDisplay();
-
-//                 // Inject the icon if applicable
-//                 if ($widget.find('.state-icon').length == 0) {
-//                     $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
-//                 }
-//             }
-//             init();
-//         });
-
-//         $('#get-checked-data').on('click', function(event) {
-//             event.preventDefault();
-//             var checkedItems = {}, counter = 0;
-//             $("#check-list-box li.active").each(function(idx, li) {
-//                 checkedItems[counter] = $(li).text();
-//                 counter++;
-//             });
-//             $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
-//         });
-//     });
-
-//     $("input[name='idProvided']").on("click", function (event) {
-//         var selected = $("input[name='idProvided']:checked").val();
-//         if (selected === "idYes" && $(".newID").hasClass("hidden")) {
-//             $(".newID").removeClass("hidden");
-//         } else if (selected === "idNo" && !$(".newID").hasClass("hidden")) {
-//             $(".newID").addClass("hidden");
-//         }
-//     });
-
-
-// });
