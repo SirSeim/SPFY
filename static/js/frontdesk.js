@@ -14,30 +14,6 @@
 
 $(function () {
 
-<<<<<<< Updated upstream
-  // $.ajax({
-  //       xhrFields: {
-  //           withCredentials: true
-  //       },
-  //       beforeSend: function (xhr) {
-  //           xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-  //       },
-  //       url: "api/dropins",
-  //       method: "GET",
-  //       success: function (data) {
-  //         console.log("drop-ins");
-  //         console.log(data);
-  //       },
-  //       error: function (data) {
-  //         console.error(data);
-  //       }
-  // }).done(function (data) {
-  //   window.sessionStorage.frontdeskDropinId = data.result[0].id;
-  //   window.frontdeskRefreshListeners.forEach(function (listener) {
-  //       listener.refresh();
-  //   });
-  // });
-=======
   $.ajax({
         xhrFields: {
             withCredentials: true
@@ -60,7 +36,6 @@ $(function () {
     //     listener.refresh();
     // });
   });
->>>>>>> Stashed changes
 
     
 
@@ -198,35 +173,35 @@ $(function () {
           });
         
 
-        $('#viewclient-modal-save-button').click(function (event) {
-            // TODO
-            // ajax call here to save any changes to the client profile
-            $('#viewclient-modal').modal('toggle');
-        });
+          $('#viewclient-modal-save-button').click(function (event) {
+              // TODO
+              // ajax call here to save any changes to the client profile
+              $('#viewclient-modal').modal('toggle');
+          });
 
-        $('#clients tbody').css("height", 100);
+          $('#clients tbody').css("height", 100);
 
-        // $('#checked-in').DataTable();
+          // $('#checked-in').DataTable();
 
-        /*
-            If headers not showing up, need to specify them manually.
-            DataTables documentation doesn't mention this
+          /*
+              If headers not showing up, need to specify them manually.
+              DataTables documentation doesn't mention this
 
-            data = this.SearchController.resultSet;
-            this.$tableContainer.dataTable({
-                data:    data,
-                columns: [
-                {
-                    data: "H",
-                    title: "Thickness"
-                },
-                {
-                    data: "InstanceId",
-                    title: "Instance ID"
-                }]
-            });
+              data = this.SearchController.resultSet;
+              this.$tableContainer.dataTable({
+                  data:    data,
+                  columns: [
+                  {
+                      data: "H",
+                      title: "Thickness"
+                  },
+                  {
+                      data: "InstanceId",
+                      title: "Instance ID"
+                  }]
+              });
 
-        */
+          */
 
         var setupCheckin = function () {
             $.ajax({
@@ -526,24 +501,11 @@ $(function () {
         };
 
         $("#add-new-activity").click(function (event) {
+          console.log('click!');
             updateAddActivities();
             console.log('CLICKED');
             $("#newActivityModal").modal("toggle");
         });
-
-        var globalData = []
-        globalData.push(window.sessionStorage.statuses);
-        globalData.push(window.sessionStorage.clients);
-
-        if (globalData.every((array) => array)) {
-            console.log("call arrived");
-            setupFrontDesk();
-        } else {
-            console.log("waiting for call");
-            window.sessionStorageListeners.push({
-                ready: setupFrontDesk
-            });
-        }
 
 
         // $.ajax({
@@ -659,6 +621,20 @@ $(function () {
         //     });
         // });
     };
+
+    var globalData = []
+    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.clients);
+
+    if (globalData.every((array) => array)) {
+        console.log("call arrived");
+        setupFrontDesk();
+    } else {
+        console.log("waiting for call");
+        window.sessionStorageListeners.push({
+            ready: setupFrontDesk
+        });
+    }
 });
 
 
