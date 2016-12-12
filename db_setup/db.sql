@@ -380,13 +380,10 @@ INSERT INTO activity (activity_name, program_id) VALUES ('Medical Care', 2);
 INSERT INTO activity (activity_name, program_id) VALUES ('Medi-Cal Registration', 2);
 INSERT INTO activity (activity_name, program_id) VALUES ('HIV Testing', 2);
 INSERT INTO activity (activity_name, program_id) VALUES ('Dental Care', 2);
-<<<<<<< HEAD
-=======
 INSERT INTO activity (activity_name, program_id) VALUES ('Digital Arts Lab', 4);
 INSERT INTO activity (activity_name, program_id) VALUES ('Mock Interviews', 4);
 INSERT INTO activity (activity_name, program_id) VALUES ('Life Skills Program', 4);
 INSERT INTO activity (activity_name) VALUES ('Legal');
->>>>>>> app-test
 
 DROP TABLE IF EXISTS drop_in;
 
@@ -418,6 +415,15 @@ INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, e
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Clinic', '12:30:00', '13:30:00');
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 1, 'Clinic', '12:30:00', '13:30:00');
 
+DROP TABLE IF EXISTS match_drop_in_client;
+
+CREATE TABLE match_drop_in_client (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id)
+);
+
+INSERT INTO match_drop_in_client (drop_in_id, client_id) VALUES (1, 1);
 
 DROP TABLE IF EXISTS enrollment;
 
