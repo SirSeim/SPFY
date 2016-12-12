@@ -1061,50 +1061,51 @@ var queries = {
             }
         } else if (formdata.type === "8") { // Importing Youth Master List
             var dropin = processSheet(sheet[0].data);
-            var intake = processSheet(sheet[1].data);
+            // var intake = processSheet(sheet[1].data);
             var date;
             var headers = [];
             var dates = [];
             var visits = [];
 
-            for (var i = 0; i < dropin.length; i++) {
-                for (var j = 0; j < dropin[i].length; j++) {
-                    if (i === 0 && j <= 8) {
-                        headers.push(dropin[i][j]);
-                    } else if (i === 0 && j > 8) {
-                        if (typeof dropin[i][j] === "string" 
-                            && (dropin[i][j].toLowerCase().includes("visits") 
-                            || dropin[i][j].toLowerCase().includes("unduplicated"))) {
-                            visits.push(j);
+            for (var k = 0; k < dropin.length; k++) {
+                for (var m = 0; m < dropin[k].length; m++) {
+                    if (k === 0 && m <= 8) {
+                        headers.push(dropin[k][m]);
+                    } else if (k === 0 && m > 8) {
+                        if (typeof dropin[k][m] === "string" && 
+                            (dropin[k][m].toLowerCase().includes("visits") || 
+                            dropin[k][m].toLowerCase().includes("unduplicated"))) {
+                            visits.push(m);
                         } else {
-                            console.log(dropin[i][j])
-                            dates.push(j);
-                            date = parseDateAndTime(dropin[i][j]);
+                            console.log(dropin[k][m]);
+                            dates.push(m);
+                            date = parseDateAndTime(dropin[k][m]);
                             queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
                             "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
                         }
                     }
-                    /*if (dropin[i][j] != undefined) {
-                        if (typeof dropin[i][j] === "number" && dropin[i][j] > 40000) {
-                            date = parseDateAndTime(dropin[i][j]);
-                            dropin[i][j] = date.date;
+                    
+                    /* if (dropin[k][m] != undefined) {
+                        if (typeof dropin[k][m] === "number" && dropin[k][m] > 40000) {
+                            date = parseDateAndTime(dropin[k][m]);
+                            dropin[k][m] = date.date;
                         }
-                        //console.log(dropin[i][j]);
-                    }*/
+                        // console.log(dropin[k][m]);
+                    }*/ 
                 }
             }
 
-            //console.log(headers);
-            //console.log(dates);
+            // console.log(headers);
+            // console.log(dates);
 
 
-            //var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
-            //var test2 = intake[1][0] % 1;
-            //console.log(intake);
-            //console.log(parseDateAndTime(intake[1][0]));
-            //console.log(test);
-            //console.log(test2);
-            //console.log(dropin);
+            // var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
+            // var test2 = intake[1][0] % 1;
+            // console.log(intake);
+            // console.log(parseDateAndTime(intake[1][0]));
+            // console.log(test);
+            // console.log(test2);
+            // console.log(dropin);
         }
 
         console.log(queryString);
