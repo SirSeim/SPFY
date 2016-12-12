@@ -105,20 +105,12 @@
         
       </table>
     </div>
-    <button id="addcasenote" class="btn btn-secondary" data-toggle="modal" data-target="#add-note-modal">Add New Case Note</button>
-    <div class="modal fade" id="add-note-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            Add Case Note
-          </div>
-          <div class="modal-body">
-            {% include "components/_addcasenote.html" %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <button id="addcasenote" class="btn btn-secondary" data-toggle="modal" data-target="#add-note-modal">
+      Add New Case Note
+    </button>
+
+    {% include "modals/addcasenote.html" %}  
+  </div>  
   <div class="tab-pane" id="caseplan">
     <h3 id="caseplan-title">
         Client's Case Plan
@@ -180,9 +172,7 @@
     <div id="files">
     </div>      
   </div>
-  <div class="modal-body">
-    {% include "components/_addcasenote.html" %}
-  </div>
+
   <div class="tab-pane" id="documents" role="tabpanel">
     <h3>Client Documents</h3>
     <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
