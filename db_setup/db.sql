@@ -136,6 +136,7 @@ CREATE TABLE client (
   intake_date date DEFAULT NULL,
   hmis_consent boolean DEFAULT NULL,
   first_time boolean DEFAULT NULL,
+  first_intake_date date DEFAULT NULL,
   case_manager varchar(65) DEFAULT NULL,
   case_manager_id integer DEFAULT NULL,
   phone_number varchar(45) DEFAULT NULL,
@@ -597,6 +598,7 @@ DROP TABLE IF EXISTS monthly_statistics;
 CREATE TABLE monthly_statistics (
   id SERIAL PRIMARY KEY,
   month varchar(45) DEFAULT NULL,
+  year integer DEFAULT NULL,
   unduplicated_youth integer DEFAULT 0,
   total_youth integer DEFAULT 0
 )

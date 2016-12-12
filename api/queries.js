@@ -1060,78 +1060,57 @@ var queries = {
             var dropin = processSheet(sheet[0].data);
             // var intake = processSheet(sheet[1].data);
             var date;
-            var headers = [];
-            var dates = [];
-            var dateIndexes = [];
-            var visits = [];
 
-            for (var k = 0; k < dropin.length; k++) {
+            for (var k = 1; k < dropin.length; k++) {
                 for (var m = 0; m < dropin[k].length; m++) {
-
-                    // headers
-                    if (k === 0 && m <= 8) {
-                        headers.push(dropin[k][m]);
-                    } else if (k === 0 && m > 8) {
-                        if (typeof dropin[k][m] === "string" && 
-                            (dropin[k][m].toLowerCase().includes("visits") || 
-                            dropin[k][m].toLowerCase().includes("unduplicated"))) {
-                            visits.push(m);
+                    if (m <= 8) {
+                        if (dropin[k][0] === undefined && // no first name
+                                dropin[k][1] === undefined || // no last name
+                                dropin[k][8] === undefined || // intake date doesn't exist
+                                typeof dropin[k][8] !== "number") { // no first intake date
+                            // If they don't have a name or anything, skip row.
+                            m = dropin[k].length; 
                         } else {
-                            dateIndexes.push(m);
-                            date = parseDateAndTime(dropin[k][m]);
-                            dates.push(date.date);
-                            // Create dropin dates if they don't already exist.
-                            queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
-                                "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
-                        }
-                    }
-
-                    // Skip Row 1 because it doesn't seem to have anything...
-
-                    // Clients
-                    if (k >= 2) {
-                        if (m <= 8) {
-                            if (dropin[k][0] === undefined && dropin[k][1] === undefined) {
-                                // If they have no name or anything, skip.
-                                m = dropin[k].length; 
-                            } else if (dropin[k][0] !== "TOTALS") {
+                            if (dropin[k][0] !== "TOTALS") {
+                                // eventually: Update if is detected
                                 queryString += "INSERT INTO client (first_name, last_name, gender, race, date_of_birth, " +
-                                "intake_age, reference) SELECT \'" + dropin[k][0] + "\', \'" + dropin[k][1] + "\', " + 
+                                "intake_age, reference, first_intake_date) SELECT \'" + dropin[k][0] + "\', \'" + 
+                                dropin[k][1] + "\', " + 
                                 (dropin[k][2] === undefined ? "NULL, " : "\'" + dropin[k][2] + "\', ") + // gender
                                 (dropin[k][3] === undefined ? "NULL, " : "\'" + dropin[k][3] + "\', ") + // race
                                 (dropin[k][4] === undefined ? "NULL, " : "\'" + parseDateAndTime(dropin[k][4]).date + "\', ") +
                                 (dropin[k][5] === undefined ? "NULL, " : "\'" + dropin[k][5] + "\', ") + // age
-                                (dropin[k][6] === undefined ? "NULL " : "\'" + dropin[k][6] + "\' ") +  // ref
+                                (dropin[k][6] === undefined ? "NULL, " : "\'" + dropin[k][6] + "\', ") +  // ref
+                                (dropin[k][8] === undefined ? "NULL " : "\'" + parseDateAndTime(dropin[k][8]).date + "\' ") +  
                                 "WHERE NOT EXISTS (SELECT first_name FROM client WHERE first_name = \'" + dropin[k][0] + 
-                                "\' AND last_name = \'" + dropin[k][1] + "\');"; // eventually: Update if is detected
-                                m = 8;
-                            } else {
-                                // Total Math
+                                "\' AND last_name = \'" + dropin[k][1] + "\');"; 
                             }
+                            m = 8;
+                        }
+                    } else {
+                        if (dropin[k][0] !== "TOTALS" && dropin[k][m] !== undefined) {
+                            if (typeof dropin[0][m] === "string" &&
+                                (dropin[0][m].toLowerCase().includes("visits") || 
+                                dropin[0][m].toLowerCase().includes("unduplicated"))) {
+                                // Statistics
+                            } else {
+                                date = parseDateAndTime(dropin[0][m]);
+                                queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
+                                    "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
+                                queryString += "INSERT INTO match_drop_in_client (drop_in_id, client_id) SELECT (" + 
+                                    "SELECT id FROM drop_in WHERE date = \'" + date.date + "\'), (SELECT id FROM client " + 
+                                    "WHERE first_name = \'" + dropin[k][0] + "\' AND last_name = \'" + dropin[k][1] +
+                                    "\') WHERE NOT EXISTS (SELECT id FROM match_drop_in_client WHERE drop_in_id = " + 
+                                    "(SELECT id FROM drop_in WHERE date = \'" + date.date + "\') AND client_id = " +
+                                    "(SELECT id FROM client WHERE first_name = \'" + dropin[k][0] + "\' AND last_name " + 
+                                    " = \'" + dropin[k][1] + "\'));"; 
+                            }
+                        } else if (dropin[k][0] === "TOTALS") {
+                            console.log("Happy days...");
                         }
                     }
-                    
-                    /* if (dropin[k][m] != undefined) {
-                        if (typeof dropin[k][m] === "number" && dropin[k][m] > 40000) {
-                            date = parseDateAndTime(dropin[k][m]);
-                            dropin[k][m] = date.date;
-                        }
-                        // console.log(dropin[k][m]);
-                    }*/ 
                 }
             }
-
-            // console.log(headers);
-            // console.log(dates);
-
-
-            // var test = new Date(1900, 0, Math.floor(intake[1][0] - 1));
-            // var test2 = intake[1][0] % 1;
-            // console.log(intake);
-            // console.log(parseDateAndTime(intake[1][0]));
-            // console.log(test);
-            // console.log(test2);
-            // console.log(dropin);
         }
 
         // console.log(queryString);
