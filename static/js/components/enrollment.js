@@ -46,8 +46,6 @@ $(function (event) {
         });
     };
 
-    /
-
     // .delegate adds event listeners to each element with designated class
     // (in this case, every "td" element)
     // adding a "click" event listener with the function that should execute
