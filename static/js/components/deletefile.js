@@ -14,6 +14,7 @@ var deleteFile = function (glyphicon) {
         data: fileID,
         success: function (data) {
             alert("SUCCESS: File has been successfully delete!");
+            row.remove();
         },
         error: function (xhr) {
             console.log(xhr);

@@ -11,6 +11,7 @@ $(function (event) {
         var clientCaseManager;
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
+        var client;
 
         $('#setflag-button').click(function (event) {
             $('#setflag-modal').modal('toggle');
@@ -312,6 +313,7 @@ $(function (event) {
         $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
+            client = $(this);
         });
 
         // *** Files ***
@@ -331,6 +333,7 @@ $(function (event) {
                     console.log(data);
                     alert('SUCCESS: File has been uploaded');
                     $('#add-file-modal').modal('hide');
+                    displayClientProfile(client)
                 },
                 error: function (xhr) {
                     console.log(xhr);
