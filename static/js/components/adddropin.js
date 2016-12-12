@@ -35,7 +35,6 @@ $(function () {
                                         moment(data.result[4].date).format('dddd L') + 
                                         '</a>');
           $(".dropin-date-item").click(function (event) {
-            console.log("BITCH");
             jThis = $(this);
             $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
             window.sessionStorage.frontdeskDropinId = jThis.data("id");

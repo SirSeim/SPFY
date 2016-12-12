@@ -160,6 +160,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/activities/{activityID}',
+        handler: Api.getActivity
+    },
+    {
+        method: 'GET',
         path: '/search/clients',
         handler: Api.dataBrowserGetClients
     },
@@ -350,6 +355,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/files/profile_picture/{clientID}',
         handler: Api.getProfilePicture
+    },
+    {
+        method: 'POST',
+        path: '/files/delete/{fileID}',
+        handler: Api.deleteFile
     }
 ];
 

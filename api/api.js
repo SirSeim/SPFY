@@ -126,6 +126,16 @@ var api = {
         });
     },
 
+    getActivity: function (request, reply) {
+        Service.getActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivity(reply, err);
+            } else {
+                Respond.getActivity(reply, result);
+            }
+        });
+    },
+
     getDropinActivities: function (request, reply) {
         Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
@@ -621,6 +631,16 @@ var api = {
                 Respond.failedToUploadFile(reply, err);
             } else {
                 Respond.uploadFile(reply, result);
+            }
+        });
+    },
+
+    deleteFile: function (request, reply) {
+        Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
+            if (err) {
+                Respond.failedToDeleteFile(reply, err);
+            } else {
+                Respond.deleteFile(reply, result);
             }
         });
     },

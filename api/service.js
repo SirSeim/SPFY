@@ -288,7 +288,12 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    name: local.activity_name
+                    name: local.activity_name,
+                    ongoing: local.ongoing,
+                    startDate: local.start_date,
+                    endDate: local.end_date,
+                    programId: local.program_id,
+                    programName: local.program_name
                 });
             }
             return callback(undefined, arr);
@@ -306,7 +311,12 @@ var service = {
             }
             return callback(undefined, {
                 id: local.id,
-                name: local.activity_name
+                name: local.activity_name,
+                ongoing: local.ongoing,
+                startDate: local.start_date,
+                endDate: local.end_date,
+                programId: local.program_id,
+                programName: local.program_name
             });
         });
     },
@@ -861,6 +871,15 @@ var service = {
 
     getProfilePicture: function (postgres, clientID, callback) {
         Query.getProfilePicture(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    deleteFile: function (postgres, fileID, callback) {
+        Query.deleteFile(postgres, fileID, function (err, result) {
             if (err) {
                 return callback(err);
             }

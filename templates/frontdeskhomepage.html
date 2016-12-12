@@ -83,18 +83,7 @@
              <div class="tab-pane active" id="activity-enrollment">
 
                 <div class="panel panel-default">
-                  <div class="panel-heading"> <!-- Activity Thumbnails -->
-<!--                     <div class="btn-toolbar" role="toolbar">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default">
-                          <i class="fa fa-user-md" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                           <i class="fa fa-music" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                           <i class="fa fa-futbol-o" aria-hidden="true"></i>
-                        </button> -->
+                  <div class="panel-heading"> 
                         <div class="horiscroll" id="activities-bar">                 
 <!--                             <div class="thumbnail" id="add-new-activity">
                               <div class="caption">
@@ -111,19 +100,12 @@
                         </button>
                       </div> -->
                     
-                      <div id="activities-table" class="panel-body">
+                      <div class="panel-body">
 
                         <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
                         <h4 id="activity-title"> Activity Title </h4>
 
-                        <table class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th>Enrolled</th> <div class="badge"></div>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
+                        <table class="table table-hover" id='activities'>
                         </table>
 
                       </div>
@@ -156,7 +138,8 @@
     <script type="text/babel" src="/static/js/frontdesk.js"></script>
     <script src="/static/js/components/clientprofiletable.js"></script>
     <script src="/static/js/modals/viewclient.js"></script>
+    <script src="/static/js/modals/addactivity.js"></script>
     <script src="/static/js/components/activitiestable.js"></script>
     <script src="/static/js/components/enrollment.js"></script>
     <script src="/static/js/components/adddropin.js"></script>
-    <script src="/static/js/components/checkin.js"></script
+    <script src="/static/js/components/checkin.js"></script>

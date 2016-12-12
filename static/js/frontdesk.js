@@ -32,9 +32,6 @@ $(function () {
                       $('#viewclient-modal').find('#client-name')
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
-                      $('#viewclient-modal #client-modal-data').data($(this).data());
-                      console.log($(this).data("checkedin"));
-                      $('#viewclient-modal #checkin-checkbox').prop("checked", window.getDataById(clients, $(this).data("id")).checkedin);
                   });
             $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
         });
@@ -244,56 +241,108 @@ $(function () {
                     }
                 });
                 clients.forEach(function (client) {
-                  checkins.forEach(function (checkin) {
-                      if (checkin === client.id) {
-                          client.checkedin = true;
-                          // dataset.push(client);
-                          var row = table.row.add({
-                              // moment(checkin.date).format('MM-DD-YY'),
-                              id: client.id,
-                              firstName: client.firstName,
-                              lastName: client.lastName,
-                              dob: moment(client.dob).format('MM-DD-YY'),
-                              status: '<span class="dot"></span>',
-                              phone: client.phone,
-                              email: client.email,
-                              checkedin: true
-                          }).draw();
-                          $(row.node()).data({ // node() returns the actual html tag
-                              // moment(checkin.date).format('MM-DD-YY'),
-                              id: client.id,
-                              firstName: client.firstName,
-                              lastName: client.lastName,
-                              dob: moment(client.dob).format('MM-DD-YY'),
-                              status: client.status,
-                              checkedin: true
-                          });
-                          var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                          $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
-                          // according to stackoverflow, need to manually reattach event handlers
-                          // to dynamically added elements, even for modals
-                          $(row.node()).data('toggle', 'modal')
-                                       .data('target', '#viewclient-modal')
-                                       .on('click', function (event) {
-                                          $('#viewclient-modal').find('#client-name')
-                                                                .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
-                                          $('#viewclient-modal').modal('toggle');
-                                          $('#viewclient-modal #checkin-checkbox').prop('checked', true);
-                                       });
+                    checkins.forEach(function (checkin) {
+                        if (checkin === client.id) {
+                            // dataset.push(client);
+                            var row = table.row.add({
+                                // moment(checkin.date).format('MM-DD-YY'),
+                                id: client.id,
+                                firstName: client.firstName,
+                                lastName: client.lastName,
+                                dob: moment(client.dob).format('MM-DD-YY'),
+                                status: '<span class="dot"></span>',
+                                phone: client.phone,
+                                email: client.email
+                            }).draw();
+                            $(row.node()).data({ // node() returns the actual html tag
+                                // moment(checkin.date).format('MM-DD-YY'),
+                                id: client.id,
+                                firstName: client.firstName,
+                                lastName: client.lastName,
+                                dob: moment(client.dob).format('MM-DD-YY'),
+                                status: client.status 
+                            }); 
+                            var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                            $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                            // according to stackoverflow, need to manually reattach event handlers
+                            // to dynamically added elements, even for modals
+                            $(row.node()).data('toggle', 'modal')
+                                         .data('target', '#viewclient-modal')
+                                         .on('click', function (event) {
+                                              $('#viewclient-modal').find('#client-name')
+                                                                    .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                              $('#viewclient-modal').modal('toggle');
+                                         });
                         }
                     });
                 });
             });
         }
 
+        var setupActivitiesForDropin = function () {
+            $.ajax({
+                xhrFields: {
+                withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities",
+                  method: "GET",
+                  success: function (data) {
+                      console.log(data);
+                  },
+                  error: function (data) {
+                      console.error(data);
+                  }
+            }).done(function (data) {
+                console.log(data);
+                data.result.forEach(function (activity) {
+                    $('#activities-bar').append('<div class="thumbnail" data-id="' + activity.id + '" data-program-id="' +
+                                            activity.programId + '"><div class="caption"><span class="' +
+                                            activity.programName + '"><p>' + activity.name + 
+                                            '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
+                });
+                // data.result.forEach(function (activity) {
+                //     if (activity.programId === 2) {
+                //         $("#health-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else if (activity.programId === 3) {
+                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else if (activity.programId === 4) {
+                //         //need to fix the 4 well issue
+                //         $("#art-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     } else {
+                //         $("#other-well").append('<button type="button" class="list-group-item list-group-item-action" data-id="' + activity.id + '">' + activity.name + '</button>');
+                //     }
+
+                // });
+
+                // $('.activities-add button').click(function (event) {
+                //     if ($(this).hasClass("active") ) {
+                //         $(this).removeClass("active");
+                //     } else {
+                //         $(this).addClass("active");
+                //     }
+                        
+                // });
+            });
+        };
+
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();
+            setupActivitiesForDropin();
             window.sessionStorageListeners.push({
                 ready: setupCheckin
+            });
+            window.sessionStorageListeners.push({
+                ready: setupActivitiesForDropin
             });
         } else {
             window.sessionStorageListeners.push({
                 ready: setupCheckin
+            });
+            window.sessionStorageListeners.push({
+                ready: setupActivitiesForDropin
             });
         }
         /*
@@ -323,8 +372,37 @@ $(function () {
             event.preventDefault();
         });
 
+        var updateAddActivities = function () {
+            $('#activities-bar').each(function (element) {
+                console.log("BITHCINDFGDF");
+                var jElement = $(element);
+                var programId = jElement.data('program-id');
+                var activityId = jElement.data('id');
+
+                if (programId === 2) {
+                    $("#health-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else if (programId === 3) {
+                    $("#art-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else if (programId === 4) {
+                    // Needs to actually use a 4th well
+                    $("#art-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                } else {
+                    $("#other-well").children().filter(function (i, e) {
+                        return $(e).data('id') === activityId;
+                    }).addClass('active');
+                }
+            })
+        };
+
         $("#add-new-activity").click(function (event) {
-             $("#newActivityModal").modal("toggle");
+            updateAddActivities();
+            $("#newActivityModal").modal("toggle");
         });
 
 

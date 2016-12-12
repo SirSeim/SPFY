@@ -442,13 +442,17 @@ var queries = {
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT id, activity_name, ongoing, start_date, end_date FROM activity;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
+                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, program ' +
+                'WHERE activity.program_id = program.id;';
 
         return queryString;
     },
 
     getActivity: function (activity) {
-        var queryString = 'SELECT id, activity_name FROM activity WHERE id = ' + activity + ';';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
+                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, ' +
+                'program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
 
         return queryString;
     },
@@ -881,8 +885,13 @@ var queries = {
         return queryString;
     },
 
+    deleteFile: function (fileID) {
+        var queryString = 'DELETE FROM file WHERE id = ' + fileID + ';';
+        return queryString;
+    },
+
     getClientFiles: function (clientID) {
-        var queryString = 'SELECT name, type, date, base_64_string FROM file WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT id, name, type, date, base_64_string FROM file WHERE client_id = ' + clientID + ';';
         return queryString;
     },
 

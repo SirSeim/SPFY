@@ -226,7 +226,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotActivity: function (reply, result) {
+    getActivity: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activity!",
@@ -817,6 +817,20 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Successfully got client's profile picture",
+            result: result
+        }).code(200);
+    },
+    failedToDeleteFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete file",
+            error: err
+        }).code(500);
+    },
+    deleteFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted file",
             result: result
         }).code(200);
     }
