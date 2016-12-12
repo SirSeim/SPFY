@@ -33,7 +33,7 @@ $(function () {
                                             .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                       $('#viewclient-modal').modal('toggle');
                   });
-            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-default">Select</button>');
+            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-secondary btn-sm">Select</button>');
         });
 
           var currentDropIn = {};
@@ -543,7 +543,7 @@ $(function () {
 //         return '<tr><td class="col-xs-2">' + moment(checkin.date).format('M/D/YY') +
 //                 '</td><td class="col-xs-2">50</td><td class="col-xs-2">5</td>' +
 //                 '<td class="col-xs-2">' +
-//                 '<button id="editcheck-inbutton" type="button" class="btn btn-default">Edit</button></td></tr>';
+//                 '<button id="editcheck-inbutton" type="button" class="btn btn-secondary btn-sm">Edit</button></td></tr>';
 //     };
 
 //     var populateCheckIn = function () {

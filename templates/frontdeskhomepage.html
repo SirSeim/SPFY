@@ -1,145 +1,137 @@
 {% include "components/_header.html" %}
 
-    <div class="container">
-
-      <!-- make this header highlight the frontdesk selection -->
-      {% include "components/_navbar.html" %}
-
-
-        <div class="row">
-
-            <!-- OLD HEADER 
-            <center>
-            <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
-            <h5 id="dropin-date" data-id="0">2222-01-01</h5>
-            </center> -->
-            <div>
-              <h5> Drop-In: <div id="drop-in-date">  </div>
-                <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
-                <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    History
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
-                    <li class="dropdown-header">Click To View Past Drop-In</li>
-                  </div>
-                </div>
-              </h5>
+  <div class="container">
+    <!-- make this header highlight the frontdesk selection -->
+    {% include "components/_navbar.html" %}
+    <div class="row">
+      <!-- OLD HEADER 
+      <center>
+      <h4> Front <span class="fa fa-home" aria-hidden="true"></span> Desk </h4>
+      <h5 id="dropin-date" data-id="0">2222-01-01</h5>
+      </center> -->
+      <div>
+        <h5> Drop-In: <div id="drop-in-date">  </div>
+          <button type="button" class="btn btn-success" id="add-new-dropin"> + </button>
+          <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              History
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+              <li class="dropdown-header">Click To View Past Drop-In</li>
             </div>
-
-
-        </div> <!-- 1st row -->
-
-        <div class="row">
-
-          <div class="col-sm-3">
-                {% include "components/_clientprofiletable.html" %}
           </div>
-          <div class="col-sm-3">
-            <div class="panel panel-default">
-              <div class="panel-heading">
+        </h5>
+      </div>
+    </div> <!-- 1st row -->
+
+    <div class="row">
+
+      <div class="col-sm-4">
+            {% include "components/_clientprofiletable.html" %}
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>
+              Selected Clients
+            </h4>
+          </div>
+          <ul id="selected-clients">
+          </ul>
+          <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
+        </div>
+      </div>
+      <div id="checkin-feedback" class="col-sm-4">
+
+      </div>
+    </div> <!-- 2nd row -->
+
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+              <div class="card-header">
                 <h4>
-                  Selected Clients
+                  Check-Ins
                 </h4>
+                <h9>
+                  <div id="total-new-today">14 New Today </div> 
+                  <div id="total-youth-today">50 Total Checked-In </div>             
+                </h9>
               </div>
-              <ul id="selected-clients">
-              </ul>
-              <button id="checkin-button" type="button" class="btn btn-default">Check-In</button>
+              <table id="checked-in" class="table table-hover">
+                <!-- DataTables just requires an empty <table> -->
+              </table>
+            </div>
+        </div>
+    </div> <!-- 3rd row -->
+
+    <div class="row" role="navigation">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
+            Activity Enrollment
+            <button type="button" class="btn btn-success" id="add-new-activity"> + </button>
+          </a></li>
+        <li class="nav-item">
+          <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">
+            View Drop-In History
+          </a>
+        </li>
+      </ul>
+
+      <div id="my-tab-content" class="tab-content">
+       <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
+          <div class="card">
+            <div class="card-header"> 
+              <div class="horiscroll" id="activities-bar">                 
+                  <!-- <div class="thumbnail" id="add-new-activity">
+                    <div class="caption">
+                      <p>+</p>
+                    </div>
+                  </div> -->
+              </div>                 
+            </div>
+            <!-- Button trigger Add New Activity Modal -->
+            <!-- <div class="btn-group" role="group"> 
+              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </div> -->
+            <div class="card-block">
+              <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
+              <h4 id="activity-title"> Activity Title </h4>
+              <table class="table table-hover" id='activities'>
+              </table>
             </div>
           </div>
-          <div id="checkin-feedback" class="col-sm-3">
-
-          </div>
-        </div> <!-- 2nd row -->
-
-        <div class="row">
-            <div class="col-sm-10">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4>
-                      Check-Ins
-                    </h4>
-                    <h9>
-                      <div id="total-new-today">14 New Today </div> 
-                      <div id="total-youth-today">50 Total Checked-In </div>             
-                    </h9>
-                    <input id="activity-search" type="text" class="form-control input-sm" maxlength="128" placeholder="Search" />
-                  </div>
-                  <table id="checked-in" class="table table-hover">
-                    <!-- DataTables just requires an empty <table> -->
-                  </table>
-                </div>
+        </div>
+        <div class="tab-pane" id="viewdrop-in" role="tabpanel">
+          <div class="card">
+            <div class="card-header">
             </div>
-        </div> <!-- 3rd row -->
-
-        <div class="row">
-            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-              <li class="active"><a class="tablinks" href="#activity-enrollment" data-toggle="tab">Activity Enrollment
-                   <button type="button" class="btn btn-success" id="add-new-activity"> + </button></a></li>
-              <li><a class="tablinks" href="#viewdrop-in" data-toggle="tab">View Drop-In History</a></li>
-            </ul>
-
-            <div id="my-tab-content" class="tab-content">
-             <div class="tab-pane active" id="activity-enrollment">
-
-                <div class="panel panel-default">
-                  <div class="panel-heading"> 
-                        <div class="horiscroll" id="activities-bar">                 
-<!--                             <div class="thumbnail" id="add-new-activity">
-                              <div class="caption">
-                                <p>+</p>
-                              </div>
-                            </div> -->
-                        </div>     
-                         
-                  </div>
-                      <!-- Button trigger Add New Activity Modal -->
-<!--                       <div class="btn-group" role="group"> 
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newActivityModal">
-                          <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                      </div> -->
-                    
-                      <div class="panel-body">
-
-                        <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
-                        <h4 id="activity-title"> Activity Title </h4>
-
-                        <table class="table table-hover" id='activities'>
-                        </table>
-
-                      </div>
-                    </div>
-                  
-                </div>
-                <div class="tab-pane" id="viewdrop-in">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                    </div>
-                    <div class="panel-body">
-                    </div>
-                  </div>
+            <div class="card-block">
+            </div>
+          </div>
 
 
-              </div> <!-- Drop-In Enrollment Tab pane -->
-            </div> <!-- Tab container -->
-        </div> <!-- 4th row -->
+        </div> <!-- Drop-In Enrollment Tab pane -->
+      </div> <!-- Tab container -->
+    </div> <!-- 4th row -->
+  </div> <!--container-->
 
-    </div> <!--container-->
+  <div id="react-test"></div>
 
-<div id="react-test"></div>
+  {% include "modals/viewclient.html" %}
+  {% include "modals/addnewdropin.html" %}
+  {% include "modals/addactivity.html" %}
 
-{% include "modals/viewclient.html" %}
-{% include "modals/addnewdropin.html" %}
-{% include "modals/addactivity.html" %}
+  {% include "components/_basescript.html" %}
 
-{% include "components/_basescript.html" %}
-
-    <script type="text/babel" src="/static/js/frontdesk.js"></script>
-    <script src="/static/js/components/clientprofiletable.js"></script>
-    <script src="/static/js/modals/viewclient.js"></script>
-    <script src="/static/js/modals/addactivity.js"></script>
-    <script src="/static/js/components/activitiestable.js"></script>
-    <script src="/static/js/components/enrollment.js"></script>
-    <script src="/static/js/components/adddropin.js"></script>
-    <script src="/static/js/components/checkin.js"></script>
+  <script type="text/babel" src="/static/js/frontdesk.js"></script>
+  <script src="/static/js/components/clientprofiletable.js"></script>
+  <script src="/static/js/modals/viewclient.js"></script>
+  <script src="/static/js/modals/addactivity.js"></script>
+  <script src="/static/js/components/activitiestable.js"></script>
+  <script src="/static/js/components/enrollment.js"></script>
+  <script src="/static/js/components/adddropin.js"></script>
+  <script src="/static/js/components/checkin.js"></script>
