@@ -355,6 +355,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/files/profile_picture/{clientID}',
         handler: Api.getProfilePicture
+    },
+    {
+        method: 'POST',
+        path: '/files/delete/{fileID}',
+        handler: Api.deleteFile
     }
 ];
 

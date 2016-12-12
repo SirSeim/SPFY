@@ -876,6 +876,15 @@ var service = {
             }
             callback(undefined, result);
         });
+    },
+
+    deleteFile: function (postgres, fileID, callback) {
+        Query.deleteFile(postgres, fileID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
     }
 };
 

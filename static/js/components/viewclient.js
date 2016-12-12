@@ -11,6 +11,7 @@ $(function (event) {
         var clientCaseManager;
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
+        var client;
 
         $('#setflag-button').click(function (event) {
             $('#setflag-modal').modal('toggle');
@@ -312,6 +313,7 @@ $(function (event) {
         $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
+            client = $(this);
         });
 
         // *** Files ***
@@ -331,6 +333,7 @@ $(function (event) {
                     console.log(data);
                     alert('SUCCESS: File has been uploaded');
                     $('#add-file-modal').modal('hide');
+                    displayClientProfile(client)
                 },
                 error: function (xhr) {
                     console.log(xhr);
@@ -393,12 +396,19 @@ $(function (event) {
                     var fileList = data.result.rows;
                     var fileDiv = $('#files');
                     fileDiv.empty();
+                    fileDiv.append('<div class="row">' +
+                    '<h4 class="col-xs-3"> File </h4>' +
+                    '<h4 class="col-xs-3"> Date </h4>' +
+                    '<h4 class="col-xs-3"> Type </h4>' +
+                    '<h4 class="col-xs-2"> Delete </h4></div><br /');
                     fileList.forEach(function (element) {
+                        var id = element.id
                         var name = element.name.substr(element.name.lastIndexOf('\\') + 1);
                         var date = element.date.substr(0, element.date.indexOf('T'));
                         var type = element.type;
-                        var link = '<a href="' + element.base_64_string + '">' + name + '</a><p>Date: ' + date + '</p><p>Type: ' + type + '</p><br />';
-                        fileDiv.append(link);
+                        var row = '<div class="row"><p class="col-xs-1" hidden>' + id + '</p><a class="col-xs-3" href="' + element.base_64_string + '">' + name + '</a><p class="col-xs-3">' + date + '</p><p class="col-xs-3">' + type + '</p>';
+                        row += '<a class="col-xs-1" onclick=deleteFile(this)><span class="glyphicon glyphicon-remove"></span></a></div><br />';
+                        fileDiv.append(row);
                     });
                 },
                 error: function (xhr) {
