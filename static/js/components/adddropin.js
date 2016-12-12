@@ -6,6 +6,12 @@ $(function () {
 
         $("#dropin-date-input").val(moment().format("YYYY-MM-DD"));
 
+        var createDropInDateItem = function (dropinItem) {
+          return '<a class="dropdown-item dropin-date-item" data-id="' + dropinItem.id + '">' +
+                  moment(dropinItem.date).format('dddd L') + 
+                  '</a>';
+        };
+
         $.ajax({
           xhrFields: {
             withCredentials: true
@@ -22,20 +28,24 @@ $(function () {
           window.sessionStorageListeners.forEach(function (listener) {
               listener.ready();
           });
-          $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do YYYY'));
-          for (var i = 0; i < data.result.length; i++) {
-              $("#drop-in-dropdown").append('<a class="dropdown-item dropin-date-item" data-id="' + window.sessionStorage.frontdeskDropinId + '">' +
-                                            moment(data.result[i].date).format('dddd L') + 
-                                            '</a>');
-          }
+          
+          $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do, YYYY'));
+
+          var jDropInDropdown = $("#drop-in-dropdown");
+          data.result.forEach(function(dropinItem) {
+            jDropInDropdown.append(createDropInDateItem(dropinItem));
+          });
 
           $(".dropin-date-item").click(function (event) {
             jThis = $(this);
             $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
             window.sessionStorage.frontdeskDropinId = jThis.data("id");
-            window.sessionStorageListeners.forEach(function (listener) {
-                listener.ready();
-            });
+            if (window.frontDeskRefresh) {
+              window.frontDeskRefresh.forEach(function (f) {
+                console.log("refreshing");
+                f();
+              });
+            }
           });
         }).fail(function (xhr, textStatus, errorThrown) {
           console.log(xhr);

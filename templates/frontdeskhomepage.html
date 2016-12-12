@@ -1,25 +1,22 @@
 {% include "components/_header.html" %}
   <div class="container">
-    <!-- make this header highlight the frontdesk selection -->
     {% include "components/_navbar.html" %}
-    <div class="row">
-      <h5> 
-        Drop-In: 
-        <div id="drop-in-date">
-        </div>
+    <div class="row py-1">
+      <div class="card card-block" style="background-color: #F5F5F5; border-color: #E0E0E0;">
+        <h1 class="card-title">Drop-in for: <strong id="drop-in-date"></strong></h1>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-success" id="add-new-dropin">
+          <button type="button" class="btn btn-success btn-lg" id="add-new-dropin">
             Add
             <i class="fa fa-plus"></i>
           </button>
-          <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             History
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
             <li class="dropdown-header">Click To View Past Drop-In</li>
           </div>
         </div>
-      </h5>
+      </div>
     </div> <!-- 1st row -->
 
     <div class="row">
@@ -84,12 +81,12 @@
        <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
           <div class="card">
             <div class="card-header"> 
-              <div class="horiscroll" id="activities-bar">                 
-                  <!-- <div class="thumbnail" id="add-new-activity">
-                    <div class="caption">
-                      <p>+</p>
-                    </div>
-                  </div> -->
+              <div class="horiscroll" >                 
+                <div class="card-deck-wrapper">
+                  <div class="card-deck" id="activities-bar">
+
+                  </div>
+                </div>
               </div>                 
             </div>
             <!-- Button trigger Add New Activity Modal -->

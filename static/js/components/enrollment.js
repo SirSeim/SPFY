@@ -13,7 +13,7 @@ $(function (event) {
         var jThis = $(this);
 
         $("#activity-title").empty();
-        $("#activity-title").append(jThis.text());
+        $("#activity-title").append(jThis.find('p').text());
 
         activityID = jThis.data('id');
         populateEnrollmentTable();
@@ -31,17 +31,16 @@ $(function (event) {
         $('.activities-add button.active').each(function (index, element) {
             var jThis = $(this);
             selectedActivities.push(jThis.text());
-            $('#activities-bar').append('<div class="thumbnail" data-id="' + jThis.data("id") + '" data-program-id="' +
-                                        jThis.parent().data('category') + '"><div class="caption"><span class="' +
-                                        jThis.parent().data('category') + '"><p>'+ jThis.text() + 
-                                        '<button type="button" class="thumbnail-dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></span></div></div>');
+            $('#activities-bar').append('<div class="card card-inverse text-xs-center activity-card ' +
+                                        jThis.parent().data('category') + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + jThis.data("id") + '" data-program-id="' +
+                                        jThis.parent().data('category') + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ jThis.text() + 
+                                        '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
         });
-
         $(".thumbnail-dismiss").click(function (event) {
             $(this).parent().parent().parent().parent().remove();
         });
 
-        $(".thumbnail").click(window.clickHandlers.enrollmentThumbnail);
+        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
 
     });
 
@@ -49,7 +48,7 @@ $(function (event) {
         $(this).parent().parent().parent().parent().parent().remove();
     });
 
-    $(".thumbnail").click(window.clickHandlers.enrollmentThumbnail);
+    $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
 
     //AUTO-
 
@@ -238,9 +237,9 @@ $(function (event) {
             jAddEnrollTable.append(createAddEnrollClientItem(client));
         });
         $(".add-enroll-client").click(enrollClient);
-        if ($('#activity-client-search').val() === '') {
-            $(".add-enroll-client").parent().parent().hide();
-        }
+        // if ($('#activity-client-search').val() === '') {
+        //     $(".add-enroll-client").parent().parent().hide();
+        // }
 
     };
 
