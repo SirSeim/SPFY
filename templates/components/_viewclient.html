@@ -19,11 +19,14 @@
 <div id="my-tab-content" class="tab-content">
   <div class="tab-pane active" id="client-info" role="tabpanel">
     <div class="row">
-      <h1 id="client-id" style="display: none;">1</h1>
-      <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
-      <button id="edit-client" type="button" class="col-sm-2 btn btn-outline-primary">Edit Client</button>
-      <button id="submit-edit" type="button" class="col-sm-2 btn btn-outline-primary btn-sm" style="display: none;">Submit Edit</button>
-      <button id="cancel-edit" type="button" class="col-sm-2 btn btn-outline-secondary btn-sm" style="display: none;">Cancel Edit</button>
+      <div class="col-lg-12">
+        <h1 id="client-id" style="display: none;">1</h1>
+        <h2><strong id="client-name">Client 'Name' Here</strong>
+          <button id="edit-client" type="button" class="btn btn-outline-primary">Edit Client</button>
+          <button id="submit-edit" type="button" class="btn btn-outline-primary btn-sm" style="display: none;">Submit</button>
+          <button id="cancel-edit" type="button" class="btn btn-outline-secondary btn-sm" style="display: none;">Cancel</button>
+        </h2>
+      </div>
     </div>
     <div class="row" id="client-badges">
       <div class="col-xs-2">
@@ -62,21 +65,25 @@
     </div>
 
     <div class="row">
-      <table id="clientInfoTable">
-        <tr>
-          <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
-          <td><h4>Age</h4></td><td id="client-age">00</td>
-        </tr>
-        <tr>
-          <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
-          <td><h4>Email</h4></td><td id="client-email">Not Given</td>
-        </tr>
-        <tr>
-          <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
-          <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
-          <td><h4>Status</h4></td></td><td id="client-status">Okay</td>
-        </tr>
-      </table>
+      <div class="col-lg-12">
+        <table id="clientInfoTable">
+          <tr>
+            <td><h5>Birthday</h5></td><td id="client-birthday">00/00/00</td>
+            <td><h5>Age</h5></td><td id="client-age">00</td>
+          </tr>
+          <tr>
+            <td><h5>Phone Number</h5></td><td id="client-phonenumber">555-555-5555</td>
+            <td><h5>Email</h5></td><td id="client-email">Not Given</td>
+          </tr>
+          <tr>
+            <td><h5>Last Meeting</h5></td><td id="last-meeting">5/15/16</td>
+            <td><h5>Status</h5></td></td><td id="client-status">Okay</td>
+          </tr>
+          <tr>
+            <td><h5>Case Manager</h5></td><td id="case-manager">Bob Ross</td>
+          </tr>
+        </table>
+      </div>
     </div> <!-- info table -->
   </div> <!-- client-info tab -->
 
