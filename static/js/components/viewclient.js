@@ -10,12 +10,7 @@ $(function (event) {
         var clientLastMeeting;
         var clientCaseManager;
         var statuses = JSON.parse(window.sessionStorage.statuses);
-<<<<<<< HEAD
-        // var flags = JSON.parse(window.sessionStorage.flags);
-=======
-        var flags = JSON.parse(window.sessionStorage.flags);
         var client;
->>>>>>> checkin
 
         $('#setstatus-button').click(function (event) {
             $('#setstatus-modal').modal('toggle');
@@ -206,21 +201,12 @@ $(function (event) {
                         }
                     }
                 }).done(function (data) {
-<<<<<<< HEAD
                     $('#client-statuses').empty();
                     data.result.rows.forEach(function (status) {
                         $('#client-statuses').append(
                             '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  status.type + '"' +
                              'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
                              '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
-=======
-                    $('#client-flags').empty();
-                    data.result.rows.forEach(function (flag) {
-                        $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
-                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
->>>>>>> checkin
                     });
                     $('.badge-button').popover({ container: 'body' });
                     $('.badge-button').click(function (event) {
@@ -498,14 +484,6 @@ $(function (event) {
             $('#client-email').replaceWith('<input type="text" id="client-email" class="form-control" value="' + clientMail + '" />');
             $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
             $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
-<<<<<<< HEAD
-=======
-            $('#client-status').replaceWith(
-                '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    clientStatus.name + '<span class="caret"></span></button>' +
-                    '<ul class="dropdown-menu" aria-labelledby="client-status">' +
-                    statusString + '</ul></div>');
->>>>>>> checkin
 
             $('.dropdown-menu li a').click(function (event) {
                 $(this).parents('.dropdown').find('.btn').data("id", $(this).parent().data("id"));
