@@ -105,20 +105,20 @@ table.dataTable thead .sorting_desc_disabled:after {
   bottom: 8px;
   right: 8px;
   display: block;
-  font-family: 'Glyphicons Halflings';
+  font-family: 'FontAwesome';
   opacity: 0.5;
 }
 table.dataTable thead .sorting:after {
   opacity: 0.2;
-  content: "\e150";
+  content: "\f0dc";
   /* sort */
 }
 table.dataTable thead .sorting_asc:after {
-  content: "\e155";
+  content: "\f0de";
   /* sort-by-attributes */
 }
 table.dataTable thead .sorting_desc:after {
-  content: "\e156";
+  content: "\f0dd";
   /* sort-by-attributes-alt */
 }
 table.dataTable thead .sorting_asc_disabled:after,
