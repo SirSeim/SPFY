@@ -2,18 +2,20 @@
   <div class="container">
     {% include "components/_navbar.html" %}
     <div class="row py-1">
-      <div class="card card-block" style="background-color: #F5F5F5; border-color: #E0E0E0;">
-        <h1 class="card-title">Drop-in for: <strong id="drop-in-date"></strong></h1>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-success btn-lg" id="add-new-dropin">
-            Add
-            <i class="fa fa-plus"></i>
-          </button>
-          <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            History
-          </button>
-          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
-            <li class="dropdown-header">Click To View Past Drop-In</li>
+      <div class="col-md-12">
+        <div class="card card-block" style="background-color: #F5F5F5; border-color: #E0E0E0;">
+          <h1 class="card-title">Drop-in for: <strong id="drop-in-date"></strong></h1>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success btn-lg" id="add-new-dropin">
+              Add
+              <i class="fa fa-plus"></i>
+            </button>
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              History
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
+              <li class="dropdown-header">Click To View Past Drop-In</li>
+            </div>
           </div>
         </div>
       </div>
@@ -61,59 +63,61 @@
     </div> <!-- 3rd row -->
 
     <div class="row" role="navigation">
-      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
-            Activity Enrollment
-            <button type="button" class="btn btn-success btn-sm" id="add-new-activity">
-              <i class="fa fa-plus"></i>
-            </button>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">
-            View Drop-In History
-          </a>
-        </li>
-      </ul>
-
-      <div id="my-tab-content" class="tab-content">
-       <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
-          <div class="card">
-            <div class="card-header"> 
-              <div class="horiscroll" >                 
-                <div class="card-deck-wrapper">
-                  <div class="card-deck" id="activities-bar">
-
-                  </div>
-                </div>
-              </div>                 
-            </div>
-            <!-- Button trigger Add New Activity Modal -->
-            <!-- <div class="btn-group" role="group"> 
-              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+      <div class="col-md-12">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
+              Activity Enrollment
+              <button type="button" class="btn btn-success btn-sm" id="add-new-activity">
+                <i class="fa fa-plus"></i>
               </button>
-            </div> -->
-            <div class="card-block">
-              <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
-              <h4 id="activity-title"> Activity Title </h4>
-              <table class="table table-hover" id='activities'>
-              </table>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tablinks" href="#viewdrop-in" data-toggle="tab" role="tab">
+              View Drop-In History
+            </a>
+          </li>
+        </ul>
+
+        <div id="my-tab-content" class="tab-content">
+         <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
+            <div class="card">
+              <div class="card-header"> 
+                <div class="horiscroll" >                 
+                  <div class="card-deck-wrapper">
+                    <div class="card-deck" id="activities-bar">
+
+                    </div>
+                  </div>
+                </div>                 
+              </div>
+              <!-- Button trigger Add New Activity Modal -->
+              <!-- <div class="btn-group" role="group"> 
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newActivityModal">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </div> -->
+              <div class="card-block">
+                <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
+                <h4 id="activity-title"> Activity Title </h4>
+                <table class="table table-hover" id='activities'>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane" id="viewdrop-in" role="tabpanel">
-          <div class="card">
-            <div class="card-header">
+          <div class="tab-pane" id="viewdrop-in" role="tabpanel">
+            <div class="card">
+              <div class="card-header">
+              </div>
+              <div class="card-block">
+              </div>
             </div>
-            <div class="card-block">
-            </div>
-          </div>
 
 
-        </div> <!-- Drop-In Enrollment Tab pane -->
-      </div> <!-- Tab container -->
+          </div> <!-- Drop-In Enrollment Tab pane -->
+        </div> <!-- Tab container -->
+      </div> <!-- .col-md-12 container -->
     </div> <!-- 4th row -->
   </div> <!--container-->
 
