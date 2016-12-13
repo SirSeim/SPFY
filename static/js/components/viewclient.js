@@ -122,6 +122,7 @@ $(function (event) {
 
                         $(row.node()).click(function(){
                             $("#viewcasenote").removeAttr('hidden');
+                            $("#viewcasenote-client").empty().append("Name: " + note.clientID);
                             $("#viewcasenote-date").empty().append("Date: " + note.date);
                             $("#viewcasenote-category").empty().append("Category: " + note.category);
                             $("#viewcasenote-casemanager").empty().append("Case Manager: " + note.caseManagerID);
