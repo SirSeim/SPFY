@@ -135,6 +135,62 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToAddActivitiesToDropIn: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add activities to dropin!",
+            error: err
+        }).code(500);
+    },
+    gotAddActivitiesToDropIn: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added activities to dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got activity for dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToGetDropinActivityEnrollment: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    getDropinActivityEnrollment: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
+    failedToAddEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to add enrollment for activity for dropin!",
+            error: err
+        }).code(500);
+    },
+    addEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully added enrollment for activity for dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinEnrollment: function (reply, err) {
         reply({
             statusCode: 500,
@@ -149,14 +205,14 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToGetActivities: function (reply, err) {
+    failedToGetAllActivities: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get activities!",
             error: err
         }).code(500);
     },
-    gotActivities: function (reply, result) {
+    getAllActivities: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activities!",
@@ -170,7 +226,7 @@ var respond = {
             error: err
         }).code(500);
     },
-    gotActivity: function (reply, result) {
+    getActivity: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting activity!",
@@ -261,31 +317,59 @@ var respond = {
             error: err
         }).code(500);
     },
-    failedToCheckIn: function (reply, err) {
+    failedToRemoveEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout clients from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success removing enrollment!",
+            result: result
+        }).code(200);
+    },
+    failedToAddCheckinForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to check-in!",
             error: err
         }).code(500);
     },
-    checkin: function (reply, result) {
+    addCheckinForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success checking in!",
             result: result
         }).code(200);
     },
-    failedToGetCheckIn: function (reply, err) {
+    failedToGetCheckInForDropin: function (reply, err) {
         reply({
             statusCode: 500,
             message: "Unable to get checkin!",
             error: err
         }).code(500);
     },
-    gotCheckIn: function (reply, result) {
+    getCheckInForDropin: function (reply, result) {
         reply({
             statusCode: 200,
             message: "Success getting checkin!",
+            result: result
+        }).code(200);
+    },
+    failedToRemoveCheckinForDropin: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout clients from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeCheckinForDropin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success checking out clients from dropin!",
             result: result
         }).code(200);
     },
@@ -327,7 +411,7 @@ var respond = {
     getClientCaseNotes: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Successfully got client's case notes.",
+            message: "Successfully got client's case notes!",
             result: result
         }).code(200);
     },
@@ -747,6 +831,20 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Successfully got client's profile picture",
+            result: result
+        }).code(200);
+    },
+    failedToDeleteFile: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete file",
+            error: err
+        }).code(500);
+    },
+    deleteFile: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted file",
             result: result
         }).code(200);
     }

@@ -20,8 +20,10 @@
 @import "partials/_frontdesk";
 @import "partials/_modals";
 
-/* plugins */
+// bootstrap 4 scss
+@import "bootstrap4/bootstrap";
 @import "partials/_spectrum";
+
 @import "partials/_bootstrap-switch";
 // @import "partials/_datatables.min";
 @import "partials/_datatables";

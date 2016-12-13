@@ -7,7 +7,7 @@ $(function () {
         // var flags = JSON.parse(window.sessionStorage.flags);
         var types = JSON.parse(window.sessionStorage.notificationTypes);
 
-        var editButton = '<button type="button" class="btn btn-default edit">Edit</button>';
+        var editButton = '<button type="button" class="btn btn-secondary edit">Edit</button>';
         var colorString = '';
 
         // *****************

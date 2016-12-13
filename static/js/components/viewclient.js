@@ -9,15 +9,19 @@ $(function (event) {
         var clientMail;
         var clientLastMeeting;
         var clientCaseManager;
-        var caseNotesTable = $('#casenotes tbody');
         var statuses = JSON.parse(window.sessionStorage.statuses);
+<<<<<<< HEAD
         // var flags = JSON.parse(window.sessionStorage.flags);
+=======
+        var flags = JSON.parse(window.sessionStorage.flags);
+        var client;
+>>>>>>> checkin
 
         $('#setstatus-button').click(function (event) {
             $('#setstatus-modal').modal('toggle');
         });
 
-        var getCaseNotes = function (data) {
+        var getCaseNotes = function (clientID) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -25,9 +29,8 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/case_notes/" + data,
+                url: "api/case_notes/" + clientID,
                 method: "GET",
-                data: data.clientID,
                 success: function (data) {
                     console.log(data);
                 },
@@ -39,21 +42,111 @@ $(function (event) {
                     }
                 }
             }).done(function (data) {
-                caseNotesTable.empty();
-                data.result.forEach(function (note) {
-                    caseNotesTable.append('<tr>' +
-                        '<td>' + note.date.slice(0, note.date.lastIndexOf('T')) + '</td>' +
-                        '<td>' + note.category + '</td>' +
-                        '<td>' + note.caseManager + '</td>' +
-                        '<td>' + note.note +  '</td>' +
-                        '<td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>' +
-                        '</tr>');
-                });
+                if (data.result) {
+                    var notes = data.result;
+                    $('#casenotes tbody').empty();
+                    var table = $('#casenotes').DataTable({
+                        columns: Object.keys(notes[0]).map(function (propName) {
+                              return { name: propName, data: propName, title: propName };
+                            }) // setting property names as column headers for now
+                    });
+
+                    // manually setting these for testing
+                    // will probably have these in a local "check-in table settings"
+                    // button attached to the table later on
+                    table.column(5).visible(false);
+                    table.column(6).visible(false);
+                    table.column(7).visible(false);
+                    table.column(8).visible(false);
+                    
+                    $('#casenotes_wrapper').find('div.row:first div.col-sm-6:first')
+                        .append(
+                        '<div class="datatables_columns_visible" id="datatables_columns_visible">' +
+                        '<label>Show columns <select multiple="multiple" name="multiselect[]" id="column-select"></select>' +
+                        '</label></div>')
+                        .find('div').wrap('<div class="col-sm-6"></div>');
+
+                    var options = [];
+
+                    Object.keys(notes[0]).forEach(function (propName, index) {
+                        options.push({label: propName, title: propName, value: index});
+                    });
+
+                    $('#column-select').multiselect({
+                        includeSelectAllOption: true,
+                        enableHTML: false, // to protect against XSS injections
+                        nonSelectedText: 'None',
+                        disableIfEmpty: true,
+                        numberDisplayed: 2,
+                        onChange: function (option, checked) {
+                            if (checked) {
+                              table.column($(option).attr('title') + ':name').visible(true);
+                            } else {
+                              table.column($(option).attr('title') + ':name').visible(false, false); // 2nd false prevents Datatables from recalculating layout
+                            }
+                        },
+                        onSelectAll: function () {
+                            $('#column-select option:selected').each(function (index) {
+                                table.column($(this).attr('title') + ':name').visible(true);
+                            });
+                        },
+                        onDeselectAll: function () {
+                            $('#column-select option').each(function (index) {
+                                table.column($(this).attr('title') + ':name').visible(false, false);
+                            });
+                        }
+                    });
+
+                    $('#column-select').multiselect('dataprovider', options);
+                    
+                    // preselecting default column visibility
+                    // later this data will come from local settings
+                    table.columns().every(function () { // every() is built-in from Datatables
+                        // the table context is automatically set to the appropriate table for each column that has been selected
+                        // i.e. "this" is a column
+                        if (this.visible()) {
+                            $('#column-select').multiselect('select', this.index());
+                        }
+                    });
+
+                    notes.forEach(function (note) {
+                        var row = table.row.add({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        }).draw();
+
+                        $(row.node()).data({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        });
+                    });
+                }
             });
         };
-
-        $('#casenotes').DataTable();
-
+            
+        /*
+            <tr>
+              <td>1/10/15</td>
+              <td>CM</td>
+              <td>Ben Perkins</td>
+              <td>This is the beginning of a case note.</td>
+              <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+            </tr>
+        */
         var displayClientProfile = function (client) {
             $.ajax({
                 xhrFields: {
@@ -90,7 +183,7 @@ $(function (event) {
                 $('#client-phonenumber').text( data.result.rows[0].phone_number);
                 $('#client-email').text(data.result.rows[0].email);
 
-                // getCaseNotes(client.match(/[0-9]+/)['0']);
+                getCaseNotes($('#client-id')['0'].textContent);
 
 
                 $.ajax({
@@ -113,12 +206,21 @@ $(function (event) {
                         }
                     }
                 }).done(function (data) {
+<<<<<<< HEAD
                     $('#client-statuses').empty();
                     data.result.rows.forEach(function (status) {
                         $('#client-statuses').append(
                             '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  status.type + '"' +
                              'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
                              '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+=======
+                    $('#client-flags').empty();
+                    data.result.rows.forEach(function (flag) {
+                        $('#client-flags').append(
+                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
+                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+>>>>>>> checkin
                     });
                     $('.badge-button').popover({ container: 'body' });
                     $('.badge-button').click(function (event) {
@@ -219,6 +321,7 @@ $(function (event) {
         $('#clients').delegate("tr", "click", function (event) {
             $('#cm-page-filler').hide();
             displayClientProfile($(this));
+            client = $(this);
         });
 
         // *** Files ***
@@ -238,6 +341,7 @@ $(function (event) {
                     console.log(data);
                     alert('SUCCESS: File has been uploaded');
                     $('#add-file-modal').modal('hide');
+                    displayClientProfile(client)
                 },
                 error: function (xhr) {
                     console.log(xhr);
@@ -300,12 +404,19 @@ $(function (event) {
                     var fileList = data.result.rows;
                     var fileDiv = $('#files');
                     fileDiv.empty();
+                    fileDiv.append('<div class="row">' +
+                    '<h4 class="col-xs-3"> File </h4>' +
+                    '<h4 class="col-xs-3"> Date </h4>' +
+                    '<h4 class="col-xs-3"> Type </h4>' +
+                    '<h4 class="col-xs-2"> Delete </h4></div><br /');
                     fileList.forEach(function (element) {
+                        var id = element.id
                         var name = element.name.substr(element.name.lastIndexOf('\\') + 1);
                         var date = element.date.substr(0, element.date.indexOf('T'));
                         var type = element.type;
-                        var link = '<a href="' + element.base_64_string + '">' + name + '</a><p>Date: ' + date + '</p><p>Type: ' + type + '</p><br />';
-                        fileDiv.append(link);
+                        var row = '<div class="row"><p class="col-xs-1" hidden>' + id + '</p><a class="col-xs-3" href="' + element.base_64_string + '">' + name + '</a><p class="col-xs-3">' + date + '</p><p class="col-xs-3">' + type + '</p>';
+                        row += '<a class="col-xs-1" onclick=deleteFile(this)><span class="glyphicon glyphicon-remove"></span></a></div><br />';
+                        fileDiv.append(row);
                     });
                 },
                 error: function (xhr) {
@@ -387,6 +498,14 @@ $(function (event) {
             $('#client-email').replaceWith('<input type="text" id="client-email" class="form-control" value="' + clientMail + '" />');
             $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
             $('#case-manager').replaceWith('<input type="text" id="case-manager" class="form-control" value="' + clientCaseManager + '" />');
+<<<<<<< HEAD
+=======
+            $('#client-status').replaceWith(
+                '<div class="dropdown"><button id="client-status" data-id="' + clientStatus.id + '" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                    clientStatus.name + '<span class="caret"></span></button>' +
+                    '<ul class="dropdown-menu" aria-labelledby="client-status">' +
+                    statusString + '</ul></div>');
+>>>>>>> checkin
 
             $('.dropdown-menu li a').click(function (event) {
                 $(this).parents('.dropdown').find('.btn').data("id", $(this).parent().data("id"));

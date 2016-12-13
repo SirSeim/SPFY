@@ -29,3 +29,19 @@ span.badge {
     *zoom:1;
     vertical-align:top;
 }
+
+.health {
+    background-color: $boot-green;
+}
+
+.art {
+    background-color: $boot-orange;
+}
+
+.education {
+    background-color: $boot-red;
+}
+
+.other {
+    background-color: $boot-cyan;
+}

@@ -155,6 +155,64 @@ $(function () {
 
         $('#viewclient-modal').on('shown.bs.modal', populateModal);
 
+        $('#checkin-checkbox').change(function (event) {
+            if ($(this).is(':checked')) {
+                alert("checked");
+                var data = [{
+                  dropinID: 2, // hard-coded
+                  clientID: $('#client-modal-data').data("id"),
+                  date: moment().format("YYYY-MM-DD")
+                }];
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: "api/checkin",
+                    method: "POST",
+                    data: { expression: JSON.stringify(data) }, // Hapi doesn't parse arrays by default, need to stringify it
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }
+                });
+            } else {
+               alert("unchecked");
+               var data = [{
+                  dropinID: 2, // hard-coded
+                  clientID: $('#client-modal-data').data("id")
+                }];
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: "api/checkin",
+                    method: "DELETE",
+                    data: { expression: JSON.stringify(data) }, // Hapi doesn't parse arrays by default, need to stringify it
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     
