@@ -6,7 +6,13 @@ $(function () {
 
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var clients = JSON.parse(window.sessionStorage.clients);
-        var checkinTable;
+        var checkinTable = $('#checked-in').DataTable({
+            // data: dataset,
+            columns: Object.keys(clients[0]).map(function (propName) {
+                      return { name: propName, data: propName, title: propName };
+                    }) // setting property names as column headers for now
+        });
+                
 
         // modify the clientprofiletable once it comes onto the page
         // to include 'select' button specific to checkin process
@@ -203,13 +209,7 @@ $(function () {
                 var dataset = [];
                 var checkins = data.result.clients;
                 $('#checked-in tbody').empty();
-                checkinTable = $('#checked-in').DataTable({
-                    // data: dataset,
-                    columns: Object.keys(clients[0]).map(function (propName) {
-                              return { name: propName, data: propName, title: propName };
-                            }) // setting property names as column headers for now
-                });
-                
+               
                 // manually setting these for testing
                 // will probably have these in a local "check-in table settings"
                 // button attached to the table later on

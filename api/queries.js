@@ -441,7 +441,7 @@ var queries = {
         payload.clients.forEach(function (clientID) {
             queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
                 '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
-                'match_drop_in_activity.drop_in_id = ' + dropinID + ' AND match_drop_in_activity.activity_id = '+ activityID +
+                'match_drop_in_activity.drop_in_id = ' + dropinID + ' AND match_drop_in_activity.activity_id = ' + activityID +
                 ') AND enrollment.client_id = ' + clientID + ' RETURNING client_id;';
         });
 
