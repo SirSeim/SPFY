@@ -32,17 +32,53 @@ $(function (event) {
     // adding a "click" event listener with the function that should execute
     // when the event is detected
     var addActivitiesHandler = function (event) {
-        $('#activities-bar').empty();
+        var dropinID = window.sessionStorage.frontdeskDropinId;
+
+        // $('#activities-bar').empty();
+        activitiesIDs = [];
         selectedActivities = [];
         $('.activities-add button.active').each(function (index, element) {
             var jThis = $(this);
-            selectedActivities.push(jThis.text());
-            $('#activities-bar').append('<div class="card card-inverse text-xs-center activity-card ' +
-                                        jThis.parent().data('category') + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + jThis.data("id") + '" data-program-id="' +
-                                        jThis.parent().data('category') + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ jThis.text() + 
-                                        '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
+            activitiesIDs.push({
+                id: jThis.data("id")
+            });
+            selectedActivities.push({
+                id: jThis.data("id"),
+                category: jThis.parent().data('category'),
+                programId: jThis.data('program-id'),
+                text: jThis.text()
+            });
         });
-        addHandlersToActivityCards();
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/dropins/" + dropinID + "/activities",
+            method: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                activities: activitiesIDs
+            }),
+            success: function (data) {
+                console.log(data);
+                var jActivitiesBar = $('#activities-bar');
+                selectedActivities.forEach(function (activity) {
+                    jActivitiesBar.append('<div class="card card-inverse text-xs-center activity-card ' +
+                                        activity.category + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + activity.id + '" data-program-id="' +
+                                        activity.programId + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ activity.text + 
+                                        '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
+                });
+                addHandlersToActivityCards();
+            },
+            error: function (xhr) {
+                console.error(xhr);
+            }
+        });
     };
 
     $("#create-thumbnail").click(addActivitiesHandler);

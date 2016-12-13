@@ -367,28 +367,33 @@ $(function () {
         // so that activities already added are selected
 
         var updateAddActivities = function () {
-            $('#activities-bar').each(function (element) {
-                var jElement = $(element);
+            $(".add-activity-possibility").removeClass('active').prop('disabled', false);
+            $('#activities-bar').children().each(function (i, e) {
+                var jElement = $(e);
                 var programId = jElement.data('program-id');
                 var activityId = jElement.data('id');
+
+                $(".add-activity-possibility").filter(function (i, e) {
+                    return $(e).data('id') === activityId;
+                }).prop('disabled', true);
 
                 // if (programId === 2) {
                 //     $("#health-well").children().filter(function (i, e) {
                 //         return $(e).data('id') === activityId;
-                //     }).addClass('active');
+                //     }).prop('disabled', true);
                 // } else if (programId === 3) {
                 //     $("#art-well").children().filter(function (i, e) {
                 //         return $(e).data('id') === activityId;
-                //     }).addClass('active');
+                //     }).prop('disabled', true);
                 // } else if (programId === 4) {
                 //     // Needs to actually use a 4th well
                 //     $("#art-well").children().filter(function (i, e) {
                 //         return $(e).data('id') === activityId;
-                //     }).addClass('active');
+                //     }).prop('disabled', true);
                 // } else {
                 //     $("#other-well").children().filter(function (i, e) {
                 //         return $(e).data('id') === activityId;
-                //     }).addClass('active');
+                //     }).prop('disabled', true);
                 // }
             })
         };
