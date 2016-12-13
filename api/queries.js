@@ -1060,15 +1060,15 @@ var queries = {
             var dropin = processSheet(sheet[0].data);
             // var intake = processSheet(sheet[1].data);
             var date;
+            var month;
+            var year;
 
             for (var k = 1; k < dropin.length; k++) {
                 for (var m = 0; m < dropin[k].length; m++) {
                     if (m <= 8) {
-                        if (dropin[k][0] === undefined && // no first name
-                                dropin[k][1] === undefined || // no last name
-                                dropin[k][8] === undefined || // intake date doesn't exist
-                                typeof dropin[k][8] !== "number") { // no first intake date
-                            // If they don't have a name or anything, skip row.
+                        if (dropin[k][0] !== "TOTALS" && 
+                            (dropin[k][0] === undefined || dropin[k][1] === undefined)) { // no first/last name
+                            // If they don't have a name, skip row.
                             m = dropin[k].length; 
                         } else {
                             if (dropin[k][0] !== "TOTALS") {
@@ -1089,11 +1089,7 @@ var queries = {
                         }
                     } else {
                         if (dropin[k][0] !== "TOTALS" && dropin[k][m] !== undefined) {
-                            if (typeof dropin[0][m] === "string" &&
-                                (dropin[0][m].toLowerCase().includes("visits") || 
-                                dropin[0][m].toLowerCase().includes("unduplicated"))) {
-                                // Statistics
-                            } else {
+                            if (typeof dropin[0][m] !== "string") {
                                 date = parseDateAndTime(dropin[0][m]);
                                 queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
                                     "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
@@ -1106,7 +1102,30 @@ var queries = {
                                     " = \'" + dropin[k][1] + "\'));"; 
                             }
                         } else if (dropin[k][0] === "TOTALS") {
-                            console.log("Happy days...");
+                            if (typeof dropin[0][m] === "string") {
+                                month = dropin[0][m].split(" ");
+                                month = month[0];
+                                // NOT SAFE FOR CONCURRENT ACCESS...
+                                if (dropin[0][m].toLowerCase().includes("visits")) {
+                                    year = parseDateAndTime(dropin[0][m - 1]).date.substring(0, 4);
+                                    queryString += 'UPDATE monthly_statistics SET total_youth = ' + 
+                                        dropin[k][m] + " WHERE month = \'" + month + "\' AND year = " + 
+                                        year + ";";
+                                    queryString += 'INSERT INTO monthly_statistics (month, year, total_youth) ' + 
+                                        'SELECT \'' + month + "\', " + year + ", " + dropin[k][m] + " WHERE NOT " + 
+                                        "EXISTS (SELECT month, year FROM monthly_statistics WHERE month = \'" + 
+                                        month + "\' AND year = " + year + ");";
+                                } else {
+                                    year = parseDateAndTime(dropin[0][m - 2]).date.substring(0, 4);
+                                    queryString += 'UPDATE monthly_statistics SET unduplicated_youth = ' + 
+                                        dropin[k][m] + " WHERE month = \'" + month + "\' AND year = " + 
+                                        year + ";";
+                                    queryString += 'INSERT INTO monthly_statistics (month, year, unduplicated_youth) ' + 
+                                        'SELECT \'' + month + "\', " + year + ", " + dropin[k][m] + " WHERE NOT " + 
+                                        "EXISTS (SELECT month, year FROM monthly_statistics WHERE month = \'" + 
+                                        month + "\' AND year = " + year + ");";
+                                }
+                            }
                         }
                     }
                 }
