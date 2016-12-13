@@ -368,7 +368,7 @@ $(function () {
 
                 $(".add-activity-possibility").filter(function (i, e) {
                     return $(e).data('id') === activityId;
-                }).prop('disabled', true);
+                }).prop('disabled', true).addClass("list-group-item disabled");
 
                 // if (programId === 2) {
                 //     $("#health-well").children().filter(function (i, e) {
