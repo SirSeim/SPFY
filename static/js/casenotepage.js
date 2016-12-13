@@ -131,7 +131,6 @@ $(function (event) {
     $('#addcaseplan-date').val(moment().format("YYYY-MM-DD"));
 
     $('#submit').click(function () {
-        console.log("hello");
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#addcasenote-date')['0'].value;
@@ -141,7 +140,7 @@ $(function (event) {
         var dueDate;
         var reminderDate;
         dueDate = $('#due-date')['0'] === undefined ? null : $('#due-date')['0'].value;
-        reminderDate = $('#due-date')['0'] === undefined ? null : $('#reminder-date')['0'].value;
+        reminderDate = $('#reminder-date')['0'] === undefined ? null : $('#reminder-date')['0'].value;
 
         var data = {
             clientID: clientID,
@@ -153,6 +152,8 @@ $(function (event) {
             dueDate: dueDate,
             reminderDate
         };
+
+        console.log(data);
 
         createCaseNote(data);
     });

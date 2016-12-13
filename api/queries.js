@@ -670,21 +670,43 @@ var queries = {
         return queryString;
     },
 
+    getCaseNote: function (noteID) {
+        var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, ' +
+            'last_name, note, follow_up_needed, due_date, reminder_date FROM case_note n LEFT JOIN ' +
+            'casemanager m ON n.case_manager_id = m.id WHERE n.id = ' + noteID + ';';
+
+        return queryString;
+
+    },
+
     editCaseNote: function (payload) {
+
         var queryString = 'UPDATE case_note SET ';
 
         queryString += 'client_id = ' + '\'' + parseProperty(payload.clientID) + '\'' + ',';
         queryString += 'case_manager_id = ' + '\'' + parseProperty(payload.caseManagerID) + '\'' + ',';
         queryString += 'date = ' + '\'' + parseProperty(payload.date) + '\'' + ',';
         queryString += 'note = ' + '\'' + parseProperty(payload.note) + '\'' + ',';
-
+        queryString += 'category = ' + '\'' + parseProperty(payload.category) + '\'' + ',';
         queryString += 'follow_up_needed = ' + '\'' + parseProperty(payload.followUpNeeded) + '\'' + ',';
-        queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ',';
-        queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+
+        if (parseProperty(payload.dueDate) === null) {
+            queryString += 'due_date = null, ';
+        } else {
+            queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
+        }
+
+        if (parseProperty(payload.reminderDate) === null) {
+            queryString += 'reminder_date = null ';
+        } else {
+            queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
+
+        console.log(queryString);
 
         return queryString;
     },

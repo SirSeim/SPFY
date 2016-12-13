@@ -12,10 +12,147 @@ $(function (event) {
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var flags = JSON.parse(window.sessionStorage.flags);
         var client;
+        var caseNoteID;
 
         $('#setflag-button').click(function (event) {
             $('#setflag-modal').modal('toggle');
         });
+
+        var editClientDropdown = function (clientID) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/clients/' + clientID,
+                data: clientID,
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    var clientDropdown = $('#client-dropdown-edit');
+                    var client = data.result.rows[0];
+                    clientDropdown.empty();
+                    clientDropdown.append('<option value="' + client.id +
+                            '">' + client.first_name + ' ' + client.last_name +
+                            '</option>');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
+        var editAllCaseManagers = function () {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/casemanagers',
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    var caseManagerDropdown = $('#edit-case-note-case-manager-dropdown');
+                    caseManagerDropdown.empty();
+                    data.result.rows.forEach(function (caseManager) {
+                        caseManagerDropdown.append('<option value="' + caseManager.id +
+                            '">' + caseManager.first_name + ' ' + caseManager.last_name +
+                            '</option>');
+                     });
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
+        var getNote = function (noteID) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/case_notes/notes/' + noteID,
+                method: 'GET',
+                data: noteID,
+                success: function (data) {
+                    console.log(data);
+                    $('#category-edit').val(data.result[0].category);
+                    $('#note-edit').val(data.result[0].note)
+                    if (data.result[0].followUpNeeded) {
+                        $('#followup-area-edit')
+                            .empty()
+                            .append('<label for="due-date-edit"'
+                                + 'class="col-xs-2 col-form-label">Due Date</label>'
+                                + '<div class="col-xs-">'
+                                + '<input type="text" placeholder="mm/dd/yy" id="due-date-edit" value="' + data.result[0].dueDate + '">'
+                                + '</div>')
+                            .append('<label for="reminder-date"'
+                                + 'class="col-xs-2 col-form-label">Set Reminder Date</label>'
+                                + '<div class="col-xs-">'
+                                + '<input type="text" placeholder="mm/dd/yy" id="reminder-date-edit" value="' + data.result[0].reminderDate + '">'
+                                + '</div>');
+                    } else {
+                        $('#followup-area-edit').empty();
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
+
+        var editNote = function (data) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/case_notes/' + data.id,
+                method: 'POST',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    alert('SUCCESS! Case note has been successfully edited');
+                    $('#edit-note-modal').modal('hide');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+
+            });
+        };
 
         var getCaseNotes = function (clientID) {
             $.ajax({
@@ -127,7 +264,6 @@ $(function (event) {
                             reminderDate: note.reminderDate
                         }).draw();
 
-
                         $(row.node()).click(function(){
                             $("#viewcasenote").removeAttr('hidden');
                             $("#viewcasenote-client").empty().append("Client: " + note.clientID);
@@ -135,7 +271,6 @@ $(function (event) {
                             $("#viewcasenote-category").empty().append("Category: " + note.category);
                             $("#viewcasenote-casemanager").empty().append("Case Manager: " + note.caseManagerID);
                             $("#viewcasenote-note").empty().append("Note: " + note.note);
-
                         });
 
                         $(row.node()).data({
@@ -149,10 +284,70 @@ $(function (event) {
                             dueDate: note.dueDate,
                             reminderDate: note.reminderDate
                         });
+                        $(row.node()).data('toggle', 'modal')
+                            .data('target', '#add-note-modal')
+                            .dblclick(function (event) {
+                                $('#edit-note-modal').modal('toggle');
+                                var clientID = $('#case-note-client-id').text();
+                                caseNoteID = note.id;
+                                editClientDropdown(clientID);
+                                editAllCaseManagers();
+                                $("#editcasenote-date").val(moment().format("YYYY-MM-DDTHH:mm:ss"));
+                                getNote(caseNoteID);
+                            });
                     });
                 }
             });
         };
+
+        $('#followup-checkbox-edit').click(function () {
+            if ($('input[name=followup-checkbox-edit]:checked').length !== 0) {
+                $('#followup-area-edit')
+                    .empty()
+                    .append('<label for="due-date-edit"'
+                        + 'class="col-xs-2 col-form-label">Due Date</label>'
+                        + '<div class="col-xs-">'
+                        + '<input type="text" placeholder="mm/dd/yy" id="due-date-edit">'
+                        + '</div>')
+                    .append('<label for="reminder-date-edit"'
+                        + 'class="col-xs-2 col-form-label">Set Reminder Date</label>'
+                        + '<div class="col-xs-">'
+                        + '<input type="text" placeholder="mm/dd/yy" id="reminder-date-edit">'
+                        + '</div>');
+            } else if ($('input[name=followup-checkbox-edit]:checked').length === 0) {
+                $('#followup-area-edit').empty();
+            }
+        });
+
+        $('#submit-note-edit').click(function () {
+            var noteID = caseNoteID;
+            var clientID = $('#client-dropdown-edit').val();
+            var caseManagerID = $('#edit-case-note-case-manager-dropdown').val();
+            var date = $('#editcasenote-date')['0'].value;
+            date = date.substr(0, date.indexOf('T'));
+            var category = $('#category-edit')['0'].value.toUpperCase();
+            var note = $('#note-edit')['0'].value;
+            var followUpNeeded = $('input[name=followup-checkbox-edit]:checked').length === 0 ? false : true;
+            var dueDate;
+            var reminderDate;
+            dueDate = $('#due-date-edit')['0'] === undefined ? null : $('#due-date-edit')['0'].value;
+            reminderDate = $('#reminder-date-edit')['0'] === undefined ? null : $('#reminder-date-edit')['0'].value;
+            var data = {
+                id: noteID,
+                clientID: clientID,
+                caseManagerID: caseManagerID,
+                date: date,
+                category: category,
+                note: note,
+                followUpNeeded: followUpNeeded,
+                dueDate: dueDate,
+                reminderDate
+            };
+
+            console.log(data);
+
+            editNote(data);
+        });
             
         /*
             <tr>

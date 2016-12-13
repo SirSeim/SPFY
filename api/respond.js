@@ -401,6 +401,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToGetCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get case note!",
+            error: err
+        }).code(500);
+    },
+    getCaseNote: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got case note!",
+            result: result
+        }).code(200);
+    },
     failedToEditCaseNote: function (reply, err) {
         reply({
             statusCode: 500,
