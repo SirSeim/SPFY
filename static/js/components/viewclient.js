@@ -119,6 +119,16 @@ $(function (event) {
                             reminderDate: note.reminderDate
                         }).draw();
 
+
+                        $(row.node()).click(function(){
+                            $("#viewcasenote").removeAttr('hidden');
+                            $("#viewcasenote-date").empty().append("Date: " + note.date);
+                            $("#viewcasenote-category").empty().append("Category: " + note.category);
+                            $("#viewcasenote-casemanager").empty().append("Case Manager: " + note.caseManagerID);
+                            $("#viewcasenote-note").empty().append("Note: " + note.note);
+
+                        });
+
                         $(row.node()).data({
                             id: note.id,
                             clientID: note.clientID,
