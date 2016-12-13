@@ -140,7 +140,7 @@ $(function (event) {
               <td>CM</td>
               <td>Ben Perkins</td>
               <td>This is the beginning of a case note.</td>
-              <td><button type="button" class="edit-note btn btn-default btn-sm">Edit</button></td>
+              <td><button type="button" class="edit-note btn btn-primary btn-sm">Edit</button></td>
             </tr>
         */
         var displayClientProfile = function (client) {
@@ -212,11 +212,16 @@ $(function (event) {
                     $('#client-flags').empty();
                     data.result.rows.forEach(function (flag) {
                         $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flag.type + '"' +
-                             'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
-                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                            // '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flag.type + '"' +
+                            //  'data-content="' + flag.note + '">' + flag.type + '<span class="badge">' + flag.message + '</span>' +
+                            //  '<a class="flag-edit" href="#">edit</a></button></li>'); 
+
+                            '<li class="list-group-item" ' + window.dataString(flag) + 'title="' +  flag.type + '"' +
+                             'data-content="' + flag.note + ' ">' + flag.type + ' <span class="tag tag-default">' + flag.message + '</span>' + 
+                             '<button class="btn btn-secondary btn-sm flag-edit" style="float: right;">Edit</button></li>');
+                            // title and data-content attributes are for hover popover
                     });
-                    $('#client-flags li a.flag-edit').click(function (event) {
+                    $('#client-flags li button.flag-edit').click(function (event) {
                         $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Flag');
                         $('#editflag-modal').modal('toggle');
                     });

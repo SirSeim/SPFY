@@ -18,8 +18,8 @@
     <div class="col-sm-9 col-lg-10">
       <div class="row">
         <div id="account-settings">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card">
+            <div class="card-header">
               <h4>
                 Change Password
               </h4>
@@ -38,7 +38,7 @@
                 <dd><input id="confirm-new-password" type="text" class="form-control"></dd>
               </dl>
               <p>
-                <button id="update-button" class="btn btn-default">Update Password</button>
+                <button id="update-button" class="btn btn-outline-primary">Update Password</button>
                 <span><a href="#">I forgot my password</a></span>
               </p>
               <p id="status"></p>
@@ -48,8 +48,8 @@
 
         <div id="notifications-settings" class="hidden">
           <div id="flag-notifications">
-            <div class="panel panel-default">
-              <div class="panel-heading">
+            <div class="card">
+              <div class="card-header">
                 <h4>
                   Flag Notifications
                 </h4>
@@ -65,22 +65,17 @@
         </div>
 
         <div id="client-profile-settings" class="hidden">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card">
+            <div class="card-header">
               <h4>
-                Statuses
+                Statuses <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-status-modal">Add Status <i class="fa fa-plus" aria-hidden="true"></i></button>
               </h4>
-              <div class="btn-group" role="group"> 
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-status-modal">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-              </div>
             </div>
             <table class="table table-hover" id="statuses-table">
               <thead>
                 <tr>
-                  <th class="col-sm-3">Status Dot</th>
-                  <th class="col-sm-3">Status Name</th>
+                  <th>Status Dot</th>
+                  <th>Status Name</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,24 +83,19 @@
               </tbody>
             </table>
           </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card">
+            <div class="card-header">
               <h4>
-                Flags
+                Flags <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-flag-modal">Add New Flag <i class="fa fa-plus" aria-hidden="true"></i></button>
               </h4>
-              <div class="btn-group" role="group"> 
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-flag-modal">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-              </div>
             </div>
             <table class="table table-hover" id="flags-table">
               <thead>
                 <tr>
-                  <th class="col-sm-1">Color</th>
-                  <th class="col-sm-2">Type</th>
-                  <th class="col-sm-1">Message</th>
-                  <th class="col-sm-3">Note Example</th>
+                  <th>Color</th>
+                  <th>Type</th>
+                  <th>Message</th>
+                  <th>Note Example</th>
                 </tr>
               </thead>
               <tbody>
