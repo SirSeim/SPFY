@@ -864,7 +864,7 @@ var queries = {
     // ** 
 
     getStatuses: function () {
-        var queryString = 'SELECT id, type, message, color, note FROM status;';
+        var queryString = 'SELECT id, type, message, note FROM status;';
 
         return queryString;
     },
@@ -892,9 +892,15 @@ var queries = {
     },
 
     getClientStatuses: function (clientID) {
-        var queryString = 'SELECT type, message, color, note FROM status WHERE id IN (' +
-                          'SELECT status_id FROM profile_status WHERE client_id = ' + clientID +
-                          ') ORDER BY id;';
+        var queryString = 'SELECT type, message, note FROM status WHERE client_id = ' + clientID + ';';
+
+        return queryString;
+    },
+
+    setClientStatus: function (payload) {
+        var queryString = 'INSERT INTO status (client_id, type, message, note) VALUES(' +
+                            payload.clientID + ', ' + payload.typeID + ', ' +
+                            payload.message + ', ' + payload.note + ');';
 
         return queryString;
     },

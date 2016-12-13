@@ -30,38 +30,39 @@ $(function () {
         });
 
         $('#setstatus-submit-button').click(function (event) {
+            var status = $('#status-select option:selected');
 
             // hardcoding this for now
-            var data = {
-                type: 4,
-                comment: 'Test notification for set statuses modal',
-                link: '/index',
-                checked: 'FALSE'
-            };
+            // var data = {
+            //     type: 4,
+            //     comment: 'Test notification for set statuses modal',
+            //     link: '/index',
+            //     checked: 'FALSE'
+            // };
 
-            $.ajax({
-                xhrFields: {
-                    withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                url: "api/users/1/notifications", // hardcoding current user for now
-                method: "POST",
-                data: data,
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (xhr) {
-                    console.error(xhr);
+            // $.ajax({
+            //     xhrFields: {
+            //         withCredentials: true
+            //     },
+            //     beforeSend: function (xhr) {
+            //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            //     },
+            //     url: "api/users/1/notifications", // hardcoding current user for now
+            //     method: "POST",
+            //     data: data,
+            //     success: function (data) {
+            //         console.log(data);
+            //     },
+            //     error: function (xhr) {
+            //         console.error(xhr);
 
-                    if (xhr.status === 401) {
-                        localStorage.removeItem("authorization");
-                    }
-                }
-            }).done(function (data) {
-                $('#setstatus-modal').modal('toggle');
-            });
+            //         if (xhr.status === 401) {
+            //             localStorage.removeItem("authorization");
+            //         }
+            //     }
+            // }).done(function (data) {
+            //     $('#setstatus-modal').modal('toggle');
+            // });
         });
     };
 

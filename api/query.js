@@ -962,6 +962,24 @@ var query = {
             });
         });
     },
+    setClientStatus: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // var data = Queries.editFlag(clientID);
+            // // unstringify the data passed in
+            client.query(Queries.setClientStatus(payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
     editCasePlan: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

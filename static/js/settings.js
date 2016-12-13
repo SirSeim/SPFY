@@ -120,7 +120,7 @@ $(function () {
         // --------------------- Notifications --------------------------
         
         types.forEach(function (type) { 
-            $('#flag-notifications-table tbody').append(
+            $('#status-notifications-table tbody').append(
                             '<tr><td>' + type.name + '</td>' + 
                             '<td><input data-name="' + type.name + '" type="checkbox" name="settings-checkbox" checked></td>' +
                             '</tr>');
@@ -142,10 +142,7 @@ $(function () {
             success: function (data) {
                 console.log(data);
                 var settings = data.result[0].settingsData;
-                console.log(settings);
                 $('[name="settings-checkbox"]').get().forEach(function (checkbox) {
-                    console.log(settings[$(checkbox).data("name")]);
-                    // $(checkbox).prop('checked', false);
                     $(checkbox).prop('checked', settings[$(checkbox).data("name")]);
                 });
             },

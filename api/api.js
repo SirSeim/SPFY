@@ -774,7 +774,17 @@ var api = {
             }
         });
     },
-
+    setClientStatus: function (request, reply) {
+        request.payload.clientID = request.params.clientID;
+        request.payload.typeID = request.params.statusID;
+        Service.setClientStatus(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToSetClientStatus(reply, err);
+            } else {
+                Respond.setClientStatus(reply, result);
+            }
+        });
+    },
     getProfilePicture: function (request, reply) {
         Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
             if (err) {

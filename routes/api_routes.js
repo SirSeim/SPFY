@@ -225,8 +225,13 @@ var apiRoutes = [
     },
     {
         method: 'GET',
-        path: '/statuses/{clientID}',
+        path: '/clients/{clientID}/statuses',
         handler: Api.getClientStatuses
+    },
+    {
+        method: 'POST',
+        path: '/clients/{clientID}/statuses/{statusID}',
+        handler: Api.setClientStatus
     },
     // {
     //     method: 'GET',

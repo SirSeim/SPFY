@@ -188,7 +188,7 @@ $(function (event) {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                     },
-                    url: 'api/statuses/1',
+                    url: 'api/clients/1/statuses',
                     method: 'GET',
                     success: function (data) {
                         console.log(data);
