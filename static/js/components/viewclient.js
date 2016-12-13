@@ -38,31 +38,40 @@ $(function (event) {
                     }
                 }
             }).done(function (data) {
-                if (data.result && !$.fn.DataTable.isDataTable('#casenotes')) {
+                $('#casenotes > tbody').empty();
+                if (data.result) {
                     var notes = data.result;
                     var table = $('#casenotes');
-                    $('#casenotes tbody').empty();
-                    var table = $('#casenotes').DataTable({
-                        columns: Object.keys(notes[0]).map(function (propName) {
-                              return { name: propName, data: propName, title: propName };
+
+                    if (!$.fn.DataTable.isDataTable('#casenotes')) {
+                        table = $('#casenotes').DataTable({
+                            columns: Object.keys(notes[0]).map(function (propName) {
+                                return { name: propName, data: propName, title: propName };
                             }) // setting property names as column headers for now
-                    });
+                        });
+                    } else {
+                        table = $('#casenotes').DataTable();
+                    }
+                    
+
+                    if (!$('#column-select').length) {
+                        $('#casenotes_wrapper').find('div.row:first div.col-sm-6:first')
+                        .append(
+                            '<div class="datatables_columns_visible" id="datatables_columns_visible">' +
+                            '<label>Show columns <select multiple="multiple" name="multiselect[]" id="column-select"></select>' +
+                            '</label></div>')
+                        .find('div').wrap('<div class="col-sm-6"></div>');
+                    }
 
                     // manually setting these for testing
                     // will probably have these in a local "check-in table settings"
                     // button attached to the table later on
-                    table.column(5).visible(false);
-                    table.column(6).visible(false);
-                    table.column(7).visible(false);
-                    table.column(8).visible(false);
+                    // table.column(5).visible(false);
+                    // table.column(6).visible(false);
+                    // table.column(7).visible(false);
+                    // table.column(8).visible(false);
                     
-                    $('#casenotes_wrapper').find('div.row:first div.col-sm-6:first')
-                        .append(
-                        '<div class="datatables_columns_visible" id="datatables_columns_visible">' +
-                        '<label>Show columns <select multiple="multiple" name="multiselect[]" id="column-select"></select>' +
-                        '</label></div>')
-                        .find('div').wrap('<div class="col-sm-6"></div>');
-
+                    
                     var options = [];
 
                     Object.keys(notes[0]).forEach(function (propName, index) {
@@ -105,6 +114,8 @@ $(function (event) {
                             $('#column-select').multiselect('select', this.index());
                         }
                     });
+
+                    table.rows().remove().draw();
 
                     notes.forEach(function (note) {
                         var row = table.row.add({

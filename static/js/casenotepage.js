@@ -17,6 +17,7 @@ $(function (event) {
             success: function (data) {
                 console.log(data);
                 alert('SUCCESS! Case note has been successfully added');
+                $('#add-note-modal').modal('hide');
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -27,7 +28,7 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-
+            
         });
     };
 
@@ -133,7 +134,7 @@ $(function (event) {
         console.log("hello");
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
-        var date = $('#date')['0'].value;
+        var date = $('#addcasenote-date')['0'].value;
         var category = $('#category')['0'].value;
         var note = $('#note')['0'].value;
         var followUpNeeded = $('input[name=followup-checkbox]:checked').length === 0 ? false : true;
