@@ -582,4 +582,4 @@ CREATE TABLE settings (
   settings_data jsonb DEFAULT NULL
 );
 
-INSERT INTO settings (user_id, settings_data) VALUES (1, '{ "default": "true" }');
+INSERT INTO settings (user_id, settings_data) VALUES (1, '{ "default": true, "primary": true, "success": true, "info": true, "warning": false, "danger": false }');

@@ -122,12 +122,40 @@ $(function () {
         types.forEach(function (type) { 
             $('#flag-notifications-table tbody').append(
                             '<tr><td>' + type.name + '</td>' + 
-                            '<td><input type="checkbox" name="settings-checkbox" checked></td>' +
+                            '<td><input data-name="' + type.name + '" type="checkbox" name="settings-checkbox" checked></td>' +
                             '</tr>');
         });
 
-        $('[name="settings-checkbox"]').get().forEach(function (checkbox) {
-            $(checkbox).bootstrapSwitch();
+        // $('[name="settings-checkbox"]').get().forEach(function (checkbox) {
+        //     $(checkbox).bootstrapSwitch();
+        // });
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "/api/users/1/settings",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+                var settings = data.result[0].settingsData;
+                console.log(settings);
+                $('[name="settings-checkbox"]').get().forEach(function (checkbox) {
+                    console.log(settings[$(checkbox).data("name")]);
+                    // $(checkbox).prop('checked', false);
+                    $(checkbox).prop('checked', settings[$(checkbox).data("name")]);
+                });
+            },
+            error: function (xhr) {
+                console.error(xhr);
+
+                if (xhr.status === 401) {
+                    localStorage.removeItem("authorization");
+                }
+            }
         });
 
         // ---------------------- Client Profiles ----------------------------
