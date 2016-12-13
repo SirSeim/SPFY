@@ -14,6 +14,12 @@ $(function () {
         // that said, there should be a panel listing the alerts
         // that are already associated with that particular status
 
+        $('#setstatus-modal-alert').change(function (event) {
+            if ($(this).is(':checked')) {
+                
+            }
+        });
+
         statuses.forEach(function (status, index) {
             $('#status-select').append('<option ' + window.dataString(status) + ' value="' + index + '">' + 
                                         status.type + '</option>');

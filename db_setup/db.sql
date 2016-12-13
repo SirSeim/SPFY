@@ -189,9 +189,9 @@ CREATE TABLE status (
   note varchar(100) DEFAULT NULL
 );
 
-INSERT INTO status (type, message, color, note) VALUES ('Checked-In', '3:30 PM', '#02AEF0', '(name) checked in at (time, day)');
 -- INSERT INTO status (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
 INSERT INTO status (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO status (type, message, color, note) VALUES ('Checked-In', '3:30 PM', '#02AEF0', '(name) checked in at (time, day)');
 INSERT INTO status (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
 INSERT INTO status (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
 INSERT INTO status (type, message, color, note) VALUES ('E&E', 'enrolled', '#02AEF0', '(name) is enrolled in Education & Employment.');

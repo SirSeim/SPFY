@@ -45,6 +45,7 @@ $(function () {
                 $('#client-badges a.status-edit').click(function (event) {
                     // $('#editstatus-modal').css("z-index", $('#viewclient-modal').css("z-index") * 30);
                     // console.log($('#editstatus-modal').css("z-index"));
+                    alert("clicked");
                     $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
                     $('#editstatus-modal').modal('toggle');
                     event.stopPropagation();
