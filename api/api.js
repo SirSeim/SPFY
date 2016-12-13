@@ -735,6 +735,15 @@ var api = {
     //     });
     // },
 
+    getStatusTypes: function (request, reply) {
+        Service.getStatusTypes(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetStatusTypes(reply, err);
+            } else {
+                Respond.getStatusTypes(reply, result);
+            }
+        });
+    },
     getStatuses: function (request, reply) {
         Service.getStatuses(request.postgres, function (err, result) {
             if (err) {

@@ -863,6 +863,12 @@ var queries = {
 
     // ** 
 
+    getStatusTypes: function () {
+        var queryString = 'SELECT name, color FROM status_type;';
+
+        return queryString;
+    },
+
     getStatuses: function () {
         var queryString = 'SELECT id, type, message, note FROM status;';
 

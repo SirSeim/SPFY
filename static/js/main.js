@@ -81,6 +81,31 @@ $(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
         },
+        url: "api/statuses/types",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+            window.sessionStorage.statusTypes = JSON.stringify(data.result);
+            window.sessionStorageListeners.forEach(function (listener) {
+                listener.ready();
+            });
+        },
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
+        },
+    });
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
         url: "api/statuses",
         method: "GET",
         success: function (data) {

@@ -750,6 +750,20 @@ var respond = {
     //         result: result
     //     }).code(200);
     // },
+    failedToGetStatusTypes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get status types!",
+            error: err
+        }).code(500);
+    },
+    getStatusTypes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got status types!",
+            result: result
+        }).code(200);
+    },
     failedToGetStatuses: function (reply, err) {
         reply({
             statusCode: 500,

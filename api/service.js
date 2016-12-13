@@ -802,6 +802,26 @@ var service = {
     //     });
     // },
 
+    getStatusTypes: function (postgres, callback) {
+        Query.getStatusTypes(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    name: local.name,
+                    color: local.color
+                });
+            }
+            callback(undefined, arr);
+        });
+    },
+
     getStatuses: function (postgres, callback) {
         Query.getStatuses(postgres, function (err, result) {
             if (err) {
