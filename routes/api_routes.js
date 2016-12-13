@@ -89,6 +89,16 @@ var apiRoutes = [
         handler: Api.addActivitiesToDropIn
     },
     {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/activities',
+        config: {
+            validate: {
+                payload: Schema.removeActivitiesFromDropin
+            }
+        },
+        handler: Api.removeActivitiesFromDropin
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/activities/{activityID}',
         handler: Api.getDropinActivity
@@ -107,6 +117,16 @@ var apiRoutes = [
             }
         },
         handler: Api.addEnrollmentToDropinActivity
+    },
+    {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/activities/{activityID}/enrollment',
+        config: {
+            validate: {
+                payload: Schema.removeEnrollmentToDropinActivity
+            }
+        },
+        handler: Api.removeEnrollmentToDropinActivity
     },
     {
         method: 'GET',
@@ -360,6 +380,16 @@ var apiRoutes = [
         method: 'POST',
         path: '/files/delete/{fileID}',
         handler: Api.deleteFile
+    },
+    {
+        method: 'GET',
+        path: '/programs',
+        handler: Api.getPrograms
+    },
+    {
+        method: 'POST',
+        path: '/uploadSpreadsheet',
+        handler: Api.uploadSpreadsheet
     }
 ];
 

@@ -131,9 +131,12 @@ CREATE TABLE client (
   last_name varchar(45) DEFAULT NULL,
   nickname varchar(45) DEFAULT NULL,
   person_completing_intake varchar(65) DEFAULT NULL,
+  gender varchar(45) DEFAULT NULL,
+  race varchar(45) DEFAULT NULL,
   intake_date date DEFAULT NULL,
   hmis_consent boolean DEFAULT NULL,
   first_time boolean DEFAULT NULL,
+  first_intake_date date DEFAULT NULL,
   case_manager varchar(65) DEFAULT NULL,
   case_manager_id integer DEFAULT NULL,
   phone_number varchar(45) DEFAULT NULL,
@@ -344,6 +347,14 @@ INSERT INTO program (program_name) VALUES ('Other');
 INSERT INTO program (program_name) VALUES ('Health & Wellness');
 INSERT INTO program (program_name) VALUES ('Arts & Creativity');
 INSERT INTO program (program_name) VALUES ('Education & Employment');
+INSERT INTO program (program_name) VALUES ('Health & Wellness');
+INSERT INTO program (program_name) VALUES ('Arts & Healing');
+INSERT INTO program (program_name) VALUES ('Advocacy');
+INSERT INTO program (program_name) VALUES ('Pregnancy & Parenting');
+INSERT INTO program (program_name) VALUES ('Legal');
+INSERT INTO program (program_name) VALUES ('Case Management');
+INSERT INTO program (program_name) VALUES ('Drop In');
+
 
 DROP TABLE IF EXISTS subprogram;
 
@@ -360,11 +371,12 @@ DROP TABLE IF EXISTS activity;
 
 CREATE TABLE activity (
   id SERIAL PRIMARY KEY,
+  program_id integer REFERENCES program (id) DEFAULT 1,
   activity_name varchar(45) DEFAULT NULL,
+  location varchar(45) DEFAULT NULL,
   ongoing boolean DEFAULT true,
-  start_date date DEFAULT NULL,
-  end_date date DEFAULT NULL,
-  program_id integer REFERENCES program (id) DEFAULT 1
+  start_time time DEFAULT NULL,
+  end_time time DEFAULT NULL
 );
 
 INSERT INTO activity (activity_name, program_id) VALUES ('Medical Care', 2);
@@ -409,6 +421,15 @@ INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, e
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 4, 'Clinic', '12:30:00', '13:30:00');
 INSERT INTO match_drop_in_activity (drop_in_id, activity_id, room, start_time, end_time) VALUES (2, 1, 'Clinic', '12:30:00', '13:30:00');
 
+DROP TABLE IF EXISTS match_drop_in_client;
+
+CREATE TABLE match_drop_in_client (
+  id SERIAL PRIMARY KEY,
+  drop_in_id integer REFERENCES drop_in (id),
+  client_id integer REFERENCES client (id)
+);
+
+INSERT INTO match_drop_in_client (drop_in_id, client_id) VALUES (1, 1);
 
 DROP TABLE IF EXISTS enrollment;
 
@@ -629,3 +650,23 @@ CREATE TABLE file (
   date date DEFAULT NULL,
   base_64_string varchar DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS backpack_sleepingbag_waitlist;
+
+CREATE TABLE backpack_sleepingbag_waitlist (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  backpack boolean DEFAULT false,
+  sleepingbag boolean DEFAULT false,
+  ask_date date DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS monthly_statistics;
+
+CREATE TABLE monthly_statistics (
+  id SERIAL PRIMARY KEY,
+  month varchar(45) DEFAULT NULL,
+  year integer DEFAULT NULL,
+  unduplicated_youth integer DEFAULT 0,
+  total_youth integer DEFAULT 0
+)

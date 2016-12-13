@@ -149,6 +149,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToRemoveActivitiesFromDropin: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to remove activities from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeActivitiesFromDropin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully removed activities from dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinActivity: function (reply, err) {
         reply({
             statusCode: 500,
@@ -316,6 +330,20 @@ var respond = {
             message: "Unable to enroll!",
             error: err
         }).code(500);
+    },
+    failedToRemoveEnrollmentToDropinActivity: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to checkout clients from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeEnrollmentToDropinActivity: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success removing enrollment!",
+            result: result
+        }).code(200);
     },
     failedToAddCheckinForDropin: function (reply, err) {
         reply({
@@ -833,8 +861,35 @@ var respond = {
             message: "Successfully deleted file",
             result: result
         }).code(200);
+    },
+    failedToGetPrograms: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get programs",
+            error: err
+        }).code(500);
+    },
+    getPrograms: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got programs",
+            result: result
+        }).code(200);
+    },
+    failedToUploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 500,
+            message: "Failed to upload spreadsheet",
+            result: result
+        }).code(500);
+    },
+    uploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully uploaded spreadsheet",
+            result: result
+        }).code(200);
     }
-
 };
 
 module.exports = respond;

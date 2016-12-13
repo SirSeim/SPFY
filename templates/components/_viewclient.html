@@ -15,75 +15,89 @@
     <a class="nav-link tablinks" href="#other" data-toggle="tab" role="tab">Other</a>
   </li>
 </ul>
+
 <div id="my-tab-content" class="tab-content">
   <div class="tab-pane active" id="client-info" role="tabpanel">
     <div class="row">
-      <h1 id="client-id" style="display: none;">1</h1>
-      <h2 id="client-name" class="col-sm-9">Client 'Name' Here</h2>
-      <button id="edit-client" type="button" class="col-sm-2 btn btn-primary">Edit Client</button>
-      <button id="submit-edit" type="button" class="col-sm-2 btn btn-primary btn-sm" style="display: none;">Submit Edit</button>
-      <button id="cancel-edit" type="button" class="col-sm-2 btn btn-danger btn-sm" style="display: none;">Cancel Edit</button>
+      <div class="col-lg-12">
+        <h1 id="client-id" style="display: none;">1</h1>
+        <h2><strong id="client-name">Client 'Name' Here</strong>
+          <button id="edit-client" type="button" class="btn btn-outline-primary">Edit Client</button>
+          <button id="submit-edit" type="button" class="btn btn-outline-primary btn-sm" style="display: none;">Submit</button>
+          <button id="cancel-edit" type="button" class="btn btn-outline-secondary btn-sm" style="display: none;">Cancel</button>
+        </h2>
+      </div>
     </div>
-    <div class="row">
+    <div class="row" id="client-badges">
       <div class="col-xs-2">
         <img id="client-photo" width="100" height="100" src="http://hhp.ufl.edu/wp-content/uploads/place-holder.jpg">
       </div>
-      <div class="col-xs-10"id="client-badges">
-        <div class="row">
-          
-            <button id="follow-up" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
-              Follow Up <span id="follow-up-status" class="badge">Needed</span> 
-            </button>
-          
-          
-            <button id="housing" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Housing" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-              Housing <span id="housing-status" class="badge">Complete</span>
-            </button>
-          
-          <!-- <a class="tablinks" href="#case-management"> -->
-            <button id="shower" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-              Shower 
-              <span id="shower-status" class="badge">1</span>
-            </button>
-         <!--  </a> -->
-        </div>
-        <div class="row">
-          <button id="legal" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="Legal" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
-            Legal <span id="legal-status" class="badge">Ongoing</span>
-          </button>
-        </div>
+      <div class="col-xs-4">
+        <h6 id="follow-up" title="Follow Up" data-content="(Nickname Here) needs a follow up on November 5th. Value will reset itself on a weekly basis.">
+          Follow Up: 
+          <span class="tag tag-default" id="follow-up-status">
+            Needed
+          </span>
+        </h6>
+
+        <h6 id="housing" title="Housing" data-content="(Nickname Here) has completed housing docs. Value will reset itself on a weekly basis.">
+          Housing: 
+          <span class="tag tag-default" id="housing-status">
+            Complete
+          </span>
+        </h6>
+      </div>
+      <div class="col-xs-4">
+        <h6 id="shower" title="Showers" data-content="(Nickname Here) has taken 1 shower this week. Value will reset itself on a weekly basis.">
+          Shower: 
+          <span class="tag tag-default" id="shower-status">
+            1
+          </span>
+        </h6>
+
+        <h6 id="legal" title="Legal" data-content="(Nickname Here) has ongoing legal issues. Value will reset itself on a weekly basis.">
+          Legal: 
+          <span class="tag tag-default" id="legal-status">
+            Ongoing
+          </span>
+        </h6>
       </div>
     </div>
 
     <div class="row">
-      <table id="clientInfoTable">
-        <tr>
-          <td><h4>Birthday</h4></td><td id="client-birthday">00/00/00</td>
-          <td><h4>Age</h4></td><td id="client-age">00</td>
-        </tr>
-        <tr>
-          <td><h4>Phone Number</h4></td><td id="client-phonenumber">555-555-5555</td>
-          <td><h4>Email</h4></td><td id="client-email">Not Given</td>
-        </tr>
-        <tr>
-          <td><h4>Last Meeting</h4></td><td id="last-meeting">5/15/16</td>
-          <td><h4>Case Manager</h4></td><td id="case-manager">Bob Ross</td>
-          <td><h4>Status</h4></td></td><td id="client-status">Okay</td>
-        </tr>
-      </table>
+      <div class="col-lg-12">
+        <table id="clientInfoTable">
+          <tr>
+            <td><h5>Birthday</h5></td><td id="client-birthday">00/00/00</td>
+            <td><h5>Age</h5></td><td id="client-age">00</td>
+          </tr>
+          <tr>
+            <td><h5>Phone Number</h5></td><td id="client-phonenumber">555-555-5555</td>
+            <td><h5>Email</h5></td><td id="client-email">Not Given</td>
+          </tr>
+          <tr>
+            <td><h5>Last Meeting</h5></td><td id="last-meeting">5/15/16</td>
+            <td><h5>Status</h5></td></td><td id="client-status">Okay</td>
+          </tr>
+          <tr>
+            <td><h5>Case Manager</h5></td><td id="case-manager">Bob Ross</td>
+          </tr>
+        </table>
+      </div>
     </div> <!-- info table -->
   </div> <!-- client-info tab -->
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-sm-5">
       <div class="card">
         <div class="card-header">
-        <h3>Flags</h3>
-        <button id="setflag-button" type="button" class="btn btn-secondary">Set Flag</button>
+          <h4>
+            Flags <button type="button" id="setflag-button" class="btn btn-secondary btn-sm" style="float: right;">Set Flag</button>
+          </h4>  
         </div>                  
-          <ul id="client-flags">
+        <ul class="list-group list-group-flush" id="client-flags">
 
-          </ul>
+        </ul>
       </div>
     </div>
   </div>
@@ -94,10 +108,12 @@
         <h4 id="casenotes-title">
           Client's Case Notes
         </h4>
-        <form class="casenotes-form casenotes-right" align="right">
-          <div class="form-group">
-          <input type="text" placeholder="Search Client's Case Notes" size="30" id="client-notes-search">
-          <button type="search" class="btn btn-secondary" align="right">Search</button>
+        <form class="casenotes-form casenotes-right">
+          <div class="col-lg-9 input-group">
+            <input type="text" class="form-control" placeholder="Search all case notes..." id="client-notes-search">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-primary">Search</button>
+            </span>
           </div>
         </form>
       </div>
@@ -141,8 +157,7 @@
     <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
   </div>
   <div class="tab-pane" id="documents">
-    <h3>Client Documents</h3>
-    <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
+    <h3>Client Documents <button id="add-file" class="btn btn-success" data-toggle="modal" data-target="#add-file-modal" style="float: right;">Add New File <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
     <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -163,8 +178,9 @@
               </select>
             </div>
             </br>
-            <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
-            <button class="btn btn-danger" type="button" id="cancel-file">Cancel</button>
+
+            <button class="btn btn-outline-primary" type="button" id="submit-file">Submit</button>
+            <button class="btn btn-outline-secondary" type="button" id="cancel-file" style="float: right;">Cancel</button>
           </div>
         </div>
       </div>
@@ -174,8 +190,7 @@
   </div>
 
   <div class="tab-pane" id="documents" role="tabpanel">
-    <h3>Client Documents</h3>
-    <button id="add-file" class="btn btn-primary" data-toggle="modal" data-target="#add-file-modal">Add New File</button>
+    <h3>Client Documents <button id="add-file" class="btn btn-outline-primary" data-toggle="modal" data-target="#add-file-modal" style="float: right;">Add New File</button></h3>
     <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

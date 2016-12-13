@@ -31,13 +31,17 @@ span.badge {
 }
 
 .health {
-    color: green;
+    background-color: $boot-green;
 }
 
 .art {
-    color: orange;
+    background-color: $boot-orange;
 }
 
 .education {
-    color: red;
+    background-color: $boot-red;
+}
+
+.other {
+    background-color: $boot-cyan;
 }

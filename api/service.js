@@ -204,6 +204,23 @@ var service = {
         });
     },
 
+    removeActivitiesFromDropin: function (postgres, dropinID, payload, callback) {
+        Query.removeActivitiesFromDropin(postgres, dropinID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.activity_id);
+            }
+            return callback(undefined, {
+                activities: arr
+            });
+        });
+    },
+
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
         Query.getDropinActivity(postgres, dropinID, activityID, function (err, result) {
             if (err) {
@@ -387,6 +404,25 @@ var service = {
                 return callback(err);
             }
             return callback(undefined, result);
+        });
+    },
+
+    removeEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        Query.removeEnrollmentToDropinActivity(postgres, dropinID, activityID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.client_id);
+            }
+            return callback(undefined, {
+                dropin: parseInt(dropinID),
+                activity: parseInt(activityID),
+                clients: arr
+            });
         });
     },
 
@@ -880,6 +916,24 @@ var service = {
 
     deleteFile: function (postgres, fileID, callback) {
         Query.deleteFile(postgres, fileID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getPrograms: function (postgres, callback) {
+        Query.getPrograms(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    uploadSpreadsheet: function (postgres, formdata, callback) {
+        Query.uploadSpreadsheet(postgres, formdata, function (err, result) {
             if (err) {
                 return callback(err);
             }
