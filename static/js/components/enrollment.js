@@ -23,9 +23,7 @@ $(function (event) {
     // (in this case, every "td" element)
     // adding a "click" event listener with the function that should execute
     // when the event is detected
-    
-
-    $("#create-thumbnail").click(function (event) {
+    var addActivitiesHandler = function (event) {
         $('#activities-bar').empty();
         selectedActivities = [];
         $('.activities-add button.active').each(function (index, element) {
@@ -41,8 +39,9 @@ $(function (event) {
         });
 
         $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+    };
 
-    });
+    $("#create-thumbnail").click(addActivitiesHandler);
 
     $(".thumbnail-dismiss").click(function (event) {
         $(this).parent().parent().parent().parent().parent().remove();
@@ -221,7 +220,8 @@ $(function (event) {
                 }),
                 success: function (data) {
                     console.log(data);
-                    jThis.parent().parent().remove();
+                    jThis.parent().parent().hide();
+                    jThis.prop('disabled', false);
                     populateEnrollmentTable();
                 },
                 error: function (xhr) {
@@ -274,6 +274,8 @@ $(function (event) {
                     return false;
                 }
                 var toShow = $(e).find('.enroll-name').text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+
+                // TRYING to make it limit the number of add possibilities
                 // if (toShow) {
                 //     if (shown < i) {
                 //         return false;
