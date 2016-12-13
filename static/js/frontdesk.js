@@ -32,7 +32,6 @@ $(function () {
         // Add people from Client Profiles to Selected Clients
         $('[name="select-button"]').click(function (event) {
             var client = $(event.target).parents('tr').data();
-            console.log(client);
             if (!selectedclients.includes(client)) {
                 selectedclients.push(client);
             }
@@ -71,7 +70,6 @@ $(function () {
                     clients: signups
                 }),
                 success: function (data) {
-                    console.log(data);
                     var clientString = "";
                     var checkedInClients = data.result;
                     for (var i = 0; i < checkedInClients.length; i++) {
@@ -88,7 +86,6 @@ $(function () {
                     return callback();
                 },
                 error: function (data) {
-                    console.error(data);
                     $('#checkin-feedback').empty().append(
                         '<div><h4>Check In failed</h4>');
                     return callback();
@@ -98,7 +95,6 @@ $(function () {
 
         var refreshCheckinTable = function () {
             if (checkinTable) {
-                console.log("HERE");
                 // alert("table still here!");
                 $.ajax({
                     xhrFields: {
@@ -166,7 +162,6 @@ $(function () {
         };
 
         $('#checkin-button').click(function (event) {
-            console.log("THERE");
             sendUpClientsForCheckin(refreshCheckinTable);
         });
         
@@ -323,8 +318,6 @@ $(function () {
                     console.error(data);
                 }
             }).done(function (data) {
-                console.log("/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities");
-                console.log(data);
                 $('#activities-bar').empty();
                 data.result.forEach(function (activity) {
                     $('#activities-bar').append('<div class="card card-inverse text-xs-center activity-card ' +

@@ -65,7 +65,6 @@ $(function (event) {
                 activities: activitiesIDs
             }),
             success: function (data) {
-                console.log(data);
                 var jActivitiesBar = $('#activities-bar');
                 selectedActivities.forEach(function (activity) {
                     jActivitiesBar.append('<div class="card card-inverse text-xs-center activity-card ' +
@@ -103,58 +102,6 @@ $(function (event) {
         }
     });
 
-    // $('#enroll-button').click(function (event) {
-    //     var signups = [];
-    //     var activityids = [];
- 
-    //     for (var i = 0; i < allActivities.length; i++) {
-    //         if (selectedActivities.includes(allActivities[i].name)) {
-    //             activityids.push(allActivities[i].id);
-    //         }
-    //     }
-
-    //     for (var i = 0; i < selectedclients.length; i++) {
-    //         for (var j = 0; j < activityids.length; j++) {
-    //             signups.push({
-    //                 dropinID: currentDropIn.id,
-    //                 clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
-    //                 activityID: activityids[j]
-    //             });
-    //         }
-    //     }
-
-    //     $.ajax({
-    //         url: "api/enroll",
-    //         method: "POST",
-    //         data: { expression: JSON.stringify(signups) },
-    //         success: function (data) {
-    //             console.log(data);
-    //             var clientString = "";
-    //             for (var i = 0; i < selectedclients.length; i++) {
-    //                 clientString += selectedclients[i] + '<br>';
-    //             }
-    //             var activityString = "";
-    //             for (var i = 0; i < selectedActivities.length; i++) {
-    //                 activityString += selectedActivities[i] + '<br>';
-    //             }
-
-    //             $('#checkin-enrollment-feedback').empty().append(
-    //                 '<div><h4>Clients Successfully Enrolled</h4>' +
-    //                 '<h4>Clients</h4>' + clientString +
-    //                 '<h4>Activities</h4>' + activityString +
-    //                 '</div>');
-
-    //             $('#selected-clients').empty();
-    //             $('#selected-activities').empty();
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //             $('#enrollment-feedback').empty().append(
-    //                 '<div><h4>Enrollment failed</h4>');
-    //         }
-    //     });
-    // });
-
     var populateEnrollmentTable = function () {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
@@ -185,7 +132,6 @@ $(function (event) {
                     ]
                 }),
                 success: function (data) {
-                    console.log(data);
                     jThis.parent().parent().remove();
                     populateAddEnrollTable();
                 },
@@ -206,13 +152,11 @@ $(function (event) {
             url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
             method: "GET",
             success: function (data) {
-                console.log(data);
                 var jEnrolled = $('#activities-table-body');
                 jEnrolled.empty();
 
                 if (data.result) {
                     data.result.forEach(function (client) {
-                        console.log(client);
                         jEnrolled.append(createEnrolledClientItem(client));
                     });
                     $('.enrolled-client').click(unEnrollClient);
@@ -255,7 +199,6 @@ $(function (event) {
                     ]
                 }),
                 success: function (data) {
-                    console.log(data);
                     jThis.parent().parent().hide();
                     jThis.prop('disabled', false);
                     populateEnrollmentTable();
