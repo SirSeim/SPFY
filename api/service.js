@@ -218,7 +218,7 @@ var service = {
             return callback(undefined, {
                 activities: arr
             });
-        })
+        });
     },
 
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
