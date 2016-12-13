@@ -1,31 +1,6 @@
 $(function () {
 
-  window.clickHandlers = window.clickHandlers || {};
-
-  $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-        },
-        url: "api/dropins",
-        method: "GET",
-        success: function (data) {
-          console.log("drop-ins");
-          console.log(data);
-        },
-        error: function (data) {
-          console.error(data);
-        }
-  }).done(function (data) {
-    // window.sessionStorage.frontdeskDropinId = data.result[0].id;
-    // window.frontdeskRefreshListeners.forEach(function (listener) {
-    //     listener.refresh();
-    // });
-  });
-
-    
+    window.clickHandlers = window.clickHandlers || {};
 
     var setupFrontDesk = function () {
 
@@ -149,39 +124,39 @@ $(function () {
                     if (data.result.clients) {
                         var checkins = data.result.clients;
                         clients.forEach(function (client) {
-                          checkins.forEach(function (checkin) {
-                              if (checkin === client.id) {
-                                  // dataset.push(client);
-                                  var row = checkinTable.row.add({
-                                      // moment(checkin.date).format('MM-DD-YY'),
-                                      id: client.id,
-                                      firstName: client.firstName,
-                                      lastName: client.lastName,
-                                      dob: moment(client.dob).format('MM-DD-YY'),
-                                      status: '<span class="dot"></span>',
-                                      phone: client.phone,
-                                      email: client.email,
-                                      checkedin: true
-                                  }).draw();
-                                  $(row.node()).data({ // node() returns the actual html tag
-                                      // moment(checkin.date).format('MM-DD-YY'),
-                                      id: client.id,
-                                      firstName: client.firstName,
-                                      lastName: client.lastName,
-                                      dob: moment(client.dob).format('MM-DD-YY'),
-                                      status: client.status 
-                                  }); 
-                                  var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                                  $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
-                                  // according to stackoverflow, need to manually reattach event handlers
-                                  // to dynamically added elements, even for modals
-                                  $(row.node()).data('toggle', 'modal')
-                                               .data('target', '#viewclient-modal')
-                                               .on('click', function (event) {
-                                                    $('#viewclient-modal').find('#client-name')
-                                                                          .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
-                                                    $('#viewclient-modal').modal('toggle');
-                                               });
+                            checkins.forEach(function (checkin) {
+                                if (checkin === client.id) {
+                                    // dataset.push(client);
+                                    var row = checkinTable.row.add({
+                                        // moment(checkin.date).format('MM-DD-YY'),
+                                        id: client.id,
+                                        firstName: client.firstName,
+                                        lastName: client.lastName,
+                                        dob: moment(client.dob).format('MM-DD-YY'),
+                                        status: '<span class="dot"></span>',
+                                        phone: client.phone,
+                                        email: client.email,
+                                        checkedin: true
+                                    }).draw();
+                                    $(row.node()).data({ // node() returns the actual html tag
+                                        // moment(checkin.date).format('MM-DD-YY'),
+                                        id: client.id,
+                                        firstName: client.firstName,
+                                        lastName: client.lastName,
+                                        dob: moment(client.dob).format('MM-DD-YY'),
+                                        status: client.status 
+                                    }); 
+                                    var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                    $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                                    // according to stackoverflow, need to manually reattach event handlers
+                                    // to dynamically added elements, even for modals
+                                    $(row.node()).data('toggle', 'modal')
+                                    .data('target', '#viewclient-modal')
+                                    .on('click', function (event) {
+                                        $('#viewclient-modal').find('#client-name')
+                                        .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                        $('#viewclient-modal').modal('toggle');
+                                    });
                               }
                           });
                         });
@@ -196,13 +171,13 @@ $(function () {
         });
         
 
-          $('#viewclient-modal-save-button').click(function (event) {
-              // TODO
-              // ajax call here to save any changes to the client profile
-              $('#viewclient-modal').modal('toggle');
-          });
+        $('#viewclient-modal-save-button').click(function (event) {
+            // TODO
+            // ajax call here to save any changes to the client profile
+            $('#viewclient-modal').modal('toggle');
+        });
 
-          $('#clients tbody').css("height", 100);
+        $('#clients tbody').css("height", 100);
 
         var setupCheckin = function () {
             $.ajax({
@@ -339,14 +314,14 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                  url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities",
-                  method: "GET",
-                  success: function (data) {
-                      console.log(data);
-                  },
-                  error: function (data) {
-                      console.error(data);
-                  }
+                url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities",
+                method: "GET",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.error(data);
+                }
             }).done(function (data) {
                 console.log("/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/activities");
                 console.log(data);
