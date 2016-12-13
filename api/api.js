@@ -156,6 +156,16 @@ var api = {
         });
     },
 
+    removeActivitiesFromDropin: function (request, reply) {
+        Service.removeActivitiesFromDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToRemoveActivitiesFromDropin(reply, err);
+            } else {
+                Respond.removeActivitiesFromDropin(reply, result);
+            }
+        });
+    },
+
     getDropinActivity: function (request, reply) {
         Service.getDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
             if (err) {
@@ -194,6 +204,16 @@ var api = {
                 Respond.failedToGetDropinEnrollment(reply, err);
             } else {
                 Respond.getDropinEnrollment(reply, result);
+            }
+        });
+    },
+    removeEnrollmentToDropinActivity: function (request, reply) {
+        Service.removeEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID,
+        request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToRemoveEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.removeEnrollmentToDropinActivity(reply, result);
             }
         });
     },

@@ -81,12 +81,12 @@
        <div class="tab-pane active" id="activity-enrollment" role="tabpanel">
           <div class="card">
             <div class="card-header"> 
-              <div class="horiscroll" id="activities-bar">                 
-                  <!-- <div class="thumbnail" id="add-new-activity">
-                    <div class="caption">
-                      <p>+</p>
-                    </div>
-                  </div> -->
+              <div class="horiscroll" >                 
+                <div class="card-deck-wrapper">
+                  <div class="card-deck" id="activities-bar">
+
+                  </div>
+                </div>
               </div>                 
             </div>
             <!-- Button trigger Add New Activity Modal -->
@@ -98,8 +98,38 @@
             <div class="card-block">
               <!-- GENERAL EXAMPLE: this should become an object dependent on the activity -->
               <h4 id="activity-title"> Activity Title </h4>
-              <table class="table table-hover" id='activities'>
-              </table>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="activity-client-search">
+                </div> 
+              </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <table class="table table-sm" id="activities-onSearch-table">
+                  <tbody id="activities-onSearch-table-body">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+              
+              
+              <div class="row">
+                <div class="col-sm-4">
+                  
+                  <table class="table table-sm">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th> Clients Enrolled </th>
+                        <th> </th>
+                      </tr>
+                    </thead>
+                    <tbody id="activities-table-body">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+    
             </div>
           </div>
         </div>
