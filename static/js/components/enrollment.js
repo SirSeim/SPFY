@@ -19,6 +19,14 @@ $(function (event) {
         populateEnrollmentTable();
     };
 
+    var addHandlersToActivityCards = function () {
+        $(".thumbnail-dismiss").click(function (event) {
+            $(this).parent().parent().parent().parent().remove();
+        });
+
+        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+    };
+
     // .delegate adds event listeners to each element with designated class
     // (in this case, every "td" element)
     // adding a "click" event listener with the function that should execute
@@ -34,20 +42,12 @@ $(function (event) {
                                         jThis.parent().data('category') + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ jThis.text() + 
                                         '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
         });
-        $(".thumbnail-dismiss").click(function (event) {
-            $(this).parent().parent().parent().parent().remove();
-        });
-
-        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+        addHandlersToActivityCards();
     };
 
     $("#create-thumbnail").click(addActivitiesHandler);
 
-    $(".thumbnail-dismiss").click(function (event) {
-        $(this).parent().parent().parent().parent().parent().remove();
-    });
-
-    $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+    addHandlersToActivityCards();
 
     //AUTO-
 
