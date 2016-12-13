@@ -624,6 +624,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedGetUserSettings: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get user settings!",
+            error: err
+        }).code(500);
+    },
+    getUserSettings: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got user settings!",
+            result: result
+        }).code(200);
+    },
     failedToChangeUserPassword: function (reply, err) {
         reply({
             statusCode: 500,

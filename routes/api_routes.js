@@ -320,6 +320,11 @@ var apiRoutes = [
         handler: Api.getNotificationTypes
     },
     {
+        method: 'GET',
+        path: '/users/{userId}/settings',
+        handler: Api.getUserSettings
+    },
+    {
         method: 'PUT',
         path: '/users/{userId}/password',
         config: {

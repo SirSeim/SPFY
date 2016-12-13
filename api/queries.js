@@ -818,6 +818,12 @@ var queries = {
         return queryString;
     },
 
+    getUserSettings: function (userId) {
+        var queryString = 'SELECT user_id, settings_data FROM settings WHERE user_id = ' + userId + ';';
+
+        return queryString;
+    },
+
     changeUserPassword: function (userId, hashedPassword) {
         var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
                             '\' WHERE id = ' + userId + ';';

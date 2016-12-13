@@ -645,6 +645,16 @@ var api = {
         });
     },
 
+    getUserSettings: function (request, reply) {
+        Service.getUserSettings(request.postgres, request.params.userId, function (err, result) {
+            if (err) {
+                Respond.failedGetUserSettings(reply, err);
+            } else {
+                Respond.getUserSettings(reply, result);
+            }
+        });
+    },
+
     deleteFile: function (request, reply) {
         Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
             if (err) {

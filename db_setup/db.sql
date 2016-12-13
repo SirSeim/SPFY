@@ -573,3 +573,13 @@ CREATE TABLE file (
   date date DEFAULT NULL,
   base_64_string varchar DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS settings;
+
+CREATE TABLE settings (
+  id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users (id),
+  settings_data jsonb DEFAULT NULL
+);
+
+INSERT INTO settings (user_id, settings_data) VALUES (1, '{ "default": "true" }');

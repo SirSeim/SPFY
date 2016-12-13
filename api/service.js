@@ -690,6 +690,26 @@ var service = {
         });
     },
 
+    getUserSettings: function (postgres, userId, callback) {
+        Query.getUserSettings(postgres, userId, function(err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    userID: local.user_id,
+                    settingsData: local.settings_data
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
     changeUserPassword: function (postgres, userId, password, callback) {
         bcrypt.hash(password, saltRounds, function (err, hash) {
             if (err) {
