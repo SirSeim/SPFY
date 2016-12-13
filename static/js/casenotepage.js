@@ -153,8 +153,6 @@ $(function (event) {
             reminderDate
         };
 
-        console.log(data);
-
         createCaseNote(data);
     });
 });
