@@ -354,7 +354,7 @@ $(function () {
                 data.result.forEach(function (activity) {
                     $('#activities-bar').append('<div class="card card-inverse text-xs-center activity-card ' +
                                             activity.programName + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + activity.id + '" data-program-id="' +
-                                            activity.programName + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ activity.name + 
+                                            activity.programId + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ activity.name + 
                                             '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
                 });
 
@@ -387,38 +387,39 @@ $(function () {
             event.preventDefault();
         });
 
+
+        // Updates the activities in the modal for adding activities
+        // so that activities already added are selected
+
         var updateAddActivities = function () {
             $('#activities-bar').each(function (element) {
-                console.log("BITHCINDFGDF");
                 var jElement = $(element);
                 var programId = jElement.data('program-id');
                 var activityId = jElement.data('id');
 
-                if (programId === 2) {
-                    $("#health-well").children().filter(function (i, e) {
-                        return $(e).data('id') === activityId;
-                    }).addClass('active');
-                } else if (programId === 3) {
-                    $("#art-well").children().filter(function (i, e) {
-                        return $(e).data('id') === activityId;
-                    }).addClass('active');
-                } else if (programId === 4) {
-                    // Needs to actually use a 4th well
-                    $("#art-well").children().filter(function (i, e) {
-                        return $(e).data('id') === activityId;
-                    }).addClass('active');
-                } else {
-                    $("#other-well").children().filter(function (i, e) {
-                        return $(e).data('id') === activityId;
-                    }).addClass('active');
-                }
+                // if (programId === 2) {
+                //     $("#health-well").children().filter(function (i, e) {
+                //         return $(e).data('id') === activityId;
+                //     }).addClass('active');
+                // } else if (programId === 3) {
+                //     $("#art-well").children().filter(function (i, e) {
+                //         return $(e).data('id') === activityId;
+                //     }).addClass('active');
+                // } else if (programId === 4) {
+                //     // Needs to actually use a 4th well
+                //     $("#art-well").children().filter(function (i, e) {
+                //         return $(e).data('id') === activityId;
+                //     }).addClass('active');
+                // } else {
+                //     $("#other-well").children().filter(function (i, e) {
+                //         return $(e).data('id') === activityId;
+                //     }).addClass('active');
+                // }
             })
         };
 
         $("#add-new-activity").click(function (event) {
-          console.log('click!');
             updateAddActivities();
-            console.log('CLICKED');
             $("#newActivityModal").modal("toggle");
         });
     };
