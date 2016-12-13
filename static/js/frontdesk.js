@@ -157,6 +157,7 @@ $(function () {
                                     .on('click', function (event) {
                                         $('#viewclient-modal').find('#client-name')
                                         .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                        $('#client-modal-data').data('id', $(this).data('id'));
                                         $('#viewclient-modal').modal('toggle');
                                     });
                               }
@@ -175,6 +176,7 @@ $(function () {
         $('#viewclient-modal-save-button').click(function (event) {
             // TODO
             // ajax call here to save any changes to the client profile
+            refreshCheckinTable();
             $('#viewclient-modal').modal('toggle');
         });
 
@@ -289,12 +291,13 @@ $(function () {
                             // according to stackoverflow, need to manually reattach event handlers
                             // to dynamically added elements, even for modals
                             $(row.node()).data('toggle', 'modal')
-                                         .data('target', '#viewclient-modal')
-                                         .on('click', function (event) {
-                                              $('#viewclient-modal').find('#client-name')
-                                                                    .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
-                                              $('#viewclient-modal').modal('toggle');
-                                         });
+                            .data('target', '#viewclient-modal')
+                            .on('click', function (event) {
+                                $('#viewclient-modal').find('#client-name')
+                                .text($(this).data("firstName") + ' ' + $(this).data("lastName"));
+                                $('#client-modal-data').data('id', $(this).data('id'));
+                                $('#viewclient-modal').modal('toggle');
+                            });
                         }
                     });
                 });

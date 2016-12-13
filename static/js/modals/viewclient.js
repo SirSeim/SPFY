@@ -6,6 +6,7 @@ $(function () {
         var clients = JSON.parse(window.sessionStorage.clients);
 
         var populateModal = function () {
+            $('#checkin-checkbox').prop('checked', true);
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -86,13 +87,18 @@ $(function () {
         $('#viewclient-modal').on('shown.bs.modal', populateModal);
 
         $('#checkin-checkbox').change(function (event) {
-            if ($(this).is(':checked')) {
-                alert("checked");
-                var data = [{
-                  dropinID: 2, // hard-coded
-                  clientID: $('#client-modal-data').data("id"),
-                  date: moment().format("YYYY-MM-DD")
-                }];
+            var jThis = $(this);
+            jThis.prop('disabled', true);
+
+            if (jThis.is(':checked')) {
+                // alert("checked");
+                // var data = [{
+                //     dropinID: 2, // hard-coded
+                //     clientID: $('#client-modal-data').data("id"),
+                //     date: moment().format("YYYY-MM-DD")
+                // }];
+                var dropinID = window.sessionStorage.frontdeskDropinId;
+
                 $.ajax({
                     xhrFields: {
                         withCredentials: true
@@ -100,14 +106,22 @@ $(function () {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                     },
-                    url: "api/checkin",
+                    url: "api/dropins/" + dropinID + "/checkin",
                     method: "POST",
-                    data: { expression: JSON.stringify(data) }, // Hapi doesn't parse arrays by default, need to stringify it
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        clients: [
+                            $('#client-modal-data').data("id")
+                        ]
+                    }),
                     success: function (data) {
                         console.log(data);
+                        jThis.prop('disabled', false);
                     },
                     error: function (xhr) {
                         console.error(xhr);
+                        jThis.prop('disabled', false).prop('checked', false);
 
                         if (xhr.status === 401) {
                             localStorage.removeItem("authorization");
@@ -115,11 +129,13 @@ $(function () {
                     }
                 });
             } else {
-               alert("unchecked");
-               var data = [{
-                  dropinID: 2, // hard-coded
-                  clientID: $('#client-modal-data').data("id")
-                }];
+                // alert("unchecked");
+                // var data = [{
+                //     dropinID: 2, // hard-coded
+                //     clientID: $('#client-modal-data').data("id")
+                // }];
+                var dropinID = window.sessionStorage.frontdeskDropinId;
+
                 $.ajax({
                     xhrFields: {
                         withCredentials: true
@@ -127,14 +143,22 @@ $(function () {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                     },
-                    url: "api/checkin",
+                    url: "api/dropins/" + dropinID + "/checkin",
                     method: "DELETE",
-                    data: { expression: JSON.stringify(data) }, // Hapi doesn't parse arrays by default, need to stringify it
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        clients: [
+                            $('#client-modal-data').data("id")
+                        ]
+                    }),
                     success: function (data) {
                         console.log(data);
+                        jThis.prop('disabled', false);
                     },
                     error: function (xhr) {
                         console.error(xhr);
+                        jThis.prop('disabled', false).prop('checked', true);
 
                         if (xhr.status === 401) {
                             localStorage.removeItem("authorization");
