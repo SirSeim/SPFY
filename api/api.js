@@ -198,14 +198,14 @@ var api = {
         });
     },
     removeEnrollmentToDropinActivity: function (request, reply) {
-        Service.removeEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID,
+        Service.removeEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, 
             request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToRemoveEnrollmentToDropinActivity(reply, err);
-            } else {
-                Respond.removeEnrollmentToDropinActivity(reply, result);
-            }
-        });
+                if (err) {
+                    Respond.failedToRemoveEnrollmentToDropinActivity(reply, err);
+                } else {
+                    Respond.removeEnrollmentToDropinActivity(reply, result);
+                }
+            });
     },
 
     enroll: function (request, reply) {
