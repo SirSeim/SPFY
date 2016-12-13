@@ -1,20 +1,17 @@
 {% include "components/_header.html" %}
 
-  <div class="container">
-
-    <!-- make this header highlight the frontdesk selection -->
-    {% include "components/_navbar.html" %}
-
-    <div class="row">
-      <div id="navigation" class="col-sm-3 col-lg-2">
-        <nav class="side-nav">
-          <ul id="options">
-            <li class="account link selected"><a href="#account-settings">Account</a></li>
-            <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
-            <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
-          </ul>
-        </nav>
-      </div>
+  <!-- make this header highlight the frontdesk selection -->
+  {% include "components/_navbar.html" %}
+  <div class="row pt-1">
+    <div id="navigation" class="col-sm-3 col-lg-2">
+      <nav class="side-nav">
+        <ul id="options">
+          <li class="account link selected"><a href="#account-settings">Account</a></li>
+          <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
+          <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
+        </ul>
+      </nav>
+    </div>
     <div class="col-sm-9 col-lg-10">
       <div class="row">
         <div id="account-settings">
@@ -110,18 +107,15 @@
     <div id="react-content">
 
     </div>
-        
+  </div>
 
-  </div> <!--container-->
-
-
-{% include "modals/newstatus.html" %}
-{% include "modals/newflag.html" %}
-{% include "components/_basescript.html" %}
+    {% include "modals/newstatus.html" %}
+    {% include "modals/newflag.html" %}
+    {% include "components/_basescript.html" %}
   
-  <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->
-  <script type="text/babel" src="/static/js/settings.js"></script>
-  <script src="/static/js/modals/newstatus.js"></script>
-  <script src="/static/js/modals/newflag.js"></script>
+    <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->
+    <script type="text/babel" src="/static/js/settings.js"></script>
+    <script src="/static/js/modals/newstatus.js"></script>
+    <script src="/static/js/modals/newflag.js"></script>
   
-{% include "components/_footer.html" %}
+    {% include "components/_footer.html" %}

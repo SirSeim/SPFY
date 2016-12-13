@@ -1,37 +1,40 @@
-{% include "components/_header.html" %}
+  {% include "components/_header.html" %}
+  {% include "components/_navbar.html" %}
 
-  <div class="container">
+  <div class="row pt-1">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="jumbotron">
+        <h1 class="display-3">SPY Login</h1>
+        <p class="lead">
+          Authorized S.P.Y. users may login here
+        </p>
 
-    {% include "components/_navbar.html" %}
+        <hr class="my-2">
 
-    <div>
-      <h2>SPY Login</h2>
-    </div>
+        <form id="login">
+          <div class="form-group">
+            <div>
+              <label for="username">USERNAME</label>
+              <input type="text" class="form-control" placeholder="username" name="username" id="username">
+            </div>
+          </div>
 
+          <div class="form-group">
+            <div>
+              <label for="password">PASSWORD</label>
+              <input type="password" class="form-control" placeholder="password" name="password" id="password">
+            </div>
+          </div>
+          <p class="lead pt-1">
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" role="button">Login</button>
+            <p id="status"></p>
+          </p>
+        </form>
+      </div> <!-- jumbotron -->
+    </div> <!-- col-md-6 offset-md-3 -->
+  </div> <!-- row -->
 
-    <div>
-      <p id="status"></p>
-      <form id="login">
+  {% include "components/_basescript.html" %}
+  <script type="text/babel" src="static/js/login.js"></script>
 
-        <div>
-          <label for="username">USERNAME</label>
-          <input type="text" class="form-control" placeholder="username" name="username" id="username">
-        </div>
-
-        <div>
-          <label for="password">PASSWORD</label>
-          <input type="password" class="form-control" placeholder="password" name="password" id="password">
-        </div>
-        
-        <button type="submit">Login</button>
-
-      </form>
-    </div>
-
-  </div>
-
-{% include "components/_basescript.html" %}
-
-<script type="text/babel" src="static/js/login.js"></script>
-
-{% include "components/_footer.html" %}
+  {% include "components/_footer.html" %}
