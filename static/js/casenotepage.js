@@ -135,7 +135,7 @@ $(function (event) {
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
         var date = $('#addcasenote-date')['0'].value;
-        var category = $('#category')['0'].value;
+        var category = $('#category')['0'].value.toUpperCase();
         var note = $('#note')['0'].value;
         var followUpNeeded = $('input[name=followup-checkbox]:checked').length === 0 ? false : true;
         var dueDate;

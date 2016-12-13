@@ -39,6 +39,12 @@ $(function (event) {
                 }
             }).done(function (data) {
                 $('#casenotes > tbody').empty();
+                $("#viewcasenote-client").empty()
+                $("#viewcasenote-date").empty()
+                $("#viewcasenote-category").empty()
+                $("#viewcasenote-casemanager").empty()
+                $("#viewcasenote-note").empty()
+
                 if (data.result) {
                     var notes = data.result;
                     var table = $('#casenotes');
@@ -62,15 +68,6 @@ $(function (event) {
                             '</label></div>')
                         .find('div').wrap('<div class="col-sm-6"></div>');
                     }
-
-                    // manually setting these for testing
-                    // will probably have these in a local "check-in table settings"
-                    // button attached to the table later on
-                    // table.column(5).visible(false);
-                    // table.column(6).visible(false);
-                    // table.column(7).visible(false);
-                    // table.column(8).visible(false);
-                    
                     
                     var options = [];
 
@@ -133,7 +130,7 @@ $(function (event) {
 
                         $(row.node()).click(function(){
                             $("#viewcasenote").removeAttr('hidden');
-                            $("#viewcasenote-client").empty().append("Name: " + note.clientID);
+                            $("#viewcasenote-client").empty().append("Client: " + note.clientID);
                             $("#viewcasenote-date").empty().append("Date: " + note.date);
                             $("#viewcasenote-category").empty().append("Category: " + note.category);
                             $("#viewcasenote-casemanager").empty().append("Case Manager: " + note.caseManagerID);
