@@ -1,49 +1,27 @@
-{% include "components/_header.html" %}
-
-<div class="container">
-
+  {% include "components/_header.html" %}
   {% include "components/_navbar.html" %}
 
-    <div class="row">
-        <div class="col-sm-2">
+  <div class="row pt-1">
+      <div class="col-sm-3">
+        {% include "components/_clientprofiletable.html" %}
+      </div>
 
-          {% include "components/_clientprofiletable.html" %}
+      <h3 id="cm-page-filler">Choose a profile</h3>
+      <div id="view-client-tabs" class="col-sm-9 hidden">
+          {% include "components/_viewclient.html" %}
+      </div> <!--col-sm-8-->
+  </div> <!--outer row-->
 
-        </div>
+  {% include "modals/setflag.html" %}
+  {% include "modals/editflag.html" %}
+  {% include "components/_basescript.html" %}
 
-<!--         <h3 id="cm-page-filler">Choose a profile</h3> -->
+  <script src="/static/js/casemanager.js"></script>
+  <script src="/static/js/components/clientprofiletable.js"></script>
+  <script src="/static/js/modals/setflag.js"></script>
+  <script src="/static/js/modals/editflag.js"></script>
+  <script src="/static/js/components/deletefile.js"></script>
+  <script src="/static/js/components/viewclient.js"></script>
+  <script src="/static/js/casenotepage.js"></script>
 
-        <div class="col-sm-8" id="cm-page-filler">
-            <div class="jumbotron">
-              <h1 class="display-3">Client Profiles</h1>
-              <p class="lead">View and edit profile information, set flags, view and add case notes, make case plans, upload files, and make referrals.</p>
-              <hr class="my-2">
-              <p>To get started, select a client from the list on the left. 
-            </div>
-        </div>
-
-        <div id="view-client-tabs" class="col-sm-8 hidden">
-
-            {% include "components/_viewclient.html" %}
-
-        </div> <!--col-sm-8-->
-
-
-    </div> <!--outer row-->
-
-
-</div> <!--container-->
-
-{% include "modals/setflag.html" %}
-{% include "modals/editflag.html" %}
-{% include "components/_basescript.html" %}
-
-    <script src="/static/js/casemanager.js"></script>
-    <script src="/static/js/components/clientprofiletable.js"></script>
-    <script src="/static/js/modals/setflag.js"></script>
-    <script src="/static/js/modals/editflag.js"></script>
-    <script src="/static/js/components/deletefile.js"></script>
-    <script src="/static/js/components/viewclient.js"></script>
-    <script src="/static/js/casenotepage.js"></script>
-
-{% include "components/_footer.html" %}
+  {% include "components/_footer.html" %}
