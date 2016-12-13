@@ -19,11 +19,42 @@ $(function (event) {
         populateEnrollmentTable();
     };
 
-    var addHandlersToActivityCards = function () {
-        $(".thumbnail-dismiss").click(function (event) {
-            $(this).parent().parent().parent().parent().remove();
-        });
+    window.clickHandlers.removeThumbnail = function (event) {
+        var dropinID = window.sessionStorage.frontdeskDropinId;
 
+        var jThis = $(this);
+        var jCard = jThis.parent().parent().parent().parent();
+        jThis.prop('disabled', true);
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/dropins/" + dropinID + "/activities",
+            method: "DELETE",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                activities: [
+                    jCard.data('id')
+                ]
+            }),
+            success: function (data) {
+                jThis.parent().parent().parent().parent().remove();
+            },
+            error: function (xhr) {
+                console.error(xhr);
+                console.log(jThis.data('id'));
+                jThis.prop('disabled', false);
+            }
+        });
+    };
+
+    var addHandlersToActivityCards = function () {
+        $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
         $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
     };
 

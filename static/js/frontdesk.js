@@ -327,6 +327,7 @@ $(function () {
                 });
 
                 $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+                $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
             });
         };
 
