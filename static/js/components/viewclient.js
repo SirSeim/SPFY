@@ -141,6 +141,7 @@ $(function (event) {
                     console.log(data);
                     alert('SUCCESS! Case note has been successfully edited');
                     $('#edit-note-modal').modal('hide');
+                    displayClientProfile(client);
                 },
                 error: function (xhr) {
                     console.log(xhr);
