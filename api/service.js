@@ -204,6 +204,23 @@ var service = {
         });
     },
 
+    removeActivitiesFromDropin: function (postgres, dropinID, payload, callback) {
+        Query.removeActivitiesFromDropin(postgres, dropinID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.activity_id);
+            }
+            return callback(undefined, {
+                activities: arr
+            });
+        })
+    },
+
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
         Query.getDropinActivity(postgres, dropinID, activityID, function (err, result) {
             if (err) {

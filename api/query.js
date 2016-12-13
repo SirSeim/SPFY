@@ -217,6 +217,23 @@ var query = {
         });
     },
 
+    removeActivitiesFromDropin: function (postgres, dropinID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.removeActivitiesFromDropin(dropinID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

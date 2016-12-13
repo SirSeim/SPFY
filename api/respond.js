@@ -149,6 +149,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToRemoveActivitiesFromDropin: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to remove activities from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeActivitiesFromDropin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully removed activities from dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinActivity: function (reply, err) {
         reply({
             statusCode: 500,

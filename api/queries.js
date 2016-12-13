@@ -400,6 +400,21 @@ var queries = {
 
         return queryString;
     },
+    removeActivitiesFromDropin: function (dropinID, payload) {
+        var queryString = '';
+        payload.activities.forEach(function (activityID) {
+            queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
+                    '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
+                    'match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + '); DELETE FROM match_drop_in_activity WHERE ' +
+                    'match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + ' RETURNING match_drop_in_activity.activity_id;';
+        });
+
+        return queryString;
+    },
     getDropinActivity: function (dropinID, activityID) {
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
                 'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +

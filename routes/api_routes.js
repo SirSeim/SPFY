@@ -89,6 +89,16 @@ var apiRoutes = [
         handler: Api.addActivitiesToDropIn
     },
     {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/activities',
+        config: {
+            validate: {
+                payload: Schema.removeActivitiesFromDropin
+            }
+        },
+        handler: Api.removeActivitiesFromDropin
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/activities/{activityID}',
         handler: Api.getDropinActivity

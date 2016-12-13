@@ -44,6 +44,10 @@ var schema = {
         }).required()).required()
     }).unknown(false),
 
+    removeActivitiesFromDropin: Joi.object().keys({
+        activities: Joi.array().items(Joi.number().integer().required()).required()
+    }).unknown(false),
+
     addCheckinForDropin: Joi.object().keys({
         clients: Joi.array().items(Joi.number().integer().required()).required()
     }).unknown(false),
