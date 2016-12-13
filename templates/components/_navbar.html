@@ -1,82 +1,69 @@
-<div class="row">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand brand-contain" href="/">
-          <img class="img-responsive brand-logo" src="/static/img/spfy-nav-logo.png" alt="SPFY">
-        </a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="frontdesk"><h5>Front <span class="fa fa-home" aria-hidden="true"></span> Desk</h5></a></li>
-          <li><a href="case_manager"><h5>Clients</h5></a></li>
-          <li><a href="search"><h5>Data Browser</h5></a></li>
-<!--           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Drop <span class="fa fa-sort-down drop-arrow"></span></h5></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li> -->
-        </ul>
-        <!-- <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+<div class="row pt-1">
+  <nav class="navbar navbar-light bg-faded">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <!-- <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img class="brand-logo" src="/static/img/spfy-nav-logo.png" alt="SPFY">
+      </a>
+    </div> -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+      <a class="navbar-brand" href="/">
+        <img class="brand-logo" src="/static/img/spfy-nav-logo.png" alt="SPFY">
+      </a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="frontdesk">Front Desk<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="case_manager">Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="search">Data Browser</a>
+        </li>
+      </ul>
+      <!-- <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="search" class="btn btn-secondary">Search</button>
+      </form> -->
+      <ul class="nav navbar-nav float-lg-right">
+        <li class="nav-item">
+          <a href="login">Login</a>
+        </li>
+        <li class="nav-item dropdown" id="alerts">
+          <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alerts</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="supportedContentDropdown">
+            <a class="dropdown-item" href="dropin">New</a>
+            <a class="dropdown-item" href="dropin">Edit</a>
+            <a class="dropdown-item" href="dropin">History</a>
+            <a class="dropdown-item" href="dropin">View</a>
           </div>
-          <button type="search" class="btn btn-default">Search</button>
-        </form> -->
-        <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="add_client"><h5>Add Client</h5></a></li> -->
-<!--           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Drop In <span class="fa fa-sort-down drop-arrow"></span></h5></a>
-            <ul class="dropdown-menu">
-              <li><a href="dropin"><i class="fa fa-plus" aria-hidden="true"></i> New </a></li>
-              <li><a href="dropin"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a></li>
-              <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
-              <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
-            </ul>
-          </li> -->
-          <li><a href="login"><h5>Login</h5></a></li>
-          <li class="dropdown" id="alerts">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Alerts <span class="fa fa-sort-down drop-arrow"></span></h5></a>
-            <ul class="dropdown-menu">
-              <li><a href="dropin"><i class="fa fa-plus" aria-hidden="true"></i> New </a></li>
-              <li><a href="dropin"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a></li>
-              <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
-              <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown" id="profile">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>Profile <span class="fa fa-sort-down drop-arrow"></span></h5></a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-header">Account</li>
-              <li><a href="dropin"><i class="fa fa-id-badge" aria-hidden="true"></i> Info</a></li>
-              <li><a href="#" id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">System</li>
-              <li><a href="dropin"><i class="fa fa-history" aria-hidden="true"></i></span> History </a></li>
-              <li><a href="dropin"><i class="fa fa-eye" aria-hidden="true"></i></i> View </a></li>
-              <li><a href="settings">Settings</a></li>
-              <li><a href="#">Help</a></li>
-              </ul>
-          </li> <!-- Profile -->
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </li>
+        <li class="nav-item dropdown" id="profile">
+          <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="supportedContentDropdown">
+            <h6 class="dropdown-header">Account</h6>
+            <a class="dropdown-item" href="#">Info</a>
+            <a class="dropdown-item" id="logout" href="#">Logout</a>
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">System</h6>
+            <a class="dropdown-item" href="#">Stuff</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-futbol-o" aria-hidden="true"></i></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="settings">Settings</a>
+            <a class="dropdown-item" href="#">Help</a>
+          </div>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
   </nav>
 </div>

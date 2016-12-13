@@ -73,13 +73,27 @@ var api = {
     },
 
     getDropIns: function (request, reply) {
-        Service.getDropIns(request.postgres, function (err, result) {
-            if (err) {
-                Respond.failedToGetDropIns(reply, err);
+        if (request.query.latest) {
+            if (parseInt(request.query.latest)) {
+                Service.getLatestDropIns(request.postgres, parseInt(request.query.latest), function (err, result) {
+                    if (err) {
+                        Respond.failedToGetDropIns(reply, err);
+                    } else {
+                        Respond.gotDropIns(reply, result);
+                    }
+                });
             } else {
-                Respond.gotDropIns(reply, result);
+                Respond.badGetDropIns(reply, "invalid latest number");
             }
-        });
+        } else {
+            Service.getDropIns(request.postgres, function (err, result) {
+                if (err) {
+                    Respond.failedToGetDropIns(reply, err);
+                } else {
+                    Respond.gotDropIns(reply, result);
+                }
+            });
+        }
     },
 
     getDropIn: function (request, reply) {
@@ -102,6 +116,26 @@ var api = {
         });
     },
 
+    getAllActivities: function (request, reply) {
+        Service.getAllActivities(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetAllActivities(reply, err);
+            } else {
+                Respond.getAllActivities(reply, result);
+            }
+        });
+    },
+
+    getActivity: function (request, reply) {
+        Service.getActivity(request.postgres, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetActivity(reply, err);
+            } else {
+                Respond.getActivity(reply, result);
+            }
+        });
+    },
+
     getDropinActivities: function (request, reply) {
         Service.getDropinActivities(request.postgres, request.params.dropin, function (err, result) {
             if (err) {
@@ -112,12 +146,74 @@ var api = {
         });
     },
 
+    addActivitiesToDropIn: function (request, reply) {
+        Service.addActivitiesToDropIn(request.postgres, request.params.dropin, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddActivitiesToDropIn(reply, err);
+            } else {
+                Respond.gotAddActivitiesToDropIn(reply, result);
+            }
+        });
+    },
+
+    removeActivitiesFromDropin: function (request, reply) {
+        Service.removeActivitiesFromDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToRemoveActivitiesFromDropin(reply, err);
+            } else {
+                Respond.removeActivitiesFromDropin(reply, result);
+            }
+        });
+    },
+
+    getDropinActivity: function (request, reply) {
+        Service.getDropinActivity(request.postgres, request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivity(reply, err);
+            } else {
+                Respond.getDropinActivity(reply, result);
+            }
+        });
+    },
+
+    getDropinActivityEnrollment: function (request, reply) {
+        Service.getDropinActivityEnrollment(request.postgres,
+        request.params.dropinID, request.params.activityID, function (err, result) {
+            if (err) {
+                Respond.failedToGetDropinActivityEnrollment(reply, err);
+            } else {
+                Respond.getDropinActivityEnrollment(reply, result);
+            }
+        });
+    },
+
+    addEnrollmentToDropinActivity: function (request, reply) {
+        Service.addEnrollmentToDropinActivity(request.postgres,
+        request.params.dropinID, request.params.activityID, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToAddEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.addEnrollmentToDropinActivity(reply, result);
+            }
+        });
+    },
+
     getDropinEnrollment: function (request, reply) {
         Service.getDropinEnrollment(request.postgres, request.params.dropinID, function (err, result) {
             if (err) {
                 Respond.failedToGetDropinEnrollment(reply, err);
             } else {
                 Respond.getDropinEnrollment(reply, result);
+            }
+        });
+    },
+    removeEnrollmentToDropinActivity: function (request, reply) {
+        Service.removeEnrollmentToDropinActivity(request.postgres, request.params.dropinID, request.params.activityID,
+        request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToRemoveEnrollmentToDropinActivity(reply, err);
+            } else {
+                Respond.removeEnrollmentToDropinActivity(reply, result);
             }
         });
     },
@@ -142,25 +238,33 @@ var api = {
         });
     },
 
-    checkin: function (request, reply) {
-        Service.checkin(request.postgres, request.payload, function (err, result) {
+    addCheckinForDropin: function (request, reply) {
+        Service.addCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCheckIn(reply, err);
+                Respond.failedToAddCheckinForDropin(reply, err);
             } else {
-                Respond.checkin(reply, result);
+                Respond.addCheckinForDropin(reply, result);
             }
         });
     },
-    getCheckIn: function (request, reply) {
-        Service.getCheckIn(request.postgres, function (err, result) {
+    removeCheckinForDropin: function (request, reply) {
+        Service.removeCheckinForDropin(request.postgres, request.params.dropinID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToGetCheckIn(reply, err);
+                Respond.failedToRemoveCheckinForDropin(reply, err);
             } else {
-                Respond.gotCheckIn(reply, result);
+                Respond.removeCheckinForDropin(reply, result);
             }
         });
     },
-
+    getCheckInForDropin: function (request, reply) {
+        Service.getCheckInForDropin(request.postgres, request.params.dropinID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCheckInForDropin(reply, err);
+            } else {
+                Respond.getCheckInForDropin(reply, result);
+            }
+        });
+    },
     dataBrowserGetClients: function (request, reply) {
         Service.dataBrowserGetClients(request.postgres, function (err, result) {
             if (err) {
@@ -551,6 +655,16 @@ var api = {
         });
     },
 
+    deleteFile: function (request, reply) {
+        Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
+            if (err) {
+                Respond.failedToDeleteFile(reply, err);
+            } else {
+                Respond.deleteFile(reply, result);
+            }
+        });
+    },
+
     getNotificationTypes: function (request, reply) {
         Service.getNotificationTypes(request.postgres, function (err, result) {
             if (err) {
@@ -561,7 +675,6 @@ var api = {
         });
     },
     getCasePlan: function (request, reply) {
-        console.log('We are inside of api.js');
         Service.getCasePlan(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
                 Respond.failedToGetCasePlan(reply, err);
@@ -670,7 +783,27 @@ var api = {
                 Respond.getProfilePicture(reply, result);
             }
         });
-    }
+    },
+
+    getPrograms: function (request, reply) {
+        Service.getPrograms(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetPrograms(reply, err);
+            } else {
+                Respond.getPrograms(reply, result);
+            }
+        });
+    },
+
+    uploadSpreadsheet: function (request, reply) {
+        Service.uploadSpreadsheet(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToUploadSpreadsheet(reply, err);
+            } else {
+                Respond.uploadSpreadsheet(reply, result);
+            }
+        });
+    },
 };
 
 

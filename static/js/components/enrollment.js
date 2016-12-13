@@ -1,159 +1,295 @@
 $(function (event) {
 
-    // // Should we consider storing the information relevant
-    // // for that paricular day within the frontend?
-    // // i.e. each time the system starts a new drop-in (or Michelle
-    // // creates a new drop-in day, information such as the drop-in ID
-    // // and the ID's for each activity during that drop-in could be stored
-    // // in the frontend somwhere) - reduces ajax calls to retrieve information
+    //thumbnailClickHandler enables each activity thumbnail to act as a button that
+    //populates activities table with: 
+    // -- activity title
+    // -- who is currently enrolled
+    // -- columns for.. (tbd)
+    var activityID;
 
-    // var allActivities = [];
-    // var currentDropIn = {};
+    window.clickHandlers = window.clickHandlers || {};
 
-    // // ajax chaining to ensure that asynchronous calls run smoothly
-    // // .then and .done only run after the initial request goes through
-    // $.ajax({
-    //     url: "api/dropins",
-    //     method: "GET",
-    //     success: function (data) {
-    //         console.log("drop-ins");
-    //         console.log(data);
-    //     },
-    //     error: function (data) {
-    //         console.error(data);
-    //     }
-    // }).then(function (data) {
-    //     var dropins = data.result;
-    //     currentDropIn = dropins[dropins.length - 1];
-    // }).then(function () {
-    //     return $.ajax({
-    //         url: "api/dropins/" + currentDropIn.id + "/activities",
-    //         method: "GET",
-    //         success: function (data) {
-    //             console.log(data);
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //         }
-    //     });
-    // }).done(function (data) {
-    //     allActivities = data.result ? data.result.slice() : 
-    //             [{   id: 2,
-    //                 name: 'Medi-Cal Registration',
-    //                 room: 'Clinic',
-    //                 comments: '',
-    //                 startTime: '12:30:00',
-    //                 endTime: '13:30:00'
-    //             }];
-    //     // hardcoding at least one activity into each drop-in to avoid "no activities" errors
-    //     // hardcoded to 3rd insert fro match_drop_in_activity in db.sql
-    // });
+    window.clickHandlers.enrollmentThumbnail = function (event) {
+        var jThis = $(this);
 
-    // var selectedActivities = [];
+        $("#activity-title").empty();
+        $("#activity-title").append(jThis.find('p').text());
 
-    // // .delegate adds event listeners to each element with designated class
-    // // (in this case, every "td" element)
-    // // adding an "click" event listener with the function that should execute
-    // // when the event is detected
-    // $('#activities').delegate("td", "click", function (event) {
-    //     var name = $(this)[0].innerText;
-    //     if (!selectedActivities.includes(name)) {
-    //         selectedActivities.push(name);
-    //     }
-    //     // refreshSelectedActivities();
-    //     $('#selected-activities').empty();
-    //     for (var i = 0; i < selectedActivities.length; i++) {
-    //         $('#selected-activities').append('<li class="list-group-item activity">'
-    //                 + selectedActivities[i]
-    //                 + '</li>');
-    //     }
-    // });
+        activityID = jThis.data('id');
+        populateEnrollmentTable();
+    };
 
-    // var selectedclients = [];
+    window.clickHandlers.removeThumbnail = function (event) {
+        var dropinID = window.sessionStorage.frontdeskDropinId;
 
-    // $('#clients').delegate("td", "click", function () {
-    //     var client = $(this)[0].innerText;
-    //     if (!selectedclients.includes(client)) {
-    //         selectedclients.push(client);
-    //     }
-    //     $('#selected-clients').empty();
-    //     for (var i = 0; i < selectedclients.length; i++) {
-    //         $('#selected-clients').append('<li class="list-group-item client">'
-    //                 + selectedclients[i]
-    //                 + '</li>');
+        var jThis = $(this);
+        var jCard = jThis.parent().parent().parent().parent();
+        jThis.prop('disabled', true);
 
-    //     }
-    // });
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/dropins/" + dropinID + "/activities",
+            method: "DELETE",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                activities: [
+                    jCard.data('id')
+                ]
+            }),
+            success: function (data) {
+                jThis.parent().parent().parent().parent().remove();
+            },
+            error: function (xhr) {
+                console.error(xhr);
+                console.log(jThis.data('id'));
+                jThis.prop('disabled', false);
+            }
+        });
+    };
 
-    // $('#enroll-button').click(function (event) {
-    //     var signups = [];
-    //     var activityids = [];
- 
-    //     for (var i = 0; i < allActivities.length; i++) {
-    //         if (selectedActivities.includes(allActivities[i].name)) {
-    //             activityids.push(allActivities[i].id);
-    //         }
-    //     }
+    var addHandlersToActivityCards = function () {
+        $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
+        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+    };
 
-    //     for (var i = 0; i < selectedclients.length; i++) {
-    //         for (var j = 0; j < activityids.length; j++) {
-    //             signups.push({
-    //                 dropinID: currentDropIn.id,
-    //                 clientID: selectedclients[i].match(/[0-9]+/), // TODO: find more effective implementation
-    //                 activityID: activityids[j]
-    //             });
-    //         }
-    //     }
+    // .delegate adds event listeners to each element with designated class
+    // (in this case, every "td" element)
+    // adding a "click" event listener with the function that should execute
+    // when the event is detected
+    var addActivitiesHandler = function (event) {
+        var dropinID = window.sessionStorage.frontdeskDropinId;
 
-    //     $.ajax({
-    //         url: "api/enroll",
-    //         method: "POST",
-    //         data: { expression: JSON.stringify(signups) },
-    //         success: function (data) {
-    //             console.log(data);
-    //             var clientString = "";
-    //             for (var i = 0; i < selectedclients.length; i++) {
-    //                 clientString += selectedclients[i] + '<br>';
-    //             }
-    //             var activityString = "";
-    //             for (var i = 0; i < selectedActivities.length; i++) {
-    //                 activityString += selectedActivities[i] + '<br>';
-    //             }
+        // $('#activities-bar').empty();
+        activitiesIDs = [];
+        selectedActivities = [];
+        $('.activities-add button.active').each(function (index, element) {
+            var jThis = $(this);
+            activitiesIDs.push({
+                id: jThis.data("id")
+            });
+            selectedActivities.push({
+                id: jThis.data("id"),
+                category: jThis.parent().data('category'),
+                programId: jThis.data('program-id'),
+                text: jThis.text()
+            });
+        });
 
-    //             $('#checkin-enrollment-feedback').empty().append(
-    //                 '<div><h4>Clients Successfully Enrolled</h4>' +
-    //                 '<h4>Clients</h4>' + clientString +
-    //                 '<h4>Activities</h4>' + activityString +
-    //                 '</div>');
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/dropins/" + dropinID + "/activities",
+            method: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                activities: activitiesIDs
+            }),
+            success: function (data) {
+                var jActivitiesBar = $('#activities-bar');
+                selectedActivities.forEach(function (activity) {
+                    jActivitiesBar.append('<div class="card card-inverse text-xs-center activity-card ' +
+                                        activity.category + '" style="width: 13rem;display:inline-block;*display:inline;" data-id="' + activity.id + '" data-program-id="' +
+                                        activity.programId + '"><div class="card-block"><blockquote class="card-blockquote"><p>'+ activity.text + 
+                                        '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
+                });
+                addHandlersToActivityCards();
+            },
+            error: function (xhr) {
+                console.error(xhr);
+            }
+        });
+    };
 
-    //             $('#selected-clients').empty();
-    //             $('#selected-activities').empty();
-    //         },
-    //         error: function (data) {
-    //             console.error(data);
-    //             $('#enrollment-feedback').empty().append(
-    //                 '<div><h4>Enrollment failed</h4>');
-    //         }
-    //     });
-    // });
+    $("#create-thumbnail").click(addActivitiesHandler);
+
+    addHandlersToActivityCards();
+
+
+    var populateEnrollmentTable = function () {
+        var dropinID = window.sessionStorage.frontdeskDropinId;
+
+        var createEnrolledClientItem = function (client) {
+            return '<tr><td class="enroll-name">' + client.firstName + ' ' + client.lastName +
+                    '</td><td><button class="fa fa-times btn btn-danger btn-sm enrolled-client" data-id="' +
+                    client.id + '"></button></td></tr>';
+        };
+
+        var unEnrollClient = function (event) {
+            var jThis = $(this);
+            jThis.prop('disabled', true);
+
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+                method: "DELETE",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    clients: [
+                        jThis.data("id")
+                    ]
+                }),
+                success: function (data) {
+                    jThis.parent().parent().remove();
+                    populateAddEnrollTable();
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+                    jThis.prop('disabled', false);
+                }
+            });
+        };
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+            },
+            url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+            method: "GET",
+            success: function (data) {
+                var jEnrolled = $('#activities-table-body');
+                jEnrolled.empty();
+
+                if (data.result) {
+                    data.result.forEach(function (client) {
+                        jEnrolled.append(createEnrolledClientItem(client));
+                    });
+                    $('.enrolled-client').click(unEnrollClient);
+                }
+            },
+            error: function (xhr) {
+                console.error(xhr);
+            }
+        });
+    };
+
+    var populateAddEnrollTable = function () {
+        var clients = JSON.parse(window.sessionStorage.clients);
+        var dropinID = window.sessionStorage.frontdeskDropinId;
+
+        var createAddEnrollClientItem = function (client) {
+            return '<tr><td class="enroll-name">' + client.firstName + ' ' + client.lastName + '</td>' +
+                    '<td><button type="button" class="btn btn-success btn-sm add-enroll-client" data-id="' + client.id + '">' +
+                    '<i class="fa fa-plus"></i></button></td></tr>';
+        };
+
+        var enrollClient = function (event) {
+            var jThis = $(this);
+            jThis.prop('disabled', true);
+
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    clients: [
+                        jThis.data("id")
+                    ]
+                }),
+                success: function (data) {
+                    jThis.parent().parent().hide();
+                    jThis.prop('disabled', false);
+                    populateEnrollmentTable();
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+                    jThis.prop('disabled', false);
+                }
+            });
+        };
+
+        var jAddEnrollTable = $("#activities-onSearch-table-body");
+        jAddEnrollTable.empty();
+        clients.forEach(function (client) {
+            jAddEnrollTable.append(createAddEnrollClientItem(client));
+        });
+        $(".add-enroll-client").click(enrollClient);
+        if ($('#activity-client-search').val() === '') {
+            $(".add-enroll-client").parent().parent().hide();
+        }
+
+    };
+
+    //onSearch activities table functionality
+    $('#activity-client-search').keyup(function (event) {
+        var search = $('#activity-client-search');
+        var enrolled = $('.enrolled-client').parent().parent();
+        var toAdd = $(".add-enroll-client").parent().parent();
+
+        var clientInEnrolled = function (name) {
+            var result = false;
+            enrolled.each(function (i, e) {
+                if ($(e).find('.enroll-name').text().toLowerCase() === name.toLowerCase()) {
+                    result = true;
+                }
+            });
+            return result;
+        };
+
+        if (search.val() === '') {
+            enrolled.show();
+            toAdd.hide();
+        } else {
+            enrolled.hide().filter(function  (i, e) {
+                return $(e).find('.enroll-name').text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+            }).show();
+
+            var shown = 5;
+            var i = 0;
+            toAdd.hide().filter(function (i, e) {
+                if (clientInEnrolled($(e).find('.enroll-name').text())) {
+                    return false;
+                }
+                var toShow = $(e).find('.enroll-name').text().toLowerCase().indexOf(search.val().toLowerCase()) !== -1;
+
+                // TRYING to make it limit the number of add possibilities
+                // if (toShow) {
+                //     if (shown < i) {
+                //         return false;
+                //     }
+                //     i++;
+                //     return true;
+                // }
+                // return false;
+
+                return toShow;
+            }).show()
+        }
+    });
+        
+    if (window.sessionStorage.clients) {
+        populateAddEnrollTable();
+    } else {
+        window.sessionStorageListeners.push({
+            ready: populateAddEnrollTable
+        });
+    }
     
-    // // var activityData = {
-    // //     activityName: "Medical Care",
-    // //     ongoing: false,
-    // //     startDate: '2016-10-20',
-    // //     endDate: '2016-10-22'
-    // // };
 
-    // // $.ajax({
-    // //     url: "api/activity",
-    // //     method: "POST",
-    // //     data: { expression: JSON.stringify(activityData) },
-    // //     success: function (data) {
-    // //         console.log()
-    // //         console.log(data);
-    // //     },
-    // //     error: function (data) {
-    // //         console.error(data);
-    // //     }
-    // // });
 });

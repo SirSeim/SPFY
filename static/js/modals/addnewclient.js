@@ -252,7 +252,8 @@ var IntakeForm = React.createClass({
                       .year(this.state.dobYear);
     var todaysDate = moment();
     var diff = todaysDate.diff(dob, 'years');
-    var ageWarning = "tooOldWarning" + (diff >= 25 ? "" : " hidden"); 
+    var oldAgeWarning = "ageWarning" + (diff >= 25 ? "" : " hidden");
+    var youngAgeWarning =  "ageWarning" + (diff <= 12 ? "" : " hidden");
     return (
       <div className="row">
         <div className="col-sm-4">
@@ -281,7 +282,8 @@ var IntakeForm = React.createClass({
                                          day = {this.state.dobDay}
                                          month = {this.state.dobMonth}
                                          year = {this.state.dobYear}
-                                         ageWarning = {ageWarning} />
+                                         oldAgeWarning = {oldAgeWarning}
+                                         youngAgeWarning = {youngAgeWarning} />
             ID Provided? <input type="radio" name="idProvided" value="true"
                                   checked={this.state.providedID === true}
                                   onChange={this.handleProvidedIDChange} /> Yes
@@ -323,6 +325,11 @@ var IntakeForm = React.createClass({
 });
 
 var DateDropdown = React.createClass({
+  getInitialState: function () {
+    return {
+      endYear: this.props.year
+    }
+  },
   render: function () {
     var date = moment().date(this.props.day)
                        .month(this.props.month)
@@ -348,8 +355,10 @@ var DateDropdown = React.createClass({
                      totalDays={totalDays}
                      date={date.date()} />
         <YearDropdown handleYearChange={this.props.handleYearChange}
-                      year={date.year()} />
-        <span className={this.props.ageWarning}> Older than 25. </span>
+                      finalYear={this.state.endYear}
+                      year={this.props.year} />
+        <span className={this.props.oldAgeWarning}> Older than 25. </span>
+        <span className={this.props.youngAgeWarning}> Younger than 12. </span>
       </div>
     )
   }
@@ -404,7 +413,7 @@ var DayDropdown = React.createClass({
 var YearDropdown = React.createClass({
   render: function () {
     var yearOptions = [];
-    for(var i = this.props.year - 50; i <= this.props.year; i++) {
+    for(var i = this.props.finalYear - 50; i <= this.props.finalYear; i++) {
       yearOptions.push(<option key={i} value={i}>{i}</option>);
     }
     return (

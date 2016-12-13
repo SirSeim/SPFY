@@ -1,18 +1,6 @@
 @import "../modules/_sizing";
 @import "../modules/_colors";
 
-.footer-block {
-  background: $spfy-blue;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.footer-text {
-  padding: 10;
-}
-
 #footer-links li {
   float: right;
   display: inline;
@@ -20,35 +8,35 @@
   padding-right: 20px;
 }
 
-// small screen only
-@media screen and (max-width: $small) {
-  .footer-block {
-    height: $sm-footer; /* Height of the footer element */
-  }
+// // small screen only
+// @media screen and (max-width: $small) {
+//   .footer-block {
+//     height: $sm-footer; /* Height of the footer element */
+//   }
 
-  #content {
-    padding-bottom: $sm-footer; /* to prevent cutting off content */
-  }
-}
+//   #content {
+//     padding-bottom: $sm-footer; /* to prevent cutting off content */
+//   }
+// }
 
-// medium screen only
-@media screen and (max-width: $medium) and (min-width: $small) {
-  .footer-block {
-    height: $md-footer; /* Height of the footer element */
-  }
+// // medium screen only
+// @media screen and (max-width: $medium) and (min-width: $small) {
+//   .footer-block {
+//     height: $md-footer; /* Height of the footer element */
+//   }
 
-  #content {
-    padding-bottom: $sm-footer; /* to prevent cutting off content */
-  }
-}
+//   #content {
+//     padding-bottom: $sm-footer; /* to prevent cutting off content */
+//   }
+// }
 
-// large screen only
-@media screen and (min-width: $medium) {
-  .footer-block {
-    height: $lg-footer; /* Height of the footer element */
-  }
+// // large screen only
+// @media screen and (min-width: $medium) {
+//   .footer-block {
+//     height: $lg-footer; /* Height of the footer element */
+//   }
 
-  #content {
-    padding-bottom: $sm-footer; /* to prevent cutting off content */
-  }
-}
+//   #content {
+//     padding-bottom: $sm-footer; /* to prevent cutting off content */
+//   }
+// }

@@ -89,7 +89,8 @@
     "jsonwebtoken": "^7.1.9",
     "nunjucks-hapi": "^2.1.0",
     "pg": "^6.1.0",
-    "vision": "^4.1.0"
+    "vision": "^4.1.0",
+    "node-xlsx": "0.7.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

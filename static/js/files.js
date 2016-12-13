@@ -66,7 +66,7 @@ $(function (event) {
         }).done(function (data) {
 
         });
-	}
+	};
 
 	$('#file').change(function () {
 		var file = this.files[0];
