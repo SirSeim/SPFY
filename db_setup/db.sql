@@ -147,7 +147,7 @@ CREATE TABLE client (
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL,
-  status integer REFERENCES status (id),
+  status integer REFERENCES status (id) DEFAULT 1,
   caseplan varchar DEFAULT NULL
 );
 
