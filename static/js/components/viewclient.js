@@ -390,8 +390,16 @@ $(function (event) {
                     $('#client-name').text(data.result.rows[0].first_name + " " + data.result.rows[0].last_name);
                 }
                 var birthday = data.result.rows[0].date_of_birth;
-                $('#client-birthday').text(birthday.slice(0, birthday.lastIndexOf("T")));
-                $('#client-age').text(data.result.rows[0].age.years);
+                if (birthday) {
+                    $('#client-birthday').text(birthday.slice(0, birthday.lastIndexOf("T")));
+                } else {
+                    $('#client-birthday').text(null);
+                }
+                if (data.result.rows[0].age) {
+                    $('#client-age').text(data.result.rows[0].age.years);
+                } else {
+                    $('#client-age').text(null);
+                }
                 $('#client-phonenumber').text( data.result.rows[0].phone_number);
                 $('#client-email').text(data.result.rows[0].email);
 
