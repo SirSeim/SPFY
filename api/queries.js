@@ -504,18 +504,24 @@ var queries = {
         queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ', ';
         queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ', ';
         // queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
-        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
+        if (parseProperty(payload.birthday)) {
+            queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
+        }
+        // queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
         queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
         queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
-        queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        if (parseProperty(payload.status)) {
+            queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        } else {
+            queryString += 'status = ' + '\'1\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' +
-                        'intake_age, phone_number, email, case_manager, status;';
+                        'age(date_of_birth), phone_number, email, case_manager, status;';
 
         return queryString;
     },
@@ -702,21 +708,43 @@ var queries = {
         return queryString;
     },
 
+    getCaseNote: function (noteID) {
+        var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, ' +
+            'last_name, note, follow_up_needed, due_date, reminder_date FROM case_note n LEFT JOIN ' +
+            'casemanager m ON n.case_manager_id = m.id WHERE n.id = ' + noteID + ';';
+
+        return queryString;
+
+    },
+
     editCaseNote: function (payload) {
+
         var queryString = 'UPDATE case_note SET ';
 
         queryString += 'client_id = ' + '\'' + parseProperty(payload.clientID) + '\'' + ',';
         queryString += 'case_manager_id = ' + '\'' + parseProperty(payload.caseManagerID) + '\'' + ',';
         queryString += 'date = ' + '\'' + parseProperty(payload.date) + '\'' + ',';
         queryString += 'note = ' + '\'' + parseProperty(payload.note) + '\'' + ',';
-
+        queryString += 'category = ' + '\'' + parseProperty(payload.category) + '\'' + ',';
         queryString += 'follow_up_needed = ' + '\'' + parseProperty(payload.followUpNeeded) + '\'' + ',';
-        queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ',';
-        queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+
+        if (parseProperty(payload.dueDate) === null) {
+            queryString += 'due_date = null, ';
+        } else {
+            queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
+        }
+
+        if (parseProperty(payload.reminderDate) === null) {
+            queryString += 'reminder_date = null ';
+        } else {
+            queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
+
+        console.log(queryString);
 
         return queryString;
     },
@@ -1072,13 +1100,13 @@ var queries = {
 
         if (formdata.type === "1") { // Importing Case Management Caseload
             var data = processSheet(sheet[0].data);
-            console.log(data);
         } else if (formdata.type === "4") { // Importing Backpack and Sleeping Bad Waitlist
             data = sheet[0].data;
             queryString += 'INSERT INTO backpack_sleepingbag_waitlist (client_id, backpack, sleepingBag, ask_date) VALUES (';
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
-                    console.log(data[i][j]); 
+                    // Not quite sure what is going on here
+                    // console.log(data[i][j]); 
                 }
             }
         } else if (formdata.type === "8") { // Importing Youth Master List
@@ -1156,8 +1184,6 @@ var queries = {
                 }
             }
         }
-
-        // console.log(queryString);
 
         return queryString;
     }

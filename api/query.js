@@ -584,6 +584,23 @@ var query = {
         });
     },
 
+    getCaseNote: function (postgres, noteID, callback) {
+        postgres.connect(function (err, note, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            note.query(Queries.getCaseNote(noteID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     editCaseNote: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

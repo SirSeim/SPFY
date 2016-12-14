@@ -1,4 +1,4 @@
-$(function (event) {
+ $(function (event) {
 
     var caseManagerDropdown = $('#case-manager-dropdown');
 
@@ -32,6 +32,7 @@ $(function (event) {
     };
 
     var getCasePlan = function () {
+        
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -109,4 +110,5 @@ $(function (event) {
 
         createCasePlan(data);
     });
+
 });

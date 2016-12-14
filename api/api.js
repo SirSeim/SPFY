@@ -337,6 +337,17 @@ var api = {
         });
     },
 
+    getCaseNote: function (request, reply) {
+        Service.getCaseNote(request.postgres, request.params.noteID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCaseNote(reply, err);
+            } else {
+                Respond.getCaseNote(reply, result);
+            }
+        });
+
+    },
+
     editCaseNote: function (request, reply) {
         Service.editCaseNote(request.postgres, request.payload, function (err, result) {
             if (err) {
