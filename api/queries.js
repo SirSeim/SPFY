@@ -738,8 +738,6 @@ var queries = {
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
 
-        console.log(queryString);
-
         return queryString;
     },
 
@@ -1094,13 +1092,13 @@ var queries = {
 
         if (formdata.type === "1") { // Importing Case Management Caseload
             var data = processSheet(sheet[0].data);
-            console.log(data);
         } else if (formdata.type === "4") { // Importing Backpack and Sleeping Bad Waitlist
             data = sheet[0].data;
             queryString += 'INSERT INTO backpack_sleepingbag_waitlist (client_id, backpack, sleepingBag, ask_date) VALUES (';
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
-                    console.log(data[i][j]); 
+                    // Not quite sure what is going on here
+                    // console.log(data[i][j]); 
                 }
             }
         } else if (formdata.type === "8") { // Importing Youth Master List
@@ -1178,8 +1176,6 @@ var queries = {
                 }
             }
         }
-
-        // console.log(queryString);
 
         return queryString;
     }

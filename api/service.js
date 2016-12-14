@@ -545,7 +545,7 @@ var service = {
                 return callback();
             }
             var arr = [];
-            for (var i = 0; i <result.rows.length; i++) {
+            for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
@@ -557,10 +557,10 @@ var service = {
                     followUpNeeded: local.follow_up_needed,
                     dueDate: local.due_date,
                     reminderDate: local.reminder_date
-                })
+                });
             }
             return callback(undefined, arr);
-        })
+        });
     },
 
     editCaseNote: function (postgres, data, callback) {
