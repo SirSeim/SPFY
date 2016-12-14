@@ -17,6 +17,7 @@ $(function (event) {
             success: function (data) {
                 console.log(data);
                 alert('SUCCESS! Case note has been successfully added');
+                $('#add-note-modal').modal('hide');
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -27,11 +28,11 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-
+            
         });
     };
 
-    var getClients = function () {
+    var getClientDropdown = function (clientID) {
         $.ajax({
             xhrFields: {
                 withCredentials: true
@@ -39,16 +40,17 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/clients',
+            url: 'api/clients/' + clientID,
+            data: clientID,
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                var clientDropdown = $('#client-dropdown');
+                var client = data.result.rows[0];
                 clientDropdown.empty();
-                data.result.forEach(function (client) {
-                    clientDropdown.append('<option value="' + client.id +
-                        '">' + client.firstName + ' ' + client.lastName +
+                clientDropdown.append('<option value="' + client.id +
+                        '">' + client.first_name + ' ' + client.last_name +
                         '</option>');
-                });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -74,12 +76,13 @@ $(function (event) {
             method: 'GET',
             success: function (data) {
                 console.log(data);
+                var caseManagerDropdown = $('#case-note-case-manager-dropdown');
                 caseManagerDropdown.empty();
                 data.result.rows.forEach(function (caseManager) {
                     caseManagerDropdown.append('<option value="' + caseManager.id +
                         '">' + caseManager.first_name + ' ' + caseManager.last_name +
                         '</option>');
-                });
+                 });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -93,8 +96,13 @@ $(function (event) {
         });
     };
 
-    getClients();
-    getAllCaseManagers();
+    $('#addcasenote').click(function () {
+        var clientID = $('#case-note-client-id').text();
+        getClientDropdown(clientID);
+        getAllCaseManagers();
+    });
+
+    $("#addcasenote-date").val(moment().format("YYYY-MM-DDTHH:mm:ss"));
 
     $('#dropdownMenuButton').click(function () {
         console.log("dropdown button clicked");
@@ -120,18 +128,19 @@ $(function (event) {
         }
     });
 
+    $('#addcaseplan-date').val(moment().format("YYYY-MM-DD"));
+
     $('#submit').click(function () {
-        console.log("hello");
         var clientID = $('#client-dropdown').val();
         var caseManagerID = $('#case-manager-dropdown').val();
-        var date = $('#date')['0'].value;
-        var category = $('#category')['0'].value;
+        var date = $('#addcasenote-date')['0'].value;
+        var category = $('#category')['0'].value.toUpperCase();
         var note = $('#note')['0'].value;
         var followUpNeeded = $('input[name=followup-checkbox]:checked').length === 0 ? false : true;
         var dueDate;
         var reminderDate;
         dueDate = $('#due-date')['0'] === undefined ? null : $('#due-date')['0'].value;
-        reminderDate = $('#due-date')['0'] === undefined ? null : $('#reminder-date')['0'].value;
+        reminderDate = $('#reminder-date')['0'] === undefined ? null : $('#reminder-date')['0'].value;
 
         var data = {
             clientID: clientID,

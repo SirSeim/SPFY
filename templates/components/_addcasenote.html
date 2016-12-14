@@ -1,0 +1,47 @@
+<div class = "container" id="addcasenote-view">
+  <div class="row">
+    <div id="case-note-client-id" hidden>
+    </div>
+    <div class="form-group row">
+      <label for="client-dropdown" class="col-xs-2 col-form-label">Client</label>
+      <div class="col-xs-2">
+        <!-- <input type="number" placeholder="1" id="client-id" min="1"> -->
+        <select id="client-dropdown">
+          <option value="">Client Name</option>
+        </select>
+      </div>
+      <label for="case-note-case-manager-dropdown" class="col-xs-2 col-form-label">Case Manager</label>
+      <div class="col-xs-2">
+        <!-- <input type="number" placeholder="1" id="case-manager-id" min="1"> -->
+        <select id="case-note-case-manager-dropdown">
+          <option value="">Case Manager Name</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="addcasenote-date" class="col-xs-2 col-form-label">Date</label>
+      <div class="col-xs-5">
+        <input class="form-control" type="datetime-local" value="" id="addcasenote-date">
+      </div>
+      <label for="category" class="col-xs-2 col-form-label">Category</label>
+      <div class="col-xs-2">
+        <input type="text" placeholder="CM" id="category">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="note" class="col-xs-2 col-form-label">Case Notes</label>
+      <div class="col-xs-12">
+        <textarea id="note" class="form-control" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="checkbox">
+      <label><input name="followup-checkbox" id="followup-checkbox" type="checkbox" value="">Follow-up Needed</label>
+    </div>
+    <div class="row" id="followup-area">
+    </div>
+  </div>
+
+</div>

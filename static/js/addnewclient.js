@@ -297,10 +297,10 @@ var IntakeForm = React.createClass({
                   onChange={this.handleFirstNameChange} />
             <br />
             <input type="text" className="form-control" id="clientLastName" placeholder="Last Name"
-                  onChange={this.handleNicknameChange} />
+                  onChange={this.handleLastNameChange} />
             <br />
             <input type="text" className="form-control" id="clientNickName" placeholder="Nick Name (optional)"
-                  onChange={this.handleLastNameChange} />
+                  onChange={this.handleNicknameChange} />
             <br />
             Date of Birth: <DateDropdown handleDayChange={this.handleBirthDayChange}
                                          handleMonthChange={this.handleBirthMonthChange}

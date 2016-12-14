@@ -147,7 +147,7 @@ CREATE TABLE client (
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL,
-  status integer REFERENCES status (id),
+  status integer REFERENCES status (id) DEFAULT 1,
   caseplan varchar DEFAULT NULL
 );
 
@@ -474,7 +474,7 @@ CREATE TABLE case_note (
   case_manager_id integer REFERENCES casemanager (id),
   date date DEFAULT CURRENT_DATE,
   category VARCHAR (5) DEFAULT NULL,
-  note VARCHAR(200) DEFAULT NULL,
+  note VARCHAR(2000) DEFAULT NULL,
   follow_up_needed boolean DEFAULT NULL,
   due_date date DEFAULT NULL,
   reminder_date date DEFAULT NULL
