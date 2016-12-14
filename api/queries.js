@@ -744,6 +744,8 @@ var queries = {
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
 
+        console.log(queryString);
+
         return queryString;
     },
 
