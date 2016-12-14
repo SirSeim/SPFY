@@ -516,8 +516,16 @@ $(function (event) {
                     console.log(data);
                     var currentStatus = window.getDataById(statuses, data.result.rows[0].status);
                     $('#client-name-container').replaceWith('<h1 id="client-name" class="col-sm-9">' + data.result.rows[0].first_name + ' ' + data.result.rows[0].last_name + '</h1>');
-                    $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
-                    $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].intake_age + '</td>');
+                    if (data.result.rows[0].date_of_birth) {
+                        $('#client-birthday').replaceWith('<td id="client-birthday">' + data.result.rows[0].date_of_birth.substr(0, data.result.rows[0].date_of_birth.indexOf('T')) + '</td>');
+                    } else {
+                        $('#client-birthday').replaceWith('<td id="client-birthday">null</td>');
+                    }
+                    if (data.result.rows[0].age) {
+                        $('#client-age').replaceWith('<td id="client-age">' + data.result.rows[0].age.years + '</td>');
+                    } else {
+                        $('#client-age').replaceWith('<td id="client-age">null</td>');
+                    }
                     $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + data.result.rows[0].phone_number + '</td>');
                     $('#client-email').replaceWith('<td id="client-email">' + data.result.rows[0].email + '</td>');
                     $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
@@ -723,7 +731,7 @@ $(function (event) {
             $('#submit-edit').show();
 
             $('#client-birthday').replaceWith('<input type="text" id="client-birthday" class="form-control" value="' + clientBirthday + '" />');
-            $('#client-age').replaceWith('<input type="number" id="client-age" class="form-control" min="1" step="1" value="' + clientAge + '" />');
+            // $('#client-age').replaceWith('<input type="number" id="client-age" class="form-control" min="1" step="1" value="' + clientAge + '" />');
             $('#client-phonenumber').replaceWith('<input type="text" id="client-phonenumber" class="form-control" value="' + clientPhone + '" />');
             $('#client-email').replaceWith('<input type="text" id="client-email" class="form-control" value="' + clientMail + '" />');
             $('#last-meeting').replaceWith('<input type="text" id="last-meeting" class="form-control" value="' + clientLastMeeting + '" />');
@@ -749,7 +757,7 @@ $(function (event) {
             $('#submit-edit').hide();
 
             $('#client-birthday').replaceWith('<td id="client-birthday">' + clientBirthday + '</td>');
-            $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
+            // $('#client-age').replaceWith('<td id="client-age">' + clientAge + '</td>');
             $('#client-phonenumber').replaceWith('<td id="client-phonenumber">' + clientPhone + '</td>');
             $('#client-email').replaceWith('<td id="client-email">' + clientMail + '</td>');
             $('#last-meeting').replaceWith('<td id="last-meeting">' + clientLastMeeting + '</td>');
@@ -767,7 +775,7 @@ $(function (event) {
             //var nickname = name.match(/'([^']+)'/)[1];
             var lastName = name.substr(name.lastIndexOf(' ') + 1);
             var birthday = $('#client-birthday')['0'].value;
-            var age = $('#client-age')['0'].value;
+            // var age = $('#client-age')['0'].value;
             var phoneNumber = $('#client-phonenumber')['0'].value;
             var email = $('#client-email')['0'].value;
             var lastMeeting = $('#last-meeting')['0'].value;
@@ -780,7 +788,7 @@ $(function (event) {
                 lastName: lastName,
                 //nickname: nickname,
                 birthday: birthday,
-                age: age,
+                // age: age,
                 phoneNumber: phoneNumber,
                 email: email,
                 lastMeeting: lastMeeting,
