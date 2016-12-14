@@ -512,7 +512,11 @@ var queries = {
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
         queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
-        queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        if (parseProperty(payload.status)) {
+            queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        } else {
+            queryString += 'status = ' + '\'1\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
