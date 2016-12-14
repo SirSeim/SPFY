@@ -474,7 +474,7 @@ CREATE TABLE case_note (
   case_manager_id integer REFERENCES casemanager (id),
   date date DEFAULT CURRENT_DATE,
   category VARCHAR (5) DEFAULT NULL,
-  note VARCHAR(200) DEFAULT NULL,
+  note VARCHAR(2000) DEFAULT NULL,
   follow_up_needed boolean DEFAULT NULL,
   due_date date DEFAULT NULL,
   reminder_date date DEFAULT NULL

@@ -536,6 +536,33 @@ var service = {
         });
     },
 
+    getCaseNote: function (postgres, noteID, callback) {
+        Query.getCaseNote(postgres, noteID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i <result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    clientID: local.client_id,
+                    caseManagerID: local.case_manager_id,
+                    date: local.date,
+                    category: local.category,
+                    note: local.note,
+                    followUpNeeded: local.follow_up_needed,
+                    dueDate: local.due_date,
+                    reminderDate: local.reminder_date
+                })
+            }
+            return callback(undefined, arr);
+        })
+    },
+
     editCaseNote: function (postgres, data, callback) {
         Query.editCaseNote(postgres, data, function (err, result) {
             if (err) {
