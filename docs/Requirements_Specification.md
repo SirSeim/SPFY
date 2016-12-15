@@ -210,11 +210,6 @@ The Database should immediately backup data if network or server issues are dete
 
 ### 5.5	Project Environment Requirements 
 
-| Category | Requirement |
-|---|---|
-| Frontend | I/O server-side environment and API |
-
-
 Utilizing pre-built frameworks such as Node.js will expedite development and provide more secure and stable server-side hosting.
 
 #### 5.5.1	Development Environment Requirements
@@ -225,6 +220,7 @@ No additional requirements.
 
 | Category | Requirement |
 |---|---|
+| Frontend | I/O server-side environment and API |
 | Server | HIPAA compliant third-party cloud server hosting |
 | Database | HIPAA compliant third-party cloud database hosting |
 
