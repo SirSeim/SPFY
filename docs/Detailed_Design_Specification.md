@@ -181,7 +181,7 @@ Description: Table containing internal and external referrals relevant to a clie
 Attributes: id, client_id, internal_referral, external_referral
 
 
-**7.3.11 Additional Info CSU Description
+**7.3.11 Additional Info CSU Description**
 
 
 Description: Table containing any additional information relevant to a referenced client
