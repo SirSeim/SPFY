@@ -312,15 +312,15 @@ Attributes: id, month, year, unduplicated_youth, total_youth
 
 **7.4.1 Socket CSC Description**
 		- Frontend to backend communication
-SPFY application uses NodeJS server to handle any requests that the frontend sends, so the frontend pages will initiate requests which are received and processed by the NodeJS server.
+	SPFY application uses NodeJS server to handle any requests that the frontend sends, so the frontend pages will initiate requests which are received and processed by the NodeJS server.
 
 - The NodeJS server initiates connections with the Postgres Database server
 	The frontend utilizes ajax calls to pass JSON data to the server, which retrieves the payload data and utilizes it for API calls. During API calls, the NodeJS server initializes a connection to the Postgres database server and executes a query string along the established connection. 
 
 - Types of data passed between the database and server and frontend
-The Postgres database server retrieves the queried data and passes it back to the NodeJS server, which converts it to JSON. The NodeJS server passes the necessary JSON data, along with a response code, back to the frontend to be displayed in the page. 
+	The Postgres database server retrieves the queried data and passes it back to the NodeJS server, which converts it to JSON. The NodeJS server passes the necessary JSON data, along with a response code, back to the frontend to be displayed in the page. 
 
 - How does the browser handle frontend pages/files?
-	SPFY uses React’s Virtual DOM to update the view in SPFY application, so that it can update efficiently and render pages faster. 
+	SPFY uses React’s Virtual DOM to update the view in SPFY application, so that it can update efficiently and render pages faster. All CSS is compiled into one screen.css file from the screen.scss file, which is made up of various imports of modularized SASS, including Bootstrap 4. Compass is used to automatically compile these files.
 
 
