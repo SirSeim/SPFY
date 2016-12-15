@@ -3,6 +3,7 @@ $(function () {
     // ** will clean and optimize code **
 
     var setupSettingsPage = function () {
+        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
         var statuses = JSON.parse(window.sessionStorage.statuses);
         // var flags = JSON.parse(window.sessionStorage.flags);
         var types = JSON.parse(window.sessionStorage.notificationTypes);
@@ -285,15 +286,17 @@ $(function () {
         // };
 
         statuses.forEach(function (status) {
+            var statusType = window.getDataById(statusTypes, status.type);
+            console.log(statusType);
             $('#statuses-table tbody').append(
-                '<tr data-id="' + status.id + '">' +
-                '<td class="color-column col" data-color="' + status.color + '" data-newcolor=""><button type="button" class="btn btn-primary status"><span class="badge"></span></button></td>' +
-                '<td class="type-column col" data-type="' + status.type + '">' + status.type + '</td>' +
+                '<tr ' + status.id + '">' +
+                '<td class="color-column col" data-color="' + statusType.color + '" data-newcolor=""><button type="button" class="btn btn-primary status"><span class="badge"></span></button></td>' +
+                '<td class="type-column col" data-type="' + statusType.name + '">' + statusType.name + '</td>' +
                 '<td class="message-column col" data-message="' + status.message + '">' + status.message + '</td>' +
                 '<td class="note-column col" data-note="' + status.note + '">' + status.note + '</td>' +
                 '<td class="col-sm-3">' + editButton + '</td></tr>');
             $('#statuses-table tbody .btn.btn-primary.status:last').css("background-image", 'none');
-            $('#statuses-table tbody .btn.btn-primary.status:last').css("background-color", status.color);
+            $('#statuses-table tbody .btn.btn-primary.status:last').css("background-color", statusType.color);
         });
             
         // according to stackoverflow, use delegate for elements that change frequently
@@ -472,6 +475,7 @@ $(function () {
     };
 
     var globalData = []
+    globalData.push(window.sessionStorage.statusTypes);
     globalData.push(window.sessionStorage.statuses);
     // globalData.push(window.sessionStorage.flags);
 

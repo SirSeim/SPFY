@@ -911,7 +911,7 @@ var queries = {
     // ** 
 
     getStatusTypes: function () {
-        var queryString = 'SELECT name, color FROM status_type;';
+        var queryString = 'SELECT id, name, color FROM status_type;';
 
         return queryString;
     },

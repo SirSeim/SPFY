@@ -260,7 +260,7 @@ CREATE TABLE status (
 );
 
 -- INSERT INTO status (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
-INSERT INTO status (client_id, type, message, note) VALUES (1, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
 INSERT INTO status (client_id, type, message, note) VALUES (1, 2, '3:30 PM', '(name) checked in at (client_id, time, day)');
 INSERT INTO status (client_id, type, message, note) VALUES (1, 3, '10 days', 'Timed out for (doing such and such).');
 INSERT INTO status (client_id, type, message, note) VALUES (1, 4, '26 yrs old', '(name) is now older than 25.');

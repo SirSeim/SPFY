@@ -858,6 +858,7 @@ var service = {
             for (var i = 0; i < result.rows.length; i++) {
                 var local = result.rows[i];
                 arr.push({
+                    id: local.id,
                     name: local.name,
                     color: local.color
                 });
