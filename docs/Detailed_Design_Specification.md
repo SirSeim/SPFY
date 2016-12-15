@@ -31,7 +31,7 @@ Attributes: Runs page, Makes requests, Populates components with data
 
 			
 
-	**7.2.2 Client Profiles Page CSC Description**
+**7.2.2 Client Profiles Page CSC Description**
 
 		
 	The Entities in our client profiles page are Information, Case Management, Documents, Referrals, Other. Each of the entities have some actions and Attributes. Some entities do not have actions or attributes. The Information entity includes Edit Client action that allows you to change the attributes of the clients information. Also, the information entity has a profile picture box. The profile picture has a relationship with Documents entity. The Documents entity allows you to add files onto each client profile. The attributes of add file are compressed folder, document and Photo. Both Referrals and Other do not have actions or attributes. Case management entity on the other hand has an add case note action and the attributes are case notes, client, case manager, and Date.
@@ -42,14 +42,14 @@ Description: Module that implements the functionality for displaying information
 Attributes:
 
 
-	**7.2.3 Data Browser CSC Description**
+**7.2.3 Data Browser CSC Description**
 
 
 Description: Module that implements functionality for displaying and querying the contents of the tables contained in the database as rows in a table. Each row displays the values contained in each table row for the filter specified. 
 Attributes: Runs a search, populates the table, allows view of detail 
 
 
-		A page allowing the user to search and view the entire database. The user can then generate queries in the query builder, with results being displayed in the Filter Table. They can click on rows in the Filter table to see the content of the table in a more easily readable form within the Detail Pane. The ability to generate reports based on the query given is also available. 
+A page allowing the user to search and view the entire database. The user can then generate queries in the query builder, with results being displayed in the Filter Table. They can click on rows in the Filter table to see the content of the table in a more easily readable form within the Detail Pane. The ability to generate reports based on the query given is also available. 
 
 **7.2.3.1 Query Builder CSU Description**
 
@@ -57,7 +57,7 @@ Description: Module that implements functionality for building queries on a spec
 Attributes: Runs the search, allows for selection of tables, allows for specific or nonspecific searches
 
 **7.2.3.2 Search Table CSU Description**
-	Displays the results of the queries built by the query builder. If no query is specified, displays all of the current content of the selected database table. 
+Displays the results of the queries built by the query builder. If no query is specified, displays all of the current content of the selected database table. 
 
 Description: Module that implements functionality for displaying the results of queries in a table. Allows for a different detail view if a row is selected.
 Attributes: Displays search results, attach handlers to each row to display detail in a different format
@@ -65,14 +65,14 @@ Attributes: Displays search results, attach handlers to each row to display deta
 
 
 **7.2.3.3 Detail Pane CSU Description**
-	Displays specific details on rows selected by the users. When a row is clicked, the detail pane will open and display the information showed in that row in a single area.
+Displays specific details on rows selected by the users. When a row is clicked, the detail pane will open and display the information showed in that row in a single area.
 
 Description: Module that implements functionality for displaying the results of a selected table row in a vertical rather than horizontal format.
 Attributes: Displays a selected row’s information vertically.
 
 
 **7.2.3.4 Report Generator CSU Description**
-	Displays a visual report of selected columns for a given date range. 
+Displays a visual report of selected columns for a given date range. 
 		
 Description: Module that implements functionality for displaying a graphical report of selected columns for a given date range. Graphs are drawn for selected columns.
 Attributes: Draws graphs from selected columns over a given date range.
@@ -93,8 +93,6 @@ Description: Chronological routing to communicate with frontend and database
 Attributes: API -> Queries -> Query -> Response -> Schema -> Service 
 
 
-		
-
 **7.2.2.3 Server Response CSU Description**
 Module responsible for sending responses, or replies, from the client-side server back to the frontend of the SPY Database Application.
 
@@ -107,7 +105,6 @@ Responsible for connecting to the database server from within the client-side se
 
 Description:
 Attributes:
-
 
 
 **7.3 Database CSC Design Description**
