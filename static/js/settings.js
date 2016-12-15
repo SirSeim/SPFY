@@ -410,6 +410,65 @@ $(function () {
                 cancel($(event.target).parents('tr')); // function defined above
             });
         });
+        
+        // ----- File Upload -----
+        var formData = undefined;
+        var filename = "";
+
+        $("#uploadSpreadsheet").on("change", function () {
+            var file = this.files[0];
+            if (file === undefined) {
+                formData = undefined;
+            } else {
+                if (file.type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                    console.log("BAD!");
+                } else {
+                    formData = new FormData();
+                    formData.set("file", file);
+                    formData.set("type", $("#uploadSpreadsheetSelect").val());
+                    filename = file.name;
+                }
+            }
+        });
+
+        $("#uploadSpreadsheetSelect").on("change", function (event) {
+            if (formData !== undefined) {
+                formData.set("type", $(this).val());
+            }
+        })
+
+        $('#submitSpreadsheet').on('click', function (event) {
+            if (formData === undefined) {
+                console.log("Error message here.");
+            } else if (formData.get("type") === "0") {
+                console.log("Also an error.");
+            } else {
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: 'api/uploadSpreadsheet',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log("WOO!");
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+
+                        if (xhr.status === 401) {
+                            localStorage.removeItem("authorization");
+                        }
+                    }   
+                });
+            };
+        });
+
     };
 
     var globalData = []

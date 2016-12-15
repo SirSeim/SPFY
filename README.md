@@ -89,7 +89,7 @@ npm run lint
 
 To view a coverage report, run `npm test`, then `npm run report`, then open up `coverage/lcov-report/index.html` in a webbrowser
 
-[version-img]: https://img.shields.io/badge/version-alpha%203-red.svg
+[version-img]: https://img.shields.io/badge/version-beta%202-yellow.svg
 [version-url]: https://github.com/SirSeim/SPFY
 
 [build-img]: https://travis-ci.org/SirSeim/SPFY.svg?branch=master

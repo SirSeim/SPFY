@@ -204,6 +204,23 @@ var service = {
         });
     },
 
+    removeActivitiesFromDropin: function (postgres, dropinID, payload, callback) {
+        Query.removeActivitiesFromDropin(postgres, dropinID, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push(local.activity_id);
+            }
+            return callback(undefined, {
+                activities: arr
+            });
+        });
+    },
+
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
         Query.getDropinActivity(postgres, dropinID, activityID, function (err, result) {
             if (err) {
@@ -494,6 +511,33 @@ var service = {
 
     getClientCaseNotes: function (postgres, clientID, callback) {
         Query.getClientCaseNotes(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    id: local.id,
+                    clientID: local.client_id,
+                    caseManagerID: local.case_manager_id,
+                    date: local.date,
+                    category: local.category,
+                    note: local.note,
+                    followUpNeeded: local.follow_up_needed,
+                    dueDate: local.due_date,
+                    reminderDate: local.reminder_date
+                });
+            }
+            return callback(undefined, arr);
+        });
+    },
+
+    getCaseNote: function (postgres, noteID, callback) {
+        Query.getCaseNote(postgres, noteID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -961,6 +1005,24 @@ var service = {
 
     deleteFile: function (postgres, fileID, callback) {
         Query.deleteFile(postgres, fileID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getPrograms: function (postgres, callback) {
+        Query.getPrograms(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    uploadSpreadsheet: function (postgres, formdata, callback) {
+        Query.uploadSpreadsheet(postgres, formdata, function (err, result) {
             if (err) {
                 return callback(err);
             }

@@ -89,6 +89,16 @@ var apiRoutes = [
         handler: Api.addActivitiesToDropIn
     },
     {
+        method: 'DELETE',
+        path: '/dropins/{dropinID}/activities',
+        config: {
+            validate: {
+                payload: Schema.removeActivitiesFromDropin
+            }
+        },
+        handler: Api.removeActivitiesFromDropin
+    },
+    {
         method: 'GET',
         path: '/dropins/{dropinID}/activities/{activityID}',
         handler: Api.getDropinActivity
@@ -202,6 +212,11 @@ var apiRoutes = [
         method: 'GET',
         path: '/case_notes/{clientID}',
         handler: Api.getClientCaseNotes
+    },
+    {
+        method: 'GET',
+        path: '/case_notes/notes/{noteID}',
+        handler: Api.getCaseNote
     },
     {
         method: 'POST',
@@ -390,6 +405,16 @@ var apiRoutes = [
         method: 'POST',
         path: '/files/delete/{fileID}',
         handler: Api.deleteFile
+    },
+    {
+        method: 'GET',
+        path: '/programs',
+        handler: Api.getPrograms
+    },
+    {
+        method: 'POST',
+        path: '/uploadSpreadsheet',
+        handler: Api.uploadSpreadsheet
     }
 ];
 

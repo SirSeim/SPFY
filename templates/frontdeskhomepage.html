@@ -1,7 +1,7 @@
-{% include "components/_header.html" %}
-  <div class="container">
-    {% include "components/_navbar.html" %}
-    <div class="row py-1">
+  {% include "components/_header.html" %}
+  {% include "components/_navbar.html" %}
+  <div class="row py-1">
+    <div class="col-md-12">
       <div class="card card-block" style="background-color: #F5F5F5; border-color: #E0E0E0;">
         <h1 class="card-title">Drop-in for: <strong id="drop-in-date"></strong></h1>
         <div class="btn-group" role="group">
@@ -17,50 +17,52 @@
           </div>
         </div>
       </div>
-    </div> <!-- 1st row -->
+    </div>
+  </div> <!-- 1st row -->
 
-    <div class="row">
+  <div class="row">
 
-      <div class="col-sm-4">
-            {% include "components/_clientprofiletable.html" %}
+    <div class="col-sm-4">
+          {% include "components/_clientprofiletable.html" %}
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          <h4>
+            Selected Clients
+          </h4>
+        </div>
+        <ul id="selected-clients">
+        </ul>
+        <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
       </div>
-      <div class="col-sm-4">
+    </div>
+    <div id="checkin-feedback" class="col-sm-4">
+
+    </div>
+  </div> <!-- 2nd row -->
+
+  <div class="row">
+      <div class="col-sm-12">
         <div class="card">
-          <div class="card-header">
-            <h4>
-              Selected Clients
-            </h4>
-          </div>
-          <ul id="selected-clients">
-          </ul>
-          <button id="checkin-button" type="button" class="btn btn-primary btn-block">Check-In</button>
-        </div>
-      </div>
-      <div id="checkin-feedback" class="col-sm-4">
-
-      </div>
-    </div> <!-- 2nd row -->
-
-    <div class="row">
-        <div class="col-sm-12">
-          <div class="card">
-              <div class="card-header">
-                <h4>
-                  Check-Ins
-                </h4>
-                <h9>
-                  <div id="total-new-today">14 New Today </div> 
-                  <div id="total-youth-today">50 Total Checked-In </div>             
-                </h9>
-              </div>
-              <table id="checked-in" class="table table-hover">
-                <!-- DataTables just requires an empty <table> -->
-              </table>
+            <div class="card-header">
+              <h4>
+                Check-Ins
+              </h4>
+              <h9>
+                <div id="total-new-today">14 New Today </div> 
+                <div id="total-youth-today">50 Total Checked-In </div>             
+              </h9>
             </div>
-        </div>
-    </div> <!-- 3rd row -->
+            <table id="checked-in" class="table table-hover">
+              <!-- DataTables just requires an empty <table> -->
+            </table>
+          </div>
+      </div>
+  </div> <!-- 3rd row -->
 
-    <div class="row" role="navigation">
+  <div class="row" role="navigation">
+    <div class="col-md-12">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link active tablinks" href="#activity-enrollment" data-toggle="tab" role="tab">
@@ -100,7 +102,7 @@
               <h4 id="activity-title"> Activity Title </h4>
               <div class="row">
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" id="activity-client-search">
+                  <input type="text" class="form-control" id="activity-client-search" placeholder="Search or Add">
                 </div> 
               </div>
 
@@ -144,8 +146,8 @@
 
         </div> <!-- Drop-In Enrollment Tab pane -->
       </div> <!-- Tab container -->
-    </div> <!-- 4th row -->
-  </div> <!--container-->
+    </div> <!-- .col-md-12 container -->
+  </div> <!-- 4th row -->
 
   <div id="react-test"></div>
 
@@ -164,3 +166,5 @@
   <script src="/static/js/components/enrollment.js"></script>
   <script src="/static/js/components/adddropin.js"></script>
   <script src="/static/js/components/checkin.js"></script>
+
+  {% include "components/_footer.html" %}

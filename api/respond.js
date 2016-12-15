@@ -149,6 +149,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToRemoveActivitiesFromDropin: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to remove activities from dropin!",
+            error: err
+        }).code(500);
+    },
+    removeActivitiesFromDropin: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully removed activities from dropin!",
+            result: result
+        }).code(200);
+    },
     failedToGetDropinActivity: function (reply, err) {
         reply({
             statusCode: 500,
@@ -412,6 +426,20 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Successfully got client's case notes!",
+            result: result
+        }).code(200);
+    },
+    failedToGetCaseNote: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get case note!",
+            error: err
+        }).code(500);
+    },
+    getCaseNote: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got case note!",
             result: result
         }).code(200);
     },
@@ -889,8 +917,35 @@ var respond = {
             message: "Successfully deleted file",
             result: result
         }).code(200);
+    },
+    failedToGetPrograms: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get programs",
+            error: err
+        }).code(500);
+    },
+    getPrograms: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got programs",
+            result: result
+        }).code(200);
+    },
+    failedToUploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 500,
+            message: "Failed to upload spreadsheet",
+            result: result
+        }).code(500);
+    },
+    uploadSpreadsheet: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully uploaded spreadsheet",
+            result: result
+        }).code(200);
     }
-
 };
 
 module.exports = respond;
