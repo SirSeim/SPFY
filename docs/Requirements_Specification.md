@@ -214,7 +214,11 @@ Utilizing pre-built frameworks such as Node.js will expedite development and pro
 
 #### 5.5.1	Development Environment Requirements
 
-No additional requirements.
+| Category | Requirement |
+|---|---|
+| Front End | Bootstrap, ComboDate, jQuery, Notify, Moment, Spectrum  | 
+| Server | Node.js, npm, Hapi, Joi, npm-pg, Chai, CodeCov, ESLint, Istanbul, Mocha, Mocha-Istanbul, Nodemon |
+| Database | PostgrSQL |
 
 #### 5.5.2	Execution Environment Requirements
 
