@@ -9,6 +9,7 @@
           <li class="account link selected"><a href="#account-settings">Account</a></li>
           <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
           <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
+          <li class="import-data link"><a href="#import-data-settings">Import Data</a></li>
         </ul>
       </nav>
     </div>
@@ -57,6 +58,64 @@
                 
                 </tbody>
               </table>
+            </div>
+          </div> <!-- Flag Notificaitons -->
+        </div>
+
+        <div id="create-new-activity" class="hidden">
+          <div id="create-activity">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4>
+                  Create New Activity
+                </h4>
+                <p>Determine which flags you would like to receive alerts for.</p>
+              </div>
+              <div>
+                Activity Name: <input type="text" id="createActivityName"> <br>
+                Location: <input type="text" id="createActivityLocation">  <br>
+                Start Time: <input type="text" id="createActivityStart" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
+                End Time: <input type="text" id="createActivityEnd" data-format="h:mm a" data-template="hh : mm a" name="datetime" value="12:00 am"> <br>
+                Program: 
+                <select id="createActivityPrograms" name="programs" value="select">
+                  <option value="0">Select a Program</option>
+                </select> <br>
+                <span class="activityWarning warning hidden">Your activity must have a name, location, and program.</span>
+              </div>
+              <div>
+                <button type="button" class="btn btn-primary" id="createactivity-modal-save-button">Submit</button>
+              </div>
+              </div>
+            </div>
+          </div> <!-- Flag Notificaitons -->
+        </div>
+
+        <div id="import-data-settings" class="hidden">
+          <div id="import-data">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  Import Data
+                </h4>
+                <p>Import a spreadsheet into the database.</p>
+              </div>
+              <div class="uploadOptions">
+                  Upload a file. File must be in .xlsx format (for now). <br>
+                  <input type='file' name='uploadSpreadsheet' id='uploadSpreadsheet' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'> <br>
+                  <select value="0" id="uploadSpreadsheetSelect">
+                    <option value="0">Select a Spreadsheet Type</option>
+                    <!--<option value="1">Case Management Caseload</option>
+                    <option value="2">Housed Youth Excel Document</option>
+                    <option value="3">Return Home Tracker</option>
+                    <option value="4">Backpack and Sleeping Bag Wait List</option>
+                    <option value="5">Drop-In Data</option>
+                    <option value="6">Front Desk Appointments</option>
+                    <option value="7">Shower Sign-Up</option>-->
+                    <option value="8">Youth Master List</option>
+                    <!--<option value="9">Outreach Daily Stats</option>-->
+                  </select> <br>
+                  <input type="button" value="Submit" id='submitSpreadsheet'>
+              </div>
             </div>
           </div> <!-- Flag Notificaitons -->
         </div>

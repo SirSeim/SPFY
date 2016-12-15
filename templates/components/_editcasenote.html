@@ -1,0 +1,47 @@
+<div class = "container" id="editcasenote-view">
+  <div class="row">
+    <div id="edit-case-note-client-id" hidden>
+    </div>
+    <div class="form-group row">
+      <label for="client-dropdown-edit" class="col-xs-1 col-form-label">Client</label>
+      <div class="col-xs-2">
+        <!-- <input type="number" placeholder="1" id="client-id" min="1"> -->
+        <select id="client-dropdown-edit">
+          <option value="">Client Name</option>
+        </select>
+      </div>
+      <label for="edit-case-note-case-manager-dropdown" class="col-xs-1 col-form-label">Case Manager</label>
+      <div class="col-xs-2">
+        <!-- <input type="number" placeholder="1" id="case-manager-id" min="1"> -->
+        <select id="edit-case-note-case-manager-dropdown">
+          <option value="">Case Manager Name</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="editcasenote-date" class="col-xs-2 col-form-label">Date</label>
+      <div class="col-xs-5">
+        <input class="form-control" type="datetime-local" value="" id="editcasenote-date">
+      </div>
+      <label for="category-edit" class="col-xs-2 col-form-label">Category</label>
+      <div class="col-xs-2">
+        <input type="text" placeholder="CM" id="category-edit">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="note-edit" class="col-xs-2 col-form-label">Case Notes</label>
+      <div class="col-xs-12">
+        <textarea id="note-edit" class="form-control" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="checkbox">
+      <label><input name="followup-checkbox-edit" id="followup-checkbox-edit" type="checkbox" value="">Follow-up Needed</label>
+    </div>
+    <div class="row" id="followup-area-edit">
+    </div>
+  </div>
+
+</div>

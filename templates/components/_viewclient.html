@@ -1,3 +1,4 @@
+
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" role="tablist">
   <li class="nav-item">
     <a class="nav-link active tablinks" href="#client-info" data-toggle="tab" role="tab">Info</a>
@@ -103,29 +104,27 @@
   </div>
 
   <div class="tab-pane" id="case-management" role="tabpanel">
-    <div class="card">
-      <div class="card-header">
-        <h4 id="casenotes-title">
-          Client's Case Notes
-        </h4>
-        <form class="casenotes-form casenotes-right">
-          <div class="col-lg-9 input-group">
-            <input type="text" class="form-control" placeholder="Search all case notes..." id="client-notes-search">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-primary">Search</button>
-            </span>
-          </div>
-        </form>
-      </div>
+      <h4 id="casenotes-title">
+        Client's Case Notes
+      </h4>
       <table id="casenotes" class="table table-hover">
         
       </table>
-    </div>
     <button id="addcasenote" class="btn btn-secondary" data-toggle="modal" data-target="#add-note-modal">
       Add New Case Note
     </button>
+    <div class="row" id="viewcasenote" hidden>
+      <br />
+      <p id="viewcasenote-client">Client Name: </p>
+      <p id="viewcasenote-casemanager">Case Manager: </p>
+      <p id="viewcasenote-date">Date: </p>
+      <p id="viewcasenote-category">Case Note Category: </p>
+      <p id="viewcasenote-note">Note: </p>
 
-    {% include "modals/addcasenote.html" %}  
+    </div>
+
+    {% include "modals/addcasenote.html" %} 
+    {% include "modals/editcasenote.html" %}
   </div>  
   <div class="tab-pane" id="caseplan">
     <h3 id="caseplan-title">
@@ -156,7 +155,7 @@
     </div>
     <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
   </div>
-  <div class="tab-pane" id="documents">
+  <div class="tab-pane" id="documents" role="tabpanel">
     <h3>Client Documents <button id="add-file" class="btn btn-success" data-toggle="modal" data-target="#add-file-modal" style="float: right;">Add New File <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
     <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -179,7 +178,7 @@
             </div>
             </br>
 
-            <button class="btn btn-outline-primary" type="button" id="submit-file"">Submit</button>
+            <button class="btn btn-outline-primary" type="button" id="submit-file">Submit</button>
             <button class="btn btn-outline-secondary" type="button" id="cancel-file" style="float: right;">Cancel</button>
           </div>
         </div>

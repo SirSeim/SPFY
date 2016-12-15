@@ -217,6 +217,23 @@ var query = {
         });
     },
 
+    removeActivitiesFromDropin: function (postgres, dropinID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.removeActivitiesFromDropin(dropinID, payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getDropinActivity: function (postgres, dropinID, activityID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -359,7 +376,7 @@ var query = {
                 return callback(err);
             }
 
-            payload = JSON.parse(payload.expression);
+            // payload = JSON.parse(payload.expression);
             var data = Queries.createActivity(payload);
 
             client.query(data.string, data.params, function (err, result) {
@@ -407,6 +424,22 @@ var query = {
     getEnrollmentByActivity: function (postgres, activityID, callback) {
         postgres.connect(function (err, client, done) {
             client.query(Queries.getEnrollmentByActivity(activityID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    removeEnrollmentToDropinActivity: function (postgres, dropinID, activityID, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.removeEnrollmentToDropinActivity(dropinID, activityID, payload), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -541,6 +574,23 @@ var query = {
             }
 
             client.query(Queries.getClientCaseNotes(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    getCaseNote: function (postgres, noteID, callback) {
+        postgres.connect(function (err, note, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            note.query(Queries.getCaseNote(noteID), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -986,6 +1036,34 @@ var query = {
                     return callback(err);
                 }
 
+                return callback(undefined, result);
+            });
+        });
+    },
+    getPrograms: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getPrograms(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    uploadSpreadsheet: function (postgres, formdata, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.uploadSpreadsheet(formdata), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
                 return callback(undefined, result);
             });
         });

@@ -1,3 +1,5 @@
+var xlsx = require('node-xlsx');
+
 var parseProperty = function(property) {
     // if (typeof property === 'boolean') {
     //     property = property === true ? '1' : '0';
@@ -118,10 +120,12 @@ var profileProperties = [
 
 // again, working on solution to avoid doing this
 var activityProperties = [
+    'program_id',
     'activity_name',
+    'location', 
     'ongoing',
-    'start_date',
-    'end_date'
+    'start_time',
+    'end_time'
 ];
 
 // *** Postgres allows rows with duplicate data, so currently
@@ -400,6 +404,21 @@ var queries = {
 
         return queryString;
     },
+    removeActivitiesFromDropin: function (dropinID, payload) {
+        var queryString = '';
+        payload.activities.forEach(function (activityID) {
+            queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
+                    '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
+                    'match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + '); DELETE FROM match_drop_in_activity WHERE ' +
+                    'match_drop_in_activity.drop_in_id = ' +
+                    dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                    activityID + ' RETURNING match_drop_in_activity.activity_id;';
+        });
+
+        return queryString;
+    },
     getDropinActivity: function (dropinID, activityID) {
         var queryString = 'SELECT activity.id, activity.activity_name, match_drop_in_activity.room, ' +
                 'match_drop_in_activity.comments, match_drop_in_activity.start_time, ' +
@@ -436,23 +455,35 @@ var queries = {
 
         return queryString;
     },
+    removeEnrollmentToDropinActivity: function (dropinID, activityID, payload) {
+        var queryString = "";
+        payload.clients.forEach(function (clientID) {
+            queryString += 'DELETE FROM enrollment WHERE enrollment.drop_in_activity_id = ' +
+                '(SELECT match_drop_in_activity.id FROM match_drop_in_activity WHERE ' +
+                'match_drop_in_activity.drop_in_id = ' + dropinID + ' AND match_drop_in_activity.activity_id = ' +
+                activityID + ') AND enrollment.client_id = ' + clientID + ' RETURNING client_id;';
+        });
+
+        return queryString;
+
+    },
     getDropinEnrollment: function (dropinID) {
         var queryString = 'SELECT client_id, activity_id FROM enrollment WHERE drop_in_id =' + dropinID + ';';
 
         return queryString;
     },
     getAllActivities: function () {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
-                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, program ' +
-                'WHERE activity.program_id = program.id;';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, ' +
+                'program.program_name FROM activity, program WHERE activity.program_id = program.id;';
 
         return queryString;
     },
 
     getActivity: function (activity) {
-        var queryString = 'SELECT activity.id, activity.activity_name, activity.ongoing, activity.start_date, ' +
-                'activity.end_date, activity.program_id AS program_id, program.program_name FROM activity, ' +
-                'program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
+        var queryString = 'SELECT activity.id, activity.activity_name, activity.location, activity.ongoing, ' +
+                'activity.start_time, activity.end_time, activity.program_id AS program_id, program.program_name ' +
+                'FROM activity, program WHERE activity.program_id = program.id AND activity.id = ' + activity + ';';
 
         return queryString;
     },
@@ -473,24 +504,29 @@ var queries = {
         queryString += 'first_name = ' + '\'' + parseProperty(payload.firstName) + '\'' + ', ';
         queryString += 'last_name = ' + '\'' + parseProperty(payload.lastName) + '\'' + ', ';
         // queryString += 'nickname = ' + parseProperty(payload.nickname) + ',';
-        queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
-        queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
+        if (parseProperty(payload.birthday)) {
+            queryString += 'date_of_birth = ' + '\'' + parseProperty(payload.birthday) + '\'' + ', ';
+        }
+        // queryString += 'intake_age = ' + '\'' + parseProperty(payload.age) + '\'' + ', ';
         queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
         queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
-        queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        if (parseProperty(payload.status)) {
+            queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        } else {
+            queryString += 'status = ' + '\'1\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' +
-                        'intake_age, phone_number, email, case_manager, status;';
+                        'age(date_of_birth), phone_number, email, case_manager, status;';
 
         return queryString;
     },
 
     createActivity: function (payload) {
-        // WTF IS GOING ON HERE
         var queryString = 'INSERT INTO activity (';
 
         var payloadNames = [];
@@ -594,8 +630,6 @@ var queries = {
     },
 
     getCheckInForDropin: function (dropinID) {
-        console.log("queries.js ====================");
-        console.log(dropinID);
         var queryString = 'SELECT client_id FROM check_in WHERE drop_in_id = ' + dropinID + ';';
 
         return queryString;
@@ -612,24 +646,26 @@ var queries = {
         var TYPE_INT = 23;
         var TYPE_BOOL = 16;
 
-        // Currently unused
-        // var TYPE_DATE = 1082;
-
         var searchText = "";
+        var operators = ["=", "!=", ">", "<"];
 
         if (data.columnType === TYPE_STRING) {
             searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
         } else if (data.columnType === TYPE_INT) {
-            var operators = ["=", "!=", ">", "<"];
             searchText = ' ' + operators[data.status] + ' ' + data.data;
         } else if (data.columnType === TYPE_BOOL) {
             if (data.status === 0 || data.status === 1) {
-                searchText = ' = ' + (data.status === 0 ? '1' : '0');
+                searchText = ' = ' + (data.status === 0 ? 'true' : 'false');
             } else {
                 searchText = ' IS ' + (data.status === 2 ? 'NOT ' : '') + 'NULL';
             }
-        } else {
-            searchText = ' LIKE \'' + (data.status === 1 ? data.data : '%' + data.data + '%') + '\'';
+        } else { // DATE: 1082
+            if (data.status < 4) {
+                searchText = operators[data.status] + ' \'' + data.data + '\'';
+            } else { 
+                searchText = (data.status === 5 ? ' NOT' : '') + ' BETWEEN ' + '\'' + 
+                    data.data + '\' AND \'' + data.secondData + '\'';
+            }
         }
 
         var queryString = 'SELECT * FROM client WHERE ' +
@@ -672,21 +708,43 @@ var queries = {
         return queryString;
     },
 
+    getCaseNote: function (noteID) {
+        var queryString = 'SELECT n.id, client_id, case_manager_id, date, category, first_name, ' +
+            'last_name, note, follow_up_needed, due_date, reminder_date FROM case_note n LEFT JOIN ' +
+            'casemanager m ON n.case_manager_id = m.id WHERE n.id = ' + noteID + ';';
+
+        return queryString;
+
+    },
+
     editCaseNote: function (payload) {
+
         var queryString = 'UPDATE case_note SET ';
 
         queryString += 'client_id = ' + '\'' + parseProperty(payload.clientID) + '\'' + ',';
         queryString += 'case_manager_id = ' + '\'' + parseProperty(payload.caseManagerID) + '\'' + ',';
         queryString += 'date = ' + '\'' + parseProperty(payload.date) + '\'' + ',';
         queryString += 'note = ' + '\'' + parseProperty(payload.note) + '\'' + ',';
-
+        queryString += 'category = ' + '\'' + parseProperty(payload.category) + '\'' + ',';
         queryString += 'follow_up_needed = ' + '\'' + parseProperty(payload.followUpNeeded) + '\'' + ',';
-        queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ',';
-        queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+
+        if (parseProperty(payload.dueDate) === null) {
+            queryString += 'due_date = null, ';
+        } else {
+            queryString += 'due_date = ' + '\'' + parseProperty(payload.dueDate) + '\'' + ', ';
+        }
+
+        if (parseProperty(payload.reminderDate) === null) {
+            queryString += 'reminder_date = null ';
+        } else {
+            queryString += 'reminder_date = ' + '\'' + parseProperty(payload.reminderDate) + '\'' + ' ';
+        }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
+
+        console.log(queryString);
 
         return queryString;
     },
@@ -899,8 +957,8 @@ var queries = {
 
     getProfilePicture: function (clientID) {
         var queryString = 'SELECT name, type, base_64_string FROM file WHERE client_id = ' + clientID +
-                            'AND type=\'profile_picture\'' + 
-                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID + 
+                            'AND type=\'profile_picture\'' +
+                            'AND id = (SELECT MAX(id) FROM file WHERE client_id = ' + clientID +
                             ' AND type=\'profile_picture\');';
         return queryString;
     },
@@ -930,6 +988,205 @@ var queries = {
 
         return queryString;
     },
+
+    getPrograms: function () {
+        var queryString = 'SELECT program_name FROM program';
+
+        return queryString;
+    },
+    uploadSpreadsheet: function (formdata) {
+
+        var removeEmptyArrays = function (data) {
+            data = 
+                data.filter(function (e) {
+                    return e.length !== 0;
+                });
+            return data;
+        };
+
+        var trimAllArrays = function (data) {
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].length; j++) {
+                    if (typeof data[i][j] === "string" && data[i][j] !== undefined) {
+                        data[i][j] = data[i][j].trim();
+                    }
+                }
+                var longestString = data[i].reduce(function (a, b) { return a.length > b.length ? a : b; });
+                if (longestString.length === 0) {
+                    data[i] = data[i].filter(function (e) {
+                        return e.length !== 0 && e !== undefined && e !== null;
+                    });
+                }
+            }
+            return data;
+        };
+
+        var processSheet = function (data) {
+            var processedData = removeEmptyArrays(data);
+            processedData = trimAllArrays(processedData);
+            processedData = removeEmptyArrays(processedData);
+            return processedData;
+        };
+
+        // https://github.com/SheetJS/js-xlsx
+        var parseDateAndTime = function (v, opts, b2) {
+            var date = v | 0;
+            var time = Math.floor(86400 * (v - date)); 
+            var dow = 0;
+            var dout = [];
+            var out = {
+                D: date, 
+                T: time, 
+                u: 86400 * (v - date) - time,
+                y: 0,
+                m: 0,
+                d: 0,
+                date: "",
+                H: 0,
+                M: 0,
+                S: 0,
+                q: 0
+            };
+            if (Math.abs(out.u) < 1e-6) {
+                out.u = 0;
+            }
+            if (out.u > 0.999) {
+                out.u = 0;
+                if (++time === 86400) { 
+                    time = 0; 
+                    ++date; 
+                }
+            }
+            if (date === 60) {
+                dout = b2 ? [1317, 10, 29] : [1900, 2, 29]; 
+                dow = 3;
+            } else if (date === 0) {
+                dout = b2 ? [1317, 8, 29] : [1900, 1, 0]; 
+                dow = 6;
+            } else {
+                if (date > 60) { 
+                    --date;
+                }
+                // 1 = Jan 1 1900 
+                var d = new Date(1900, 0, 1);
+                d.setDate(d.getDate() + date - 1);
+                dout = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
+                dow = d.getDay();
+                if (date < 60) {
+                    dow = (dow + 6) % 7;
+                }
+            }
+            out.y = dout[0]; 
+            out.m = dout[1]; 
+            out.d = dout[2];
+            out.date = new Date(out.y, out.m - 1, out.d).toISOString();
+            out.S = time % 60; 
+            time = Math.floor(time / 60);
+            out.M = time % 60; 
+            time = Math.floor(time / 60);
+            out.H = time;
+            out.q = dow;
+            return out;
+        };
+
+        var sheet;
+        var queryString = "";
+
+        try {
+            sheet = xlsx.parse(formdata.file);
+        } catch (err) {
+            return err;
+        }
+
+        if (formdata.type === "1") { // Importing Case Management Caseload
+            var data = processSheet(sheet[0].data);
+        } else if (formdata.type === "4") { // Importing Backpack and Sleeping Bad Waitlist
+            data = sheet[0].data;
+            queryString += 'INSERT INTO backpack_sleepingbag_waitlist (client_id, backpack, sleepingBag, ask_date) VALUES (';
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].length; j++) {
+                    // Not quite sure what is going on here
+                    // console.log(data[i][j]); 
+                }
+            }
+        } else if (formdata.type === "8") { // Importing Youth Master List
+            var dropin = processSheet(sheet[0].data);
+            // var intake = processSheet(sheet[1].data);
+            var date;
+            var month;
+            var year;
+
+            for (var k = 1; k < dropin.length; k++) {
+                for (var m = 0; m < dropin[k].length; m++) {
+                    if (m <= 8) {
+                        if (dropin[k][0] !== "TOTALS" && 
+                            (dropin[k][0] === undefined || dropin[k][1] === undefined)) { // no first/last name
+                            // If they don't have a name, skip row.
+                            m = dropin[k].length; 
+                        } else {
+                            if (dropin[k][0] !== "TOTALS") {
+                                // eventually: Update if is detected
+                                queryString += "INSERT INTO client (first_name, last_name, gender, race, date_of_birth, " +
+                                "intake_age, reference, first_intake_date) SELECT \'" + dropin[k][0] + "\', \'" + 
+                                dropin[k][1] + "\', " + 
+                                (dropin[k][2] === undefined ? "NULL, " : "\'" + dropin[k][2] + "\', ") + // gender
+                                (dropin[k][3] === undefined ? "NULL, " : "\'" + dropin[k][3] + "\', ") + // race
+                                (dropin[k][4] === undefined ? "NULL, " : "\'" + parseDateAndTime(dropin[k][4]).date + "\', ") +
+                                (dropin[k][5] === undefined ? "NULL, " : "\'" + dropin[k][5] + "\', ") + // age
+                                (dropin[k][6] === undefined ? "NULL, " : "\'" + dropin[k][6] + "\', ") +  // ref
+                                (dropin[k][8] === undefined ? "NULL " : "\'" + parseDateAndTime(dropin[k][8]).date + "\' ") +  
+                                "WHERE NOT EXISTS (SELECT first_name FROM client WHERE first_name = \'" + dropin[k][0] + 
+                                "\' AND last_name = \'" + dropin[k][1] + "\');"; 
+                            }
+                            m = 8;
+                        }
+                    } else {
+                        if (dropin[k][0] !== "TOTALS" && dropin[k][m] !== undefined) {
+                            if (typeof dropin[0][m] !== "string") {
+                                date = parseDateAndTime(dropin[0][m]);
+                                queryString += "INSERT INTO drop_in (date) SELECT \'" + date.date + "\' " + 
+                                    "WHERE NOT EXISTS (SELECT date FROM drop_in WHERE date = \'" + date.date + "\');";
+                                queryString += "INSERT INTO match_drop_in_client (drop_in_id, client_id) SELECT (" + 
+                                    "SELECT id FROM drop_in WHERE date = \'" + date.date + "\'), (SELECT id FROM client " + 
+                                    "WHERE first_name = \'" + dropin[k][0] + "\' AND last_name = \'" + dropin[k][1] +
+                                    "\') WHERE NOT EXISTS (SELECT id FROM match_drop_in_client WHERE drop_in_id = " + 
+                                    "(SELECT id FROM drop_in WHERE date = \'" + date.date + "\') AND client_id = " +
+                                    "(SELECT id FROM client WHERE first_name = \'" + dropin[k][0] + "\' AND last_name " + 
+                                    " = \'" + dropin[k][1] + "\'));"; 
+                            }
+                        } else if (dropin[k][0] === "TOTALS") {
+                            if (typeof dropin[0][m] === "string") {
+                                month = dropin[0][m].split(" ");
+                                month = month[0];
+                                // NOT SAFE FOR CONCURRENT ACCESS...
+                                if (dropin[0][m].toLowerCase().includes("visits")) {
+                                    year = parseDateAndTime(dropin[0][m - 1]).date.substring(0, 4);
+                                    queryString += 'UPDATE monthly_statistics SET total_youth = ' + 
+                                        dropin[k][m] + " WHERE month = \'" + month + "\' AND year = " + 
+                                        year + ";";
+                                    queryString += 'INSERT INTO monthly_statistics (month, year, total_youth) ' + 
+                                        'SELECT \'' + month + "\', " + year + ", " + dropin[k][m] + " WHERE NOT " + 
+                                        "EXISTS (SELECT month, year FROM monthly_statistics WHERE month = \'" + 
+                                        month + "\' AND year = " + year + ");";
+                                } else {
+                                    year = parseDateAndTime(dropin[0][m - 2]).date.substring(0, 4);
+                                    queryString += 'UPDATE monthly_statistics SET unduplicated_youth = ' + 
+                                        dropin[k][m] + " WHERE month = \'" + month + "\' AND year = " + 
+                                        year + ";";
+                                    queryString += 'INSERT INTO monthly_statistics (month, year, unduplicated_youth) ' + 
+                                        'SELECT \'' + month + "\', " + year + ", " + dropin[k][m] + " WHERE NOT " + 
+                                        "EXISTS (SELECT month, year FROM monthly_statistics WHERE month = \'" + 
+                                        month + "\' AND year = " + year + ");";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return queryString;
+    }
 };
 
 module.exports = queries;

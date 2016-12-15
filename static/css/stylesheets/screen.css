@@ -179,6 +179,11 @@ html, body {
   background-color: green;
 }
 
+/* line 73, ../sass/partials/_base.scss */
+.warning {
+  color: red;
+}
+
 /* line 4, ../sass/partials/_fonts.scss */
 body {
   font-family: 'KildeSansRegular';
@@ -366,7 +371,7 @@ a:hover {
 }
 
 /* line 62, ../sass/partials/_clients.scss */
-.tooOldWarning {
+.ageWarning {
   color: red;
 }
 
