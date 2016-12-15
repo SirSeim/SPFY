@@ -42,13 +42,12 @@ The SPY Database system architecture is comprised of a client-side, browser-base
 - 5.2.2		Server CSC -- server components that will host the Frontend
 	- 5.2.2.1		NodeJS CSU -- modules for serving up Frontend files
 	- 5.2.2.2		HTTPS CSU -- modules for network requests
-	- 5.2.2.3		. . . 
+	- 5.2.2.3		API Routes CSU
 
 - 5.2.3		Database CSC -- database components that will store the data
 	- 5.2.3.1		Queries CSU -- modules that will run queries on stored data
 	- 5.2.3.2		Indexing CSU -- modules that will index the data
 	- 5.2.3.3		Tracking CSU -- modules that will track user activity
-	- 5.2.3.4		. . .
 
 
 ### 5.3	Functional Requirements
@@ -103,12 +102,21 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.2.1		The Backend shall respond to HTTP requests from the client.
 	- 5.3.2.2		The Backend shall forward the results of queries from the Database to the Frontend.
 	- 5.3.2.3		The Backend shall support concurrent access of the database from multiple users.
-	- 5.3.2.4		The Backend shall timeout the network connection to the database after prolonged idling.
+	- 5.3.2.4		The Backend shall timeout the network connection to the database after prolonged idling of 3 minutes at the least.
 	- 5.3.2.5		The Backend shall send error messages with details about connection issues.
 	- 5.3.2.6		The Backend shall close network channels that are not in use.
-	- 5.3.2.7		The Backend shall maintain a network log.
-	- 5.3.2.8		The Backend shall send periodic reports on network performance.
-	- 5.3.2.9		. . .
+	- 5.3.2.7		The Backend shall determine a network channel to not be in use when that channel has not made a request in the previous 3 minutes or longer.
+	- 5.3.2.8		The Backend shall maintain a network log.
+	- 5.3.2.9 		The Backend network log shall track successful HTTP requests.
+	- 5.3.2.10		The Backend network log shall track failed HTTP requests.
+	- 5.3.2.11		The Backend network log shall track server load.
+	- 5.3.2.12		The Backend network log shall track request speed.
+	- 5.3.2.13		The Backend network log shall track requests per second.
+	- 5.3.2.9		The Backend shall send periodic reports on network performance every second at the least.
+	- 5.3.2.10	The Backend shall respond with a 404 error code when a page or route is not found.
+	- 5.3.2.11	The Backend shall respond with a 500 error code when there is an error in the client-side server.
+	- 5.3.2.12	The Backend shall respond with a 200 error code when an HTTP request is successfully made and returned.
+
 
 - 5.3.3	Database
 	- 5.3.3.1		The Database shall perform queries on stored data.
@@ -124,7 +132,8 @@ The SPY Database Web App will allow SPY staff to input client information that w
 - 5.3.4	System-wide
 	- 5.3.4.1		The system shall provide a means for retrieving lost password information.
 	- 5.3.4.2		The system shall provide a means for resetting user passwords.
-	- 5.3.4.3		The system shall provide a means for troubleshooting itself.
+	- 5.3.4.3		The system shall provide a means for troubleshooting connection errors.
+	- 5.3.4.4		The system shall provide a means for monitoring vulnerabilities.
 	- 5.3.4.4		The system shall provide a means for creating a new client profile.
 	- 5.3.4.5		The system shall provide a means for creating a new user profile.
 	- 5.3.4.6		The system shall provide a means for creating a new program profile.
@@ -141,83 +150,81 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.4.17	The system shall integrate with calendar software.
 	- 5.3.4.18	The system shall integrate with email software.
 	- 5.3.4.19	The system shall forward scheduled appointments to automatically populate the calendar software.
-	- 5.3.4.20	The system shall track data over time.
-	- 5.3.4.21	The system shall use flags to indicate the status of user, client, and program profile information.
-	- 5.3.4.22	The system shall provide a means for sending and receiving notifications to various software applications.
-	- 5.3.4.23	The system shall provide a means for easily importing large quantities of data.
-	- 5.3.4.24	The system shall provide a means for easily exporting large quantities of data.
-	- 5.3.4.25	The system shall provide a means for users to customize settings for the entire system (Frontend, Backend, Database).
-	- 5.3.4.26	The system shall allow case manager profiles to access data from other case manager profiles.
-	- 5.3.4.27	The system shall provide a means for storing document files.
-	- 5.3.4.28	The system shall provide a means for storing image files.
-	- 5.3.4.29	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
-	- 5.3.4.30	. . .
+	- 5.3.4.20	The system shall use flags to indicate the status of user, client, and program profile information.
+	- 5.3.4.21	The system shall provide a means for sending and receiving notifications to various software applications.
+	- 5.3.4.22	The system shall provide a means for importing data.
+	- 5.3.4.23	The system shall provide a means for exporting data.
+	- 5.3.4.24	The system shall provide a means for users to customize settings for the entire system (Frontend, Backend, Database).
+	- 5.3.4.25	The system shall allow case manager profiles to access data from other case manager profiles.
+	- 5.3.4.26	The system shall provide a means for storing document files.
+	- 5.3.4.27	The system shall provide a means for storing image files.
+	- 5.3.4.28	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
 
 ### 5.4	Performance Requirements
 
-- 5.4.1	Successful login occurs within 5 seconds
+- 5.4.1	Successful login occurs within 5 seconds:
 Upon entering credentials, the user should not have to wait more than 5 seconds to be redirected to their main profile page upon successful verification of those credentials.
 
-- 5.4.2	Nearly instantaneous navigation
+- 5.4.2	Nearly instantaneous navigation:
 Users should not experience delays in navigating between pages.
 
-- 5.4.3	Usability design principles for the Frontend
+- 5.4.3	Usability design principles for the Frontend:
 The graphical user interface shall be human-friendly and intuitive.
 
-	- 5.4.3.1	Feedback
+	- 5.4.3.1	Feedback:
 At all times, the interface shall communicate the results of any interaction, making those results visible and understandable.
 
-- 5.4.4	Accessibility
+- 5.4.4	Accessibility:
 Minimum standard software requirements for users with disabilities shall be met.
 
-	- 5.4.4.1	Screen-reading
+	- 5.4.4.1	Screen-reading:
 Formats for screen-reading applications to utilize will be incorporated into the Frontend design.
 
-	- 5.4.4.2	Voice navigation
+	- 5.4.4.2	Voice navigation:
 Formats for verbal mouse-grid navigation will be incorporated into the Frontend design.
 
-- 5.4.5	Search results within 1 second
+- 5.4.5	Search results within 1 second:
 Users should see the first results of a search within 1 second of initiating the search.
 
-- 5.4.6	Optimize storage
+- 5.4.6	Optimize storage:
 The Database subsystem should be able to store the maximum amount of data with the minimum amount of storage space.
 
-- 5.4.7 Bandwidth
+- 5.4.7 Bandwidth:
 The Backend should optimize use of available bandwidth for data transmission.
 
-- 5.4.8	Network connection cutoff
+- 5.4.8	Network connection cutoff:
 The system should have default procedures for handling incomplete transactions during a network crash.
 
-- 5.4.9	Modular programming
+- 5.4.9	Modular programming:
 The system design should incorporate separating functionality into independent, interchangeable modules, such that each contains everything necessary to execute only one aspect of the system’s overall functionality.
 
-- 5.4.10 Open-endedness
+- 5.4.10 Open-endedness:
 The system design should incorporate design principles that allow for easily modifying the system architecture or building more into the system by future developers.
 
-- 5.4.11 Data migration
+- 5.4.11 Data migration:
 The data stored in the Database will be able to easily migrate to other database software in the future.
 
-- 5.4.12 Emergency backup
+- 5.4.12 Emergency backup:
 The Database should immediately backup data if network or server issues are detected.
 
 
 ### 5.5	Project Environment Requirements 
 
-| Category | Requirement |
-|---|---|
-| Frontend | I/O server-side environment and API |
-
-
 Utilizing pre-built frameworks such as Node.js will expedite development and provide more secure and stable server-side hosting.
 
 #### 5.5.1	Development Environment Requirements
 
-No additional requirements.
+| Category | Requirement |
+|---|---|
+| Front End | Bootstrap, ComboDate, jQuery, Notify, Moment, Spectrum  | 
+| Server | Node.js, npm, Hapi, Joi, npm-pg, Chai, CodeCov, ESLint, Istanbul, Mocha, Mocha-Istanbul, Nodemon |
+| Database | PostgrSQL |
 
 #### 5.5.2	Execution Environment Requirements
 
 | Category | Requirement |
 |---|---|
+| Frontend | I/O server-side environment and API |
 | Server | HIPAA compliant third-party cloud server hosting |
 | Database | HIPAA compliant third-party cloud database hosting |
 

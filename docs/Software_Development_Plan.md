@@ -1,20 +1,11 @@
 #4.0 Software Development Plan
 
 ##4.1 Plan Introduction
-###4.1.1 Purpose
+###4.1.1 Project Deliverables
 
-The purpose of this Software Development Plan is to describe and explicitly list any and all resources necessary for the completion of the Safe Place for Youth database as described in the [Requirements Specification](Requirements_Specification.md). The Software Development Plan will also provide a timeline of events that must be completed in the appropriate order. A GANTT chart will detail this timeline.
-
-###4.1.3 Definitions, Abbreviations, Acronyms
-SPY - Safe Place for Youth Non-Profit Organization
-
-###4.1.4 Project Deliverables
-
--   Alpha - Sept 26th
-
--   Beta - Oct 15th
-
--   Intern Use - Oct 31st
+- _Alpha - Nov 3rd_ - Preliminary version of the app. Our vision of what the app should start to look like based on all the meetings we have had with SPY about their needs and expectations
+- _Beta - Dec 13th_ - After meeting with SPY with our alphas, we are ready to release the software to them for testing purposes, both with software stability and trying out the workflow
+- _1.0 - Early January_ - We transfer ownership of the app over to SPY and take up a maintenance and additional features development role
 
 ##4.2 Project Resources
 
@@ -23,8 +14,20 @@ SPY - Safe Place for Youth Non-Profit Organization
   Resource           | Development   | Execution
   ------------------ | ------------- | -----------
   Macbook Computer   | ✓             | ✓
-  Windows Computer   | ✓             | ✓
-  Linux Server       |               | ✓
+  2008 or newer machine | ✓ | ✓
+  2 GB RAM | ✓ | ✓
+  16 GB Storage | ✓ | ✓
+  screen | ✓ | 
+  Wifi connection | ✓ | 
+  Ethernet connection | ✓ | ✓
+  Linux Computer       |               | ✓
+  Intel or ARM processor | ✓ | ✓
+  2 GB RAM | ✓ | ✓
+  16 GB Storage | ✓ | ✓
+  screen | ✓ | 
+  Wifi connection | ✓ | 
+  Ethernet connection | ✓ | ✓
+
 
 ###4.2.2 Software Resources
 
@@ -211,3 +214,15 @@ Each week the development team meets 6-7:30 on Friday evenings. On Mondays, the 
     -   Presentation and Q&A — 17:00 to 18:00
 
     -   Clean-up — 18:00 to 19:00
+
+## 4.5 User Manual
+
+Installation and running instructions are on [README](../README.md)
+
+Users will need to simply navigate to a url to access the website. The current url for the prototype of the system is http://spfy-test.herokuapp.com/
+
+Users can use their username and password credentials to login to the application on the top right of the any page on the web application.
+
+After logging in, users can use the interface to navigate between webpages to view data related to check-in, enrollment, and client profiles.
+
+Users can log out through the "Profile" link on the top right to end their session.
