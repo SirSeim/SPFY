@@ -49,14 +49,29 @@ information.
   * Front Desk Home Page
     * Activities Table
     * Client Profile Table
-  * Add Client
-  * Case Manager Home Page
+    * Check-in Table
+    * Add Dropin
+    * View Dropin History
+    * Add Client
+  * Clients Home Page
+    * Add Client
     * Client Profile Table
     * View Client
     * Edit Client
-  * Case Note Page
-  * Drop In Page
-  * Outreach Home Page
+    * Add Documents
+  * Add Client
+  * Data Browser
+    * Select Resource
+    * Query Resource
+    * Results Table
+    * Details Pane
+    * Settings Page
+      * Change Password
+      * Notifications Settings
+      * Statuses Settings
+      * Flags Settings
+      * Create New Activity
+      * Import Data
 * Server CSC -- Passes data between frontend and database
   * API
     * Queries
@@ -93,6 +108,8 @@ information.
     * Activity
     * Drop In
     * Match Drop In Activity
+    * Match Drop In Client
+    * Monthly Statistics
     * Appointment
     * Activity Log
 
@@ -155,7 +172,7 @@ each segment.
 
 Navigate to [*www.SPFY.org*](http://www.spfy.org) and the home page
 displays a simple logo. By scrolling down, text prompts, “What would you
-like to do?” From here, there are five options that will navigate to
+like to do?” From here, there are four options that will navigate to
 different locations and that satisfy different use cases. The five
 include:
 
@@ -164,16 +181,12 @@ include:
     profiles, add new client, and current drop-in activity menu. More
     information on these individual tasks is explained below.
 
-2.  Case Manager - Navigates to the case management page, designed for
+2.  Clients - Navigates to the case management page, designed for
     case managers. Provides access to focused alerts, daily activities,
     status tasks, and client search.
 
 3.  Case Notes - Navigates to create new case note, helpful to Case
     Managers
-
-4.  Outreach - Navigates to Outreach homepage, useful for outreachers,
-    enables them to create new outreach session, add clients (brief),
-    add volunteers or partners.
 
 5.  Add a Client - *Should* navigate to front desk homepage, and
     initiate the pop-up
@@ -205,12 +218,17 @@ Click on “Front Desk” as listed on the navbar
 
 **Getting to Case Management:**
 
-Click on “Case Management” as listed on the navbar
-
-**Getting to Outreach:**
-
-Click on “Outreach” as listed on the navbar
+Click on “Clients” as listed on the navbar
 
 **Adding a Client:**
 
-Click the button labeled “Add Client” that will redirect
+Click the button labeled “Add Client” that will redirect to the Add client 
+page. Additionally, select "Add Client" on the Front Desk Homepage.
+
+**Querying the Database**
+
+Select "Data Browser" in the Navbar. Choose a table and column to query.
+
+**Alter settings**
+
+Select the Profile dropdown on the Navbar, then select settings
