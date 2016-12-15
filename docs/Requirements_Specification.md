@@ -150,16 +150,15 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.4.17	The system shall integrate with calendar software.
 	- 5.3.4.18	The system shall integrate with email software.
 	- 5.3.4.19	The system shall forward scheduled appointments to automatically populate the calendar software.
-	- 5.3.4.20	The system shall track data over time.
-	- 5.3.4.21	The system shall use flags to indicate the status of user, client, and program profile information.
-	- 5.3.4.22	The system shall provide a means for sending and receiving notifications to various software applications.
-	- 5.3.4.23	The system shall provide a means for importing data.
-	- 5.3.4.24	The system shall provide a means for exporting data.
-	- 5.3.4.25	The system shall provide a means for users to customize settings for the entire system (Frontend, Backend, Database).
-	- 5.3.4.26	The system shall allow case manager profiles to access data from other case manager profiles.
-	- 5.3.4.27	The system shall provide a means for storing document files.
-	- 5.3.4.28	The system shall provide a means for storing image files.
-	- 5.3.4.29	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
+	- 5.3.4.20	The system shall use flags to indicate the status of user, client, and program profile information.
+	- 5.3.4.21	The system shall provide a means for sending and receiving notifications to various software applications.
+	- 5.3.4.22	The system shall provide a means for importing data.
+	- 5.3.4.23	The system shall provide a means for exporting data.
+	- 5.3.4.24	The system shall provide a means for users to customize settings for the entire system (Frontend, Backend, Database).
+	- 5.3.4.25	The system shall allow case manager profiles to access data from other case manager profiles.
+	- 5.3.4.26	The system shall provide a means for storing document files.
+	- 5.3.4.27	The system shall provide a means for storing image files.
+	- 5.3.4.28	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
 
 ### 5.4	Performance Requirements
 
