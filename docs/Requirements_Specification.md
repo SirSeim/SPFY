@@ -42,7 +42,7 @@ The SPY Database system architecture is comprised of a client-side, browser-base
 - 5.2.2		Server CSC -- server components that will host the Frontend
 	- 5.2.2.1		NodeJS CSU -- modules for serving up Frontend files
 	- 5.2.2.2		HTTPS CSU -- modules for network requests
-	- 5.2.2.3		. . . 
+	- 5.2.2.3		API Routes CSU
 
 - 5.2.3		Database CSC -- database components that will store the data
 	- 5.2.3.1		Queries CSU -- modules that will run queries on stored data
@@ -163,49 +163,49 @@ The SPY Database Web App will allow SPY staff to input client information that w
 
 ### 5.4	Performance Requirements
 
-- 5.4.1	Successful login occurs within 5 seconds
+- 5.4.1	Successful login occurs within 5 seconds:
 Upon entering credentials, the user should not have to wait more than 5 seconds to be redirected to their main profile page upon successful verification of those credentials.
 
-- 5.4.2	Nearly instantaneous navigation
+- 5.4.2	Nearly instantaneous navigation:
 Users should not experience delays in navigating between pages.
 
-- 5.4.3	Usability design principles for the Frontend
+- 5.4.3	Usability design principles for the Frontend:
 The graphical user interface shall be human-friendly and intuitive.
 
-	- 5.4.3.1	Feedback
+	- 5.4.3.1	Feedback:
 At all times, the interface shall communicate the results of any interaction, making those results visible and understandable.
 
-- 5.4.4	Accessibility
+- 5.4.4	Accessibility:
 Minimum standard software requirements for users with disabilities shall be met.
 
-	- 5.4.4.1	Screen-reading
+	- 5.4.4.1	Screen-reading:
 Formats for screen-reading applications to utilize will be incorporated into the Frontend design.
 
-	- 5.4.4.2	Voice navigation
+	- 5.4.4.2	Voice navigation:
 Formats for verbal mouse-grid navigation will be incorporated into the Frontend design.
 
-- 5.4.5	Search results within 1 second
+- 5.4.5	Search results within 1 second:
 Users should see the first results of a search within 1 second of initiating the search.
 
-- 5.4.6	Optimize storage
+- 5.4.6	Optimize storage:
 The Database subsystem should be able to store the maximum amount of data with the minimum amount of storage space.
 
-- 5.4.7 Bandwidth
+- 5.4.7 Bandwidth:
 The Backend should optimize use of available bandwidth for data transmission.
 
-- 5.4.8	Network connection cutoff
+- 5.4.8	Network connection cutoff:
 The system should have default procedures for handling incomplete transactions during a network crash.
 
-- 5.4.9	Modular programming
+- 5.4.9	Modular programming:
 The system design should incorporate separating functionality into independent, interchangeable modules, such that each contains everything necessary to execute only one aspect of the system’s overall functionality.
 
-- 5.4.10 Open-endedness
+- 5.4.10 Open-endedness:
 The system design should incorporate design principles that allow for easily modifying the system architecture or building more into the system by future developers.
 
-- 5.4.11 Data migration
+- 5.4.11 Data migration:
 The data stored in the Database will be able to easily migrate to other database software in the future.
 
-- 5.4.12 Emergency backup
+- 5.4.12 Emergency backup:
 The Database should immediately backup data if network or server issues are detected.
 
 
