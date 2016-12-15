@@ -237,7 +237,6 @@ Description: Table matching activities to drop in sessions
 
 Attributes: id, drop_in_id, activity_id, room, comments, start_time, end_time
 
-<<<<<<< Updated upstream
 	
 **7.3.19 Enrollment CSU Description**
 
@@ -245,9 +244,6 @@ Description:Table containing a referenced client’s substance abuse history ind
 
 Attributes: id, drop_in_activity_id, client_id
 
-=======
-**7.3.7 Match_drop_in_client CSU Description**
->>>>>>> Stashed changes
 
 **7.3.20 Check_in CSU Description**
 
@@ -260,7 +256,6 @@ Attributes: id, drop_in_id, client_id
 		
 Description: Table containing user account settings
 
-<<<<<<< Updated upstream
 Attributes: id, username, hashed_password
 
 
@@ -313,8 +308,6 @@ Description: Table containing monthly statistics data
 Attributes: id, month, year, unduplicated_youth, total_youth
 
 
-=======
->>>>>>> Stashed changes
 **7.4 Detailed Interface Description**
 
 **7.4.1 Socket CSC Description**
