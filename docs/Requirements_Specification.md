@@ -48,7 +48,6 @@ The SPY Database system architecture is comprised of a client-side, browser-base
 	- 5.2.3.1		Queries CSU -- modules that will run queries on stored data
 	- 5.2.3.2		Indexing CSU -- modules that will index the data
 	- 5.2.3.3		Tracking CSU -- modules that will track user activity
-	- 5.2.3.4		. . .
 
 
 ### 5.3	Functional Requirements
@@ -103,12 +102,21 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.2.1		The Backend shall respond to HTTP requests from the client.
 	- 5.3.2.2		The Backend shall forward the results of queries from the Database to the Frontend.
 	- 5.3.2.3		The Backend shall support concurrent access of the database from multiple users.
-	- 5.3.2.4		The Backend shall timeout the network connection to the database after prolonged idling.
+	- 5.3.2.4		The Backend shall timeout the network connection to the database after prolonged idling of 3 minutes at the least.
 	- 5.3.2.5		The Backend shall send error messages with details about connection issues.
 	- 5.3.2.6		The Backend shall close network channels that are not in use.
-	- 5.3.2.7		The Backend shall maintain a network log.
-	- 5.3.2.8		The Backend shall send periodic reports on network performance.
-	- 5.3.2.9		. . .
+	- 5.3.2.7		The Backend shall determine a network channel to not be in use when that channel has not made a request in the previous 3 minutes or longer.
+	- 5.3.2.8		The Backend shall maintain a network log.
+	- 5.3.2.9 		The Backend network log shall track successful HTTP requests.
+	- 5.3.2.10		The Backend network log shall track failed HTTP requests.
+	- 5.3.2.11		The Backend network log shall track server load.
+	- 5.3.2.12		The Backend network log shall track request speed.
+	- 5.3.2.13		The Backend network log shall track requests per second.
+	- 5.3.2.9		The Backend shall send periodic reports on network performance every second at the least.
+	- 5.3.2.10	The Backend shall respond with a 404 error code when a page or route is not found.
+	- 5.3.2.11	The Backend shall respond with a 500 error code when there is an error in the client-side server.
+	- 5.3.2.12	The Backend shall respond with a 200 error code when an HTTP request is successfully made and returned.
+
 
 - 5.3.3	Database
 	- 5.3.3.1		The Database shall perform queries on stored data.
@@ -124,7 +132,8 @@ The SPY Database Web App will allow SPY staff to input client information that w
 - 5.3.4	System-wide
 	- 5.3.4.1		The system shall provide a means for retrieving lost password information.
 	- 5.3.4.2		The system shall provide a means for resetting user passwords.
-	- 5.3.4.3		The system shall provide a means for troubleshooting itself.
+	- 5.3.4.3		The system shall provide a means for troubleshooting connection errors.
+	- 5.3.4.4		The system shall provide a means for monitoring vulnerabilities.
 	- 5.3.4.4		The system shall provide a means for creating a new client profile.
 	- 5.3.4.5		The system shall provide a means for creating a new user profile.
 	- 5.3.4.6		The system shall provide a means for creating a new program profile.
@@ -151,7 +160,6 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.4.27	The system shall provide a means for storing document files.
 	- 5.3.4.28	The system shall provide a means for storing image files.
 	- 5.3.4.29	The system shall provide a means for tracking valuable items (backpacks, phones, keys, . . . etc.)
-	- 5.3.4.30	. . .
 
 ### 5.4	Performance Requirements
 
