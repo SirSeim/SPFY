@@ -2,7 +2,7 @@
 
 **7.1	Introduction**
 
-This document presents a detailed description of the software for the Safe Place for Youth (SPY) database as described in the Requirements Specification. The SPY Database will allow users to store and retrieve data over the Internet from any platform, be it a desktop computer, tablet, or smartphone. 
+This document presents a detailed description of the software for the Safe Place for Youth (SPY) database as described in the [*Requirements Specification*](https://github.com/SirSeim/SPFY/blob/master/docs/Requirements_Specification.md). The SPY Database will allow users to store and retrieve data over the Internet from any platform, be it a desktop computer, tablet, or smartphone. 
 
 **7.2 Detailed Design Description**
 
