@@ -23,7 +23,7 @@ The client profile table js file (clientprofiletable.js) is a component of the f
 			
 **7.2.1.2 Add Activity Table CSU Description**
 			
-The Add Activity button on the front desk homepage allows the user to add activities to a current dropin. 
+The Add Activity button on the front desk homepage allows the user to add activities to a current drop-in.
 
 
 **7.2.1.3 Checkin CSU Description**
@@ -41,17 +41,17 @@ Attributes: Runs page, Makes requests, Populates components with data
 **7.2.2.1 Client Profile CSU Description**
 
 Description: Module that implements the functionality for displaying information associated with a specific client profile in the database.
-Attributes:
+Attributes: Viewing/editing profile information, viewing/adding existing flags to client, viewing/editing/creating case notes associated with client, adding/deleting documents associated with client.
 
 
 **7.2.3 Data Browser CSC Description**
 
 
 Description: Module that implements functionality for displaying and querying the contents of the tables contained in the database as rows in a table. Each row displays the values contained in each table row for the filter specified. 
-Attributes: Runs a search, populates the table, allows view of detail 
+Attributes: Runs a search, populates the table, allows view of detail.
 
 
-A page allowing the user to search and view the entire database. The user can then generate queries in the query builder, with results being displayed in the Filter Table. They can click on rows in the Filter table to see the content of the table in a more easily readable form within the Detail Pane. The ability to generate reports based on the query given is also available. 
+A page allowing the user to search and view the entire database. The user can then generate queries in the query builder, with results being displayed in the Filter table. Users can click on rows in the Filter table to see the content of the table in a more easily readable form within the Detail Pane. The ability to generate reports based on the query given is also available. 
 
 **7.2.3.1 Query Builder CSU Description**
 
