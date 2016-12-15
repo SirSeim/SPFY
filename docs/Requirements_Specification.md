@@ -153,8 +153,8 @@ The SPY Database Web App will allow SPY staff to input client information that w
 	- 5.3.4.20	The system shall track data over time.
 	- 5.3.4.21	The system shall use flags to indicate the status of user, client, and program profile information.
 	- 5.3.4.22	The system shall provide a means for sending and receiving notifications to various software applications.
-	- 5.3.4.23	The system shall provide a means for easily importing large quantities of data.
-	- 5.3.4.24	The system shall provide a means for easily exporting large quantities of data.
+	- 5.3.4.23	The system shall provide a means for importing data.
+	- 5.3.4.24	The system shall provide a means for exporting data.
 	- 5.3.4.25	The system shall provide a means for users to customize settings for the entire system (Frontend, Backend, Database).
 	- 5.3.4.26	The system shall allow case manager profiles to access data from other case manager profiles.
 	- 5.3.4.27	The system shall provide a means for storing document files.
