@@ -114,151 +114,192 @@ Attributes:
 **7.3.1 Client CSU Description**
 		
 Description: Client table containing information relevant to youth prescreen
-Attributes:
+
+Attributes: id, first_name, last_name, nickname, person_completing_intake, gender, race, intake_date, hmis_consent, first_time, first_intake_Date, case_manager, case_manager_id, phone_number, email, date_of_birth, intake_age, provided_id, id_state, reference, services, status, caseplan
 
 
 **7.3.2 Case Manager CSU Description**
 
 Description: Case manager table containing information relevant to person as well as username and password
-Attributes:
+
+Attributes: id, first_name, last_name, position
 
 
 **7.3.3 Case Note CSU Description**
 
 Description: Case note table containing case note information, like text and date, as well as the accompanying case manager and client
-Attributes:
+
+Attributes: id, client_id, case_manager_id, date, category, note, follow_up_needed, due_date, reminder_date
 
 
 **7.3.4 Background CSU Description**
 
 Description: Table containing a referenced client’s background indicated during the intake form
-Attributes:
+
+Attributes: id, client_id, disability, last_grade_completed, some_completed, currently_attending, graduated, first_language, preferred_language, marital_status, military_service, health_insurance, gender_identification, preferred_pronoun, ethnicity, race
 
 
 **7.3.5 Housing History CSU Description**
 		
 Description: Table containing a referenced client’s housing history indicated during the intake form
-Attributes:
+
+Attributes: id, client_id, last_sleeping_location, last_sleeping_duration, first_day_first_time_homeless, current_homeless_start_date, current_homeless_length, homeless_episode_count, location_before_west_la, duration_in_west_la, housing_instability_cause, stable_housing_obstacle, housing_interest
 
 
 **7.3.6 Natural Connection CSU Description**
 
 Description: Table containing a referenced client’s natural connection, like an aunt or uncle, indicated during the intake form
-Attributes:
+
+Attributes: id, client_id, natural_connection, conatct_name, contact_phone_number, contact_relationship
 
 
 **7.3.7 Pregnant and Parenting CSU Description**
 
 Description: Table containing a referenced client’s pregnancy and parenting history indicated during the intake form
-Attributes:
+
+Attributes: id, client_id, currently_pregnant, first_pregnancy, pre_natal_care_received, pre_natal_care_location, pre_natal_care_desired, trimester, baby_due_date, has_other_children, dcfs_open_case, children_with_family_or_friends
 
 
-	
 **7.3.8 Substance Abuse CSU Description**
 
 Description:Table containing a referenced client’s substance abuse history indicated during the intake form
-Attributes:
 
-
-**7.3.9 Mental Health CSU Description**
-
-Description: Table containing information indicated during the intake form relevant to a client’s mental health, such as  mental illnesses and medication**
-Attributes:
-
-
-**7.3.10 Referral CSU Description**
-		
-Description: Table containing internal and external referrals relevant to a client
-Attributes:
-
-
-**7.3.11 Additional Info CSU Description
-
-Description: Table containing any additional information relevant to a referenced client
-Attributes:
-
-
-**7.3.12 Forms CSU Description**
-
-Description: Table containing information on forms to be filled out by a youth
-Attributes:
-
-**7.3.1 Match CSU Description**
-		
-Description: Table matching case managers with clients
-Attributes:
-
-
-**7.3.2 Program CSU Description**
-
-Description: Table containing information relevant to SPY programs
-Attributes:
-
-
-**7.3.3 Subprogram CSU Description**
-
-Description: Table containing information about subprograms
-Attributes:
-
-
-**7.3.4 Activity CSU Description**
-
-Description: Table containing information about activities held
-Attributes:
-
-
-**7.3.5 Drop_in CSU Description**
-		
-Description: Table containing drop in session information
-Attributes:
-
-
-**7.3.6 Match_drop_in_activity CSU Description**
-
-Description: Table matching activities to drop in sessions
-Attributes:
-
-
-	
-
-
-
-**7.3.7 Match_drop_in_client CSU Description**
-
-Description: Table matching drop in sessions to their attending clients
-Attributes:
-
-
-	
-**7.3.8 Enrollment CSU Description**
-
-Description:Table containing a referenced client’s substance abuse history indicated during the intake form
-Attributes:
+Attributes: id, client_id, substance_abuse, choice_substance, injected_drugs, treatment_interest
 
 
 **7.3.9 Mental Health CSU Description**
 
 Description: Table containing information indicated during the intake form relevant to a client’s mental health, such as  mental illnesses and medication
-Attributes:
+
+Attributes: id, client_id, mental_services_received, mental_services_location, mental_medication, help_acquiring_medicine
 
 
 **7.3.10 Referral CSU Description**
 		
 Description: Table containing internal and external referrals relevant to a client
-Attributes:
+
+Attributes: id, client_id, internal_referral, external_referral
 
 
-**7.3.11 Additional Info CSU Description**
+**7.3.11 Additional Info CSU Description
+
 
 Description: Table containing any additional information relevant to a referenced client
-Attributes:
+
+Attributes: id, client_id, income, birth_city, birth_state, birth_country, employed, looking_for_employment, foster_care, social_security_number, caring_for_animals, chronically_homeless
 
 
 **7.3.12 Forms CSU Description**
 
 Description: Table containing information on forms to be filled out by a youth
-Attributes:
 
+Attributes: id, client_id, good_neighbor_contract, story_photo_video_audo_form, information_release_authorized, services_consent, shower_guidelines, drop_in_guidelines, intake_confirmation, immediate_needs_transportation, documents_signed, sleeping_bag, backpack
+
+**7.3.13 Match CSU Description**
+		
+Description: Table matching case managers with clients
+
+Attributes: id, casemanager_id, client_id
+
+
+**7.3.14 Program CSU Description**
+
+Description: Table containing information relevant to SPY programs
+
+Attributes: id, program_name
+
+
+**7.3.15 Subprogram CSU Description**
+
+Description: Table containing information about subprograms
+
+Attributes: id, subprogram_name, program_id
+
+
+**7.3.16 Activity CSU Description**
+
+Description: Table containing information about activities held
+
+Attributes: id, program_id, activity_name, location, ongoing, start_time, end_time
+
+
+**7.3.17 Drop_in CSU Description**
+		
+Description: Table containing drop in session information
+
+Attributes: id, date
+
+
+**7.3.18 Match_drop_in_activity CSU Description**
+
+Description: Table matching activities to drop in sessions
+
+Attributes: id, drop_in_id, activity_id, room, comments, start_time, end_time
+
+	
+**7.3.19 Enrollment CSU Description**
+
+Description:Table containing a referenced client’s substance abuse history indicated during the intake form
+
+Attributes: id, drop_in_activity_id, client_id
+
+
+**7.3.20 Check_in CSU Description**
+
+Description: Table matching drop in sessions with attending clients
+
+Attributes: id, drop_in_id, client_id
+
+
+**7.3.21 Users CSU Description**
+		
+Description: Table containing user account settings
+
+Attributes: id, username, hashed_password
+
+
+**7.3.11 Notification_types CSU Description**
+
+Description: Table containing possible notification categories
+
+Attributes: id, name
+
+
+**7.3.12 Notification CSU Description**
+
+Description: Table containing information pertaining to notifications
+
+Attributes: id, user_id, type, comment, link, checked
+
+**7.3.24 Flags CSU Description**
+
+Description: Table containing information relating to possible flags
+
+Attributes: type, message, color, note
+
+**7.3.25 Profile_flags CSU Description**
+
+Description: Table matching clients and their respective flags
+
+Attributes: client_id, flag_id
+
+**7.3.26 File CSU Description**
+
+Description: Table for storing files and file information
+
+Attributes: id, client_id, name, type, date, base_64_string
+
+**7.3.27 Backpack_sleepingbag_waitlist CSU Description**
+
+Description: Table containing information on sleeping bag and backpack wait status for clients
+
+Attributes: id, client_id, backpack, sleeping_bag, ask_date
+
+**7.3.28 Monthly_statistics CSU Description**
+
+Description: Table containing monthly statistics data
+
+Attributes: id, month, year, unduplicated_youth, total_youth
 
 **7.4 Detailed Interface Description**
 
