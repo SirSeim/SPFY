@@ -514,7 +514,7 @@ var queries = {
         queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
-        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\' '; // + ', '; // don't forget to uncomment this using previous status implementation
+        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\' '; // + ', ';
 
         // if (parseProperty(payload.status)) {
         //     queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
