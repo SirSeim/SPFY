@@ -9,6 +9,7 @@ This document presents a detailed description of the software for the Safe Place
 **7.2.1 Frontdesk Page CSC Description**
 The front desk homepgage js file (frontdesk.js) initializes and refreshes the page based on user activity in real time. User activity includes checking clients in, adding them to activities, searching for client profiles, creating a new drop-in or viewing old ones. The functionality is implemented to include the following functions: setupFrontDesk, setUpClientsForCheckin, refreshCheckinTable, setupCheckin, updateAddActivities.
 - setupFrontDesk
+  - Sets up the click handler function for each client to include a modal and 
 - setUpClientsForCheckin
 - refreshCheckinTable
 -setupCheckin
@@ -23,20 +24,19 @@ The client profile table js file (clientprofiletable.js) is a component of the f
 			
 **7.2.1.2 Add Activity Table CSU Description**
 			
-The Add Activity button on the front desk homepage allows the user to add activities to a current dropin. 
-
+The Add Activity button on the front desk homepage is a modal that allows the user to add activities to a current dropin. The file is a single function that gets the activities list from the database and displays it in button lists based on category in a pop up. The activities that are already added to the current dropin are clearly disabled and cannot be duplicated. 
 
 **7.2.1.3 Checkin CSU Description**
 			
 Description: Module that implements the functionality for the components and buttons that facilitate checking clients into a drop-in session.
-Attributes: Runs page, Makes requests, Populates components with data
+Attributes: Makes requests, Populates components with data
 
 			
 
 **7.2.2 Client Profiles Page CSC Description**
 
 		
-	The Entities in our client profiles page are Information, Case Management, Documents, Referrals, Other. Each of the entities have some actions and Attributes. Some entities do not have actions or attributes. The Information entity includes Edit Client action that allows you to change the attributes of the clients information. Also, the information entity has a profile picture box. The profile picture has a relationship with Documents entity. The Documents entity allows you to add files onto each client profile. The attributes of add file are compressed folder, document and Photo. Both Referrals and Other do not have actions or attributes. Case management entity on the other hand has an add case note action and the attributes are case notes, client, case manager, and Date.
+The Entities in our client profiles page are Information, Case Management, Documents, Referrals, Other. Each of the entities have some actions and Attributes. Some entities do not have actions or attributes. The Information entity includes Edit Client action that allows you to change the attributes of the clients information. Also, the information entity has a profile picture box. The profile picture has a relationship with Documents entity. The Documents entity allows you to add files onto each client profile. The attributes of add file are compressed folder, document and Photo. Both Referrals and Other do not have actions or attributes. Case management entity on the other hand has an add case note action and the attributes are case notes, client, case manager, and Date.
 
 **7.2.2.1 Client Profile CSU Description**
 
@@ -237,6 +237,7 @@ Description: Table matching activities to drop in sessions
 
 Attributes: id, drop_in_id, activity_id, room, comments, start_time, end_time
 
+<<<<<<< Updated upstream
 	
 **7.3.19 Enrollment CSU Description**
 
@@ -244,6 +245,9 @@ Description:Table containing a referenced client’s substance abuse history ind
 
 Attributes: id, drop_in_activity_id, client_id
 
+=======
+**7.3.7 Match_drop_in_client CSU Description**
+>>>>>>> Stashed changes
 
 **7.3.20 Check_in CSU Description**
 
@@ -256,6 +260,7 @@ Attributes: id, drop_in_id, client_id
 		
 Description: Table containing user account settings
 
+<<<<<<< Updated upstream
 Attributes: id, username, hashed_password
 
 
@@ -308,6 +313,8 @@ Description: Table containing monthly statistics data
 Attributes: id, month, year, unduplicated_youth, total_youth
 
 
+=======
+>>>>>>> Stashed changes
 **7.4 Detailed Interface Description**
 
 **7.4.1 Socket CSC Description**
