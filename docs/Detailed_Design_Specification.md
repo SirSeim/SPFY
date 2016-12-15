@@ -7,21 +7,23 @@ This document presents a detailed description of the software for the Safe Place
 **7.2 Detailed Design Description**
 
 **7.2.1 Frontdesk Page CSC Description**
-What are we supposed to put inside this section?
-This -> “• A class diagram showing the different classes, including some (but not all) of the major methods and class fields
-A sequence diagram or an activity diagram showing processing flow between the parts; possibly multiple sequence diagrams would be needed to show different operations
-A state diagram showing the various states of this CSC and the events which cause the transition between the states”
+The front desk homepgage js file (frontdesk.js) initializes and refreshes the page based on user activity in real time. User activity includes checking clients in, adding them to activities, searching for client profiles, creating a new drop-in or viewing old ones. The functionality is implemented to include the following functions: setupFrontDesk, setUpClientsForCheckin, refreshCheckinTable, setupCheckin, updateAddActivities.
+- setupFrontDesk
+- setUpClientsForCheckin
+- refreshCheckinTable
+-setupCheckin
+-updateAddActivities
+
 
 **7.2.1.1 Client Profile Table CSU Description**
 
-Description: Module that implements the functionality for displaying the client profiles as separate rows in a table.Each row displays a client profile’s status color, first name, and last name. A search bar is used to filter client profiles based on first and last name.
-Attributes: Runs table component, populates table, handles search
+The client profile table js file (clientprofiletable.js) is a component of the front desk homepage that focuses on the table of clients who are available to be added to the checkin. It can be searched, and clients can be selected to be checked into the drop in for the day. Functionalities include setupClientProfileTable, and the rest of it's functionality is in main.js, which populates the table rows with correctly parsed data. 
+-setUpClientProfileTable
 
 			
-**7.2.1.2 Activity Table CSU Description**
+**7.2.1.2 Add Activity Table CSU Description**
 			
-Description: Module that implements the functionality for displaying the client profiles associated with this activity as separate rows in a table. This module builds and populates each activity table component that appears on the frontend and handles its search, display, and edit functionality.
-Attributes: populates table
+The Add Activity button on the front desk homepage allows the user to add activities to a current dropin. 
 
 
 **7.2.1.3 Checkin CSU Description**
