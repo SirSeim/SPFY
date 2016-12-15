@@ -170,8 +170,8 @@ each segment.
 
 **Initialize Webpage**
 
-Navigate to [*www.SPFY.org*](http://www.spfy.org) and the home page
-displays a simple logo. By scrolling down, text prompts, “What would you
+Navigate to [*http://spfy-test.herokuapp.com/*](http://spfy-test.herokuapp.com/). 
+By scrolling down, text prompts, “What would you
 like to do?” From here, there are four options that will navigate to
 different locations and that satisfy different use cases. The five
 include:
