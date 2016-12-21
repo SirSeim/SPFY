@@ -9,6 +9,7 @@
           <li class="account link selected"><a href="#account-settings">Account</a></li>
           <li class="notifications link"><a href="#notifications-settings">Notifications</a></li>
           <li class="client-profile link"><a href="#client-profile-settings">Client Profiles</a></li>
+          <li class="create-activity link"><a href="#create-new-activity">Create New Activity</a></li>
           <li class="import-data link"><a href="#import-data-settings">Import Data</a></li>
         </ul>
       </nav>
@@ -64,8 +65,8 @@
 
         <div id="create-new-activity" class="hidden">
           <div id="create-activity">
-            <div class="panel panel-default">
-              <div class="panel-heading">
+            <div class="card">
+              <div class="card-header">
                 <h4>
                   Create New Activity
                 </h4>
@@ -180,5 +181,6 @@
     <script type="text/babel" src="/static/js/settings.js"></script>
     <script src="/static/js/modals/newstatus.js"></script>
     <script src="/static/js/modals/newflag.js"></script>
+    <script src="/static/js/createnewactivity.js"></script>
   
     {% include "components/_footer.html" %}

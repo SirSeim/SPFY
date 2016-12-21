@@ -161,56 +161,6 @@ INSERT INTO client (first_name, last_name, intake_date, phone_number, email, dat
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Tricia','Goodman', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Mona','Adkins', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
 INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Brooke','Burke', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Denise', 'Murray', '86-(523)692-1546', 'dmurray0@about.me');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Rachel', 'Gilbert', '46-(740)377-6341', 'rgilbert1@hugedomains.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Robin', 'Hunter', '502-(174)772-7994', 'rhunter2@guardian.co.uk');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Lori', 'Robertson', '86-(324)192-6790', 'lrobertson3@prnewswire.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Alan', 'Robertson', '52-(754)481-8438', 'arobertson4@psu.edu');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Elizabeth', 'Fernandez', '48-(856)706-6495', 'efernandez5@answers.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Gloria', 'Collins', '86-(160)168-5620', 'gcollins6@alibaba.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Tammy', 'Martinez', '48-(375)159-8391', 'tmartinez7@salon.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Melissa', 'Gardner', '86-(834)324-6945', 'mgardner8@admin.ch');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Gary', 'Ryan', '1-(214)807-7365', 'gryan9@sitemeter.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Pamela', 'Larson', '237-(481)313-6433', 'plarsona@domainmarket.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Joyce', 'Coleman', '63-(555)415-3244', 'jcolemanb@hp.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Sara', 'Lane', '374-(896)669-3429', 'slanec@amazon.co.jp');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Harry', 'Weaver', '86-(249)386-8910', 'hweaverd@opensource.org');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Clarence', 'Robinson', '86-(777)418-7706', 'crobinsone@trellian.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Kathy', 'Romero', '63-(168)296-2150', 'kromerof@nydailynews.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('James', 'Griffin', '48-(480)519-7429', 'jgriffing@home.pl');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Harold', 'Howell', '86-(768)732-1141', 'hhowellh@lycos.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Roger', 'Woods', '86-(700)233-8617', 'rwoodsi@nih.gov');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Bruce', 'Ward', '57-(742)586-6300', 'bwardj@arizona.edu');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Lawrence', 'Howell', '260-(529)571-0675', 'lhowellk@techcrunch.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Brenda', 'Daniels', '86-(457)552-6674', 'bdanielsl@cbslocal.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Amy', 'George', '263-(147)740-8802', 'ageorgem@hhs.gov');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Ryan', 'Butler', '1-(358)814-7633', 'rbutlern@nifty.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Scott', 'Reyes', '63-(792)516-3994', 'sreyeso@utexas.edu');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Brandon', 'Richardson', '86-(718)263-4431', 'brichardsonp@ask.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Kelly', 'Rice', '86-(108)628-4246', 'kriceq@goo.ne.jp');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Daniel', 'Wood', '7-(826)647-9002', 'dwoodr@craigslist.org');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Randy', 'Black', '352-(795)989-9773', 'rblacks@mozilla.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Cheryl', 'Duncan', '86-(170)592-2261', 'cduncant@creativecommons.org');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Heather', 'Mills', '55-(128)105-9659', 'hmillsu@wired.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Cynthia', 'Spencer', '351-(871)212-0243', 'cspencerv@a8.net');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Elizabeth', 'Gray', '86-(933)812-0903', 'egrayw@xing.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Debra', 'Cunningham', '994-(131)747-2270', 'dcunninghamx@narod.ru');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Rose', 'Gordon', '48-(598)631-6321', 'rgordony@ftc.gov');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Joan', 'Warren', '880-(887)795-6084', 'jwarrenz@cbsnews.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Jerry', 'Ward', '86-(290)780-5607', 'jward10@hostgator.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Elizabeth', 'Russell', '63-(756)320-8854', 'erussell11@theatlantic.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Carl', 'Fields', '504-(799)527-6399', 'cfields12@fastcompany.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Jessica', 'Hayes', '55-(394)302-1733', 'jhayes13@bbc.co.uk');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Gary', 'Watkins', '86-(628)437-1501', 'gwatkins14@myspace.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Brandon', 'Mccoy', '81-(959)302-7042', 'bmccoy15@youtu.be');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Gregory', 'Little', '86-(562)778-1651', 'glittle16@elpais.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('James', 'Medina', '86-(618)890-8191', 'jmedina17@bravesites.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Beverly', 'Sims', '86-(198)266-3754', 'bsims18@taobao.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Carl', 'Ferguson', '351-(982)574-0612', 'cferguson19@jiathis.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Steve', 'Gibson', '86-(529)571-7032', 'sgibson1a@cloudflare.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Kathleen', 'Howard', '86-(455)924-4806', 'khoward1b@symantec.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Aaron', 'Sanders', '86-(979)117-0383', 'asanders1c@examiner.com');
-INSERT INTO client (first_name, last_name, phone_number, email) VALUES ('Nicole', 'Harvey', '33-(233)240-4243', 'nharvey1d@flickr.com');
 
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'asdfaf');
@@ -260,7 +210,11 @@ CREATE TABLE status (
 );
 
 -- INSERT INTO status (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+<<<<<<< HEAD
 INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+=======
+INSERT INTO status (client_id, type, message, note) VALUES (1, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.');
+>>>>>>> master
 INSERT INTO status (client_id, type, message, note) VALUES (1, 2, '3:30 PM', '(name) checked in at (client_id, time, day)');
 INSERT INTO status (client_id, type, message, note) VALUES (1, 3, '10 days', 'Timed out for (doing such and such).');
 INSERT INTO status (client_id, type, message, note) VALUES (1, 4, '26 yrs old', '(name) is now older than 25.');
@@ -268,6 +222,7 @@ INSERT INTO status (client_id, type, message, note) VALUES (1, 5, 'enrolled', '(
 INSERT INTO status (client_id, type, message, note) VALUES (1, 6, 'enrolled', '(name) is enrolled in Case Management.');
 
 -- DROP TABLE IF EXISTS profile_status;
+<<<<<<< HEAD
 
 -- CREATE TABLE profile_status (
 --   id SERIAL PRIMARY KEY,
@@ -275,6 +230,15 @@ INSERT INTO status (client_id, type, message, note) VALUES (1, 6, 'enrolled', '(
 --   status_id integer REFERENCES status (id)
 -- );
 
+=======
+
+-- CREATE TABLE profile_status (
+--   id SERIAL PRIMARY KEY,
+--   client_id integer REFERENCES client (id),
+--   status_id integer REFERENCES status (id)
+-- );
+
+>>>>>>> master
 -- INSERT INTO profile_status (client_id, status_id) VALUES (1, 1);
 -- INSERT INTO profile_status (client_id, status_id) VALUES (1, 3);
 -- INSERT INTO profile_status (client_id, status_id) VALUES (1, 5);
