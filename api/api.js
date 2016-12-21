@@ -785,12 +785,12 @@ var api = {
         });
     },
 
-    editStatus: function (request, reply) {
-        Service.editStatus(request.postgres, request.params.flagID, request.payload, function (err, result) {
+    editStatusType: function (request, reply) {
+        Service.editStatusType(request.postgres, request.params.statustypeID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEditStatus(reply, err);
+                Respond.failedToEditStatusType(reply, err);
             } else {
-                Respond.editStatus(reply, result);
+                Respond.editStatusType(reply, result);
             }
         });
     },

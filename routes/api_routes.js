@@ -240,8 +240,8 @@ var apiRoutes = [
     },
     {
         method: 'PUT',
-        path: '/statuses/{statusID}',
-        handler: Api.editStatus
+        path: '/statuses/types/{statustypeID}',
+        handler: Api.editStatusType
     },
     {
         method: 'GET',

@@ -6,7 +6,6 @@ $(function () {
         var clients = JSON.parse(window.sessionStorage.clients);
 
         var populateModal = function () {
-<<<<<<< HEAD:static/js/modals/viewclient_modal.js
             // will work to reduce ajax calls
 
             // ** statuses
@@ -78,9 +77,8 @@ $(function () {
 
             // ** enrollment
 
-=======
             $('#checkin-checkbox').prop('checked', true);
->>>>>>> master:static/js/modals/viewclient.js
+            
             $.ajax({
                 xhrFields: {
                     withCredentials: true

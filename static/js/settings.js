@@ -6,7 +6,7 @@ $(function () {
         var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
         var statuses = JSON.parse(window.sessionStorage.statuses);
         // var flags = JSON.parse(window.sessionStorage.flags);
-        var types = JSON.parse(window.sessionStorage.notificationTypes);
+        var notificationTypes = JSON.parse(window.sessionStorage.notificationTypes);
 
         var editButton = '<button type="button" class="btn btn-secondary edit">Edit</button>';
         var colorString = '';
@@ -120,7 +120,7 @@ $(function () {
         
         // --------------------- Notifications --------------------------
         
-        types.forEach(function (type) { 
+        notificationTypes.forEach(function (type) { 
             $('#status-notifications-table tbody').append(
                             '<tr><td>' + type.name + '</td>' + 
                             '<td><input data-name="' + type.name + '" type="checkbox" name="settings-checkbox" checked></td>' +
@@ -285,14 +285,21 @@ $(function () {
         //     note: '(name) is Tier 2 for showers this week. Will reset on a weekly basis.'
         // };
 
+        /*
+            TODO:
+            -edit
+            -cancel edit
+            -submit
+        */
+
         statuses.forEach(function (status) {
             var statusType = window.getDataById(statusTypes, status.type);
             console.log(statusType);
             $('#statuses-table tbody').append(
-                '<tr ' + status.id + '">' +
+                '<tr data-id="' + status.type + '">' +
                 '<td class="color-column col" data-color="' + statusType.color + '" data-newcolor=""><button type="button" class="btn btn-primary status"><span class="badge"></span></button></td>' +
                 '<td class="type-column col" data-type="' + statusType.name + '">' + statusType.name + '</td>' +
-                '<td class="message-column col" data-message="' + status.message + '">' + status.message + '</td>' +
+                '<td class="message-column col" data-message="' + status.message + '">' + status.message + '</td>' + // change these to defaults
                 '<td class="note-column col" data-note="' + status.note + '">' + status.note + '</td>' +
                 '<td class="col-sm-3">' + editButton + '</td></tr>');
             $('#statuses-table tbody .btn.btn-primary.status:last').css("background-image", 'none');
@@ -346,12 +353,12 @@ $(function () {
                 console.log(newColor);
                 var data = {
                     color: newColor ? newColor : $(event.target).parents('tr').find('.color-column').data("color"),
-                    type: $('#edit-type').val() ? $('#edit-type').val() : $('#edit-type').parent().data("type"),
+                    typeName: $('#edit-type').val() ? $('#edit-type').val() : $('#edit-type').parent().data("type"),
                     message: $('#edit-message').val() ? $('#edit-message').val() : $('#edit-message').parent().data("message"),
                     note: $('#edit-note').val() ? $('#edit-note').val() : $('#edit-note').parent().data("note")
                 };
 
-                if (data.color && data.type && data.message && data.note) {
+                if (data.color && data.typeName && data.message && data.note) {
                     console.log("inside");
                     $.ajax({
                         xhrFields: {
@@ -360,15 +367,16 @@ $(function () {
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                         },
-                        url: 'api/statuses/' + $(event.target).parents('tr').data("id"),
+                        url: 'api/statuses/types/' + $(event.target).parents('tr').data("id"),
                         method: 'PUT',
                         data: data,
                         success: function (data) {
                             console.log(data);
                             var color = data.result[0].color;
-                            var type = data.result[0].type;
-                            var message = data.result[0].message;
-                            var note = data.result[0].note;
+                            var typeName = data.result[0].name;
+                            var typeSettings = data.result[0].settings;
+                            var message = typeSettings.defaults.message;
+                            var note = typeSettings.defaults.note;
 
                             var columns = $(event.target).parent().siblings();
                             var colorcol = $(columns).parent().find('.color-column');
@@ -386,14 +394,14 @@ $(function () {
                             // perhaps React will solve this in the future since it does update the DOM
                             $(event.target).parents('tr').data("id", data.result[0].id);
                             $(colorcol).data("color", color);
-                            $(typecol).data("type", type);
+                            $(typecol).data("type", typeName);
                             $(messagecol).data("message", message);
                             $(notecol).data("note", note);
 
                             $(colorcol).empty().html('<button type="button" class="btn btn-primary status"><span class="badge"></span></button>');
                             $(colorcol).children('.btn.btn-primary.status').css("background-image", 'none');
                             $(colorcol).children('.btn.btn-primary.status').css("background-color", color);
-                            $(typecol).empty().html(type);
+                            $(typecol).empty().html(typeName);
                             $(messagecol).empty().html(message);
                             $(notecol).empty().html(note);
                             $(event.target).parent().replaceWith('<td>' + editButton + '</td>');

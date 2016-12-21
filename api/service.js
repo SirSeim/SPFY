@@ -899,8 +899,8 @@ var service = {
         });
     },
 
-    editStatus: function (postgres, statusID, payload, callback) {
-        Query.editStatus(postgres, statusID, payload, function (err, result) {
+    editStatusType: function (postgres, statustypeID, payload, callback) {
+        Query.editStatusType(postgres, statustypeID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -912,10 +912,9 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
-                    type: local.type,
+                    name: local.name,
                     color: local.color,
-                    message: local.message,
-                    note: local.note
+                    settings: local.settings
                 });
             }
             callback(undefined, arr);

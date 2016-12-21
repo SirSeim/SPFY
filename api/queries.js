@@ -932,15 +932,28 @@ var queries = {
         return queryString;
     },
 
-    editStatus: function (statusID, payload) {
+    editStatusType: function (statustypeID, payload) {
         // just updating all of them for now?
-        var queryString = 'UPDATE status SET ' +
-                            'type = \'' + payload.type + '\', ' +
-                            'message = \'' + payload.message + '\', ' +
+        var settings = { 
+            defaults: { 
+                message: payload.message, 
+                note: payload.note 
+            }, 
+            available: { 
+                dot: true, 
+                alert: true 
+            } 
+        };
+
+        var queryString = 'UPDATE status_type SET ' +
+                            'name = \'' + payload.typeName + '\', ' +
                             'color = \'' + payload.color + '\', ' +
-                            'note = \'' + payload.note + '\' ' +
-                            'WHERE id = ' + statusID +
-                            ' RETURNING id, type, message, color, note;';
+                            'settings = \'' + JSON.stringify(settings) + '\' ' +
+                            // 'message = \'' + payload.message + '\', ' +
+                            // 'note = \'' + payload.note + '\' ' +
+                            'WHERE id = ' + statustypeID +
+                            // ' RETURNING id, type, message, color, note;';
+                            ' RETURNING id, name, color, settings;';
         return queryString;
     },
 

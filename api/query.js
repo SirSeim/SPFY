@@ -976,14 +976,14 @@ var query = {
         });
     },
 
-    editStatus: function (postgres, statusID, payload, callback) {
+    editStatusType: function (postgres, statustypeID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            // var data = Queries.editStatus(StatusID);
+            // var data = Queries.editStatusType(StatustypeID);
             // // unstringify the data passed in
-            client.query(Queries.editStatus(statusID, payload), function (err, result) {
+            client.query(Queries.editStatusType(statustypeID, payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
