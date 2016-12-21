@@ -189,7 +189,7 @@ CREATE TABLE status_type (
   id SERIAL PRIMARY KEY,
   name varchar(45) DEFAULT NULL,
   color varchar(45) DEFAULT NULL,
-  settings jsonb DEFAULT NULL
+  settings jsonb DEFAULT NULL -- trying this out for now
 );
 
 INSERT INTO status_type (name, color, settings) VALUES ('Follow-Up', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note" }, "available": { "dot": true, "alert": true } }');
