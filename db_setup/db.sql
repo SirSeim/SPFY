@@ -218,6 +218,27 @@ INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 4, '26 
 INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
 INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
 
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
 -- DROP TABLE IF EXISTS profile_status;
 
 -- CREATE TABLE profile_status (
