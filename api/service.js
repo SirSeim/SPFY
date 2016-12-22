@@ -881,10 +881,11 @@ var service = {
                 var local = result.rows[i];
                 arr.push({
                     id: local.id,
+                    clientID: local.client_id,
                     type: local.type,
-                    color: local.color,
                     message: local.message,
-                    note: local.note
+                    note: local.note,
+                    settings: local.settings
                 });
             }
             callback(undefined, arr);

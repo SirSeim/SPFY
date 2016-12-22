@@ -917,7 +917,7 @@ var queries = {
     },
 
     getStatuses: function () {
-        var queryString = 'SELECT id, type, message, note FROM status;';
+        var queryString = 'SELECT id, client_id, type, message, note, settings FROM status;';
 
         return queryString;
     },
