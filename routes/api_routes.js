@@ -250,7 +250,7 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/clients/{clientID}/statuses/{statusID}',
+        path: '/clients/{clientID}/statuses',
         handler: Api.setClientStatus
     },
     // {

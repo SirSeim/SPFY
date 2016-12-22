@@ -294,7 +294,6 @@ $(function () {
 
         statuses.forEach(function (status) {
             var statusType = window.getDataById(statusTypes, status.type);
-            console.log(statusType);
             $('#statuses-table tbody').append(
                 '<tr data-id="' + status.type + '">' +
                 '<td class="color-column col" data-color="' + statusType.color + '" data-newcolor=""><button type="button" class="btn btn-primary status"><span class="badge"></span></button></td>' +
@@ -325,7 +324,6 @@ $(function () {
             $('#edit-color').spectrum({
                     color: $('#edit-color').parent().data('color'),
                     change: function(color) {
-                        console.log("change called: " + color.toHexString());
                         $(colorcol).data("newcolor", color.toHexString());
                     }
                 });
@@ -348,9 +346,7 @@ $(function () {
                 // all fields (columns), still trying to figure out how to only
                 // update arbitrary selected columns if it is possible
 
-                console.log($(event.target).parents('tr').find('.color-column').data("newcolor"));
                 var newColor = $(event.target).parents('tr').find('.color-column').data("newcolor");
-                console.log(newColor);
                 var data = {
                     color: newColor ? newColor : $(event.target).parents('tr').find('.color-column').data("color"),
                     typeName: $('#edit-type').val() ? $('#edit-type').val() : $('#edit-type').parent().data("type"),
@@ -359,7 +355,6 @@ $(function () {
                 };
 
                 if (data.color && data.typeName && data.message && data.note) {
-                    console.log("inside");
                     $.ajax({
                         xhrFields: {
                             withCredentials: true

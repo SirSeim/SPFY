@@ -1,7 +1,7 @@
 $(function () {
     
     var setupSetStatusModal = function () {
-        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
 
         // TODO 
         // give users ability to customize notifications when setting a status
@@ -14,15 +14,18 @@ $(function () {
         // that said, there should be a panel listing the alerts
         // that are already associated with that particular status
 
-        $('#setstatus-modal-alert').change(function (event) {
-            if ($(this).is(':checked')) {
-                
-            }
-        });
+        // $('#setstatus-modal-dot').change(function (event) {
+        //     if ($(this).is(':checked')) {
 
-        statuses.forEach(function (status, index) {
-            $('#status-select').append('<option ' + window.dataString(status) + ' value="' + index + '">' + 
-                                        status.type + '</option>');
+        //     }
+        // });
+
+        statusTypes.forEach(function (statustype, index) {
+            console.log(statustype);
+            $('#status-select').append('<option ' + window.dataString(statustype) + ' value="' + index + '">' + 
+                                        statustype.name + '</option>');
+            $('[name="edit-message"]').val(statustype.settings.defaults.message);
+            $('[name="edit-note"]').val(statustype.settings.defaults.note);
         });
 
         $('#status-select').change(function (event) {
@@ -30,7 +33,43 @@ $(function () {
         });
 
         $('#setstatus-submit-button').click(function (event) {
-            var status = $('#status-select option:selected');
+            var statustype = $('#status-select option:selected');
+            var settings = statustype.data("settings").defaults; // admin sets defaults for statustypes
+            if ($(this).is(':checked')) {
+                settings.dot = true;
+            } else {
+                settings.dot = false; // dot property might not be in defaults
+            }
+            var data = {
+                typeID: statustype.data("id"),
+                message: $('[name="edit-message"]').val(),
+                note: $('[name="edit-note"]').val(),
+                settings: JSON.stringify(settings)
+            };
+
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/clients/" +  $('#client-id')['0'].textContent + "/statuses",
+                method: "POST",
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                $('#setstatus-modal').modal('toggle');
+            });
 
             // hardcoding this for now
             // var data = {
@@ -67,7 +106,7 @@ $(function () {
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.statusTypes);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");

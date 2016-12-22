@@ -18,7 +18,11 @@ $(function () {
     window.dataString = function (data) {
         var dataString = "";
         for (var property in data) {
-            dataString += 'data-' + property + '="' + data[property] + '" ';
+            if (typeof data[property] === 'object') {
+                dataString += 'data-' + property + '=\'' + JSON.stringify(data[property]) + '\' '; // bug when using double quotes \"
+            } else {
+                dataString += 'data-' + property + '=\"' + data[property] + '\" ';
+            }
         }
         return dataString;
     };

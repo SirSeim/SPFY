@@ -860,7 +860,8 @@ var service = {
                 arr.push({
                     id: local.id,
                     name: local.name,
-                    color: local.color
+                    color: local.color,
+                    settings: local.settings
                 });
             }
             callback(undefined, arr);

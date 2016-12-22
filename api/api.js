@@ -806,7 +806,6 @@ var api = {
     },
     setClientStatus: function (request, reply) {
         request.payload.clientID = request.params.clientID;
-        request.payload.typeID = request.params.statusID;
         Service.setClientStatus(request.postgres, request.payload, function (err, result) {
             if (err) {
                 Respond.failedToSetClientStatus(reply, err);

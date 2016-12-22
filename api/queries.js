@@ -911,7 +911,7 @@ var queries = {
     // ** 
 
     getStatusTypes: function () {
-        var queryString = 'SELECT id, name, color FROM status_type;';
+        var queryString = 'SELECT id, name, color, settings FROM status_type;';
 
         return queryString;
     },
@@ -938,11 +938,7 @@ var queries = {
             defaults: { 
                 message: payload.message, 
                 note: payload.note 
-            }, 
-            available: { 
-                dot: true, 
-                alert: true 
-            } 
+            }
         };
 
         var queryString = 'UPDATE status_type SET ' +
@@ -964,10 +960,11 @@ var queries = {
     },
 
     setClientStatus: function (payload) {
-        var queryString = 'INSERT INTO status (client_id, type, message, note) VALUES(' +
+        console.log(payload);
+        var queryString = 'INSERT INTO status (client_id, type, message, note, settings) VALUES (' +
                             payload.clientID + ', ' + payload.typeID + ', ' +
-                            payload.message + ', ' + payload.note + ');';
-
+                            '\'' + payload.message + '\', \'' + payload.note + '\', \'' + payload.settings + '\');';
+        console.log(queryString);
         return queryString;
     },
 
