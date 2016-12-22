@@ -235,8 +235,8 @@ var apiRoutes = [
     },
     {
         method: 'POST',
-        path: '/statuses',
-        handler: Api.createStatus
+        path: '/statuses/types',
+        handler: Api.createStatusType
     },
     {
         method: 'PUT',

@@ -18,21 +18,26 @@ $(function () {
         localStorageKey: 'spectrum.colors'
     });
 
-    $('#status-submit-button').click(function (event) {
+    $('#newstatus-submit-button').click(function (event) {
         // var data = {
         //     name: $('#status-name').val(),
         //     color: colorString
         // };
 
+        var settings = {
+            defaults: {
+                message: $('#status-message').val() ? $('#status-message').val() : 'default message',
+                note: $('#status-note').val() ? $('#status-note').val() : 'default note'
+            }
+        };
         var data = {
+            name: $('#status-name').val() ? $('#status-name').val() : '[status name]',
             color: colorString,
-            type: $('#status-type').val() ? $('#status-type').val() : '[status type]',
-            message: $('#status-message').val() ? $('#status-message').val() : '[status message]',
-            note: $('#status-note').val() ? $('#status-note').val() : '[status note]'
+            settings: JSON.stringify(settings)
         };
 
         // if (data.name && data.color) {
-        if (data.color && data.type && data.message && data.note) {
+        if (data.name && data.color && data.settings) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -40,7 +45,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: 'api/statuses',
+                url: 'api/statuses/types',
                 method: 'POST',
                 data: data,
                 success: function (data) {

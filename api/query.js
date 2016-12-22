@@ -959,12 +959,12 @@ var query = {
         });
     },
 
-    createStatus: function (postgres, payload, callback) {
+    createStatusType: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.createStatus(payload), function (err, result) {
+            client.query(Queries.createStatusType(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {

@@ -64,9 +64,6 @@ $(function () {
         $('#update-button').click(function (event) {
             event.preventDefault();
             var status = $('#status');
-            console.log($('#current-password').val());
-            console.log($('#new-password').val());
-            console.log($('#confirm-new-password').val());
 
             var data = {
                 password: $('#current-password').val(),
@@ -292,17 +289,18 @@ $(function () {
             -submit
         */
 
-        statuses.forEach(function (status) {
-            var statusType = window.getDataById(statusTypes, status.type);
+        statusTypes.forEach(function (statustype) {
+            var message = statustype.settings.defaults.message;
+            var note = statustype.settings.defaults.note;
             $('#statuses-table tbody').append(
-                '<tr data-id="' + status.type + '">' +
-                '<td class="color-column col" data-color="' + statusType.color + '" data-newcolor=""><button type="button" class="btn btn-primary status"><span class="badge"></span></button></td>' +
-                '<td class="type-column col" data-type="' + statusType.name + '">' + statusType.name + '</td>' +
-                '<td class="message-column col" data-message="' + status.message + '">' + status.message + '</td>' + // change these to defaults
-                '<td class="note-column col" data-note="' + status.note + '">' + status.note + '</td>' +
+                '<tr data-id="' + statustype.id + '">' +
+                '<td class="color-column col" data-color="' + statustype.color + '" data-newcolor=""><button type="button" class="btn btn-primary statustype"><span class="badge"></span></button></td>' +
+                '<td class="type-column col" data-type="' + statustype.name + '">' + statustype.name + '</td>' +
+                '<td class="message-column col" data-message="' + message + '">' + message + '</td>' + // change these to defaults
+                '<td class="note-column col" data-note="' + note + '">' + note + '</td>' +
                 '<td class="col-sm-3">' + editButton + '</td></tr>');
-            $('#statuses-table tbody .btn.btn-primary.status:last').css("background-image", 'none');
-            $('#statuses-table tbody .btn.btn-primary.status:last').css("background-color", statusType.color);
+            $('#statuses-table tbody .btn.btn-primary.statustype:last').css("background-image", 'none');
+            $('#statuses-table tbody .btn.btn-primary.statustype:last').css("background-color", statustype.color);
         });
             
         // according to stackoverflow, use delegate for elements that change frequently

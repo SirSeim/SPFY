@@ -806,17 +806,17 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToCreateStatus: function (reply, err) {
+    failedToCreateStatusType: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to create status!",
+            message: "Unable to create status type!",
             error: err,
         }).code(500);
     },
-    createStatus: function (reply, result) {
+    createStatusType: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success creating status!",
+            message: "Success creating status type!",
             result: result
         }).code(200);
     },

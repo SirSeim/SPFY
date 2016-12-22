@@ -922,12 +922,11 @@ var queries = {
         return queryString;
     },
 
-    createStatus: function (payload) {
-        var queryString = 'INSERT INTO status (type, message, color, note) VALUES (\'' +
-                            payload.type + '\', \'' +
-                            payload.message + '\', \'' +
+    createStatusType: function (payload) {
+        var queryString = 'INSERT INTO status_type (name, color, settings) VALUES (\'' +
+                            payload.name + '\', \'' +
                             payload.color + '\', \'' +
-                            payload.note + '\' ) RETURNING id, type, message, color, note;';
+                            payload.settings + '\' ) RETURNING id, name, color, settings;';
 
         return queryString;
     },

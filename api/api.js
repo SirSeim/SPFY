@@ -775,12 +775,12 @@ var api = {
         });
     },
 
-    createStatus: function (request, reply) {
-        Service.createStatus(request.postgres, request.payload, function (err, result) {
+    createStatusType: function (request, reply) {
+        Service.createStatusType(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateStatus(reply, err);
+                Respond.failedToCreateStatusType(reply, err);
             } else {
-                Respond.createStatus(reply, result);
+                Respond.createStatusType(reply, result);
             }
         });
     },

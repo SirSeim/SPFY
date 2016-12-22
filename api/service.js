@@ -891,8 +891,8 @@ var service = {
         });
     },
 
-    createStatus: function (postgres, payload, callback) {
-        Query.createStatus(postgres, payload, function (err, result) {
+    createStatusType: function (postgres, payload, callback) {
+        Query.createStatusType(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
