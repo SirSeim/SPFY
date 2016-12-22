@@ -27,7 +27,8 @@ $(function () {
         var settings = {
             defaults: {
                 message: $('#status-message').val() ? $('#status-message').val() : 'default message',
-                note: $('#status-note').val() ? $('#status-note').val() : 'default note'
+                note: $('#status-note').val() ? $('#status-note').val() : 'default note',
+                dot: $('#defaultstatus-dot').prop('checked')
             }
         };
         var data = {

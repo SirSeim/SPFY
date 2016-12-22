@@ -20,27 +20,38 @@ $(function () {
             console.log(statustype);
             $('#status-select').append('<option ' + window.dataString(statustype) + ' value="' + index + '">' + 
                                         statustype.name + '</option>');
-            $('[name="edit-message"]').val(statustype.settings.defaults.message);
-            $('[name="edit-note"]').val(statustype.settings.defaults.note);
         });
 
-        var defaultsettings = $('#status-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
-        if (defaultsettings.dot) {
-            $('#setstatus-modal-dot').prop('checked', true);
-        }
+        var firstOption = function () {
+            var defaults = $('#status-select option:selected').data("settings").defaults;
+            $('[name="edit-message"]').val(defaults.message);
+            $('[name="edit-note"]').val(defaults.note);
+            if (defaults.dot) {
+                $('#setstatus-modal-dot').prop('checked', true);
+            }
+        };
+
+        firstOption();
 
         $('#status-select').change(function (event) {
-            // ajax call here maybe?
+            var defaults = $('#status-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
+            $('[name="edit-message"]').val(defaults.message);
+            $('[name="edit-note"]').val(defaults.note);
+            if (defaults.dot) {
+                $('#setstatus-modal-dot').prop('checked', true);
+            } else {
+                $('#setstatus-modal-dot').prop('checked', false);
+            }
         });
 
         $('#setstatus-submit-button').click(function (event) {
             var statustype = $('#status-select option:selected');
-            var settings = statustype.data("settings").defaults; // admin sets defaults for statustypes
+            var settings = {};
 
             if ($('#setstatus-modal-dot').is(':checked')) {
                 settings.dot = true;
             } else {
-                settings.dot = false; // dot property might not be in defaults
+                settings.dot = false;
             }
 
             var data = {
