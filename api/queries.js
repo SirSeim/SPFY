@@ -962,8 +962,11 @@ var queries = {
     setClientStatus: function (payload) {
         console.log(payload);
         var queryString = 'INSERT INTO status (client_id, type, message, note, settings) VALUES (' +
-                            payload.clientID + ', ' + payload.typeID + ', ' +
-                            '\'' + payload.message + '\', \'' + payload.note + '\', \'' + payload.settings + '\');';
+                            payload.clientID + ', ' + 
+                            payload.typeID + ', ' +
+                            '\'' + payload.message + '\', \'' + 
+                            payload.note + '\', \'' + 
+                            payload.settings + '\') RETURNING id, client_id, type, message, note, settings;';
         console.log(queryString);
         return queryString;
     },

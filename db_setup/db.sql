@@ -192,12 +192,12 @@ CREATE TABLE status_type (
   settings jsonb DEFAULT NULL -- trying this out for now
 );
 
-INSERT INTO status_type (name, color, settings) VALUES ('Follow-Up', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
-INSERT INTO status_type (name, color, settings) VALUES ('Checked-In', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
-INSERT INTO status_type (name, color, settings) VALUES ('Timed-Out', 'red', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
-INSERT INTO status_type (name, color, settings) VALUES ('Aged-Out', 'yellow', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
-INSERT INTO status_type (name, color, settings) VALUES ('E&E', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
-INSERT INTO status_type (name, color, settings) VALUES ('CM', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }');
+INSERT INTO status_type (name, color, settings) VALUES ('Follow-Up', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Checked-In', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Timed-Out', 'red', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Aged-Out', 'yellow', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('E&E', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('CM', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
 
 DROP TABLE IF EXISTS status;
 

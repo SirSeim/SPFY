@@ -14,11 +14,7 @@ $(function () {
         // that said, there should be a panel listing the alerts
         // that are already associated with that particular status
 
-        // $('#setstatus-modal-dot').change(function (event) {
-        //     if ($(this).is(':checked')) {
-
-        //     }
-        // });
+        
 
         statusTypes.forEach(function (statustype, index) {
             console.log(statustype);
@@ -28,6 +24,11 @@ $(function () {
             $('[name="edit-note"]').val(statustype.settings.defaults.note);
         });
 
+        var defaultsettings = $('#status-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
+        if (defaultsettings.dot) {
+            $('#setstatus-modal-dot').prop('checked', true);
+        }
+
         $('#status-select').change(function (event) {
             // ajax call here maybe?
         });
@@ -35,11 +36,14 @@ $(function () {
         $('#setstatus-submit-button').click(function (event) {
             var statustype = $('#status-select option:selected');
             var settings = statustype.data("settings").defaults; // admin sets defaults for statustypes
-            if ($(this).is(':checked')) {
+
+            if ($('#setstatus-modal-dot').is(':checked')) {
+                alert("it is checked");
                 settings.dot = true;
             } else {
                 settings.dot = false; // dot property might not be in defaults
             }
+
             var data = {
                 typeID: statustype.data("id"),
                 message: $('[name="edit-message"]').val(),
