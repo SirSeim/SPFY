@@ -38,7 +38,6 @@ $(function () {
             var settings = statustype.data("settings").defaults; // admin sets defaults for statustypes
 
             if ($('#setstatus-modal-dot').is(':checked')) {
-                alert("it is checked");
                 settings.dot = true;
             } else {
                 settings.dot = false; // dot property might not be in defaults

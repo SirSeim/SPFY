@@ -9,6 +9,7 @@ $(function (event) {
         var clientMail;
         var clientLastMeeting;
         var clientCaseManager;
+        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
         var statuses = JSON.parse(window.sessionStorage.statuses);
         var client;
         var caseNoteID;
@@ -427,10 +428,13 @@ $(function (event) {
                 }).done(function (data) {
                     $('#client-statuses').empty();
                     data.result.rows.forEach(function (status) {
+                        var statustype = window.getDataById(statusTypes, status.type);
                         $('#client-statuses').append(
-                            '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-xs" type="button" data-toggle="popover" title="' +  status.type + '"' +
-                             'data-content="' + status.note + '">' + status.type + '<span class="badge">' + status.message + '</span>' +
+                            '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  statustype.name + '"' +
+                             'data-content="' + status.note + '">' + statustype.name + '<span class="badge">' + status.message + '</span>' +
                              '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                        console.log($('#client-statuses li:last .badge-button'));
+                        $('#client-statuses li:last .badge-button').css('background-color', statustype.color);
                     });
                     // $('.badge-button').popover({ container: 'body' });
                     // $('.badge-button').click(function (event) {
@@ -438,7 +442,7 @@ $(function (event) {
                     //     event.stopPropagation();
                     // });
                     $('#client-statuses li a.status-edit').click(function (event) {
-                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').data("type") + ' Status');
+                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Status');
                         $('#editstatus-modal').modal('toggle');
                         event.stopPropagation();
                     });
@@ -778,6 +782,7 @@ $(function (event) {
     };
 
     var globalData = [];
+    globalData.push(window.sessionStorage.statusTypes);
     globalData.push(window.sessionStorage.statuses);
     // globalData.push(window.sessionStorage.flags);
 

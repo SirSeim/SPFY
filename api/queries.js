@@ -954,7 +954,7 @@ var queries = {
     },
 
     getClientStatuses: function (clientID) {
-        var queryString = 'SELECT type, message, note FROM status WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT type, message, note, settings FROM status WHERE client_id = ' + clientID + ';';
 
         return queryString;
     },
