@@ -969,6 +969,29 @@ var service = {
             callback(undefined, result);
         });
     },
+    editClientStatus: function (postgres, payload, callback) {
+        Query.editClientStatus(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            if (!result.rows[0]) {
+                return callback();
+            }
+            // var arr = [];
+            // for (var i = 0; i < result.rows.length; i++) {
+            //     var local = result.rows[i];
+            //     arr.push({
+            //         id: local.id,
+            //         type: local.type,
+            //         color: local.color,
+            //         message: local.message,
+            //         note: local.note
+            //     });
+            // }
+            // callback(undefined, arr);
+            callback(undefined, result);
+        });
+    },
     uploadFile: function (postgres, payload, callback) {
         Query.uploadFile(postgres, payload, function (err, result) {
             if (err) {

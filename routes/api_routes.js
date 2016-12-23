@@ -253,6 +253,11 @@ var apiRoutes = [
         path: '/clients/{clientID}/statuses',
         handler: Api.setClientStatus
     },
+    {
+        method: 'PUT',
+        path: '/statuses',
+        handler: Api.editClientStatus
+    },
     // {
     //     method: 'GET',
     //     path: '/flags',

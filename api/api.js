@@ -814,6 +814,15 @@ var api = {
             }
         });
     },
+    editClientStatus: function (request, reply) {
+        Service.editClientStatus(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditClientStatus(reply, err);
+            } else {
+                Respond.editClientStatus(reply, result);
+            }
+        });
+    },
     getProfilePicture: function (request, reply) {
         Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
             if (err) {

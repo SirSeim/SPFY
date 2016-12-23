@@ -442,8 +442,13 @@ $(function (event) {
                     //     event.stopPropagation();
                     // });
                     $('#client-statuses li a.status-edit').click(function (event) {
-                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Status');
+                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Status')
+                        $('#editstatus-modal-data').data($(this).parents('button').data());
+                        var data = $('#editstatus-modal-data').data();
                         $('#editstatus-modal').modal('toggle');
+                        $('#editstatus-modal-dot').prop("checked", data.settings.dot);
+                        $('[name="edit-message"]').val(data.message);
+                        $('[name="edit-note"]').val(data.note);
                         event.stopPropagation();
                     });
                 });

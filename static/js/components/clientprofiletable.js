@@ -18,9 +18,6 @@ $(function (event) {
             statuses.forEach(function (status) {
                 if (client.id === status.clientID) {
                     if (status.settings && status.settings.dot) {
-                        console.log("inside");
-                        console.log(statusTypes);
-                        console.log(status);
                         var color = window.getDataById(statusTypes, status.type).color;
                         spans += '<span class="dot" data-status="' + status.id + '" data-color="' + color + '"></span>';
                     }
@@ -33,7 +30,6 @@ $(function (event) {
         // what if profiles don't come through?
         // need code for edge case
         $(table).children('tr').get().forEach(function (clientRow) {
-            console.log($(clientRow).find('.dot'));
             $(clientRow).find('.dot').get().forEach(function (dot) {
                 $(dot).css('background-color', $(dot).data("color"));
             });

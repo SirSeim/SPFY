@@ -24,8 +24,8 @@ $(function () {
 
         var firstOption = function () {
             var defaults = $('#status-select option:selected').data("settings").defaults;
-            $('[name="edit-message"]').val(defaults.message);
-            $('[name="edit-note"]').val(defaults.note);
+            $('[name="set-message"]').val(defaults.message);
+            $('[name="set-note"]').val(defaults.note);
             if (defaults.dot) {
                 $('#setstatus-modal-dot').prop('checked', true);
             }
@@ -35,8 +35,8 @@ $(function () {
 
         $('#status-select').change(function (event) {
             var defaults = $('#status-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
-            $('[name="edit-message"]').val(defaults.message);
-            $('[name="edit-note"]').val(defaults.note);
+            $('[name="set-message"]').val(defaults.message);
+            $('[name="set-note"]').val(defaults.note);
             if (defaults.dot) {
                 $('#setstatus-modal-dot').prop('checked', true);
             } else {
@@ -56,8 +56,8 @@ $(function () {
 
             var data = {
                 typeID: statustype.data("id"),
-                message: $('[name="edit-message"]').val(),
-                note: $('[name="edit-note"]').val(),
+                message: $('[name="set-message"]').val(),
+                note: $('[name="set-note"]').val(),
                 settings: JSON.stringify(settings)
             };
 

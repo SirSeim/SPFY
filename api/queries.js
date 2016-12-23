@@ -953,7 +953,7 @@ var queries = {
     },
 
     getClientStatuses: function (clientID) {
-        var queryString = 'SELECT type, message, note, settings FROM status WHERE client_id = ' + clientID + ';';
+        var queryString = 'SELECT id, type, message, note, settings FROM status WHERE client_id = ' + clientID + ';';
 
         return queryString;
     },
@@ -967,6 +967,16 @@ var queries = {
                             payload.note + '\', \'' + 
                             payload.settings + '\') RETURNING id, client_id, type, message, note, settings;';
         console.log(queryString);
+        return queryString;
+    },
+
+    editClientStatus: function (payload) {
+        var queryString = 'UPDATE status SET ' +
+                          'message = \'' + payload.message + '\', ' +
+                          'note = \'' + payload.note + '\', ' +
+                          'settings = \'' + payload.settings + '\' ' +
+                          'WHERE id = ' + payload.statusID + ' ' +
+                          'RETURNING id, client_id, type, message, note, settings;';
         return queryString;
     },
 

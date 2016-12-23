@@ -862,6 +862,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedToEditClientStatus: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit client status!",
+            error: err,
+        }).code(500);
+    },
+    editClientStatus: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Success editing client status!",
+            result: result
+        }).code(200);
+    },
     failedToUploadFile: function (reply, err) {
         reply({
             statusCode: 500,
