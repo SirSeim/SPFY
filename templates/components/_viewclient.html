@@ -18,6 +18,7 @@
 </ul>
 
 <div id="my-tab-content" class="tab-content">
+
   <div class="tab-pane active" id="client-info" role="tabpanel">
     <div class="row">
       <div class="col-lg-12">
@@ -86,22 +87,23 @@
         </table>
       </div>
     </div> <!-- info table -->
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="card">
+            <div class="card-header">
+              <h4>
+                Flags <button type="button" id="setflag-button" class="btn btn-secondary btn-sm" style="float: right;">Set Flag</button>
+              </h4>  
+            </div>                  
+            <ul class="list-group list-group-flush" id="client-flags">
+
+            </ul>
+          </div>
+        </div>
+      </div>
   </div> <!-- client-info tab -->
 
-  <div class="row">
-    <div class="col-sm-5">
-      <div class="card">
-        <div class="card-header">
-          <h4>
-            Flags <button type="button" id="setflag-button" class="btn btn-secondary btn-sm" style="float: right;">Set Flag</button>
-          </h4>  
-        </div>                  
-        <ul class="list-group list-group-flush" id="client-flags">
 
-        </ul>
-      </div>
-    </div>
-  </div>
 
   <div class="tab-pane" id="case-management" role="tabpanel">
       <h4 id="casenotes-title">
@@ -120,12 +122,11 @@
       <p id="viewcasenote-date">Date: </p>
       <p id="viewcasenote-category">Case Note Category: </p>
       <p id="viewcasenote-note">Note: </p>
-
     </div>
-
     {% include "modals/addcasenote.html" %} 
     {% include "modals/editcasenote.html" %}
-  </div>  
+  </div> <!-- CM tab -->
+
   <div class="tab-pane" id="caseplan">
     <h3 id="caseplan-title">
         Client's Case Plan
@@ -154,7 +155,8 @@
       </div>
     </div>
     <button type="button" id="submitplan" class="btn btn-primary">Submit</button>
-  </div>
+  </div> <!-- Caseplan tab -->
+
   <div class="tab-pane" id="documents" role="tabpanel">
     <h3>Client Documents <button id="add-file" class="btn btn-success" data-toggle="modal" data-target="#add-file-modal" style="float: right;">Add New File <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
     <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
@@ -186,34 +188,16 @@
     </div>
     <div id="files">
     </div>      
-  </div>
+  </div> <!-- Documents tab -->
 
-  <div class="tab-pane" id="documents" role="tabpanel">
-    <h3>Client Documents <button id="add-file" class="btn btn-outline-primary" data-toggle="modal" data-target="#add-file-modal" style="float: right;">Add New File</button></h3>
-    <div class="modal fade" id="add-file-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            Add File
-          </div>
-          <div class="modal-body">
-            <div id="base64" hidden>
-            </div>
-            <div class="row">
-              <input id="file" class="col-md-6" type="file" />
-              <label for="file-type" class="col-md-2">File Type:</label>
-              <select id="file-type" class="col-md-3">
-                <option value="profile_picture">Profile Picture</option>
-                <option value="document">Document</option>
-                <option value="photo">Photo</option>
-                <option value="compressed">Compressed Folder</option>
-              </select>
-            </div>
-            </br>
-            <button class="btn btn-primary" type="button" id="submit-file">Submit</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <div class="tab-pane" id="referrals" role="tabpanel">
+    <h3>Referrals</h3>
+         
+  </div> <!-- Referrals tab -->
+
+  <dic class="tab-pane" id="other" role="tabpanel">
+    <h3>Other</h3>
+
+  </div> <!-- Other tab -->
+
+</div> <!-- Tab Content (div containing all tabs) -->
