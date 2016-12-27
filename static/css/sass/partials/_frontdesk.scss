@@ -45,3 +45,11 @@ span.badge {
 .other {
     background-color: $boot-cyan;
 }
+
+button[name="select-button"] {
+    float: right;
+}
+
+button[name="deselect-client"] {
+    float: right;
+}
