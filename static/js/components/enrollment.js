@@ -5,7 +5,7 @@ $(function (event) {
     // -- activity title
     // -- who is currently enrolled
     // -- columns for.. (tbd)
-    var activityID;
+    window.enrollment = window.enrollment || {};
 
     window.clickHandlers = window.clickHandlers || {};
 
@@ -15,16 +15,20 @@ $(function (event) {
         $("#activity-title").empty();
         $("#activity-title").append(jThis.find('p').text());
 
-        activityID = jThis.data('id');
+        window.enrollment.activityID = parseInt(jThis.data('id'));
         populateEnrollmentTable();
+        showActivityEnrollment(true);
     };
 
     window.clickHandlers.removeThumbnail = function (event) {
+        event.stopPropagation();
+
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
         var jThis = $(this);
         var jCard = jThis.parent().parent().parent().parent();
         jThis.prop('disabled', true);
+        var localActivityID = parseInt(jCard.data('id'));
 
         $.ajax({
             xhrFields: {
@@ -39,11 +43,14 @@ $(function (event) {
             dataType: "json",
             data: JSON.stringify({
                 activities: [
-                    jCard.data('id')
+                    localActivityID
                 ]
             }),
             success: function (data) {
-                jThis.parent().parent().parent().parent().remove();
+                jCard.remove();
+                if(localActivityID === window.enrollment.activityID) {
+                    showActivityEnrollment(false);
+                }
             },
             error: function (xhr) {
                 console.error(xhr);
@@ -54,8 +61,20 @@ $(function (event) {
     };
 
     var addHandlersToActivityCards = function () {
-        $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
-        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+        $(".thumbnail-dismiss").unbind("click").click(window.clickHandlers.removeThumbnail);
+        $(".activity-card").unbind("click").click(window.clickHandlers.enrollmentThumbnail);
+    };
+
+    var showActivityEnrollment = function (show) {
+        var help = $("#activity-enrollment-help");
+        var view = $("#activity-enrollment-view");
+        if (show) {
+            help.hide();
+            view.show();
+        } else {
+            help.show();
+            view.hide();
+        }
     };
 
     // .delegate adds event listeners to each element with designated class
@@ -136,7 +155,7 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+                url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
                 method: "DELETE",
                 contentType: "application/json",
                 dataType: "json",
@@ -163,7 +182,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+            url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
             method: "GET",
             success: function (data) {
                 var jEnrolled = $('#activities-table-body');
@@ -203,7 +222,7 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
+                url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
                 method: "POST",
                 contentType: "application/json",
                 dataType: "json",

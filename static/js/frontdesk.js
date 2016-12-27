@@ -320,9 +320,23 @@ $(function () {
                     });
                 });
             });
-        }
+        };
+
+        var showActivityEnrollment = function (show) {
+            var help = $("#activity-enrollment-help");
+            var view = $("#activity-enrollment-view");
+            if (show) {
+                help.hide();
+                view.show();
+            } else {
+                help.show();
+                view.hide();
+            }
+        };
 
         var populateActivitiesForDropin = function () {
+            showActivityEnrollment(false);
+
             $.ajax({
                 xhrFields: {
                 withCredentials: true
@@ -347,12 +361,10 @@ $(function () {
                                             '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
                 });
 
-                $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
-                $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
+                $(".activity-card").unbind("click").click(window.clickHandlers.enrollmentThumbnail);
+                $(".thumbnail-dismiss").unbind("click").click(window.clickHandlers.removeThumbnail);
             });
         };
-
-
 
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();
