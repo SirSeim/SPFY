@@ -6,6 +6,7 @@ $(function (event) {
     // -- who is currently enrolled
     // -- columns for.. (tbd)
     var activityID;
+    var activityObj = {};
 
     window.clickHandlers = window.clickHandlers || {};
 
@@ -22,13 +23,18 @@ $(function (event) {
 
     window.clickHandlers.removeThumbnail = function (event) {
         event.stopPropagation();
+        activityObj.jCard = $(this).parent().parent().parent().parent();
+        activityObj.jCardButton = $(this);
+        activityObj.jCardButton.prop('disabled', true);
 
+        $("#confirm-remove-activity-name").text(activityObj.jCard.find("p").text());
+        $("#confirm-remove-activity-modal").modal('toggle');
+    };
+
+    window.clickHandlers.removeActivityFromDropin = function (event) {
         var dropinID = window.sessionStorage.frontdeskDropinId;
 
-        var jThis = $(this);
-        var jCard = jThis.parent().parent().parent().parent();
-        jThis.prop('disabled', true);
-        var localActivityID = parseInt(jCard.data('id'));
+        var localActivityID = parseInt(activityObj.jCard.data('id'));
 
         $.ajax({
             xhrFields: {
@@ -47,18 +53,21 @@ $(function (event) {
                 ]
             }),
             success: function (data) {
-                jCard.remove();
+                console.log(data);
+                activityObj.jCard.remove();
                 if(localActivityID === activityID) {
                     showActivityEnrollment(false);
                 }
             },
             error: function (xhr) {
                 console.error(xhr);
-                console.log(jThis.data('id'));
-                jThis.prop('disabled', false);
+                console.log(activityObj.jCard.data('id'));
+                activityObj.jCardButton.prop('disabled', false);
             }
         });
     };
+
+    $("#remove-activity-from-dropin").click(window.clickHandlers.removeActivityFromDropin);
 
     var addHandlersToActivityCards = function () {
         $(".thumbnail-dismiss").unbind("click").click(window.clickHandlers.removeThumbnail);
