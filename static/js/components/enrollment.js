@@ -25,15 +25,15 @@ $(function (event) {
         event.stopPropagation();
         activityObj.jCard = $(this).parent().parent().parent().parent();
         activityObj.jCardButton = $(this);
-        activityObj.jCardButton.prop('disabled', true);
 
         $("#confirm-remove-activity-name").text(activityObj.jCard.find("p").text());
         $("#confirm-remove-activity-modal").modal('toggle');
     };
 
     window.clickHandlers.removeActivityFromDropin = function (event) {
-        var dropinID = window.sessionStorage.frontdeskDropinId;
+        activityObj.jCardButton.prop('disabled', true);
 
+        var dropinID = window.sessionStorage.frontdeskDropinId;
         var localActivityID = parseInt(activityObj.jCard.data('id'));
 
         $.ajax({
