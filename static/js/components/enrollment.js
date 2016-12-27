@@ -5,7 +5,7 @@ $(function (event) {
     // -- activity title
     // -- who is currently enrolled
     // -- columns for.. (tbd)
-    window.enrollment = window.enrollment || {};
+    var activityID;
 
     window.clickHandlers = window.clickHandlers || {};
 
@@ -15,7 +15,7 @@ $(function (event) {
         $("#activity-title").empty();
         $("#activity-title").append(jThis.find('p').text());
 
-        window.enrollment.activityID = parseInt(jThis.data('id'));
+        activityID = parseInt(jThis.data('id'));
         populateEnrollmentTable();
         showActivityEnrollment(true);
     };
@@ -48,7 +48,7 @@ $(function (event) {
             }),
             success: function (data) {
                 jCard.remove();
-                if(localActivityID === window.enrollment.activityID) {
+                if(localActivityID === activityID) {
                     showActivityEnrollment(false);
                 }
             },
@@ -155,7 +155,7 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
+                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
                 method: "DELETE",
                 contentType: "application/json",
                 dataType: "json",
@@ -182,7 +182,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
+            url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
             method: "GET",
             success: function (data) {
                 var jEnrolled = $('#activities-table-body');
@@ -222,7 +222,7 @@ $(function (event) {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/dropins/" + dropinID + "/activities/" + window.enrollment.activityID + "/enrollment",
+                url: "api/dropins/" + dropinID + "/activities/" + activityID + "/enrollment",
                 method: "POST",
                 contentType: "application/json",
                 dataType: "json",
