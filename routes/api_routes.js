@@ -225,19 +225,59 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/statuses/types',
+        handler: Api.getStatusTypes
+    },
+    {
+        method: 'GET',
         path: '/statuses',
         handler: Api.getStatuses
     },
     {
         method: 'POST',
-        path: '/statuses',
-        handler: Api.createStatus
+        path: '/statuses/types',
+        handler: Api.createStatusType
     },
     {
         method: 'PUT',
-        path: '/statuses/{statusID}',
-        handler: Api.editStatus
+        path: '/statuses/types/{statustypeID}',
+        handler: Api.editStatusType
     },
+    {
+        method: 'GET',
+        path: '/clients/{clientID}/statuses',
+        handler: Api.getClientStatuses
+    },
+    {
+        method: 'POST',
+        path: '/clients/{clientID}/statuses',
+        handler: Api.setClientStatus
+    },
+    {
+        method: 'PUT',
+        path: '/statuses',
+        handler: Api.editClientStatus
+    },
+    // {
+    //     method: 'GET',
+    //     path: '/flags',
+    //     handler: Api.getFlags
+    // },
+    // {
+    //     method: 'POST',
+    //     path: '/flags',
+    //     handler: Api.createFlag
+    // },
+    // {
+    //     method: 'PUT',
+    //     path: '/flags/{flagID}',
+    //     handler: Api.editFlag
+    // },
+    // {
+    //     method: 'GET',
+    //     path: '/flags/{clientID}',
+    //     handler: Api.getClientFlags
+    // },
     {
         method: 'GET',
         path: '/users',
@@ -310,6 +350,11 @@ var apiRoutes = [
         handler: Api.getNotificationTypes
     },
     {
+        method: 'GET',
+        path: '/users/{userId}/settings',
+        handler: Api.getUserSettings
+    },
+    {
         method: 'PUT',
         path: '/users/{userId}/password',
         config: {
@@ -338,26 +383,6 @@ var apiRoutes = [
         method: 'Delete',
         path: '/users/{userId}',
         handler: Api.deleteUser
-    },
-    {
-        method: 'GET',
-        path: '/flags',
-        handler: Api.getFlags
-    },
-    {
-        method: 'POST',
-        path: '/flags',
-        handler: Api.createFlag
-    },
-    {
-        method: 'PUT',
-        path: '/flags/{flagID}',
-        handler: Api.editFlag
-    },
-    {
-        method: 'GET',
-        path: '/flags/{clientID}',
-        handler: Api.getClientFlags
     },
     {
         method: 'POST',

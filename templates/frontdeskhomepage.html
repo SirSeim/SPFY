@@ -13,7 +13,7 @@
             History
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="drop-in-dropdown"> 
-            <li class="dropdown-header">Click To View Past Drop-In</li>
+            <li class="dropdown-header">Click a Past Drop-In to view</li>
           </div>
         </div>
       </div>
@@ -155,16 +155,18 @@
 
   <div id="react-test"></div>
 
-  {% include "modals/viewclient.html" %}
-  {% include "modals/addnewdropin.html" %}
-  {% include "modals/addactivity.html" %}
-  {% include "modals/confirmremoveactivity.html" %}
 
-  {% include "components/_basescript.html" %}
+{% include "modals/confirmremoveactivity.html" %}
+{% include "modals/viewclient_modal.html" %}
+{% include "modals/editstatus.html" %}
+{% include "modals/addactivity.html" %}
+{% include "modals/addnewdropin.html" %}
+
+{% include "components/_basescript.html" %}
 
   <script type="text/babel" src="/static/js/frontdesk.js"></script>
   <script src="/static/js/components/clientprofiletable.js"></script>
-  <script src="/static/js/modals/viewclient.js"></script>
+  <script src="/static/js/modals/viewclient_modal.js"></script>
   <script src="/static/js/modals/addactivity.js"></script>
   <script src="/static/js/components/activitiestable.js"></script>
   <script src="/static/js/components/enrollment.js"></script>

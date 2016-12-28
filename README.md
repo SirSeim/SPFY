@@ -15,6 +15,8 @@
 
 [Read our Architecture Design](docs/Architecture_Design_Document.md)
 
+[Read our Detailed Design Specification](docs/Detailed_Design_Specification.md)
+
 ### Requirements
 Install `npm` and `postgres` if you don't already have them installed
 ```

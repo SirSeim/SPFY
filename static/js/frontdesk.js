@@ -166,8 +166,8 @@ $(function () {
                                         dob: moment(client.dob).format('MM-DD-YY'),
                                         status: client.status 
                                     }); 
-                                    var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                                    $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                                    // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                    // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                                     // according to stackoverflow, need to manually reattach event handlers
                                     // to dynamically added elements, even for modals
                                     $(row.node()).data('toggle', 'modal')
@@ -304,8 +304,8 @@ $(function () {
                                 dob: moment(client.dob).format('MM-DD-YY'),
                                 status: client.status 
                             }); 
-                            var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                            $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                            // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                            // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                             // according to stackoverflow, need to manually reattach event handlers
                             // to dynamically added elements, even for modals
                             $(row.node()).data('toggle', 'modal')

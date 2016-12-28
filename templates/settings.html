@@ -26,15 +26,15 @@
             <form>
               <dl>
                 <dt>Current Password</dt>
-                <dd><input id="current-password" type="text" class="form-control"></dd>
+                <dd><input id="current-password" type="password" class="form-control"></dd>
               </dl>
               <dl>
                 <dt>New Password</dt>
-                <dd><input id="new-password" type="text" class="form-control"></dd>
+                <dd><input id="new-password" type="password" class="form-control"></dd>
               </dl>
               <dl>
                 <dt>Confirm New Password</dt>
-                <dd><input id="confirm-new-password" type="text" class="form-control"></dd>
+                <dd><input id="confirm-new-password" type="password" class="form-control"></dd>
               </dl>
               <p>
                 <button id="update-button" class="btn btn-outline-primary">Update Password</button>
@@ -46,15 +46,15 @@
         </div>
 
         <div id="notifications-settings" class="hidden">
-          <div id="flag-notifications">
+          <div id="status-notifications">
             <div class="card">
               <div class="card-header">
                 <h4>
-                  Flag Notifications
+                  Status Notifications
                 </h4>
-                <p>Determine which flags you would like to receive alerts for.</p>
+                <p>Determine which statuses you would like to receive alerts for.</p>
               </div>
-              <table class="table table-hover" id="flag-notifications-table">
+              <table class="table table-hover" id="status-notifications-table">
                 <tbody>
                 
                 </tbody>
@@ -127,12 +127,16 @@
               <h4>
                 Statuses <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-status-modal">Add Status <i class="fa fa-plus" aria-hidden="true"></i></button>
               </h4>
+              <p>Create standard status types along with their default messages and notes that staff can use to assign to client profiles.</p>
             </div>
             <table class="table table-hover" id="statuses-table">
               <thead>
                 <tr>
-                  <th>Status Dot</th>
-                  <th>Status Name</th>
+                  <th>Status Color</th>
+                  <th>Status Type</th>
+                  <th>Status Message</th>
+                  <th>Status Note</th>
+                  <th>Settings</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,7 +144,8 @@
               </tbody>
             </table>
           </div>
-          <div class="card">
+
+  <!--     <div class="card">
             <div class="card-header">
               <h4>
                 Flags <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-flag-modal">Add New Flag <i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -159,7 +164,8 @@
 
               </tbody>
             </table>
-          </div>
+          </div> -->
+
         </div> <!-- Client Profile Settings -->
       </div>
     </div>
@@ -170,7 +176,6 @@
   </div>
 
     {% include "modals/newstatus.html" %}
-    {% include "modals/newflag.html" %}
     {% include "components/_basescript.html" %}
   
     <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->

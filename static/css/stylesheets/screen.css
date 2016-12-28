@@ -556,18 +556,17 @@ a:hover {
   height: calc(100% - 50px);
 }
 
-/* line 1, ../sass/partials/_frontdesk.scss */
-button.badge-button.btn.btn-primary.btn-xs {
-  background-image: none;
-  background-color: #02aef0;
-  border-color: #0076a3;
-  border: 2;
-  border-radius: 0.5;
-  padding: 10px 40px;
-  color: #ffffff;
-  text-transform: uppercase;
+/*button.badge-button.btn.btn-primary.btn-xs {
+    background-image: none;
+    background-color: $spfy-blue;
+    border-color: $button-border;
+    border: 2;
+    border-radius: 0.5;
+    padding: 10px 40px;
+    color: #ffffff;
+    text-transform: uppercase;
 }
-
+*/
 /* line 12, ../sass/partials/_frontdesk.scss */
 span.badge {
   color: black !important;

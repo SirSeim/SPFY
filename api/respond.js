@@ -652,6 +652,20 @@ var respond = {
             result: result
         }).code(200);
     },
+    failedGetUserSettings: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get user settings!",
+            error: err
+        }).code(500);
+    },
+    getUserSettings: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got user settings!",
+            result: result
+        }).code(200);
+    },
     failedToChangeUserPassword: function (reply, err) {
         reply({
             statusCode: 500,
@@ -722,6 +736,62 @@ var respond = {
             result: result
         }).code(200);
     },
+    // failedToGetStatuses: function (reply, err) {
+    //     reply({
+    //         statusCode: 500,
+    //         message: "Unable to get statuses!",
+    //         error: err
+    //     }).code(500);
+    // },
+    // getStatuses: function (reply, result) {
+    //     reply({
+    //         statusCode: 200,
+    //         message: "Successfully got statuses!",
+    //         result: result
+    //     }).code(200);
+    // },
+    // failedToCreateStatus: function (reply, err) {
+    //     reply({
+    //         statusCode: 500,
+    //         message: "Unable to create status!",
+    //         error: err,
+    //     }).code(500);
+    // },
+    // createStatus: function (reply, result) {
+    //     reply({
+    //         statusCode: 200,
+    //         message: "Success creating status!",
+    //         result: result
+    //     }).code(200);
+    // },
+    // failedToEditStatus: function (reply, err) {
+    //     reply({
+    //         statusCode: 500,
+    //         message: "Unable to edit status!",
+    //         error: err,
+    //     }).code(500);
+    // },
+    // editStatus: function (reply, result) {
+    //     reply({
+    //         statusCode: 200,
+    //         message: "Success editing status!",
+    //         result: result
+    //     }).code(200);
+    // },
+    failedToGetStatusTypes: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get status types!",
+            error: err
+        }).code(500);
+    },
+    getStatusTypes: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got status types!",
+            result: result
+        }).code(200);
+    },
     failedToGetStatuses: function (reply, err) {
         reply({
             statusCode: 500,
@@ -736,87 +806,73 @@ var respond = {
             result: result
         }).code(200);
     },
-    failedToCreateStatus: function (reply, err) {
+    failedToCreateStatusType: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to create status!",
+            message: "Unable to create status type!",
             error: err,
         }).code(500);
     },
-    createStatus: function (reply, result) {
+    createStatusType: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success creating status!",
+            message: "Success creating status type!",
             result: result
         }).code(200);
     },
-    failedToEditStatus: function (reply, err) {
+    failedToEditStatusType: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to edit status!",
+            message: "Unable to edit status type!",
             error: err,
         }).code(500);
     },
-    editStatus: function (reply, result) {
+    editStatusType: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success editing status!",
+            message: "Success editing status type!",
             result: result
         }).code(200);
     },
-    failedToGetFlags: function (reply, err) {
+    failedToGetClientStatuses: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get flags!",
-            error: err
-        }).code(500);
-    },
-    getFlags: function (reply, result) {
-        reply({
-            statusCode: 200,
-            message: "Successfully got flags!",
-            result: result
-        }).code(200);
-    },
-    failedToCreateFlag: function (reply, err) {
-        reply({
-            statusCode: 500,
-            message: "Unable to create flag!",
+            message: "Unable to get client statuses!",
             error: err,
         }).code(500);
     },
-    createFlag: function (reply, result) {
+    getClientStatuses: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success creating flag!",
+            message: "Success getting client statuses!",
             result: result
         }).code(200);
     },
-    failedToEditFlag: function (reply, err) {
+    failedToSetClientStatus: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to edit flag!",
+            message: "Unable to set client status!",
             error: err,
         }).code(500);
     },
-    editFlag: function (reply, result) {
+    setClientStatus: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success editing flag!",
+            message: "Success setting client status!",
             result: result
         }).code(200);
     },
-    failedToGetClientFlags: function (reply, err) {
+    failedToEditClientStatus: function (reply, err) {
         reply({
             statusCode: 500,
-            message: "Unable to get client flags!",
+            message: "Unable to edit client status!",
             error: err,
         }).code(500);
     },
-    getClientFlags: function (reply, result) {
+    editClientStatus: function (reply, result) {
         reply({
             statusCode: 200,
-            message: "Success getting client flags!",
+            message: "Success editing client status!",
             result: result
         }).code(200);
     },

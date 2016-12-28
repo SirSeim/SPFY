@@ -100,19 +100,19 @@ INSERT INTO casemanager VALUES (3, 'rh@spfy.org','tables','Rob','Hanna','Case Ma
 
 
 
-DROP TABLE IF EXISTS status;
+-- DROP TABLE IF EXISTS status;
 
-CREATE TABLE status (
-  id SERIAL PRIMARY KEY,
-  name varchar(45) DEFAULT NULL,
-  color varchar(15) DEFAULT NULL
-);
+-- CREATE TABLE status (
+--   id SERIAL PRIMARY KEY,
+--   name varchar(45) DEFAULT NULL,
+--   color varchar(15) DEFAULT NULL
+-- );
 
-INSERT INTO status (name, color) VALUES ('okay', '#008000'); --rgb(0, 128, 0)
-INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
-INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
-INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
-INSERT INTO status (name, color) VALUES ('dangerous', '#FB0000'); --rgb(251, 0, 0)
+-- INSERT INTO status (name, color) VALUES ('okay', '#008000'); --rgb(0, 128, 0)
+-- INSERT INTO status (name, color) VALUES ('missing', '#0000FF'); --rgb(0, 0, 255)
+-- INSERT INTO status (name, color) VALUES ('sick', '#FD9600'); --rgb(253, 150, 0)
+-- INSERT INTO status (name, color) VALUES ('vulnerable', '#6A0072'); --rgb(106, 0, 114)
+-- INSERT INTO status (name, color) VALUES ('dangerous', '#FB0000'); --rgb(251, 0, 0)
 
 
 DROP TABLE IF EXISTS client;
@@ -147,20 +147,31 @@ CREATE TABLE client (
   id_state varchar(45) DEFAULT NULL,
   reference varchar(45) DEFAULT NULL,
   services varchar(45) DEFAULT NULL,
-  status integer REFERENCES status (id) DEFAULT 1,
+  -- status integer REFERENCES status (id) DEFAULT 1,
   caseplan varchar DEFAULT NULL
 );
 
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'asdfaf');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Erick','Wilson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Tommie', 'Franklin', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Tricia','Goodman', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Mona','Adkins', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
-INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Brooke','Burke', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'asdfaf');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Erick','Wilson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Tommie', 'Franklin', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Tricia','Goodman', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Mona','Adkins', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, caseplan) VALUES ('Brooke','Burke', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 'Hello');
+
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('John','Doe', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Steven', 'Brown', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'asdfaf');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Smith', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Carlie','Johnson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Jeremiah','Haelstrom', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Erick','Wilson', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Tommie', 'Franklin', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Tricia','Goodman', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Mona','Adkins', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1, 'Hello');
+-- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status, caseplan) VALUES ('Brooke','Burke', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3, 'Hello');
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Ed','Salazar', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 3);
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Gerard', 'Powers', '2010-03-15T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 2);
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Courtney','Lawrence', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 4);
@@ -172,7 +183,75 @@ INSERT INTO client (first_name, last_name, intake_date, phone_number, email, dat
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Colin','Turner', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
 -- INSERT INTO client (first_name, last_name, intake_date, phone_number, email, date_of_birth, status) VALUES ('Tara','Evans', '2016-10-20T07:00:00.000Z', '123-456-7890', 'email@email.com', '01/01/2222', 1);
 
+DROP TABLE IF EXISTS status_type;
 
+CREATE TABLE status_type (
+  id SERIAL PRIMARY KEY,
+  name varchar(45) DEFAULT NULL,
+  color varchar(45) DEFAULT NULL,
+  settings jsonb DEFAULT NULL -- trying this out for now
+);
+
+INSERT INTO status_type (name, color, settings) VALUES ('Follow-Up', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Checked-In', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Timed-Out', 'red', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('Aged-Out', 'yellow', '{ "defaults": { "message": "default message", "note": "default note", "dot": true }}');
+INSERT INTO status_type (name, color, settings) VALUES ('E&E', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": false }}');
+INSERT INTO status_type (name, color, settings) VALUES ('CM', '#02AEF0', '{ "defaults": { "message": "default message", "note": "default note", "dot": false }}');
+
+DROP TABLE IF EXISTS status;
+
+CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  type integer REFERENCES status_type (id),
+  message varchar(45) DEFAULT NULL,
+  note varchar(100) DEFAULT NULL,
+  settings jsonb DEFAULT NULL
+);
+
+-- INSERT INTO status (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": false }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (1, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (3, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (5, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 1, 'Jeanine', '(name) has a follow up meeting with Jeanine.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 2, '3:30 PM', '(name) checked in at (client_id, time, day)', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 3, '10 days', 'Timed out for (doing such and such).', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 4, '26 yrs old', '(name) is now older than 25.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 5, 'enrolled', '(name) is enrolled in Education & Employment.', '{ "dot": true }');
+INSERT INTO status (client_id, type, message, note, settings) VALUES (7, 6, 'enrolled', '(name) is enrolled in Case Management.', '{ "dot": true }');
+
+-- DROP TABLE IF EXISTS profile_status;
+
+-- CREATE TABLE profile_status (
+--   id SERIAL PRIMARY KEY,
+--   client_id integer REFERENCES client (id),
+--   status_id integer REFERENCES status (id)
+-- );
+
+
+-- INSERT INTO profile_status (client_id, status_id) VALUES (1, 1);
+-- INSERT INTO profile_status (client_id, status_id) VALUES (1, 3);
+-- INSERT INTO profile_status (client_id, status_id) VALUES (1, 5);
+-- INSERT INTO profile_status (client_id, status_id) VALUES (1, 6);
 
 
 DROP TABLE IF EXISTS prescreen;
@@ -542,34 +621,6 @@ CREATE TABLE notifications (
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Another notification for test', '/frontdesk', 'FALSE');
 INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Yet another notification for test', '/frontdesk', 'FALSE');
-INSERT INTO notifications (user_id, type, comment, link, checked) VALUES (1, 1, 'Test notification for set flags modal', '/index', 'FALSE');
-
-DROP TABLE IF EXISTS flags;
-
-CREATE TABLE flags (
-  id SERIAL PRIMARY KEY,
-  type varchar(45) DEFAULT NULL,
-  message varchar(45) DEFAULT NULL,
-  color varchar(45) DEFAULT NULL,
-  note varchar(100) DEFAULT NULL
-);
-
-INSERT INTO flags (type, message, color, note) VALUES ('Checked-In', 'No', '#02AEF0', '(name) checked in at (time, day)');
-INSERT INTO flags (type, message, color, note) VALUES ('Showers', 'Tier 1', '#02AEF0', '(name) is Tier 1 for showers this week. Will reset on a weekly basis.');
-INSERT INTO flags (type, message, color, note) VALUES ('Follow-Up', 'Jeanine', '#02AEF0', '(name) has a follow up meeting with Jeanine.');
-INSERT INTO flags (type, message, color, note) VALUES ('Timed-Out', '10 days', 'red', 'Timed out for (doing such and such).');
-INSERT INTO flags (type, message, color, note) VALUES ('Aged-Out', '26 yrs old', 'yellow', '(name) is now older than 25.');
-
-DROP TABLE IF EXISTS profile_flag;
-
-CREATE TABLE profile_flag (
-  id SERIAL PRIMARY KEY,
-  client_id integer REFERENCES client (id),
-  flag_id integer REFERENCES flags (id)
-);
-
-INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 2);
-INSERT INTO profile_flag (client_id, flag_id) VALUES (1, 3);
 
 DROP TABLE IF EXISTS file;
 
@@ -582,6 +633,16 @@ CREATE TABLE file (
   date date DEFAULT NULL,
   base_64_string varchar DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS settings;
+
+CREATE TABLE settings (
+  id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users (id),
+  settings_data jsonb DEFAULT NULL
+);
+
+INSERT INTO settings (user_id, settings_data) VALUES (1, '{ "default": true, "primary": true, "success": true, "info": true, "warning": false, "danger": false }');
 
 DROP TABLE IF EXISTS backpack_sleepingbag_waitlist;
 
@@ -601,4 +662,4 @@ CREATE TABLE monthly_statistics (
   year integer DEFAULT NULL,
   unduplicated_youth integer DEFAULT 0,
   total_youth integer DEFAULT 0
-)
+);

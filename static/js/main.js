@@ -18,7 +18,11 @@ $(function () {
     window.dataString = function (data) {
         var dataString = "";
         for (var property in data) {
-            dataString += 'data-' + property + '="' + data[property] + '" ';
+            if (typeof data[property] === 'object') {
+                dataString += 'data-' + property + '=\'' + JSON.stringify(data[property]) + '\' '; // bug when using double quotes \"
+            } else {
+                dataString += 'data-' + property + '=\"' + data[property] + '\" ';
+            }
         }
         return dataString;
     };
@@ -81,11 +85,11 @@ $(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
         },
-        url: "api/statuses",
+        url: "api/statuses/types",
         method: "GET",
         success: function (data) {
             console.log(data);
-            window.sessionStorage.statuses = JSON.stringify(data.result);
+            window.sessionStorage.statusTypes = JSON.stringify(data.result);
             window.sessionStorageListeners.forEach(function (listener) {
                 listener.ready();
             });
@@ -106,11 +110,11 @@ $(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
         },
-        url: "api/flags",
+        url: "api/statuses",
         method: "GET",
         success: function (data) {
             console.log(data);
-            window.sessionStorage.flags = JSON.stringify(data.result);
+            window.sessionStorage.statuses = JSON.stringify(data.result);
             window.sessionStorageListeners.forEach(function (listener) {
                 listener.ready();
             });
@@ -123,6 +127,31 @@ $(function () {
             }
         },
     });
+
+    // $.ajax({
+    //     xhrFields: {
+    //         withCredentials: true
+    //     },
+    //     beforeSend: function (xhr) {
+    //         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+    //     },
+    //     url: "api/flags",
+    //     method: "GET",
+    //     success: function (data) {
+    //         console.log(data);
+    //         window.sessionStorage.flags = JSON.stringify(data.result);
+    //         window.sessionStorageListeners.forEach(function (listener) {
+    //             listener.ready();
+    //         });
+    //     },
+    //     error: function (xhr) {
+    //         console.error(xhr);
+
+    //         if (xhr.status === 401) {
+    //             localStorage.removeItem("authorization");
+    //         }
+    //     },
+    // });
 
     $.ajax({
         xhrFields: {
