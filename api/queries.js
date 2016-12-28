@@ -293,9 +293,11 @@ var queries = {
     },
 
     getClient: function (clientID) {
+        // var queryString = 'SELECT id, first_name, last_name, intake_date, phone_number, email, ' +
+        //                     'date_of_birth, age(date_of_birth), status, caseplan FROM client WHERE id = ' +
+        //                     '\'' + clientID + '\'' + ';';
         var queryString = 'SELECT id, first_name, last_name, intake_date, phone_number, email, ' +
-                            'date_of_birth, age(date_of_birth), status, caseplan FROM client WHERE id = ' +
-
+                            'date_of_birth, age(date_of_birth), caseplan FROM client WHERE id = ' +
                             '\'' + clientID + '\'' + ';';
         return queryString;
     },
@@ -321,7 +323,8 @@ var queries = {
     },
 
     getClients: function () {
-        var queryString = 'SELECT id, first_name, last_name, status, date_of_birth, phone_number, email FROM client;';
+        // var queryString = 'SELECT id, first_name, last_name, status, date_of_birth, phone_number, email FROM client;';
+        var queryString = 'SELECT id, first_name, last_name, date_of_birth, phone_number, email FROM client;';
 
         return queryString;
     },
@@ -511,17 +514,18 @@ var queries = {
         queryString += 'phone_number = ' + '\'' + parseProperty(payload.phoneNumber) + '\'' + ', ';
         queryString += 'email = ' + '\'' + parseProperty(payload.email) + '\'' + ', ';
         // queryString += 'last_meeting = ' + '\'' + parseProperty(payload.lastMeeting) + '\'' + ',';
-        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\'' + ', ';
-        if (parseProperty(payload.status)) {
-            queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
-        } else {
-            queryString += 'status = ' + '\'1\'' + ' ';
-        }
+        queryString += 'case_manager = ' + '\'' + parseProperty(payload.caseManager) + '\' '; // + ', ';
+
+        // if (parseProperty(payload.status)) {
+        //     queryString += 'status = ' + '\'' + parseProperty(payload.status) + '\'' + ' ';
+        // } else {
+        //     queryString += 'status = ' + '\'1\'' + ' ';
+        // }
 
         queryString += 'WHERE id = ' + '\'' + payload.id + '\'' + ' ';
 
         queryString += 'RETURNING id, first_name, last_name, date_of_birth, ' +
-                        'age(date_of_birth), phone_number, email, case_manager, status;';
+                        'age(date_of_birth), phone_number, email, case_manager;'; // , status;';
 
         return queryString;
     },
@@ -797,8 +801,9 @@ var queries = {
 
     createNotification: function (userId, payload) {
         var queryString = 'INSERT INTO notifications (';
+        queryString += 'user_id';
         if (payload.type) {
-            queryString += 'type';
+            queryString += ', type';
         }
         if (payload.comment) {
             queryString += ', comment';
@@ -809,9 +814,7 @@ var queries = {
         if (payload.checked) {
             queryString += ', checked';
         }
-        queryString += ') VALUES (' +
-            '\'' + userId + '\'' + ', ' +
-            '\'' + payload.comment + '\'';
+        queryString += ') VALUES (' + userId;
         if (payload.type) {
             queryString += ', \'' + payload.type + '\'';
         }
@@ -824,7 +827,7 @@ var queries = {
         if (payload.checked) {
             queryString += ', \'' + payload.checked + '\'';
         }
-        queryString += ') RETURNING id, type, comment, link, checked;';
+        queryString += ') RETURNING id, user_id, type, comment, link, checked;';
 
         return queryString;
     },
@@ -862,6 +865,12 @@ var queries = {
         return queryString;
     },
 
+    getUserSettings: function (userId) {
+        var queryString = 'SELECT user_id, settings_data FROM settings WHERE user_id = ' + userId + ';';
+
+        return queryString;
+    },
+
     changeUserPassword: function (userId, hashedPassword) {
         var queryString = 'UPDATE users SET hashed_password = \'' + hashedPassword +
                             '\' WHERE id = ' + userId + ';';
@@ -875,64 +884,103 @@ var queries = {
         return queryString;
     },
 
+    // getStatuses: function () {
+    //     var queryString = 'SELECT id, name, color FROM status;';
+
+    //     return queryString;
+    // },
+
+    // createStatus: function (payload) {
+    //     var queryString = 'INSERT INTO status (name, color) VALUES(\'' +
+    //                         payload.name + '\', \'' +
+    //                         payload.color + '\') RETURNING id, name, color;';
+
+    //     return queryString;
+    // },
+
+    // editStatus: function (statusID, payload) {
+    //     // just updating all of them for now?
+    //     var queryString = 'UPDATE status SET ' +
+    //                         'name = \'' + payload.name + '\', ' +
+    //                         'color = \'' + payload.color + '\' ' +
+    //                         'WHERE id = \'' + statusID + '\'' +
+    //                         'RETURNING id, name, color;';
+    //     return queryString;
+    // },
+
+    // ** 
+
+    getStatusTypes: function () {
+        var queryString = 'SELECT id, name, color, settings FROM status_type;';
+
+        return queryString;
+    },
+
     getStatuses: function () {
-        var queryString = 'SELECT id, name, color FROM status;';
+        var queryString = 'SELECT id, client_id, type, message, note, settings FROM status;';
 
         return queryString;
     },
 
-    createStatus: function (payload) {
-        var queryString = 'INSERT INTO status (name, color) VALUES(\'' +
+    createStatusType: function (payload) {
+        var queryString = 'INSERT INTO status_type (name, color, settings) VALUES (\'' +
                             payload.name + '\', \'' +
-                            payload.color + '\') RETURNING id, name, color;';
-
-        return queryString;
-    },
-
-    editStatus: function (statusID, payload) {
-        // just updating all of them for now?
-        var queryString = 'UPDATE status SET ' +
-                            'name = \'' + payload.name + '\', ' +
-                            'color = \'' + payload.color + '\' ' +
-                            'WHERE id = \'' + statusID + '\'' +
-                            'RETURNING id, name, color;';
-        return queryString;
-    },
-    getFlags: function () {
-        var queryString = 'SELECT id, type, message, color, note FROM flags;';
-
-        return queryString;
-    },
-
-    createFlag: function (payload) {
-        var queryString = 'INSERT INTO flags (type, message, color, note) VALUES(\'' +
-                            payload.type + '\', \'' +
-                            payload.message + '\', \'' +
                             payload.color + '\', \'' +
-                            payload.note + '\' ) RETURNING id, type, message, color, note;';
+                            payload.settings + '\' ) RETURNING id, name, color, settings;';
 
         return queryString;
     },
 
-    editFlag: function (flagID, payload) {
+    editStatusType: function (statustypeID, payload) {
         // just updating all of them for now?
-        var queryString = 'UPDATE flags SET ' +
-                            'type = \'' + payload.type + '\', ' +
-                            'message = \'' + payload.message + '\', ' +
+        var settings = { 
+            defaults: { 
+                message: payload.message, 
+                note: payload.note 
+            }
+        };
+
+        var queryString = 'UPDATE status_type SET ' +
+                            'name = \'' + payload.typeName + '\', ' +
                             'color = \'' + payload.color + '\', ' +
-                            'note = \'' + payload.note + '\' ' +
-                            'WHERE id = ' + flagID +
-                            ' RETURNING id, type, message, color, note;';
+                            'settings = \'' + JSON.stringify(settings) + '\' ' +
+                            // 'message = \'' + payload.message + '\', ' +
+                            // 'note = \'' + payload.note + '\' ' +
+                            'WHERE id = ' + statustypeID +
+                            // ' RETURNING id, type, message, color, note;';
+                            ' RETURNING id, name, color, settings;';
         return queryString;
     },
 
-    getClientFlags: function (clientID) {
-        var queryString = 'SELECT type, message, color, note FROM flags WHERE id IN (' +
-                          'SELECT flag_id FROM profile_flag WHERE client_id = ' + clientID +
-                          ') ORDER BY id;';
+    getClientStatuses: function (clientID) {
+        var queryString = 'SELECT id, type, message, note, settings FROM status WHERE client_id = ' + clientID + ';';
 
         return queryString;
     },
+
+    setClientStatus: function (payload) {
+        console.log(payload);
+        var queryString = 'INSERT INTO status (client_id, type, message, note, settings) VALUES (' +
+                            payload.clientID + ', ' + 
+                            payload.typeID + ', ' +
+                            '\'' + payload.message + '\', \'' + 
+                            payload.note + '\', \'' + 
+                            payload.settings + '\') RETURNING id, client_id, type, message, note, settings;';
+        console.log(queryString);
+        return queryString;
+    },
+
+    editClientStatus: function (payload) {
+        var queryString = 'UPDATE status SET ' +
+                          'message = \'' + payload.message + '\', ' +
+                          'note = \'' + payload.note + '\', ' +
+                          'settings = \'' + payload.settings + '\' ' +
+                          'WHERE id = ' + payload.statusID + ' ' +
+                          'RETURNING id, client_id, type, message, note, settings;';
+        return queryString;
+    },
+
+    // ** 
 
     uploadFile: function (payload) {
         var queryString = 'INSERT INTO file (client_id, name, type, date, base_64_string) VALUES (\'' +

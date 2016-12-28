@@ -771,6 +771,23 @@ var query = {
         });
     },
 
+    getUserSettings: function (postgres, userId, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getUserSettings(userId), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     changeUserPassword: function (postgres, userId, hashedPassword, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
@@ -842,57 +859,57 @@ var query = {
         });
     },
 
-    getStatuses: function (postgres, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-            client.query(Queries.getStatuses(), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
+    // getStatuses: function (postgres, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         client.query(Queries.getStatuses(), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
 
-                return callback(undefined, result);
-            });
-        });
-    },
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
 
-    createStatus: function (postgres, payload, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
+    // createStatus: function (postgres, payload, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
 
-            // var data = Queries.createStatus(payload);
-            // // unstringify the data passed in
-            client.query(Queries.createStatus(payload), function (err, result) {
-            // client.query(data.string, data.params, function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
+    //         // var data = Queries.createStatus(payload);
+    //         // // unstringify the data passed in
+    //         client.query(Queries.createStatus(payload), function (err, result) {
+    //         // client.query(data.string, data.params, function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
 
-                return callback(undefined, result);
-            });
-        });
-    },
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
 
-    editStatus: function (postgres, statusID, payload, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-            client.query(Queries.editStatus(statusID, payload), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
+    // editStatus: function (postgres, statusID, payload, callback) {
+    //     postgres.connect(function (err, client, done) {
+    //         if (err) {
+    //             return callback(err);
+    //         }
+    //         client.query(Queries.editStatus(statusID, payload), function (err, result) {
+    //             done();
+    //             if (err) {
+    //                 return callback(err);
+    //             }
 
-                return callback(undefined, result);
-            });
-        });
-    },
+    //             return callback(undefined, result);
+    //         });
+    //     });
+    // },
 
     getCasePlan: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
@@ -909,12 +926,13 @@ var query = {
             });
         });
     },
-    getFlags: function (postgres, callback) {
+
+    getStatusTypes: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.getFlags(), function (err, result) {
+            client.query(Queries.getStatusTypes(), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -925,12 +943,28 @@ var query = {
         });
     },
 
-    createFlag: function (postgres, payload, callback) {
+    getStatuses: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.createFlag(payload), function (err, result) {
+            client.query(Queries.getStatuses(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
+    createStatusType: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.createStatusType(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -942,14 +976,68 @@ var query = {
         });
     },
 
-    editFlag: function (postgres, flagID, payload, callback) {
+    editStatusType: function (postgres, statustypeID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            // var data = Queries.editFlag(flagID);
+            // var data = Queries.editStatusType(StatustypeID);
             // // unstringify the data passed in
-            client.query(Queries.editFlag(flagID, payload), function (err, result) {
+            client.query(Queries.editStatusType(statustypeID, payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    getClientStatuses: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // var data = Queries.editFlag(clientID);
+            // // unstringify the data passed in
+            client.query(Queries.getClientStatuses(clientID), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    setClientStatus: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // var data = Queries.editFlag(clientID);
+            // // unstringify the data passed in
+            client.query(Queries.setClientStatus(payload), function (err, result) {
+            // client.query(data.string, data.params, function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+    editClientStatus: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            // var data = Queries.editFlag(clientID);
+            // // unstringify the data passed in
+            client.query(Queries.editClientStatus(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -981,24 +1069,6 @@ var query = {
                 return callback(err);
             }
             client.query(Queries.getClientFiles(clientID), function (err, result) {
-                done();
-                if (err) {
-                    return callback(err);
-                }
-
-                return callback(undefined, result);
-            });
-        });
-    },
-    getClientFlags: function (postgres, clientID, callback) {
-        postgres.connect(function (err, client, done) {
-            if (err) {
-                return callback(err);
-            }
-            // var data = Queries.editFlag(clientID);
-            // // unstringify the data passed in
-            client.query(Queries.getClientFlags(clientID), function (err, result) {
-            // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
                     return callback(err);

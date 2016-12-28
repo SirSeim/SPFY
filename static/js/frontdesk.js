@@ -28,12 +28,12 @@ $(function () {
                 .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
                 $('#viewclient-modal').modal('toggle');
             });
-            $(row).find('td').append(' <button name="select-button" type="button" class="btn btn-outline-primary btn-sm">Select</button>');
+            $(row).find('td').append('<button name="select-button" type="button" class="btn btn-outline-primary btn-sm">Select</button>');
             console.log($(row));
             event.stopPropagation();
         });
 
-        var selectedclients = [];
+        var selectedclients = []; // probably should change this implementation since it uses a global array
 
         // Add people from Client Profiles to Selected Clients
         $('[name="select-button"]').click(function (event) {
@@ -45,11 +45,22 @@ $(function () {
             for (var i = 0; i < selectedclients.length; i++) {
                 $('#selected-clients').append('<li class="list-group-item client">' +
                         selectedclients[i].firstname + ' ' + selectedclients[i].lastname +
+                        '<button class="fa fa-times btn btn-danger btn-sm" name="deselect-client" value="' + i + '"</button>' +
                         '</li>');
 
             }
+
+            // Remove people from Selected Clients
+            $('[name="deselect-client"]').click(function (event) {
+                selectedclients.splice($(this).val(), 1);
+                $(this).parent().remove();
+                event.stopPropagation();
+            }); // can only add this event handler once the deselect button exists
+
             event.stopPropagation();
         });
+
+
 
         var sendUpClientsForCheckin = function (callback) {
             var signups = [];
@@ -61,42 +72,49 @@ $(function () {
             // make sure to clear selectedclients after using data
             selectedclients = [];
             
-            $.ajax({
-                xhrFields: {
-                    withCredentials: true
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                },
-                url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
-                method: "POST",
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify({
-                    clients: signups
-                }),
-                success: function (data) {
-                    var clientString = "";
-                    var checkedInClients = data.result;
-                    for (var i = 0; i < checkedInClients.length; i++) {
-                        var client = window.getDataById(clients, checkedInClients[i].client_id);
-                        clientString += client.firstName + ' ' + client.lastName + '<br>';
+            if (signups.length === 0) {
+                $('#checkin-feedback').empty().append(
+                            '<div><h4>Please select clients to check in</h4>' +
+                            '</div>');
+            } else {
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                    },
+                    url: "/api/dropins/" + window.sessionStorage.frontdeskDropinId + "/checkin",
+                    method: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        clients: signups
+                    }),
+                    success: function (data) {
+                        var clientString = "";
+                        var checkedInClients = data.result;
+
+                        for (var i = 0; i < checkedInClients.length; i++) {
+                            var client = window.getDataById(clients, checkedInClients[i].client_id);
+                            clientString += client.firstName + ' ' + client.lastName + '<br>';
+                        }
+
+                        $('#checkin-feedback').empty().append(
+                            '<div><h4>Clients Successfully Checked In</h4>' +
+                             clientString +
+                            '</div>');
+
+                        $('#selected-clients').empty();
+                        return callback();
+                    },
+                    error: function (data) {
+                        $('#checkin-feedback').empty().append(
+                            '<div><h4>Check In failed</h4>');
+                        return callback();
                     }
-
-                    $('#checkin-feedback').empty().append(
-                        '<div><h4>Clients Successfully Checked In</h4>' +
-                         clientString +
-                        '</div>');
-
-                    $('#selected-clients').empty();
-                    return callback();
-                },
-                error: function (data) {
-                    $('#checkin-feedback').empty().append(
-                        '<div><h4>Check In failed</h4>');
-                    return callback();
-                }
-            });
+                });
+            }
         };
 
         var refreshCheckinTable = function () {
@@ -148,8 +166,8 @@ $(function () {
                                         dob: moment(client.dob).format('MM-DD-YY'),
                                         status: client.status 
                                     }); 
-                                    var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                                    $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                                    // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                    // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                                     // according to stackoverflow, need to manually reattach event handlers
                                     // to dynamically added elements, even for modals
                                     $(row.node()).data('toggle', 'modal')
@@ -286,8 +304,8 @@ $(function () {
                                 dob: moment(client.dob).format('MM-DD-YY'),
                                 status: client.status 
                             }); 
-                            var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
-                            $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
+                            // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                            // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                             // according to stackoverflow, need to manually reattach event handlers
                             // to dynamically added elements, even for modals
                             $(row.node()).data('toggle', 'modal')
@@ -302,9 +320,23 @@ $(function () {
                     });
                 });
             });
-        }
+        };
+
+        var showActivityEnrollment = function (show) {
+            var help = $("#activity-enrollment-help");
+            var view = $("#activity-enrollment-view");
+            if (show) {
+                help.hide();
+                view.show();
+            } else {
+                help.show();
+                view.hide();
+            }
+        };
 
         var populateActivitiesForDropin = function () {
+            showActivityEnrollment(false);
+
             $.ajax({
                 xhrFields: {
                 withCredentials: true
@@ -329,12 +361,10 @@ $(function () {
                                             '</p><footer><button type="button" class="btn btn-secondary btn-sm thumbnail-dismiss">Remove</button></footer></blockquote></div></div>');
                 });
 
-                $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
-                $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
+                $(".activity-card").unbind("click").click(window.clickHandlers.enrollmentThumbnail);
+                $(".thumbnail-dismiss").unbind("click").click(window.clickHandlers.removeThumbnail);
             });
         };
-
-
 
         if (window.sessionStorage.frontdeskDropinId) {
             setupCheckin();

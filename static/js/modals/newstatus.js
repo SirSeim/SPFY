@@ -18,13 +18,27 @@ $(function () {
         localStorageKey: 'spectrum.colors'
     });
 
-    $('#status-submit-button').click(function (event) {
+    $('#newstatus-submit-button').click(function (event) {
+        // var data = {
+        //     name: $('#status-name').val(),
+        //     color: colorString
+        // };
+
+        var settings = {
+            defaults: {
+                message: $('#status-message').val() ? $('#status-message').val() : 'default message',
+                note: $('#status-note').val() ? $('#status-note').val() : 'default note',
+                dot: $('#defaultstatus-dot').prop('checked')
+            }
+        };
         var data = {
-            name: $('#status-name').val(),
-            color: colorString
+            name: $('#status-name').val() ? $('#status-name').val() : '[status name]',
+            color: colorString,
+            settings: JSON.stringify(settings)
         };
 
-        if (data.name && data.color) {
+        // if (data.name && data.color) {
+        if (data.name && data.color && data.settings) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -32,7 +46,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: 'api/statuses',
+                url: 'api/statuses/types',
                 method: 'POST',
                 data: data,
                 success: function (data) {
@@ -47,6 +61,7 @@ $(function () {
                 }   
             });
         }
+        
         $('#new-status-modal').modal('toggle');
 
     });
