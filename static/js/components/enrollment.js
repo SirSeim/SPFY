@@ -6,6 +6,7 @@ $(function (event) {
     // -- who is currently enrolled
     // -- columns for.. (tbd)
     var activityID;
+    var activityObj = {};
 
     window.clickHandlers = window.clickHandlers || {};
 
@@ -15,16 +16,25 @@ $(function (event) {
         $("#activity-title").empty();
         $("#activity-title").append(jThis.find('p').text());
 
-        activityID = jThis.data('id');
+        activityID = parseInt(jThis.data('id'));
         populateEnrollmentTable();
+        showActivityEnrollment(true);
     };
 
     window.clickHandlers.removeThumbnail = function (event) {
-        var dropinID = window.sessionStorage.frontdeskDropinId;
+        event.stopPropagation();
+        activityObj.jCard = $(this).parent().parent().parent().parent();
+        activityObj.jCardButton = $(this);
 
-        var jThis = $(this);
-        var jCard = jThis.parent().parent().parent().parent();
-        jThis.prop('disabled', true);
+        $("#confirm-remove-activity-name").text(activityObj.jCard.find("p").text());
+        $("#confirm-remove-activity-modal").modal('toggle');
+    };
+
+    window.clickHandlers.removeActivityFromDropin = function (event) {
+        activityObj.jCardButton.prop('disabled', true);
+
+        var dropinID = window.sessionStorage.frontdeskDropinId;
+        var localActivityID = parseInt(activityObj.jCard.data('id'));
 
         $.ajax({
             xhrFields: {
@@ -39,23 +49,41 @@ $(function (event) {
             dataType: "json",
             data: JSON.stringify({
                 activities: [
-                    jCard.data('id')
+                    localActivityID
                 ]
             }),
             success: function (data) {
-                jThis.parent().parent().parent().parent().remove();
+                console.log(data);
+                activityObj.jCard.remove();
+                if(localActivityID === activityID) {
+                    showActivityEnrollment(false);
+                }
             },
             error: function (xhr) {
                 console.error(xhr);
-                console.log(jThis.data('id'));
-                jThis.prop('disabled', false);
+                console.log(activityObj.jCard.data('id'));
+                activityObj.jCardButton.prop('disabled', false);
             }
         });
     };
 
+    $("#remove-activity-from-dropin").click(window.clickHandlers.removeActivityFromDropin);
+
     var addHandlersToActivityCards = function () {
-        $(".thumbnail-dismiss").click(window.clickHandlers.removeThumbnail);
-        $(".activity-card").click(window.clickHandlers.enrollmentThumbnail);
+        $(".thumbnail-dismiss").unbind("click").click(window.clickHandlers.removeThumbnail);
+        $(".activity-card").unbind("click").click(window.clickHandlers.enrollmentThumbnail);
+    };
+
+    var showActivityEnrollment = function (show) {
+        var help = $("#activity-enrollment-help");
+        var view = $("#activity-enrollment-view");
+        if (show) {
+            help.hide();
+            view.show();
+        } else {
+            help.show();
+            view.hide();
+        }
     };
 
     // .delegate adds event listeners to each element with designated class

@@ -20,7 +20,7 @@ html, body {
     border-bottom: #EEE solid 1px;
 }
 
-.hidden {
+.hidden { // supposedly elements with this class will not be read by screen readers
     display: none;
 }
 

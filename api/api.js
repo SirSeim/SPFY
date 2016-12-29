@@ -666,6 +666,16 @@ var api = {
         });
     },
 
+    getUserSettings: function (request, reply) {
+        Service.getUserSettings(request.postgres, request.params.userId, function (err, result) {
+            if (err) {
+                Respond.failedGetUserSettings(reply, err);
+            } else {
+                Respond.getUserSettings(reply, result);
+            }
+        });
+    },
+
     deleteFile: function (request, reply) {
         Service.deleteFile(request.postgres, request.params.fileID, function (err, result) {
             if (err) {
@@ -716,6 +726,45 @@ var api = {
         });
     },
 
+    // getStatuses: function (request, reply) {
+    //     Service.getStatuses(request.postgres, function (err, result) {
+    //         if (err) {
+    //             Respond.failedToGetStatuses(reply, err);
+    //         } else {
+    //             Respond.getStatuses(reply, result);
+    //         }
+    //     });
+    // },
+
+    // createStatus: function (request, reply) {
+    //     Service.createStatus(request.postgres, request.payload, function (err, result) {
+    //         if (err) {
+    //             Respond.failedToCreateStatus(reply, err);
+    //         } else {
+    //             Respond.createStatus(reply, result);
+    //         }
+    //     });
+    // },
+
+    // editStatus: function (request, reply) {
+    //     Service.editStatus(request.postgres, request.params.statusID, request.payload, function (err, result) {
+    //         if (err) {
+    //             Respond.failedToEditStatus(reply, err);
+    //         } else {
+    //             Respond.editStatus(reply, result);
+    //         }
+    //     });
+    // },
+
+    getStatusTypes: function (request, reply) {
+        Service.getStatusTypes(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetStatusTypes(reply, err);
+            } else {
+                Respond.getStatusTypes(reply, result);
+            }
+        });
+    },
     getStatuses: function (request, reply) {
         Service.getStatuses(request.postgres, function (err, result) {
             if (err) {
@@ -726,66 +775,54 @@ var api = {
         });
     },
 
-    createStatus: function (request, reply) {
-        Service.createStatus(request.postgres, request.payload, function (err, result) {
+    createStatusType: function (request, reply) {
+        Service.createStatusType(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateStatus(reply, err);
+                Respond.failedToCreateStatusType(reply, err);
             } else {
-                Respond.createStatus(reply, result);
+                Respond.createStatusType(reply, result);
             }
         });
     },
 
-    editStatus: function (request, reply) {
-        Service.editStatus(request.postgres, request.params.statusID, request.payload, function (err, result) {
+    editStatusType: function (request, reply) {
+        Service.editStatusType(request.postgres, request.params.statustypeID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEditStatus(reply, err);
+                Respond.failedToEditStatusType(reply, err);
             } else {
-                Respond.editStatus(reply, result);
+                Respond.editStatusType(reply, result);
             }
         });
     },
 
-    getFlags: function (request, reply) {
-        Service.getFlags(request.postgres, function (err, result) {
+    getClientStatuses: function (request, reply) {
+        Service.getClientStatuses(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
-                Respond.failedToGetFlags(reply, err);
+                Respond.failedToGetClientStatuses(reply, err);
             } else {
-                Respond.getFlags(reply, result);
+                Respond.getClientStatuses(reply, result);
             }
         });
     },
-
-    createFlag: function (request, reply) {
-        Service.createFlag(request.postgres, request.payload, function (err, result) {
+    setClientStatus: function (request, reply) {
+        request.payload.clientID = request.params.clientID;
+        Service.setClientStatus(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToCreateFlag(reply, err);
+                Respond.failedToSetClientStatus(reply, err);
             } else {
-                Respond.createFlag(reply, result);
+                Respond.setClientStatus(reply, result);
             }
         });
     },
-
-    editFlag: function (request, reply) {
-        Service.editFlag(request.postgres, request.params.flagID, request.payload, function (err, result) {
+    editClientStatus: function (request, reply) {
+        Service.editClientStatus(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEditFlag(reply, err);
+                Respond.failedToEditClientStatus(reply, err);
             } else {
-                Respond.editFlag(reply, result);
+                Respond.editClientStatus(reply, result);
             }
         });
     },
-
-    getClientFlags: function (request, reply) {
-        Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
-            if (err) {
-                Respond.failedToGetClientFlags(reply, err);
-            } else {
-                Respond.getClientFlags(reply, result);
-            }
-        });
-    },
-
     getProfilePicture: function (request, reply) {
         Service.getProfilePicture(request.postgres, request.params.clientID, function (err, result) {
             if (err) {
