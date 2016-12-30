@@ -14,8 +14,8 @@ $(function (event) {
         var client;
         var caseNoteID;
 
-        $('#setstatus-button').click(function (event) {
-            $('#setstatus-modal').modal('toggle');
+        $('#setflag-button').click(function (event) {
+            $('#setflag-modal').modal('toggle');
         });
 
         var editClientDropdown = function (clientID) {
@@ -426,27 +426,27 @@ $(function (event) {
                         }
                     }
                 }).done(function (data) {
-                    $('#client-statuses').empty();
+                    $('#client-flags').empty();
                     data.result.rows.forEach(function (status) {
                         var statustype = window.getDataById(statusTypes, status.type);
-                        $('#client-statuses').append(
+                        $('#client-flags').append(
                             '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  statustype.name + '"' +
                              'data-content="' + status.note + '">' + statustype.name + '<span class="badge">' + status.message + '</span>' +
-                             '<a class="status-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
-                        console.log($('#client-statuses li:last .badge-button'));
-                        $('#client-statuses li:last .badge-button').css('background-color', statustype.color);
+                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                        console.log($('#client-flags li:last .badge-button'));
+                        $('#client-flags li:last .badge-button').css('background-color', statustype.color);
                     });
                     $('.badge-button').popover({ container: 'body' });
                     $('.badge-button').mousedown(function (event) {
                         $(this).popover('toggle');
                         event.stopPropagation();
                     });
-                    $('#client-statuses li a.status-edit').click(function (event) {
-                        $('#editstatus-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Status')
-                        $('#editstatus-modal-data').data($(this).parents('button').data());
-                        var data = $('#editstatus-modal-data').data();
-                        $('#editstatus-modal').modal('toggle');
-                        $('#editstatus-modal-dot').prop("checked", data.settings.dot);
+                    $('#client-flags li a.flag-edit').click(function (event) {
+                        $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Flag')
+                        $('#editflag-modal-data').data($(this).parents('button').data());
+                        var data = $('#editflag-modal-data').data();
+                        $('#editflag-modal').modal('toggle');
+                        $('#editflag-modal-dot').prop("checked", data.settings.dot);
                         $('[name="edit-message"]').val(data.message);
                         $('[name="edit-note"]').val(data.note);
                         event.stopPropagation();
