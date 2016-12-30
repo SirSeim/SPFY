@@ -226,37 +226,37 @@ var apiRoutes = [
     {
         method: 'GET',
         path: '/flags/types',
-        handler: Api.getStatusTypes
+        handler: Api.getFlagTypes
     },
     {
         method: 'GET',
         path: '/flags',
-        handler: Api.getStatuses
+        handler: Api.getFlags
     },
     {
         method: 'POST',
         path: '/flags/types',
-        handler: Api.createStatusType
+        handler: Api.createFlagType
     },
     {
         method: 'PUT',
-        path: '/flags/types/{statustypeID}',
-        handler: Api.editStatusType
+        path: '/flags/types/{flagtypeID}',
+        handler: Api.editFlagType
     },
     {
         method: 'GET',
         path: '/clients/{clientID}/flags',
-        handler: Api.getClientStatuses
+        handler: Api.getClientFlags
     },
     {
         method: 'POST',
         path: '/clients/{clientID}/flags',
-        handler: Api.setClientStatus
+        handler: Api.setClientFlag
     },
     {
         method: 'PUT',
         path: '/flags',
-        handler: Api.editClientStatus
+        handler: Api.editClientFlag
     },
     // {
     //     method: 'GET',
