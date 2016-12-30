@@ -9,8 +9,8 @@ $(function (event) {
         var clientMail;
         var clientLastMeeting;
         var clientCaseManager;
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
-        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
+        var flags = JSON.parse(window.sessionStorage.flags);
         var client;
         var caseNoteID;
 
@@ -413,7 +413,7 @@ $(function (event) {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                     },
-                    url: 'api/clients/' + $('#client-id')['0'].textContent + '/statuses',
+                    url: 'api/clients/' + $('#client-id')['0'].textContent + '/flags',
                     method: 'GET',
                     success: function (data) {
                         console.log(data);
@@ -427,14 +427,14 @@ $(function (event) {
                     }
                 }).done(function (data) {
                     $('#client-flags').empty();
-                    data.result.rows.forEach(function (status) {
-                        var statustype = window.getDataById(statusTypes, status.type);
+                    data.result.rows.forEach(function (flag) {
+                        var flagtype = window.getDataById(flagTypes, flag.type);
                         $('#client-flags').append(
-                            '<li><button ' + window.dataString(status) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  statustype.name + '"' +
-                             'data-content="' + status.note + '">' + statustype.name + '<span class="badge">' + status.message + '</span>' +
+                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flagtype.name + '"' +
+                             'data-content="' + flag.note + '">' + flagtype.name + '<span class="badge">' + flag.message + '</span>' +
                              '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
                         console.log($('#client-flags li:last .badge-button'));
-                        $('#client-flags li:last .badge-button').css('background-color', statustype.color);
+                        $('#client-flags li:last .badge-button').css('background-color', flagtype.color);
                     });
                     $('.badge-button').popover({ container: 'body' });
                     $('.badge-button').mousedown(function (event) {
@@ -787,8 +787,8 @@ $(function (event) {
     };
 
     var globalData = [];
-    globalData.push(window.sessionStorage.statusTypes);
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.flagTypes);
+    globalData.push(window.sessionStorage.flags);
     // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {

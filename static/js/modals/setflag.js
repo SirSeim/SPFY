@@ -1,7 +1,7 @@
 $(function () {
     
     var setupSetFlagModal = function () {
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
 
         // TODO 
         // give users ability to customize notifications when setting a flag
@@ -16,10 +16,10 @@ $(function () {
 
         
 
-        statusTypes.forEach(function (statustype, index) {
-            console.log(statustype);
-            $('#flag-select').append('<option ' + window.dataString(statustype) + ' value="' + index + '">' + 
-                                        statustype.name + '</option>');
+        flagTypes.forEach(function (flagtype, index) {
+            console.log(flagtype);
+            $('#flag-select').append('<option ' + window.dataString(flagtype) + ' value="' + index + '">' + 
+                                        flagtype.name + '</option>');
         });
 
         var firstOption = function () {
@@ -45,7 +45,7 @@ $(function () {
         });
 
         $('#setflag-submit-button').click(function (event) {
-            var statustype = $('#flag-select option:selected');
+            var flagtype = $('#flag-select option:selected');
             var settings = {};
 
             if ($('#setflag-modal-dot').is(':checked')) {
@@ -55,7 +55,7 @@ $(function () {
             }
 
             var data = {
-                typeID: statustype.data("id"),
+                typeID: flagtype.data("id"),
                 message: $('[name="set-message"]').val(),
                 note: $('[name="set-note"]').val(),
                 settings: JSON.stringify(settings)
@@ -68,7 +68,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/clients/" +  $('#client-id')['0'].textContent + "/statuses",
+                url: "api/clients/" +  $('#client-id')['0'].textContent + "/flags",
                 method: "POST",
                 data: data,
                 success: function (data) {
@@ -120,7 +120,7 @@ $(function () {
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.statusTypes);
+    globalData.push(window.sessionStorage.flagTypes);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");

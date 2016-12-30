@@ -3,8 +3,8 @@ $(function () {
     // ** will clean and optimize code **
 
     var setupSettingsPage = function () {
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
-        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
+        var flags = JSON.parse(window.sessionStorage.flags);
         // var flags = JSON.parse(window.sessionStorage.flags);
         var notificationTypes = JSON.parse(window.sessionStorage.notificationTypes);
 
@@ -289,7 +289,7 @@ $(function () {
             -submit
         */
 
-        statusTypes.forEach(function (statustype) {
+        flagTypes.forEach(function (statustype) {
             var message = statustype.settings.defaults.message;
             var note = statustype.settings.defaults.note;
             $('#flags-table tbody').append(
@@ -360,7 +360,7 @@ $(function () {
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                         },
-                        url: 'api/statuses/types/' + $(event.target).parents('tr').data("id"),
+                        url: 'api/flags/types/' + $(event.target).parents('tr').data("id"),
                         method: 'PUT',
                         data: data,
                         success: function (data) {
@@ -476,8 +476,8 @@ $(function () {
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.statusTypes);
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.flagTypes);
+    globalData.push(window.sessionStorage.flags);
     // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {

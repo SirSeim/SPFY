@@ -10,7 +10,7 @@ $(function () {
         }
 
         var data = {
-            statusID: $('#editflag-modal-data').data("id"),
+            flagID: $('#editflag-modal-data').data("id"),
             message: $('[name="edit-message"]').val(),
             note: $('[name="edit-note"]').val(),
             settings: JSON.stringify(settings)
@@ -23,7 +23,7 @@ $(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: "api/statuses",
+            url: "api/flags",
             method: "PUT",
             data: data,
             success: function (data) {

@@ -46,7 +46,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: 'api/statuses/types',
+                url: 'api/flags/types',
                 method: 'POST',
                 data: data,
                 success: function (data) {

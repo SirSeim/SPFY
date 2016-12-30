@@ -6,8 +6,8 @@ $(function (event) {
     var setupClientProfileTable = function () {
         var status = $('.dot');
         var table = $('#clients tbody');
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
-        var statuses = JSON.parse(window.sessionStorage.statuses); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
+        var flags = JSON.parse(window.sessionStorage.flags); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
         // var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
         var clients = JSON.parse(window.sessionStorage.clients);
 
@@ -15,11 +15,11 @@ $(function (event) {
         table.empty();
         clients.forEach(function (client) {
             var spans = '';
-            statuses.forEach(function (status) {
-                if (client.id === status.clientID) {
-                    if (status.settings && status.settings.dot) {
-                        var color = window.getDataById(statusTypes, status.type).color;
-                        spans += '<span class="dot" data-status="' + status.id + '" data-color="' + color + '"></span>';
+            flags.forEach(function (flag) {
+                if (client.id === flag.clientID) {
+                    if (flag.settings && flag.settings.dot) {
+                        var color = window.getDataById(flagTypes, flag.type).color;
+                        spans += '<span class="dot" data-flag="' + flag.id + '" data-color="' + color + '"></span>';
                     }
                 }
             });
@@ -59,8 +59,8 @@ $(function (event) {
     */
 
     var globalData = []
-    globalData.push(window.sessionStorage.statusTypes);
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.flagTypes);
+    globalData.push(window.sessionStorage.flags);
     // globalData.push(window.sessionStorage.flags);
 
     // never make assumptions about when calls will show up
