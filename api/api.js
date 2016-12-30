@@ -756,70 +756,70 @@ var api = {
     //     });
     // },
 
-    getStatusTypes: function (request, reply) {
-        Service.getStatusTypes(request.postgres, function (err, result) {
+    getFlagTypes: function (request, reply) {
+        Service.getFlagTypes(request.postgres, function (err, result) {
             if (err) {
-                Respond.failedToGetStatusTypes(reply, err);
+                Respond.failedToGetFlagTypes(reply, err);
             } else {
-                Respond.getStatusTypes(reply, result);
+                Respond.getFlagTypes(reply, result);
             }
         });
     },
-    getStatuses: function (request, reply) {
-        Service.getStatuses(request.postgres, function (err, result) {
+    getFlags: function (request, reply) {
+        Service.getFlags(request.postgres, function (err, result) {
             if (err) {
-                Respond.failedToGetStatuses(reply, err);
+                Respond.failedToGetFlags(reply, err);
             } else {
-                Respond.getStatuses(reply, result);
-            }
-        });
-    },
-
-    createStatusType: function (request, reply) {
-        Service.createStatusType(request.postgres, request.payload, function (err, result) {
-            if (err) {
-                Respond.failedToCreateStatusType(reply, err);
-            } else {
-                Respond.createStatusType(reply, result);
+                Respond.getFlags(reply, result);
             }
         });
     },
 
-    editStatusType: function (request, reply) {
-        Service.editStatusType(request.postgres, request.params.statustypeID, request.payload, function (err, result) {
+    createFlagType: function (request, reply) {
+        Service.createFlagType(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEditStatusType(reply, err);
+                Respond.failedToCreateFlagType(reply, err);
             } else {
-                Respond.editStatusType(reply, result);
+                Respond.createFlagType(reply, result);
             }
         });
     },
 
-    getClientStatuses: function (request, reply) {
-        Service.getClientStatuses(request.postgres, request.params.clientID, function (err, result) {
+    editFlagType: function (request, reply) {
+        Service.editFlagType(request.postgres, request.params.flagtypeID, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToGetClientStatuses(reply, err);
+                Respond.failedToEditFlagType(reply, err);
             } else {
-                Respond.getClientStatuses(reply, result);
+                Respond.editFlagType(reply, result);
             }
         });
     },
-    setClientStatus: function (request, reply) {
+
+    getClientFlags: function (request, reply) {
+        Service.getClientFlags(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientFlags(reply, err);
+            } else {
+                Respond.getClientFlags(reply, result);
+            }
+        });
+    },
+    setClientFlag: function (request, reply) {
         request.payload.clientID = request.params.clientID;
-        Service.setClientStatus(request.postgres, request.payload, function (err, result) {
+        Service.setClientFlag(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToSetClientStatus(reply, err);
+                Respond.failedToSetClientFlag(reply, err);
             } else {
-                Respond.setClientStatus(reply, result);
+                Respond.setClientFlag(reply, result);
             }
         });
     },
-    editClientStatus: function (request, reply) {
-        Service.editClientStatus(request.postgres, request.payload, function (err, result) {
+    editClientFlag: function (request, reply) {
+        Service.editClientFlag(request.postgres, request.payload, function (err, result) {
             if (err) {
-                Respond.failedToEditClientStatus(reply, err);
+                Respond.failedToEditClientFlag(reply, err);
             } else {
-                Respond.editClientStatus(reply, result);
+                Respond.editClientFlag(reply, result);
             }
         });
     },

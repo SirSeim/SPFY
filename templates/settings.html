@@ -46,15 +46,15 @@
         </div>
 
         <div id="notifications-settings" class="hidden">
-          <div id="status-notifications">
+          <div id="flag-notifications">
             <div class="card">
               <div class="card-header">
                 <h4>
-                  Status Notifications
+                  Flag Notifications
                 </h4>
-                <p>Determine which statuses you would like to receive alerts for.</p>
+                <p>Determine which flags you would like to receive alerts for.</p>
               </div>
-              <table class="table table-hover" id="status-notifications-table">
+              <table class="table table-hover" id="flag-notifications-table">
                 <tbody>
                 
                 </tbody>
@@ -125,17 +125,17 @@
           <div class="card">
             <div class="card-header">
               <h4>
-                Statuses <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-status-modal">Add Status <i class="fa fa-plus" aria-hidden="true"></i></button>
+                Flags <button type="button" class="btn btn-success" data-toggle="modal" style="float: right;" data-target="#new-flag-modal">Add Flag <i class="fa fa-plus" aria-hidden="true"></i></button>
               </h4>
-              <p>Create standard status types along with their default messages and notes that staff can use to assign to client profiles.</p>
+              <p>Create standard flag types along with their default messages and notes that staff can use to assign to client profiles.</p>
             </div>
-            <table class="table table-hover" id="statuses-table">
+            <table class="table table-hover" id="flags-table">
               <thead>
                 <tr>
-                  <th>Status Color</th>
-                  <th>Status Type</th>
-                  <th>Status Message</th>
-                  <th>Status Note</th>
+                  <th>Flag Color</th>
+                  <th>Flag Type</th>
+                  <th>Flag Message</th>
+                  <th>Flag Note</th>
                   <th>Settings</th>
                 </tr>
               </thead>
@@ -175,12 +175,11 @@
     </div>
   </div>
 
-    {% include "modals/newstatus.html" %}
+    {% include "modals/newflag.html" %}
     {% include "components/_basescript.html" %}
   
     <!-- <script type="text/babel" src="/static/js/settings.js"></script> -->
     <script type="text/babel" src="/static/js/settings.js"></script>
-    <script src="/static/js/modals/newstatus.js"></script>
     <script src="/static/js/modals/newflag.js"></script>
     <script src="/static/js/createnewactivity.js"></script>
   

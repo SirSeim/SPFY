@@ -927,12 +927,12 @@ var query = {
         });
     },
 
-    getStatusTypes: function (postgres, callback) {
+    getFlagTypes: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.getStatusTypes(), function (err, result) {
+            client.query(Queries.getFlagTypes(), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -943,12 +943,12 @@ var query = {
         });
     },
 
-    getStatuses: function (postgres, callback) {
+    getFlags: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.getStatuses(), function (err, result) {
+            client.query(Queries.getFlags(), function (err, result) {
                 done();
                 if (err) {
                     return callback(err);
@@ -959,12 +959,12 @@ var query = {
         });
     },
 
-    createStatusType: function (postgres, payload, callback) {
+    createFlagType: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            client.query(Queries.createStatusType(payload), function (err, result) {
+            client.query(Queries.createFlagType(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -976,14 +976,14 @@ var query = {
         });
     },
 
-    editStatusType: function (postgres, statustypeID, payload, callback) {
+    editFlagType: function (postgres, flagtypeID, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
-            // var data = Queries.editStatusType(StatustypeID);
+            // var data = Queries.editFlagType(flagtypeID);
             // // unstringify the data passed in
-            client.query(Queries.editStatusType(statustypeID, payload), function (err, result) {
+            client.query(Queries.editFlagType(flagtypeID, payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -994,14 +994,14 @@ var query = {
             });
         });
     },
-    getClientStatuses: function (postgres, clientID, callback) {
+    getClientFlags: function (postgres, clientID, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
             // var data = Queries.editFlag(clientID);
             // // unstringify the data passed in
-            client.query(Queries.getClientStatuses(clientID), function (err, result) {
+            client.query(Queries.getClientFlags(clientID), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -1012,14 +1012,14 @@ var query = {
             });
         });
     },
-    setClientStatus: function (postgres, payload, callback) {
+    setClientFlag: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
             // var data = Queries.editFlag(clientID);
             // // unstringify the data passed in
-            client.query(Queries.setClientStatus(payload), function (err, result) {
+            client.query(Queries.setClientFlag(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {
@@ -1030,14 +1030,14 @@ var query = {
             });
         });
     },
-    editClientStatus: function (postgres, payload, callback) {
+    editClientFlag: function (postgres, payload, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {
                 return callback(err);
             }
             // var data = Queries.editFlag(clientID);
             // // unstringify the data passed in
-            client.query(Queries.editClientStatus(payload), function (err, result) {
+            client.query(Queries.editClientFlag(payload), function (err, result) {
             // client.query(data.string, data.params, function (err, result) {
                 done();
                 if (err) {

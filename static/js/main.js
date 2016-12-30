@@ -85,11 +85,11 @@ $(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
         },
-        url: "api/statuses/types",
+        url: "api/flags/types",
         method: "GET",
         success: function (data) {
             console.log(data);
-            window.sessionStorage.statusTypes = JSON.stringify(data.result);
+            window.sessionStorage.flagTypes = JSON.stringify(data.result);
             window.sessionStorageListeners.forEach(function (listener) {
                 listener.ready();
             });
@@ -110,11 +110,11 @@ $(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
         },
-        url: "api/statuses",
+        url: "api/flags",
         method: "GET",
         success: function (data) {
             console.log(data);
-            window.sessionStorage.statuses = JSON.stringify(data.result);
+            window.sessionStorage.flags = JSON.stringify(data.result);
             window.sessionStorageListeners.forEach(function (listener) {
                 listener.ready();
             });

@@ -76,7 +76,6 @@ var service = {
                     firstName: local.first_name,
                     nickname: local.nickname,
                     lastName: local.last_name,
-                    status: local.status,
                     dob: local.date_of_birth,
                     phone: local.phone_number,
                     email: local.email
@@ -846,8 +845,8 @@ var service = {
     //     });
     // },
 
-    getStatusTypes: function (postgres, callback) {
-        Query.getStatusTypes(postgres, function (err, result) {
+    getFlagTypes: function (postgres, callback) {
+        Query.getFlagTypes(postgres, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -868,8 +867,8 @@ var service = {
         });
     },
 
-    getStatuses: function (postgres, callback) {
-        Query.getStatuses(postgres, function (err, result) {
+    getFlags: function (postgres, callback) {
+        Query.getFlags(postgres, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -892,8 +891,8 @@ var service = {
         });
     },
 
-    createStatusType: function (postgres, payload, callback) {
-        Query.createStatusType(postgres, payload, function (err, result) {
+    createFlagType: function (postgres, payload, callback) {
+        Query.createFlagType(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -901,8 +900,8 @@ var service = {
         });
     },
 
-    editStatusType: function (postgres, statustypeID, payload, callback) {
-        Query.editStatusType(postgres, statustypeID, payload, function (err, result) {
+    editFlagType: function (postgres, flagtypeID, payload, callback) {
+        Query.editFlagType(postgres, flagtypeID, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -923,8 +922,8 @@ var service = {
         });
     },
 
-    getClientStatuses: function (postgres, clientID, callback) {
-        Query.getClientStatuses(postgres, clientID, function (err, result) {
+    getClientFlags: function (postgres, clientID, callback) {
+        Query.getClientFlags(postgres, clientID, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -946,8 +945,8 @@ var service = {
             callback(undefined, result);
         });
     },
-    setClientStatus: function (postgres, payload, callback) {
-        Query.setClientStatus(postgres, payload, function (err, result) {
+    setClientFlag: function (postgres, payload, callback) {
+        Query.setClientFlag(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }
@@ -969,8 +968,8 @@ var service = {
             callback(undefined, result);
         });
     },
-    editClientStatus: function (postgres, payload, callback) {
-        Query.editClientStatus(postgres, payload, function (err, result) {
+    editClientFlag: function (postgres, payload, callback) {
+        Query.editClientFlag(postgres, payload, function (err, result) {
             if (err) {
                 return callback(err);
             }

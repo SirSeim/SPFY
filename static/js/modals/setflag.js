@@ -1,10 +1,10 @@
 $(function () {
     
-    var setupSetStatusModal = function () {
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
+    var setupSetFlagModal = function () {
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
 
         // TODO 
-        // give users ability to customize notifications when setting a status
+        // give users ability to customize notifications when setting a flag
         // basically creating the notification after deciding they want to set one
         // option for who will receive the notification
 
@@ -12,50 +12,50 @@ $(function () {
         // but will also have option to set for other users or everyone
 
         // that said, there should be a panel listing the alerts
-        // that are already associated with that particular status
+        // that are already associated with that particular flag
 
         
 
-        statusTypes.forEach(function (statustype, index) {
-            console.log(statustype);
-            $('#status-select').append('<option ' + window.dataString(statustype) + ' value="' + index + '">' + 
-                                        statustype.name + '</option>');
+        flagTypes.forEach(function (flagtype, index) {
+            console.log(flagtype);
+            $('#flag-select').append('<option ' + window.dataString(flagtype) + ' value="' + index + '">' + 
+                                        flagtype.name + '</option>');
         });
 
         var firstOption = function () {
-            var defaults = $('#status-select option:selected').data("settings").defaults;
+            var defaults = $('#flag-select option:selected').data("settings").defaults;
             $('[name="set-message"]').val(defaults.message);
             $('[name="set-note"]').val(defaults.note);
             if (defaults.dot) {
-                $('#setstatus-modal-dot').prop('checked', true);
+                $('#setflag-modal-dot').prop('checked', true);
             }
         };
 
         firstOption();
 
-        $('#status-select').change(function (event) {
-            var defaults = $('#status-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
+        $('#flag-select').change(function (event) {
+            var defaults = $('#flag-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
             $('[name="set-message"]').val(defaults.message);
             $('[name="set-note"]').val(defaults.note);
             if (defaults.dot) {
-                $('#setstatus-modal-dot').prop('checked', true);
+                $('#setflag-modal-dot').prop('checked', true);
             } else {
-                $('#setstatus-modal-dot').prop('checked', false);
+                $('#setflag-modal-dot').prop('checked', false);
             }
         });
 
-        $('#setstatus-submit-button').click(function (event) {
-            var statustype = $('#status-select option:selected');
+        $('#setflag-submit-button').click(function (event) {
+            var flagtype = $('#flag-select option:selected');
             var settings = {};
 
-            if ($('#setstatus-modal-dot').is(':checked')) {
+            if ($('#setflag-modal-dot').is(':checked')) {
                 settings.dot = true;
             } else {
                 settings.dot = false;
             }
 
             var data = {
-                typeID: statustype.data("id"),
+                typeID: flagtype.data("id"),
                 message: $('[name="set-message"]').val(),
                 note: $('[name="set-note"]').val(),
                 settings: JSON.stringify(settings)
@@ -68,7 +68,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/clients/" +  $('#client-id')['0'].textContent + "/statuses",
+                url: "api/clients/" +  $('#client-id')['0'].textContent + "/flags",
                 method: "POST",
                 data: data,
                 success: function (data) {
@@ -82,7 +82,7 @@ $(function () {
                     }
                 }
             }).done(function (data) {
-                $('#setstatus-modal').modal('toggle');
+                $('#setflag-modal').modal('toggle');
             });
 
             // hardcoding this for now
@@ -120,15 +120,15 @@ $(function () {
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.statusTypes);
+    globalData.push(window.sessionStorage.flagTypes);
 
     if (globalData.every((array) => array)) {
         console.log("call arrived");
-        setupSetStatusModal();
+        setupSetFlagModal();
     } else {
         console.log("waiting for call");
         window.sessionStorageListeners.push({
-            ready: setupSetStatusModal
+            ready: setupSetFlagModal
         });
     }
 

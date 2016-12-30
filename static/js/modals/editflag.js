@@ -1,16 +1,16 @@
 $(function () {
 
-    $('#editstatus-submit-button').click(function (event) {
-        var settings = $('#editstatus-modal-data').data("settings");
+    $('#editflag-submit-button').click(function (event) {
+        var settings = $('#editflag-modal-data').data("settings");
 
-        if ($('#editstatus-modal-dot').is(':checked')) {
+        if ($('#editflag-modal-dot').is(':checked')) {
             settings.dot = true;
         } else {
             settings.dot = false;
         }
 
         var data = {
-            statusID: $('#editstatus-modal-data').data("id"),
+            flagID: $('#editflag-modal-data').data("id"),
             message: $('[name="edit-message"]').val(),
             note: $('[name="edit-note"]').val(),
             settings: JSON.stringify(settings)
@@ -23,7 +23,7 @@ $(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: "api/statuses",
+            url: "api/flags",
             method: "PUT",
             data: data,
             success: function (data) {
@@ -37,7 +37,7 @@ $(function () {
                 }
             }
         }).done(function (data) {
-            $('#editstatus-modal').modal('toggle');
+            $('#editflag-modal').modal('toggle');
         });
     });
 });
