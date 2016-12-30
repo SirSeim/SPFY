@@ -15,14 +15,22 @@ $(function (event) {
         table.empty();
         clients.forEach(function (client) {
             var spans = '';
+            client.checkinalerts = [];
             flags.forEach(function (flag) {
                 if (client.id === flag.clientID) {
-                    if (flag.settings && flag.settings.dot) {
-                        var color = window.getDataById(flagTypes, flag.type).color;
-                        spans += '<span class="dot" data-flag="' + flag.id + '" data-color="' + color + '"></span>';
+                    if (flag.settings) {
+                        if (flag.settings.dot) {
+                            var color = window.getDataById(flagTypes, flag.type).color;
+                            spans += '<span class="dot" data-flag="' + flag.id + '" data-color="' + color + '"></span>';
+                        }
+                        if (flag.settings.checkinalert) {
+                            // make sure it doesn't overwrite previous alerts
+                            client.checkinalerts.push(flag.settings.checkinalert);
+                        }
                     }
                 }
             });
+            client.checkinalerts = JSON.stringify(client.checkinalerts);
             var display = [spans + client.firstName + ' ' +
             client.lastName];
             table.append(window.buildRow(client, display));

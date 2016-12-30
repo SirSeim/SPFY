@@ -22,6 +22,8 @@ $(function () {
                                         flagtype.name + '</option>');
         });
 
+        // get the settings from the first flag type
+        // apply defaults to checkboxes and text inputs
         var firstOption = function () {
             var defaults = $('#flag-select option:selected').data("settings").defaults;
             $('[name="set-message"]').val(defaults.message);
@@ -33,6 +35,8 @@ $(function () {
 
         firstOption();
 
+        // get the settings from the currently selected flag type
+        // apply defaults to checkboxes and text inputs
         $('#flag-select').change(function (event) {
             var defaults = $('#flag-select option:selected').data("settings").defaults; // .data() auto-converts stringified JSON to an object
             $('[name="set-message"]').val(defaults.message);
@@ -44,6 +48,23 @@ $(function () {
             }
         });
 
+        /*
+            Files to track for checkin-alert implementation:
+            -setflag files
+            -editflag files
+            -clientprofiletable.js
+            -frontdesk.js
+        */
+        
+        $('#setflag-modal-checkin-alert').change(function (event) {
+            if ($('#setflag-modal-checkin-alert').is(':checked')) {
+                $('#setflag-text-inputs').append('<textarea class="form-control" rows="5" name="set-checkin-alert-message"' + 
+                                         'placeholder="Checkin Alert Message"></textarea>');
+            } else {
+                $('[name="set-checkin-alert-message"]').remove();
+            }
+        });
+
         $('#setflag-submit-button').click(function (event) {
             var flagtype = $('#flag-select option:selected');
             var settings = {};
@@ -52,6 +73,12 @@ $(function () {
                 settings.dot = true;
             } else {
                 settings.dot = false;
+            }
+
+            if ($('#setflag-modal-checkin-alert').is(':checked')) {
+                settings.checkinalert = $('[name="set-checkin-alert-message"]').val();
+            } else {
+                settings.checkinalert = false;
             }
 
             var data = {

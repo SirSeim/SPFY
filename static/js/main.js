@@ -34,8 +34,8 @@ $(function () {
     window.buildRow = function (data, display, trAttributes) {
         var dataString = "";
         var tdString = "";
-        for (var property in data) {
-            dataString += 'data-' + property.toLowerCase() + '="' + data[property] + '" ';
+        for (var property in data) {                        // single quotes! otherwise will run into JSON conversion errors
+            dataString += 'data-' + property.toLowerCase() + '=\'' + data[property] + '\' ';
         }
         display.forEach(function (column) {
             tdString += '<td>' + column + '</td>';

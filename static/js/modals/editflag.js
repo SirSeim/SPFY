@@ -1,5 +1,14 @@
 $(function () {
 
+    $('#editflag-modal-checkin-alert').change(function (event) {
+        if ($('#editflag-modal-checkin-alert').is(':checked')) {
+            $('#editflag-text-inputs').append('<textarea class="form-control" rows="5" name="edit-checkin-alert-message"' + 
+                                     'placeholder="Checkin Alert Message"></textarea>');
+        } else {
+            $('[name="edit-checkin-alert-message"]').remove();
+        }
+    });
+
     $('#editflag-submit-button').click(function (event) {
         var settings = $('#editflag-modal-data').data("settings");
 
@@ -7,6 +16,12 @@ $(function () {
             settings.dot = true;
         } else {
             settings.dot = false;
+        }
+
+        if ($('#editflag-modal-checkin-alert').is(':checked')) {
+            settings.checkinalert = $('[name="edit-checkin-alert-message"]').val();
+        } else {
+            settings.checkinalert = false;
         }
 
         var data = {

@@ -66,11 +66,12 @@ $(function () {
             var signups = [];
 
             for (var i = 0; i < selectedclients.length; i++) {
+                console.log(selectedclients[i]);
                 signups.push(selectedclients[i].id);
+                selectedclients[i].checkinalerts.forEach(function (checkinalert) {
+                    alert(checkinalert);
+                });
             }
-
-            // make sure to clear selectedclients after using data
-            selectedclients = [];
             
             if (signups.length === 0) {
                 $('#checkin-feedback').empty().append(
@@ -115,6 +116,9 @@ $(function () {
                     }
                 });
             }
+
+            // make sure to clear selectedclients after using data
+            selectedclients = [];
         };
 
         var refreshCheckinTable = function () {
