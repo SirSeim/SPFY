@@ -258,6 +258,11 @@ var apiRoutes = [
         path: '/flags',
         handler: Api.editClientFlag
     },
+    {
+        method: 'DELETE',
+        path: '/flags',
+        handler: Api.removeClientFlag
+    },
     // {
     //     method: 'GET',
     //     path: '/flags',

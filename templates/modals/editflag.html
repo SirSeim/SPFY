@@ -12,10 +12,14 @@
             <div class="row">
               <div class="col-sm-3">
                 <div class="row">
-                  <input type="checkbox" id="editflag-modal-dot">Color Dot</input>
+                  <label>
+                    <input type="checkbox" id="editflag-modal-dot"> Color Dot</input>
+                  </label>
                 </div>
                 <div class="row">
-                  <input type="checkbox" id="editflag-modal-checkin-alert">Checkin Alert</input>
+                  <label>
+                    <input type="checkbox" id="editflag-modal-checkin-alert"> Checkin Alert</input>
+                  </label>
                 </div>
               </div>
               <div class="col-sm-3" id="editflag-text-inputs">
@@ -26,8 +30,19 @@
             
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="editflag-submit-button">Submit</button>
+            <div class="row">
+              <div class="col-sm-3">
+                <label>
+                  <input type="checkbox" id="editflag-modal-remove" title="removes this flag for the client"> Remove Flag</input>
+                </label>
+              </div>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="editflag-submit-button">Submit</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

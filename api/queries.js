@@ -980,6 +980,12 @@ var queries = {
         return queryString;
     },
 
+    removeClientFlag: function (payload) {
+        var queryString = 'DELETE FROM flag WHERE id = ' + payload.flagID + ';';
+        
+        return queryString;
+    },
+
     // ** 
 
     uploadFile: function (payload) {
