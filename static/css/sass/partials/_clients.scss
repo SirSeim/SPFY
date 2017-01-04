@@ -12,6 +12,10 @@
 #clients thead, #clients tbody, #clients tr, #clients td, #clients th {
   display: block;
 }
+
+.client-dots:hover {
+  background: rgba(0, 0, 0, 0.09);
+}
 /*#clients tbody td, #clients thead > tr> th {
   float: left;
   border-bottom-width: 0;

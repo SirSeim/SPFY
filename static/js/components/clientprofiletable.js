@@ -10,18 +10,18 @@ $(function (event) {
         var flags = JSON.parse(window.sessionStorage.flags); // if getting Uncaught SyntaxError: Unexpected token u in JSON at position 0
         // var flags = JSON.parse(window.sessionStorage.flags);        // means value is probably undefined
         var clients = JSON.parse(window.sessionStorage.clients);
-
+        var spanLimit = 3;
 
         table.empty();
         clients.forEach(function (client) {
-            var spans = '';
+            var spans = [];
             client.checkinalerts = [];
             flags.forEach(function (flag) {
                 if (client.id === flag.clientID) {
-                    if (flag.settings) {
+                    if (flag.settings) { // check setflag, editflag files to see which settings are present
                         if (flag.settings.dot) {
                             var color = window.getDataById(flagTypes, flag.type).color;
-                            spans += '<span class="dot" data-flag="' + flag.id + '" data-color="' + color + '"></span>';
+                            spans.push('<span class="dot" data-flag="' + flag.id + '" data-color="' + color + '"></span>');
                         }
                         if (flag.settings.checkinalert) {
                             // make sure it doesn't overwrite previous alerts
@@ -31,8 +31,23 @@ $(function (event) {
                 }
             });
             client.checkinalerts = JSON.stringify(client.checkinalerts);
-            var display = [spans + client.firstName + ' ' +
-            client.lastName];
+
+            // color dots display logic
+            var display = [];
+            if (spans.length > spanLimit) {
+                var shortSpans = [];
+                for (var i = 0; i < spanLimit; i++) {
+                    shortSpans.push(spans[i]);
+                }
+                shortSpans.push('&#x2026;');
+                display.push(client.firstName + ' ' + client.lastName + ' ' +
+                             '<label class="client-dots" title="Flags" data-content=\'' + spans + '\'>' + 
+                             shortSpans.join('') + '</label>');
+            } else {
+                display.push(client.firstName + ' ' + client.lastName + ' ' +
+                             '<label class="client-dots">' + 
+                             spans.join('') + '</label>');
+            }
             table.append(window.buildRow(client, display));
         });
         // what if profiles don't come through?
@@ -43,6 +58,19 @@ $(function (event) {
             });
         });
         
+        $('.client-dots')//.popover({
+        //     container: 'body',
+        //     html: true, // does this make it vulnerable to xss attacks? - yes
+        //     content: function () {
+        //         return $(this).data('content');
+        //     }
+        // })
+            .click(function (event) {
+                alert("clicked!");
+            event.preventDefault();
+            event.stopPropagation();
+        });
+
         $('#client-search').keyup(function () {
             var search = $('#client-search');
             var clients = $('#clients td');

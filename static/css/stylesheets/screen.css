@@ -323,6 +323,11 @@ a:hover {
   display: block;
 }
 
+/* line 16, ../sass/partials/_clients.scss */
+.client-dots:hover {
+  background: rgba(0, 0, 0, 0.09);
+}
+
 /*#clients tbody td, #clients thead > tr> th {
   float: left;
   border-bottom-width: 0;
@@ -358,24 +363,24 @@ a:hover {
   font-size: 20px;
   color: red;
 }*/
-/* line 52, ../sass/partials/_clients.scss */
+/* line 56, ../sass/partials/_clients.scss */
 .steven-photo {
   width: 200px;
   height: 200px;
   border: 1px solid #000;
 }
 
-/* line 58, ../sass/partials/_clients.scss */
+/* line 62, ../sass/partials/_clients.scss */
 #clientInfoTable td {
   width: 150px;
 }
 
-/* line 62, ../sass/partials/_clients.scss */
+/* line 66, ../sass/partials/_clients.scss */
 .ageWarning {
   color: red;
 }
 
-/* line 66, ../sass/partials/_clients.scss */
+/* line 70, ../sass/partials/_clients.scss */
 #identifyingFeatures {
   width: 400px;
   height: 100px;
