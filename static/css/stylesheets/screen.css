@@ -387,6 +387,13 @@ a:hover {
   height: 100px;
 }
 
+/* line 76, ../sass/partials/_clients.scss */
+.client-info-checkboxes {
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  column-count: 3;
+}
+
 /*#casenotes thead {
   width: 97%;
 }*/
