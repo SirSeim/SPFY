@@ -323,8 +323,9 @@ a:hover {
   display: block;
 }
 
-/* line 16, ../sass/partials/_clients.scss */
+/* line 15, ../sass/partials/_clients.scss */
 .client-dots:hover {
+  border-radius: 10px;
   background: rgba(0, 0, 0, 0.09);
 }
 

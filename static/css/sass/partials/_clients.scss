@@ -12,8 +12,8 @@
 #clients thead, #clients tbody, #clients tr, #clients td, #clients th {
   display: block;
 }
-
 .client-dots:hover {
+  border-radius: 10px;
   background: rgba(0, 0, 0, 0.09);
 }
 /*#clients tbody td, #clients thead > tr> th {

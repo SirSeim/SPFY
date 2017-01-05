@@ -41,7 +41,7 @@ $(function (event) {
                 }
                 shortSpans.push('&#x2026;');
                 display.push(client.firstName + ' ' + client.lastName + ' ' +
-                             '<label class="client-dots" title="Flags" data-content=\'' + spans + '\'>' + 
+                             '<label class="client-dots closed" title="Flags" data-content=\'' + spans.join(',') + '\'>' +
                              shortSpans.join('') + '</label>');
             } else {
                 display.push(client.firstName + ' ' + client.lastName + ' ' +
@@ -58,16 +58,30 @@ $(function (event) {
             });
         });
         
-        $('.client-dots')//.popover({
-        //     container: 'body',
-        //     html: true, // does this make it vulnerable to xss attacks? - yes
-        //     content: function () {
-        //         return $(this).data('content');
-        //     }
-        // })
-            .click(function (event) {
-                alert("clicked!");
-            event.preventDefault();
+        // handles span overflow display folding and unfolding
+        $('.client-dots').click(function (event) {
+            if ($(this).hasClass("closed")) {
+                $(this).html($(this).data("content").split(',').join(''));
+                $(this).find('.dot').get().forEach(function (dot) {
+                    $(dot).css('background-color', $(dot).data("color"));
+                });
+                $(this).removeClass("closed");
+                $(this).addClass("open");
+            } else if ($(this).hasClass("open")) { // possible to not have either open or closed, so must check again with elseif
+                var spans = $(this).data("content").split(',');
+                var shortSpans = [];
+                for (var i = 0; i < spanLimit; i++) {
+                    shortSpans.push(spans[i]);
+                }
+                shortSpans.push('&#x2026;');
+                $(this).html(shortSpans.join(''));
+                $(this).find('.dot').get().forEach(function (dot) {
+                    $(dot).css('background-color', $(dot).data("color"));
+                });
+                $(this).removeClass("open");
+                $(this).addClass("closed");
+            }
+            // event.preventDefault();
             event.stopPropagation();
         });
 
