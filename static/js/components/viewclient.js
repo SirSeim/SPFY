@@ -430,17 +430,17 @@ $(function (event) {
                     data.result.rows.forEach(function (flag) {
                         var flagtype = window.getDataById(flagTypes, flag.type);
                         $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flagtype.name + '"' +
+                            '<li><button ' + window.dataString(flag) + ' class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flagtype.name + '"' +
                              'data-content="' + flag.note + '">' + flagtype.name + '<span class="badge">' + flag.message + '</span>' +
                              '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
                         console.log($('#client-flags li:last .badge-button'));
                         $('#client-flags li:last .badge-button').css('background-color', flagtype.color);
                     });
-                    $('.badge-button').popover({ container: 'body' });
-                    $('.badge-button').mousedown(function (event) {
-                        $(this).popover('toggle');
-                        event.stopPropagation();
-                    });
+                    $('.badge-button').popover({ container: 'body' })
+                                      .click(function (event) {
+                                          $(this).popover('toggle');
+                                          event.stopPropagation();
+                                      });
                     $('#client-flags li a.flag-edit').click(function (event) {
                         $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Flag')
                         $('#editflag-modal-data').data($(this).parents('button').data());
