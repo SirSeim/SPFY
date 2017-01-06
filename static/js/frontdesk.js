@@ -26,10 +26,10 @@ $(function () {
             .on('click', function (event) {
                 $('#viewclient-modal').find('#client-name')
                 .text($(this).data("firstname") + ' ' + $(this).data("lastname"));
+                $('#client-modal-data').data('id', $(this).data('id'));
                 $('#viewclient-modal').modal('toggle');
             });
             $(row).find('td').append('<button name="select-button" type="button" class="btn btn-outline-primary btn-sm">Select</button>');
-            console.log($(row));
             event.stopPropagation();
         });
 
