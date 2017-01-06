@@ -663,3 +663,74 @@ CREATE TABLE monthly_statistics (
   unduplicated_youth integer DEFAULT 0,
   total_youth integer DEFAULT 0
 );
+
+
+-- ============== intake form schema ==============
+
+DROP TABLE IF EXISTS form_type;
+
+CREATE TABLE form_type (
+  id SERIAL PRIMARY KEY,
+  name varchar(45)
+);
+
+INSERT INTO form_type (name) VALUES ('intake-form');
+INSERT INTO form_type (name) VALUES ('test-form');
+
+DROP TABLE IF EXISTS form;
+
+CREATE TABLE form (
+  id SERIAL PRIMARY KEY,
+  client_id integer REFERENCES client (id),
+  form_type_id integer REFERENCES form_type (id)
+);
+
+INSERT INTO form (client_id, form_type_id) VALUES (1, 1);
+INSERT INTO form (client_id, form_type_id) VALUES (1, 2);
+
+DROP TABLE IF EXISTS form_element_type;
+
+CREATE TABLE form_element_type (
+  id SERIAL PRIMARY KEY,
+  name varchar(45)
+);
+
+INSERT INTO form_element_type (name) VALUES ('checkbox-group');
+
+DROP TABLE IF EXISTS form_elements;
+
+CREATE TABLE form_elements (
+  id SERIAL PRIMARY KEY,
+  form_id integer REFERENCES form (id),
+  form_element_type_id integer REFERENCES form_element_type (id)
+);
+
+INSERT INTO form_elements (form_id, form_element_type_id) VALUES (1, 1);
+INSERT INTO form_elements (form_id, form_element_type_id) VALUES (2, 1);
+
+DROP TABLE IF EXISTS form_element_list_values;
+
+CREATE TABLE form_element_list_values (
+  id SERIAL PRIMARY KEY,
+  form_element_id integer REFERENCES form_elements (id),
+  value varchar(45)
+);
+
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Venice Boardwalk');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Street/alley/park');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Abandoned Building');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Detox/Rehab Center');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Transitional Housing');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Emergency Shelter');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Jail/juvenile detention');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Halfway House');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Family Members Home');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Permanent Supportive Housing');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Foster Care Home');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Long-term care facility');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Safe haven');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Friends home');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Hospital - Medical');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Hospital - Psychiatric');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Hotel/motel');
+INSERT INTO form_element_list_values (form_element_id, value) VALUES (1, 'Car');
