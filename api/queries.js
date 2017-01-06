@@ -1046,15 +1046,18 @@ var queries = {
     //  ========= Intake Form ========
 
     getClientForms: function (clientID) {
-        var queryString = 'SELECT form_elements.form_id, form.client_id, form.form_type_id, form_type.name as form_type, form_elements.form_element_type_id, form_element_type.name as form_element_type_name
-                                FROM form_element_type LEFT JOIN 
-                                        form_elements INNER JOIN form 
-                                            INNER JOIN form_type ON (form.form_type_id = form_type.id) 
-                                        ON (form_elements.form_id = form.id)
-                                ON (form_elements.form_element_type_id = form_element_type.id)
-                            WHERE form.client_id = ' + clientID+ ';';
+        var queryString = 'SELECT form_elements.form_id, form.client_id, form.form_type_id, ' +
+                            'form_type.name as form_type_name, form_elements.form_element_type_id, ' +
+                            'form_element_type.name as form_element_type_name ' +
+                                'FROM form_element_type LEFT JOIN ' +
+                                        'form_elements INNER JOIN form ' +
+                                            'INNER JOIN form_type ON (form.form_type_id = form_type.id) ' +
+                                        'ON (form_elements.form_id = form.id) ' +
+                                'ON (form_elements.form_element_type_id = form_element_type.id) ' +
+                            'WHERE form.client_id = ' + clientID + ';';
         return queryString;
     },
+
     //  ========= Import Data ========
     getPrograms: function () {
         var queryString = 'SELECT program_name FROM program';

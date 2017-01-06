@@ -842,6 +842,16 @@ var api = {
         });
     },
 
+    getClientForms: function (request, reply) {
+        Service.getClientForms(request.postgres, request.params.clientID, function (err, result) {
+            if (err) {
+                Respond.failedToGetClientForms(reply, err);
+            } else {
+                Respond.getClientForms(reply, result);
+            }
+        });
+    },
+
     getPrograms: function (request, reply) {
         Service.getPrograms(request.postgres, function (err, result) {
             if (err) {

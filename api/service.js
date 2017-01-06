@@ -1059,6 +1059,28 @@ var service = {
         });
     },
 
+    getClientForms: function (postgres, clientID, callback) {
+        Query.getClientForms(postgres, clientID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            var arr = [];
+            for (var i = 0; i < result.rows.length; i++) {
+                var local = result.rows[i];
+                arr.push({
+                    clientID: local.client_id,
+                    formElementTypeID: local.form_element_type_id,
+                    formElementTypeName: local.form_element_type_name,
+                    formID: local.form_id,
+                    formTypeName: local.form_type_name,
+                    formTypeID: local.form_type_id
+                });
+            }
+            callback(undefined, arr);
+            // callback(undefined, result);
+        });
+    },
+
     getPrograms: function (postgres, callback) {
         Query.getPrograms(postgres, function (err, result) {
             if (err) {

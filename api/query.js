@@ -1128,6 +1128,24 @@ var query = {
             });
         });
     },
+
+    getClientForms: function (postgres, clientID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getClientForms(clientID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(undefined, result);
+            });
+        });
+    },
+
     getPrograms: function (postgres, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

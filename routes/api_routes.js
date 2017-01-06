@@ -418,6 +418,11 @@ var apiRoutes = [
     },
     {
         method: 'GET',
+        path: '/clients/{clientID}/forms',
+        handler: Api.getClientForms
+    },
+    {
+        method: 'GET',
         path: '/programs',
         handler: Api.getPrograms
     },

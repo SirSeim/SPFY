@@ -1,5 +1,26 @@
 $(function (event) {
 
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+        },
+        url: "/api/clients/" + 1 + "/forms",
+        method: "GET",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (xhr) {
+            console.error(xhr);
+
+            if (xhr.status === 401) {
+                localStorage.removeItem("authorization");
+            }
+        }
+    });
     /*
         TODO:
         - text boxes for 'Other' and 'More than' options
