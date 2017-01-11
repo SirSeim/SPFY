@@ -1045,6 +1045,60 @@ var service = {
         });
     },
 
+    getAllFollowUps: function (postgres, callback) {
+        Query.getAllFollowUps(postgres, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getFollowUp: function (postgres, id, callback) {
+        Query.geFollowUp(postgres, id, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    getCaseManagerFollowUp: function (postgres, casemanagerID, callback) {
+        Query.getCaseManagerFollowUp(postgres, casemanagerID, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    editFollowUp: function (postgres, payload, callback) {
+        Query.editFollowUp(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    createFollowUp: function (postgres, payload, callback) {
+        Query.createFollowUp(postgres, payload, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
+    deleteFollowUp: function (postgres, id, callback) {
+        Query.deleteFollowUp(postgres, id, function (err, result) {
+            if (err) {
+                return callback(err);
+            }
+            callback(undefined, result);
+        });
+    },
+
     uploadSpreadsheet: function (postgres, formdata, callback) {
         Query.uploadSpreadsheet(postgres, formdata, function (err, result) {
             if (err) {

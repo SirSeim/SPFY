@@ -1042,6 +1042,11 @@ var queries = {
 
         return queryString;
     },
+    getAllFollowUps: function () {
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, client_id, location FROM follow_up';
+
+        return queryString;
+    },
     uploadSpreadsheet: function (formdata) {
 
         var removeEmptyArrays = function (data) {
