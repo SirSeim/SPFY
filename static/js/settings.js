@@ -334,8 +334,8 @@ $(function () {
             $('#edit-note').val($(notecol).data("note"));
             
             $(event.target).replaceWith(
-                '<button id="submit-flag" type="button" class="col-sm-2 btn btn-primary btn-sm">Submit</button>' +
-                '<button id="cancel-flag" type="button" class="col-sm-2 btn btn-primary btn-sm">Cancel</button>');
+                '<button id="submit-flag" type="button" class="btn btn-primary btn-sm">Submit</button>' +
+                '<button id="cancel-flag" type="button" class="btn btn-primary btn-sm">Cancel</button>');
 
             $('#submit-flag').click(function (event) {
                 // when editing, send all of the properties through
