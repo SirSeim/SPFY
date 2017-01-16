@@ -166,6 +166,19 @@ var viewRoutes = [
 
             });
         }
+    },
+
+    {
+        path: '/profile',
+        methodd: 'GET',
+        config: {
+            auth: false
+        },
+        handler: function (req, res) {
+            res.view('profile.html', {
+                
+            });
+        }
     }
 ];
 
