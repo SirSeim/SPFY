@@ -169,8 +169,8 @@ var viewRoutes = [
     },
 
     {
-        path: '/profile',
-        methodd: 'GET',
+        path: '/userprofile',
+        method: 'GET',
         config: {
             auth: false
         },

@@ -671,6 +671,6 @@ CREATE TABLE follow_up (
   timestamp timestamp DEFAULT NULL,
   note varchar(500) DEFAULT NULL,
   casemanager_id integer REFERENCES users (id),
-  client_id integer REFERENCES client (id)
+  client_id integer REFERENCES client (id),
   location varchar(50) DEFAULT NULL
 );
