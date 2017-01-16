@@ -197,6 +197,8 @@ $(function (event) {
                         table = $('#casenotes').DataTable();
                     }
                     
+                    // manually add placeholder for search bar on checkin table
+                    $('#casenotes_filter input').prop("placeholder", "Search Case Notes");
 
                     if (!$('#column-select').length) {
                         $('#casenotes_wrapper').find('div.row:first div.col-md-6:first')
