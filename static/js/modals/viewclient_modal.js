@@ -10,6 +10,11 @@ $(function () {
             // will work to reduce ajax calls
             console.log($('#client-modal-data').data());
 
+            $('#viewclient-modal-setflag').click(function (event) {
+                $('#setflag-modal-data').data({ clientID: $('#client-modal-data').data("id") });
+                $('#setflag-modal').modal('toggle');
+            });
+
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -106,6 +111,7 @@ $(function () {
                     event.stopPropagation();
                 });
             });
+
 
             // ** enrollment
 

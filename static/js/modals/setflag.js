@@ -95,7 +95,7 @@ $(function () {
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                 },
-                url: "api/clients/" +  $('#client-id')['0'].textContent + "/flags",
+                url: "api/clients/" +  $('#setflag-modal-data').data("clientID") + "/flags",
                 method: "POST",
                 data: data,
                 success: function (data) {

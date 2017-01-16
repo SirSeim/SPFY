@@ -15,6 +15,7 @@ $(function (event) {
         var caseNoteID;
 
         $('#setflag-button').click(function (event) {
+            $('#setflag-modal-data').data({ clientID: $('#client-id')['0'].textContent });
             $('#setflag-modal').modal('toggle');
         });
 
