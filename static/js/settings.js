@@ -3,8 +3,8 @@ $(function () {
     // ** will clean and optimize code **
 
     var setupSettingsPage = function () {
-        var statusTypes = JSON.parse(window.sessionStorage.statusTypes);
-        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var flagTypes = JSON.parse(window.sessionStorage.flagTypes);
+        var flags = JSON.parse(window.sessionStorage.flags);
         // var flags = JSON.parse(window.sessionStorage.flags);
         var notificationTypes = JSON.parse(window.sessionStorage.notificationTypes);
 
@@ -35,14 +35,14 @@ $(function () {
             // }
 
             if (colorcol.length !== 0 || typecol.length !== 0 || messagecol.length !== 0 || notecol.length !== 0) {
-                console.log("inside status cancel");
-                $(colorcol).empty().html('<button type="button" class="btn btn-primary status"><span class="badge"></span></button>');
-                $(colorcol).children('.btn.btn-primary.status').css("background-image", 'none');
-                $(colorcol).children('.btn.btn-primary.status').css("background-color", $(colorcol).data("color"));
+                console.log("inside flag cancel");
+                $(colorcol).empty().html('<button type="button" class="btn btn-primary flag"><span class="badge"></span></button>');
+                $(colorcol).children('.btn.btn-primary.flag').css("background-image", 'none');
+                $(colorcol).children('.btn.btn-primary.flag').css("background-color", $(colorcol).data("color"));
                 $(typecol).empty().html($(typecol).data("type"));
                 $(messagecol).empty().html($(messagecol).data("message"));
                 $(notecol).empty().html($(notecol).data("note"));
-                $(element).find('#submit-status').parent().replaceWith('<td>' + editButton + '</td>');
+                $(element).find('#submit-flag').parent().replaceWith('<td>' + editButton + '</td>');
             }
         };
 
@@ -118,7 +118,7 @@ $(function () {
         // --------------------- Notifications --------------------------
         
         notificationTypes.forEach(function (type) { 
-            $('#status-notifications-table tbody').append(
+            $('#flag-notifications-table tbody').append(
                             '<tr><td>' + type.name + '</td>' + 
                             '<td><input data-name="' + type.name + '" type="checkbox" name="settings-checkbox" checked></td>' +
                             '</tr>');
@@ -289,23 +289,23 @@ $(function () {
             -submit
         */
 
-        statusTypes.forEach(function (statustype) {
+        flagTypes.forEach(function (statustype) {
             var message = statustype.settings.defaults.message;
             var note = statustype.settings.defaults.note;
-            $('#statuses-table tbody').append(
+            $('#flags-table tbody').append(
                 '<tr data-id="' + statustype.id + '">' +
                 '<td class="color-column col" data-color="' + statustype.color + '" data-newcolor=""><button type="button" class="btn btn-primary statustype"><span class="badge"></span></button></td>' +
                 '<td class="type-column col" data-type="' + statustype.name + '">' + statustype.name + '</td>' +
                 '<td class="message-column col" data-message="' + message + '">' + message + '</td>' + // change these to defaults
                 '<td class="note-column col" data-note="' + note + '">' + note + '</td>' +
                 '<td class="col-sm-3">' + editButton + '</td></tr>');
-            $('#statuses-table tbody .btn.btn-primary.statustype:last').css("background-image", 'none');
-            $('#statuses-table tbody .btn.btn-primary.statustype:last').css("background-color", statustype.color);
+            $('#flags-table tbody .btn.btn-primary.statustype:last').css("background-image", 'none');
+            $('#flags-table tbody .btn.btn-primary.statustype:last').css("background-color", statustype.color);
         });
             
         // according to stackoverflow, use delegate for elements that change frequently
         
-        $('#statuses-table tbody').delegate('td button.edit', 'click', function (event) {
+        $('#flags-table tbody').delegate('td button.edit', 'click', function (event) {
 
             // cancel any other active edits before opening the edit options for the current status
             $(event.target).parents('tbody').children('tr').get().forEach(function (element) {
@@ -334,10 +334,10 @@ $(function () {
             $('#edit-note').val($(notecol).data("note"));
             
             $(event.target).replaceWith(
-                '<button id="submit-status" type="button" class="col-sm-2 btn btn-primary btn-sm">Submit</button>' +
-                '<button id="cancel-status" type="button" class="col-sm-2 btn btn-primary btn-sm">Cancel</button>');
+                '<button id="submit-flag" type="button" class="btn btn-primary btn-sm">Submit</button>' +
+                '<button id="cancel-flag" type="button" class="btn btn-primary btn-sm">Cancel</button>');
 
-            $('#submit-status').click(function (event) {
+            $('#submit-flag').click(function (event) {
                 // when editing, send all of the properties through
                 // even if they haven't changed
                 // because right now the sql UPDATE queries are updating
@@ -360,7 +360,7 @@ $(function () {
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
                         },
-                        url: 'api/statuses/types/' + $(event.target).parents('tr').data("id"),
+                        url: 'api/flags/types/' + $(event.target).parents('tr').data("id"),
                         method: 'PUT',
                         data: data,
                         success: function (data) {
@@ -391,9 +391,9 @@ $(function () {
                             $(messagecol).data("message", message);
                             $(notecol).data("note", note);
 
-                            $(colorcol).empty().html('<button type="button" class="btn btn-primary status"><span class="badge"></span></button>');
-                            $(colorcol).children('.btn.btn-primary.status').css("background-image", 'none');
-                            $(colorcol).children('.btn.btn-primary.status').css("background-color", color);
+                            $(colorcol).empty().html('<button type="button" class="btn btn-primary flag"><span class="badge"></span></button>');
+                            $(colorcol).children('.btn.btn-primary.flag').css("background-image", 'none');
+                            $(colorcol).children('.btn.btn-primary.flag').css("background-color", color);
                             $(typecol).empty().html(typeName);
                             $(messagecol).empty().html(message);
                             $(notecol).empty().html(note);
@@ -410,7 +410,7 @@ $(function () {
                 }
             });
 
-            $('#cancel-status').click(function (event) {
+            $('#cancel-flag').click(function (event) {
                 cancel($(event.target).parents('tr')); // function defined above
             });
         });
@@ -476,8 +476,8 @@ $(function () {
     };
 
     var globalData = []
-    globalData.push(window.sessionStorage.statusTypes);
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.flagTypes);
+    globalData.push(window.sessionStorage.flags);
     // globalData.push(window.sessionStorage.flags);
 
     if (globalData.every((array) => array)) {

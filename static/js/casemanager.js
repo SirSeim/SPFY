@@ -12,19 +12,19 @@ $(function (event) {
     //     event.preventDefault();
     // });
 
-    $('.panel.panel-default').draggable();
+    // $('.panel.panel-default').draggable();
 
-    // plugin for jquery (adds methods to jquery prototype object)
-    // any jquery object can now use these methods
-    // plugin makes its way out of plugins/notify.js and into the other js files
-    // through _basescript.html script tag 
-    $.notify("Hello SPY!");
+    // // plugin for jquery (adds methods to jquery prototype object)
+    // // any jquery object can now use these methods
+    // // plugin makes its way out of plugins/notify.js and into the other js files
+    // // through _basescript.html script tag 
+    // $.notify("Hello SPY!");
 
-    // sets global default attributes
-    $.notify.defaults({ className: "success" });
+    // // sets global default attributes
+    // $.notify.defaults({ className: "success" });
 
-    // second parameter is className
-    $.notify("Hello SPY!", "success");
+    // // second parameter is className
+    // $.notify("Hello SPY!", "success");
 
     // second parameter can also be an object with
     // more options

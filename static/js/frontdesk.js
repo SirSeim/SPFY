@@ -4,7 +4,7 @@ $(function () {
 
     var setupFrontDesk = function () {
 
-        var statuses = JSON.parse(window.sessionStorage.statuses);
+        var flags = JSON.parse(window.sessionStorage.flags);
         var clients = JSON.parse(window.sessionStorage.clients);
         var checkinTable = $('#checked-in').DataTable({
             // data: dataset,
@@ -12,7 +12,9 @@ $(function () {
                       return { name: propName, data: propName, title: propName };
                     }) // setting property names as column headers for now
         });
-                
+        
+        // manually add placeholder for search bar on checkin table      
+        $('#checked-in_filter input').prop("placeholder", "Search Check-Ins");
 
         // modify the clientprofiletable once it comes onto the page
         // to include 'select' button specific to checkin process
@@ -166,7 +168,7 @@ $(function () {
                                         dob: moment(client.dob).format('MM-DD-YY'),
                                         status: client.status 
                                     }); 
-                                    // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                                    // var currentStatus = window.getDataById(flags, $(row.node()).data("status"));
                                     // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                                     // according to stackoverflow, need to manually reattach event handlers
                                     // to dynamically added elements, even for modals
@@ -304,7 +306,7 @@ $(function () {
                                 dob: moment(client.dob).format('MM-DD-YY'),
                                 status: client.status 
                             }); 
-                            // var currentStatus = window.getDataById(statuses, $(row.node()).data("status"));
+                            // var currentStatus = window.getDataById(flags, $(row.node()).data("status"));
                             // $(row.node()).find('td span.dot').css('background-color', currentStatus.color);
                             // according to stackoverflow, need to manually reattach event handlers
                             // to dynamically added elements, even for modals
@@ -525,7 +527,7 @@ $(function () {
         //         enrollment.forEach(function (enroll) {
         //             if (enroll.activity_id === $(table).data("id")) {
         //                 var client = window.getDataById(clients, enroll.client_id);
-        //                 var status = window.getDataById(statuses, client.status);
+        //                 var status = window.getDataById(flags, client.status);
         //                 var display = ['<span class="dot"></span>' + client.firstName + ' ' + client.lastName];
         //                 var trAttributes = [
         //                     'class="clickable-row"',
@@ -545,7 +547,7 @@ $(function () {
     };
 
     var globalData = [];
-    globalData.push(window.sessionStorage.statuses);
+    globalData.push(window.sessionStorage.flags);
     globalData.push(window.sessionStorage.clients);
 
     if (globalData.every((array) => array)) {

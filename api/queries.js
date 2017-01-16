@@ -910,20 +910,20 @@ var queries = {
 
     // ** 
 
-    getStatusTypes: function () {
-        var queryString = 'SELECT id, name, color, settings FROM status_type;';
+    getFlagTypes: function () {
+        var queryString = 'SELECT id, name, color, settings FROM flag_type;';
 
         return queryString;
     },
 
-    getStatuses: function () {
-        var queryString = 'SELECT id, client_id, type, message, note, settings FROM status;';
+    getFlags: function () {
+        var queryString = 'SELECT id, client_id, type, message, note, settings FROM flag;';
 
         return queryString;
     },
 
-    createStatusType: function (payload) {
-        var queryString = 'INSERT INTO status_type (name, color, settings) VALUES (\'' +
+    createFlagType: function (payload) {
+        var queryString = 'INSERT INTO flag_type (name, color, settings) VALUES (\'' +
                             payload.name + '\', \'' +
                             payload.color + '\', \'' +
                             payload.settings + '\' ) RETURNING id, name, color, settings;';
@@ -931,7 +931,7 @@ var queries = {
         return queryString;
     },
 
-    editStatusType: function (statustypeID, payload) {
+    editFlagType: function (flagtypeID, payload) {
         // just updating all of them for now?
         var settings = { 
             defaults: { 
@@ -940,27 +940,27 @@ var queries = {
             }
         };
 
-        var queryString = 'UPDATE status_type SET ' +
+        var queryString = 'UPDATE flag_type SET ' +
                             'name = \'' + payload.typeName + '\', ' +
                             'color = \'' + payload.color + '\', ' +
                             'settings = \'' + JSON.stringify(settings) + '\' ' +
                             // 'message = \'' + payload.message + '\', ' +
                             // 'note = \'' + payload.note + '\' ' +
-                            'WHERE id = ' + statustypeID +
+                            'WHERE id = ' + flagtypeID +
                             // ' RETURNING id, type, message, color, note;';
                             ' RETURNING id, name, color, settings;';
         return queryString;
     },
 
-    getClientStatuses: function (clientID) {
-        var queryString = 'SELECT id, type, message, note, settings FROM status WHERE client_id = ' + clientID + ';';
+    getClientFlags: function (clientID) {
+        var queryString = 'SELECT id, type, message, note, settings FROM flag WHERE client_id = ' + clientID + ';';
 
         return queryString;
     },
 
-    setClientStatus: function (payload) {
+    setClientFlag: function (payload) {
         console.log(payload);
-        var queryString = 'INSERT INTO status (client_id, type, message, note, settings) VALUES (' +
+        var queryString = 'INSERT INTO flag (client_id, type, message, note, settings) VALUES (' +
                             payload.clientID + ', ' + 
                             payload.typeID + ', ' +
                             '\'' + payload.message + '\', \'' + 
@@ -970,12 +970,12 @@ var queries = {
         return queryString;
     },
 
-    editClientStatus: function (payload) {
-        var queryString = 'UPDATE status SET ' +
+    editClientFlag: function (payload) {
+        var queryString = 'UPDATE flag SET ' +
                           'message = \'' + payload.message + '\', ' +
                           'note = \'' + payload.note + '\', ' +
                           'settings = \'' + payload.settings + '\' ' +
-                          'WHERE id = ' + payload.statusID + ' ' +
+                          'WHERE id = ' + payload.flagID + ' ' +
                           'RETURNING id, client_id, type, message, note, settings;';
         return queryString;
     },
