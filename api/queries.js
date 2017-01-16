@@ -1049,14 +1049,15 @@ var queries = {
     },
 
     getFollowUp: function (id) {
-        var queryString = 'SELECT id, timestamp, note, casemanager_id, client_id, location FROM follow_up WHERE id = ' + id + ';';
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, ' +
+                          'client_id, location FROM follow_up WHERE id = ' + id + ';';
 
         return queryString;
     },
 
     getCaseManagerFollowUps: function (casemanagerID) {
-        var queryString = 'SELECT id, timestamp, note, casemanager_id, client_id, location FROM follow_up WHERE casemanager_id = '
-            + casemanagerID + ';';
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, ' +
+                          'client_id, location FROM follow_up WHERE casemanager_id = ' + casemanagerID + ';';
 
         return queryString;
     },

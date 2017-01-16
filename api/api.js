@@ -855,7 +855,7 @@ var api = {
 
     getFollowUp: function (request, reply) {
         Service.getFollowUp(request.postgres, request.params.id, function (err, result) {
-            if (er) {
+            if (err) {
                 Respond.failedToGetFollowUp(reply, err);
             } else {
                 Respond.getFollowUp(reply, result);
@@ -898,7 +898,7 @@ var api = {
             if (err) {
                 Respond.failedToDeleteFollowUp(reply, err);
             } else {
-                Reespond.deleteFollowUp(reply, result);
+                Respond.deleteFollowUp(reply, result);
             }
         });
     },
