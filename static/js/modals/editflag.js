@@ -10,7 +10,7 @@ $(function () {
     });
 
     $('#editflag-submit-button').click(function (event) {
-        if ($('#editflag-modal-dot').is(':checked')) { // remove flag
+        if ($('#editflag-modal-remove').is(':checked')) { // remove flag
             var data = {
                 flagID: $('#editflag-modal-data').data("id")
             };

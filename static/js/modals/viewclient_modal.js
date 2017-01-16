@@ -72,41 +72,39 @@ $(function () {
                          '<a class="flag-edit" href="#">edit</a></button>'); // title and data-content attributes are for hover popover
                     $('#client-badges button:last').css('background-color', flagtype.color);
                 });
-                $('.badge-button').popover({ container: 'body' })
-                                  .mousedown(function (event) {
-                                      $(this).popover('toggle');
-                                      event.stopPropagation();
-                                  });
+
+                // frontdesk modals will be without popover for now
+                // $('.badge-button').mousedown(function (event) {
+                //                       $(this).popover('toggle');
+                //                       event.stopPropagation();
+                //                   });
                 $('#client-badges a.flag-edit').click(function (event) {
                     // $('#editstatus-modal').css("z-index", $('#viewclient-modal').css("z-index") * 30);
                     // console.log($('#editstatus-modal').css("z-index"));
                     console.log($(this).parents('button.badge-button').prop("title"));
                     $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parent().prop('title') + ' Flag');
+                    $('#editflag-modal-data').data($(this).parents('button').data());
+                    var data = $('#editflag-modal-data').data();
                     $('#editflag-modal').modal('toggle');
+                    $('#editflag-modal-dot').prop("checked", data.settings.dot);
+                    $('[name="edit-message"]').val(data.message);
+                    $('[name="edit-note"]').val(data.note);
                     event.stopPropagation();
                 });
+
                 $('#editflag-modal .close').click(function (event) {
                     // need to manually set this to override modal's close event
                     // that way it only closes this modal and not other modals
                     $('#editflag-modal').modal('hide');
                     event.stopPropagation();
                 });
+
                 $('#editflag-modal .btn.cancel').click(function (event) {
                     // need to manually set this to override modal's close event
                     // that way it only closes this modal and not other modals
                     $('#editflag-modal').modal('hide');
                     event.stopPropagation();
                 });
-                // $(document).on('show.bs.modal', '#editflag-modal', function () {
-                //     alert("here")
-                //     var zIndex = Math.max.apply(null, Array.prototype.map.call(document.querySelectorAll('*'), function(el) {
-                //       return + el.style.zIndex;
-                //     })) + 10;
-                //     $(this).css('z-index', zIndex);
-                //     setTimeout(function() {
-                //         $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-                //     }, 0);
-                // });
             });
 
             // ** enrollment
