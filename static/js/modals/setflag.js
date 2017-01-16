@@ -83,6 +83,11 @@ $(function () {
                 }
             }).done(function (data) {
                 $('#setflag-modal').modal('toggle');
+                if (window.viewClientRefresh) {
+                    window.viewClientRefresh.forEach(function (f) {
+                        f();
+                    });
+                }
             });
 
             // hardcoding this for now

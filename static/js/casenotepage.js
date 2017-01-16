@@ -28,7 +28,11 @@ $(function (event) {
                 }
             }
         }).done(function (data) {
-            
+            if (window.viewClientRefresh) {
+                window.viewClientRefresh.forEach(function (f) {
+                    f();
+                });
+            }
         });
     };
 
