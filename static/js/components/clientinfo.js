@@ -127,4 +127,68 @@ $(function (event) {
     ];
 
     buildListItems(races, '#race', 'race-checkbox');
+
+    var education = [
+        'High School',
+        'Community College',
+        'Trade School',
+        '4 year college',
+        'Grad School'
+    ];
+
+    buildListItems(education, '#some-education', 'some-education-checkbox');
+
+    buildListItems(education, '#currently-attending', 'curently-attending-checkbox');
+
+    buildListItems(education, '#graduated', 'graduated-checkbox');
+
+    var languages = [
+        'English',
+        'Spanish',
+        'Other'
+    ];
+
+    buildOptions(languages, '#first-language');
+
+    var preferredLanguage = [
+        'Spanish',
+        'Other'
+    ];
+
+    buildOptions(preferredLanguage, '#preferred-language');
+
+    var disabilities = [
+        'Mental Health',
+        'Physical',
+        'Developmental',
+        'Learning',
+        'No',
+        'Don\'t Know',
+        'Refuse to Answer'
+    ];
+
+    buildListItems(disabilities, '#disability', 'disability-checkbox');
+
+    var pregnant = [
+        'yes',
+        'no',
+        'not sure'
+    ];
+
+    buildOptions(pregnant, '#currently-pregnant');
+
+    var firstPregnancy = [
+        'yes',
+        'no'
+    ];
+
+    buildListItems(firstPregnancy, '#first-pregnancy', 'first-pregnancy-checkbox');
+
+    var trimester = [
+        '1st',
+        '2nd',
+        '3rd'
+    ];
+
+    buildOptions(trimester, '#trimester');
 });
