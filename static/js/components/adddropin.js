@@ -12,41 +12,47 @@ $(function () {
                 '</a>';
         };
 
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-            },
-            url: "/api/dropins?latest=6",
-            method: "GET"
-        }).done(function (data, textStatus, xhr) {
-            window.sessionStorage.frontdeskDropinId = data.result[0].id;
-            window.sessionStorageListeners.forEach(function (listener) {
-                listener.ready();
-            });
-          
-            $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do, YYYY'));
+        var populateDropInDropdown = function () {
+            $('#drop-in-dropdown').empty();
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "/api/dropins?latest=6",
+                method: "GET"
+            }).done(function (data, textStatus, xhr) {
+                console.log(data);
+                window.sessionStorage.frontdeskDropinId = data.result[0].id;
+                window.sessionStorageListeners.forEach(function (listener) {
+                    listener.ready();
+                });
+              
+                $("#drop-in-date").append(moment(data.result[0].date).format('MMM Do, YYYY'));
 
-            var jDropInDropdown = $("#drop-in-dropdown");
-            data.result.forEach(function(dropinItem) {
-                jDropInDropdown.append(createDropInDateItem(dropinItem));
-            });
+                var jDropInDropdown = $("#drop-in-dropdown");
+                data.result.forEach(function(dropinItem) {
+                    jDropInDropdown.append(createDropInDateItem(dropinItem));
+                });
 
-            $(".dropin-date-item").click(function (event) {
-                jThis = $(this);
-                $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
-                window.sessionStorage.frontdeskDropinId = jThis.data("id");
-                if (window.frontDeskRefresh) {
-                    window.frontDeskRefresh.forEach(function (f) {
-                        f();
-                    });
-                }
+                $(".dropin-date-item").click(function (event) {
+                    jThis = $(this);
+                    $("#drop-in-date").text(moment(jThis.text()).format('MMM Do YYYY'));
+                    window.sessionStorage.frontdeskDropinId = jThis.data("id");
+                    if (window.frontDeskRefresh) {
+                        window.frontDeskRefresh.forEach(function (f) {
+                            f();
+                        });
+                    }
+                });
+            }).fail(function (xhr, textStatus, errorThrown) {
+                console.log(xhr);
             });
-        }).fail(function (xhr, textStatus, errorThrown) {
-            console.log(xhr);
-        });
+        };
+
+        populateDropInDropdown();
 
         $("#create-dropin").click(function (event) {
             $.ajax({
@@ -65,7 +71,7 @@ $(function () {
                 console.log(data);
                 //refresh check-in
                 //refresh activities & their enrollment
-
+                populateDropInDropdown();
             }).fail(function (xhr, textStatus, errorThrown) {
                 console.log(xhr);
             });

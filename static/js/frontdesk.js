@@ -12,7 +12,9 @@ $(function () {
                       return { name: propName, data: propName, title: propName };
                     }) // setting property names as column headers for now
         });
-                
+        
+        // manually add placeholder for search bar on checkin table      
+        $('#checked-in_filter input').prop("placeholder", "Search Check-Ins");
 
         // modify the clientprofiletable once it comes onto the page
         // to include 'select' button specific to checkin process

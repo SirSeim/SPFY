@@ -156,7 +156,7 @@ $(function (event) {
             });
         };
 
-        var getCaseNotes = function (clientID) {
+        var setupCaseNotes = function (clientID) {
             $.ajax({
                 xhrFields: {
                     withCredentials: true
@@ -178,11 +178,11 @@ $(function (event) {
                 }
             }).done(function (data) {
                 $('#casenotes > tbody').empty();
-                $("#viewcasenote-client").empty()
-                $("#viewcasenote-date").empty()
-                $("#viewcasenote-category").empty()
-                $("#viewcasenote-casemanager").empty()
-                $("#viewcasenote-note").empty()
+                $("#viewcasenote-client").empty();
+                $("#viewcasenote-date").empty();
+                $("#viewcasenote-category").empty();
+                $("#viewcasenote-casemanager").empty();
+                $("#viewcasenote-note").empty();
 
                 if (data.result) {
                     var notes = data.result;
@@ -198,6 +198,8 @@ $(function (event) {
                         table = $('#casenotes').DataTable();
                     }
                     
+                    // manually add placeholder for search bar on checkin table
+                    $('#casenotes_filter input').prop("placeholder", "Search Case Notes");
 
                     if (!$('#column-select').length) {
                         $('#casenotes_wrapper').find('div.row:first div.col-md-6:first')
@@ -302,6 +304,97 @@ $(function (event) {
             });
         };
 
+        var refreshCaseNotes = function () {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: "api/case_notes/" + $('#client-id')['0'].textContent,
+                method: "GET",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                if (data.result) {
+                    $("#viewcasenote-client").empty();
+                    $("#viewcasenote-date").empty();
+                    $("#viewcasenote-category").empty();
+                    $("#viewcasenote-casemanager").empty();
+                    $("#viewcasenote-note").empty();
+
+                    var notes = data.result;
+                    var table = $('#casenotes');
+
+                    if (!$.fn.DataTable.isDataTable('#casenotes')) {
+                        table = $('#casenotes').DataTable({
+                            columns: Object.keys(notes[0]).map(function (propName) {
+                                return { name: propName, data: propName, title: propName };
+                            }) // setting property names as column headers for now
+                        });
+                    } else {
+                        table = $('#casenotes').DataTable();
+                    }
+                    table.rows().remove().draw();
+
+                    notes.forEach(function (note) {
+                        var row = table.row.add({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        }).draw();
+
+                        $(row.node()).click(function(){
+                            $("#viewcasenote").removeAttr('hidden');
+                            $("#viewcasenote-client").empty().append("Client: " + note.clientID);
+                            $("#viewcasenote-date").empty().append("Date: " + note.date);
+                            $("#viewcasenote-category").empty().append("Category: " + note.category);
+                            $("#viewcasenote-casemanager").empty().append("Case Manager: " + note.caseManagerID);
+                            $("#viewcasenote-note").empty().append("Note: " + note.note);
+                        });
+
+                        $(row.node()).data({
+                            id: note.id,
+                            clientID: note.clientID,
+                            caseManagerID: note.caseManagerID,
+                            date: note.date,
+                            category: note.category,
+                            note: note.note,
+                            followUpNeeded: note.followUpNeeded,
+                            dueDate: note.dueDate,
+                            reminderDate: note.reminderDate
+                        });
+                        $(row.node()).data('toggle', 'modal')
+                            .data('target', '#add-note-modal')
+                            .dblclick(function (event) {
+                                $('#edit-note-modal').modal('toggle');
+                                var clientID = $('#case-note-client-id').text();
+                                caseNoteID = note.id;
+                                editClientDropdown(clientID);
+                                editAllCaseManagers();
+                                $("#editcasenote-date").val(moment().format("YYYY-MM-DDTHH:mm:ss"));
+                                getNote(caseNoteID);
+                            });
+                    });
+                }
+            });
+        };
+
         $('#followup-checkbox-edit').click(function () {
             if ($('input[name=followup-checkbox-edit]:checked').length !== 0) {
                 $('#followup-area-edit')
@@ -351,6 +444,55 @@ $(function (event) {
             editNote(data);
         });
             
+        var populateClientFlags = function () {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
+                },
+                url: 'api/clients/' + $('#client-id')['0'].textContent + '/flags',
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+
+                    if (xhr.status === 401) {
+                        localStorage.removeItem("authorization");
+                    }
+                }
+            }).done(function (data) {
+                $('#client-flags').empty();
+                data.result.rows.forEach(function (flag) {
+                    var flagtype = window.getDataById(flagTypes, flag.type);
+                    $('#client-flags').append(
+                        '<li><button ' + window.dataString(flag) + '" class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flagtype.name + '"' +
+                         'data-content="' + flag.note + '">' + flagtype.name + '<span class="badge">' + flag.message + '</span>' +
+                         '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
+                    console.log($('#client-flags li:last .badge-button'));
+                    $('#client-flags li:last .badge-button').css('background-color', flagtype.color);
+                });
+                $('.badge-button').popover({ container: 'body' });
+                $('.badge-button').mousedown(function (event) {
+                    $(this).popover('toggle');
+                    event.stopPropagation();
+                });
+                $('#client-flags li a.flag-edit').click(function (event) {
+                    $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Flag')
+                    $('#editflag-modal-data').data($(this).parents('button').data());
+                    var data = $('#editflag-modal-data').data();
+                    $('#editflag-modal').modal('toggle');
+                    $('#editflag-modal-dot').prop("checked", data.settings.dot);
+                    $('[name="edit-message"]').val(data.message);
+                    $('[name="edit-note"]').val(data.note);
+                    event.stopPropagation();
+                });
+            });
+        };
+
         /*
             <tr>
               <td>1/10/15</td>
@@ -360,6 +502,7 @@ $(function (event) {
               <td><button type="button" class="edit-note btn btn-primary btn-sm">Edit</button></td>
             </tr>
         */
+
         var displayClientProfile = function (client) {
             $.ajax({
                 xhrFields: {
@@ -404,55 +547,10 @@ $(function (event) {
                 $('#client-phonenumber').text( data.result.rows[0].phone_number);
                 $('#client-email').text(data.result.rows[0].email);
 
-                getCaseNotes($('#client-id')['0'].textContent);
 
+                setupCaseNotes($('#client-id')['0'].textContent);
 
-                $.ajax({
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
-                    },
-                    url: 'api/clients/' + $('#client-id')['0'].textContent + '/flags',
-                    method: 'GET',
-                    success: function (data) {
-                        console.log(data);
-                    },
-                    error: function (xhr) {
-                        console.error(xhr);
-
-                        if (xhr.status === 401) {
-                            localStorage.removeItem("authorization");
-                        }
-                    }
-                }).done(function (data) {
-                    $('#client-flags').empty();
-                    data.result.rows.forEach(function (flag) {
-                        var flagtype = window.getDataById(flagTypes, flag.type);
-                        $('#client-flags').append(
-                            '<li><button ' + window.dataString(flag) + ' class="badge-button btn btn-primary btn-sm" type="button" data-toggle="popover" title="' +  flagtype.name + '"' +
-                             'data-content="' + flag.note + '">' + flagtype.name + '<span class="badge">' + flag.message + '</span>' +
-                             '<a class="flag-edit" href="#">edit</a></button></li>'); // title and data-content attributes are for hover popover
-                        console.log($('#client-flags li:last .badge-button'));
-                        $('#client-flags li:last .badge-button').css('background-color', flagtype.color);
-                    });
-                    $('.badge-button').popover({ container: 'body' })
-                                      .click(function (event) {
-                                          $(this).popover('toggle');
-                                          event.stopPropagation();
-                                      });
-                    $('#client-flags li a.flag-edit').click(function (event) {
-                        $('#editflag-modal').find('.modal-title').text('Edit ' + $(this).parents('button').prop("title") + ' Flag')
-                        $('#editflag-modal-data').data($(this).parents('button').data());
-                        var data = $('#editflag-modal-data').data();
-                        $('#editflag-modal').modal('toggle');
-                        $('#editflag-modal-dot').prop("checked", data.settings.dot);
-                        $('[name="edit-message"]').val(data.message);
-                        $('[name="edit-note"]').val(data.note);
-                        event.stopPropagation();
-                    });
-                });
+                populateClientFlags();
 
                 getClientFiles($(client).data("id"));
 
@@ -465,6 +563,7 @@ $(function (event) {
 
             getProfilePicture(client);
         };
+
 
         var editCasePlan = function (data){
             $.ajax({
@@ -785,7 +884,12 @@ $(function (event) {
         // $('#shower').hover( function () {
         //     $('#shower').popover('toggle');
         // });
+        window.viewClientRefresh = window.viewClientRefresh || [];
+        window.viewClientRefresh.push(populateClientFlags);
+        window.viewClientRefresh.push(refreshCaseNotes);
     };
+
+    
 
     var globalData = [];
     globalData.push(window.sessionStorage.flagTypes);
