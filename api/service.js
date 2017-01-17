@@ -1063,7 +1063,7 @@ var service = {
         });
     },
 
-    getCaseManagerFollowUp: function (postgres, casemanagerID, callback) {
+    getCaseManagerFollowUps: function (postgres, casemanagerID, callback) {
         Query.getCaseManagerFollowUp(postgres, casemanagerID, function (err, result) {
             if (err) {
                 return callback(err);
