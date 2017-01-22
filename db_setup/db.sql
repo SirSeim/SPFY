@@ -674,3 +674,5 @@ CREATE TABLE follow_up (
   client_id integer REFERENCES client (id),
   location varchar(50) DEFAULT NULL
 );
+
+INSERT INTO follow_up (timestamp, note, casemanager_id, client_id, location) VALUES('1999-01-08 04:05:06', 'test', 1, 1, 'patio');

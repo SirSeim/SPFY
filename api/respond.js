@@ -558,10 +558,11 @@ var respond = {
             error: err
         }).code(500);
     },
-    loggedIn: function (reply, token) {
+    loggedIn: function (reply, token, userID) {
         reply({
             statusCode: 200,
-            message: "Successfully logged in!"
+            message: "Successfully logged in!",
+            result: userID
         }).code(200).header("Authorization", token);
     },
     failedToGetUsersNotifications: function (reply, err) {

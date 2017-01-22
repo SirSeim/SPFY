@@ -1064,7 +1064,7 @@ var service = {
     },
 
     getCaseManagerFollowUps: function (postgres, casemanagerID, callback) {
-        Query.getCaseManagerFollowUp(postgres, casemanagerID, function (err, result) {
+        Query.getCaseManagerFollowUps(postgres, casemanagerID, function (err, result) {
             if (err) {
                 return callback(err);
             }

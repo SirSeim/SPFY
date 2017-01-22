@@ -490,7 +490,7 @@ var api = {
                             if (err) {
                                 Respond.failedToGenToken(reply, err);
                             } else {
-                                Respond.loggedIn(reply, token);
+                                Respond.loggedIn(reply, token, user.id);
                             }
                         });
                     }
