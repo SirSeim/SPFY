@@ -2,6 +2,7 @@ $(function (event) {
 	
 	var table = $('#followups');
 	var tableBody = $('#followups > tbody');
+    var clientLookup = {};
 
 	var getCaseManagerFollowUps = function (casemanagerID) {
 		$.ajax({
@@ -15,16 +16,18 @@ $(function (event) {
             method: 'GET',
             success: function (data) {
                 console.log(data);
+
                 tableBody.empty();
 
                 var followups = data.result.rows;
 
                 followups.forEach(function (followup) {
+                    var client = clientLookup[followup.client_id];
                 	tableBody.append('<tr>' +
       									'<td>' + followup.id + '</td>' +
 							            '<td>' + followup.timestamp + '</td>' +
 								        '<td>' + followup.note + '</td>' +
-								        '<td>' + followup.client_id + '</td>' +
+								        '<td>' + client + '</td>' +
 								        '<td>' + followup.location + '</td>' +
 								     '</tr>')
                 });
@@ -32,8 +35,6 @@ $(function (event) {
                 if (!$.fn.DataTable.isDataTable('#followups') ) {
                     table = table.DataTable();
                 }
-
-                getClients();
 
             },
             error: function (xhr) {
@@ -143,6 +144,7 @@ $(function (event) {
                 console.log(data);
                 var clients = data.result;
                 clientDropdown(clients);
+                getCaseManagerFollowUps(localStorage.getItem("userID"));
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -160,6 +162,7 @@ $(function (event) {
         var clientDropdown = $('#add-followup-client');
         clientDropdown.empty();
         clients.forEach(function (client) {
+            clientLookup[client.id] = client.firstName + ' ' + client.lastName;
             clientDropdown.append('<option value="' + client.id + '">' + client.firstName + ' ' + client.lastName + '</option>');
         });
     };
@@ -186,6 +189,6 @@ $(function (event) {
         createFollowUp(data);
     });
 
-    getCaseManagerFollowUps(localStorage.getItem("userID"));
+    getClients();
 
 });
