@@ -1085,7 +1085,7 @@ var queries = {
         return queryString;
     },
 
-    deleteFollwUp: function (id) {
+    deleteFollowUp: function (id) {
         var queryString = 'DELETE FROM follow_up WHERE id = ' + id + ';';
 
         return queryString;

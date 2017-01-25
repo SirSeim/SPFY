@@ -27,6 +27,12 @@ $(function (event) {
                             { data: "note", title: "note" },
                             { data: "client", title: "client" },
                             { data: "location", title: "location" },
+                            {
+                                className: "delete",
+                                orderable: false,
+                                data: null,
+                                defaultContent: '<a href="#" class="delete-link">Delete</a>'
+                            }
                         ]
                     });
                 }
@@ -55,12 +61,21 @@ $(function (event) {
                     });
 
                     $(row.node()).data('toggle', 'modal')
-                            .data('target', '#edit-followup-modal')
-                            .dblclick(function (event) {
-                                $('#edit-followup-modal').modal('toggle');
-                                populateInput(followup);
-                            });
+                        .data('target', '#edit-followup-modal')
+                        .dblclick(function (event) {
+                            $('#edit-followup-modal').modal('toggle');
+                            populateInput(followup);
+                    });
 
+                });
+
+                $('.delete-link').click(function (event) {
+                    console.log('TEST');
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr)[0];
+                    var id = row[0] + 1;
+                    
+                    deleteFollowUp(id);
                 });
 
             },
@@ -140,7 +155,7 @@ $(function (event) {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', localStorage.getItem("authorization"));
             },
-            url: 'api/followups/' + id,
+            url: 'api/followups/delete/' + id,
             method: 'POST',
             success: function (data) {
                 console.log(data);
