@@ -69,13 +69,23 @@ $(function (event) {
 
                 });
 
+                var id;
+
                 $('.delete-link').click(function (event) {
-                    console.log('TEST');
+
                     var tr = $(this).closest('tr');
-                    var row = table.row(tr)[0];
-                    var id = row[0] + 1;
+                    id = $(table.row(tr).node()).children()[0].textContent;
+                    var warning = $('#warning')[0];
+                    var warningMessage = warning.textContent;
+                    warning.textContent = warningMessage.substr(0, warningMessage.indexOf('#') + 1);
+                    warning.textContent += id;
+                    $('#delete-followup-modal').modal('toggle');
                     
+                });
+
+                $('#delete-followup-submit').click(function() {
                     deleteFollowUp(id);
+                    $('#delete-followup-modal').modal('hide');
                 });
 
             },
