@@ -490,7 +490,7 @@ var api = {
                             if (err) {
                                 Respond.failedToGenToken(reply, err);
                             } else {
-                                Respond.loggedIn(reply, token);
+                                Respond.loggedIn(reply, token, user.id);
                             }
                         });
                     }
@@ -839,6 +839,66 @@ var api = {
                 Respond.failedToGetPrograms(reply, err);
             } else {
                 Respond.getPrograms(reply, result);
+            }
+        });
+    },
+
+    getAllFollowUps: function (request, reply) {
+        Service.getAllFollowUps(request.postgres, function (err, result) {
+            if (err) {
+                Respond.failedToGetAllFollowUps(reply, err);
+            } else {
+                Respond.getAllFollowUps(reply, result);
+            }
+        });
+    },
+
+    getFollowUp: function (request, reply) {
+        Service.getFollowUp(request.postgres, request.params.id, function (err, result) {
+            if (err) {
+                Respond.failedToGetFollowUp(reply, err);
+            } else {
+                Respond.getFollowUp(reply, result);
+            }
+        });
+    },
+
+    getCaseManagerFollowUps: function (request, reply) {
+        Service.getCaseManagerFollowUps(request.postgres, request.params.casemanagerID, function (err, result) {
+            if (err) {
+                Respond.failedToGetCaseManagerFollowUps(reply, err);
+            } else {
+                Respond.getCaseManagerFollowUps(reply, result);
+            }
+        });
+    },
+
+    editFollowUp: function (request, reply) {
+        Service.editFollowUp(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToEditFollowUp(reply, err);
+            } else {
+                Respond.editFollowUp(reply, result);
+            }
+        });
+    },
+
+    createFollowUp: function (request, reply) {
+        Service.createFollowUp(request.postgres, request.payload, function (err, result) {
+            if (err) {
+                Respond.failedToCreateFollowUp(reply, err);
+            } else {
+                Respond.createFollowUp(reply, result);
+            }
+        });
+    },
+
+    deleteFollowUp: function (request, reply) {
+        Service.deleteFollowUp(request.postgres, request.params.id, function (err, result) {
+            if (err) {
+                Respond.failedToDeleteFollowUp(reply, err);
+            } else {
+                Respond.deleteFollowUp(reply, result);
             }
         });
     },

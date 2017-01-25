@@ -663,3 +663,16 @@ CREATE TABLE monthly_statistics (
   unduplicated_youth integer DEFAULT 0,
   total_youth integer DEFAULT 0
 );
+
+DROP TABLE IF EXISTS follow_up;
+
+CREATE TABLE follow_up (
+  id SERIAL PRIMARY KEY,
+  timestamp timestamp DEFAULT NULL,
+  note varchar(500) DEFAULT NULL,
+  casemanager_id integer REFERENCES users (id),
+  client_id integer REFERENCES client (id),
+  location varchar(50) DEFAULT NULL
+);
+
+INSERT INTO follow_up (timestamp, note, casemanager_id, client_id, location) VALUES('1999-01-08 04:05:06', 'test', 1, 1, 'patio');

@@ -1,0 +1,29 @@
+{% include "components/_header.html" %}
+{% include "components/_navbar.html" %}
+<style rel="stylesheet">
+.fa {
+    cursor: pointer;
+}
+</style>
+<div class="row">
+  <br/>
+  <h3>*DOUBLE CLICK TO EDIT*</h3>
+  <br/>
+  <div class="col-lg-12">
+    <table id="followups" class="table table-hover">
+    </table>
+    <button id="add-followup" class="btn btn-success" data-toggle="modal" data-target="#add-followup-modal" style="float: left;">
+      Add New Follow Up 
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+    {% include "modals/addfollowup.html" %}
+    {% include "modals/editfollowup.html" %}
+    {% include "modals/deletefollowup.html" %}
+  </div>
+</div>
+
+{% include "components/_basescript.html" %}
+
+<script src="/static/js/profile.js"></script>
+
+{% include "components/_footer.html" %}

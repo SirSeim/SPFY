@@ -1124,6 +1124,95 @@ var query = {
             });
         });
     },
+    getAllFollowUps: function (postgres, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+            client.query(Queries.getAllFollowUps(), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    getFollowUp: function (postgres, id, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getFollowUp(id), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    getCaseManagerFollowUps: function (postgres, casemanagerID, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.getCaseManagerFollowUps(casemanagerID), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    editFollowUp: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.editFollowUp(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    createFollowUp: function (postgres, payload, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.createFollowUp(payload), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
+    deleteFollowUp: function (postgres, id, callback) {
+        postgres.connect(function (err, client, done) {
+            if (err) {
+                return callback(err);
+            }
+
+            client.query(Queries.deleteFollowUp(id), function (err, result) {
+                done();
+                if (err) {
+                    return callback(err);
+                }
+                return callback(undefined, result);
+            });
+        });
+    },
     uploadSpreadsheet: function (postgres, formdata, callback) {
         postgres.connect(function (err, client, done) {
             if (err) {

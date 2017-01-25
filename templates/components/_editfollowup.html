@@ -1,0 +1,31 @@
+<div class = "container" id="edit-followup-view">
+  <div class="row">
+    <div id="followup-id" hidden>
+    </div>
+    <div class="form-group row">
+      <label for="edit-followup-date" class="col-xs-2 col-form-label">Date & Time</label>
+      <div class="col-xs-5">
+        <input class="form-control" type="datetime-local" value="" id="edit-followup-date">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="edit-followup-client" class="col-xs-2 col-form-label">Client</label>
+      <div class="col-xs-5">
+        <!-- <input type="number" placeholder="1" id="client-id" min="1"> -->
+        <select id="edit-followup-client">
+          <option value="">Client Name</option>
+        </select>
+      </div>
+      <label for="edit-followup-location" class="col-xs-2 col-form-label">Location</label>
+      <div class="col-xs-3">
+        <input type="text" id="edit-followup-location" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="edit-followup-note" class="col-xs-5 col-form-label">Note (500 CHARACTER MAX)</label>
+      <div class="col-xs-12">
+        <textarea id="edit-followup-note" class="form-control" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+</div>

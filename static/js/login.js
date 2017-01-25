@@ -14,6 +14,7 @@ $(function () {
             data: data
         }).done(function (data, textStatus, xhr) {
             status.text("Success!");
+            localStorage.setItem("userID", data.result);
             console.log(data);
             console.log(textStatus);
             console.log(xhr);
