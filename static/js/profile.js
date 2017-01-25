@@ -1,7 +1,6 @@
 $(function (event) {
 	
 	var table = $('#followups');
-	var tableBody = $('#followups > tbody');
     var clientLookup = {};
 
 	var getCaseManagerFollowUps = function (casemanagerID) {
@@ -17,24 +16,34 @@ $(function (event) {
             success: function (data) {
                 console.log(data);
 
-                tableBody.empty();
-
                 var followups = data.result.rows;
+
+
+                if (!$.fn.DataTable.isDataTable('#followups')) {
+                    table = $('#followups').DataTable({
+                        columns: [
+                            { data: "id", title: "id" },
+                            { data: "timestamp", title: "timestamp" },
+                            { data: "note", title: "note" },
+                            { data: "client", title: "client" },
+                            { data: "location", title: "location" },
+                        ]
+                    });
+                }
+
+                table.rows().remove().draw();
 
                 followups.forEach(function (followup) {
                     var client = clientLookup[followup.client_id];
-                	tableBody.append('<tr>' +
-      									'<td>' + followup.id + '</td>' +
-							            '<td>' + followup.timestamp + '</td>' +
-								        '<td>' + followup.note + '</td>' +
-								        '<td>' + client + '</td>' +
-								        '<td>' + followup.location + '</td>' +
-								     '</tr>')
-                });
+                    var row = table.row.add({
+                        id: followup.id,
+                        timestamp: followup.timestamp,
+                        note: followup.note,
+                        client: client,
+                        location: followup.location
+                    }).draw();
 
-                if (!$.fn.DataTable.isDataTable('#followups') ) {
-                    table = table.DataTable();
-                }
+                });
 
             },
             error: function (xhr) {
