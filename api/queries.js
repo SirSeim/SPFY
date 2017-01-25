@@ -1064,10 +1064,10 @@ var queries = {
 
     editFollowUp: function (payload) {
         var queryString = 'UPDATE follow_up SET ';
-        queryString += 'timestamp = \'' + parseProperty(payload.timestamp) + '\' ';
-        queryString += 'note = \'' + parseProperty(payload.note) + '\' ';
-        queryString += 'casemanager_id = \'' + parseProperty(payload.casemanagerID) + '\' ';
-        queryString += 'client_id = \'' + parseProperty(payload.clientID) + '\' ';
+        queryString += 'timestamp = \'' + parseProperty(payload.timestamp) + '\', ';
+        queryString += 'note = \'' + parseProperty(payload.note) + '\', ';
+        queryString += 'casemanager_id = \'' + parseProperty(payload.casemanagerID) + '\', ';
+        queryString += 'client_id = \'' + parseProperty(payload.clientID) + '\', ';
         queryString += 'location = \'' + parseProperty(payload.location) + '\' ';
         queryString += 'WHERE id = ' + payload.id + ';';
 
