@@ -558,10 +558,11 @@ var respond = {
             error: err
         }).code(500);
     },
-    loggedIn: function (reply, token) {
+    loggedIn: function (reply, token, userID) {
         reply({
             statusCode: 200,
-            message: "Successfully logged in!"
+            message: "Successfully logged in!",
+            result: userID
         }).code(200).header("Authorization", token);
     },
     failedToGetUsersNotifications: function (reply, err) {
@@ -943,6 +944,90 @@ var respond = {
         reply({
             statusCode: 200,
             message: "Successfully got programs",
+            result: result
+        }).code(200);
+    },
+    failedToGetAllFollowUps: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get all followups",
+            error: err
+        }).code(500);
+    },
+    getAllFollowUps: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got all followups",
+            result: result
+        }).code(200);
+    },
+    failedToGetFollowUp: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get followup",
+            error: err
+        }).code(500);
+    },
+    getFollowUp: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got followup",
+            result: result
+        }).code(200);
+    },
+    failedToGetCaseManagerFollowUps: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to get case manager followups",
+            error: err
+        }).code(500);
+    },
+    getCaseManagerFollowUps: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully got case manager followups",
+            result: result
+        }).code(200);
+    },
+    failedToEditFollowUp: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to edit follow up",
+            error: err
+        }).code(500);
+    },
+    editFollowUp: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully edited follow up",
+            result: result
+        }).code(200);
+    },
+    failedToCreateFollowUp: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to create follow up",
+            error: err
+        }).code(500);
+    },
+    createFollowUp: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully created follow up",
+            result: result
+        }).code(200);
+    },
+    failedToDeleteFollowUp: function (reply, err) {
+        reply({
+            statusCode: 500,
+            message: "Unable to delete follow up",
+            error: err
+        }).code(500);
+    },
+    deleteFollowUp: function (reply, result) {
+        reply({
+            statusCode: 200,
+            message: "Successfully deleted follow up",
             result: result
         }).code(200);
     },

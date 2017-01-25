@@ -1042,6 +1042,55 @@ var queries = {
 
         return queryString;
     },
+    getAllFollowUps: function () {
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, client_id, location FROM follow_up;';
+
+        return queryString;
+    },
+
+    getFollowUp: function (id) {
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, ' +
+                          'client_id, location FROM follow_up WHERE id = ' + id + ';';
+
+        return queryString;
+    },
+
+    getCaseManagerFollowUps: function (casemanagerID) {
+        var queryString = 'SELECT id, timestamp, note, casemanager_id, ' +
+                          'client_id, location FROM follow_up WHERE casemanager_id = ' + casemanagerID + ';';
+
+        return queryString;
+    },
+
+    editFollowUp: function (payload) {
+        var queryString = 'UPDATE follow_up SET ';
+        queryString += 'timestamp = \'' + parseProperty(payload.timestamp) + '\', ';
+        queryString += 'note = \'' + parseProperty(payload.note) + '\', ';
+        queryString += 'casemanager_id = \'' + parseProperty(payload.casemanagerID) + '\', ';
+        queryString += 'client_id = \'' + parseProperty(payload.clientID) + '\', ';
+        queryString += 'location = \'' + parseProperty(payload.location) + '\' ';
+        queryString += 'WHERE id = ' + payload.id + ';';
+
+        return queryString;
+    },
+
+    createFollowUp: function (payload) {
+        var queryString = 'INSERT INTO follow_up (timestamp, note, casemanager_id, client_id, location) VALUES (';
+        queryString += '\'' + parseProperty(payload.timestamp) + '\', ';
+        queryString += '\'' + parseProperty(payload.note) + '\', ';
+        queryString += '\'' + parseProperty(payload.casemanagerID) + '\', ';
+        queryString += '\'' + parseProperty(payload.clientID) + '\', ';
+        queryString += '\'' + parseProperty(payload.location) + '\');';
+
+        return queryString;
+    },
+
+    deleteFollowUp: function (id) {
+        var queryString = 'DELETE FROM follow_up WHERE id = ' + id + ';';
+
+        return queryString;
+    },
+
     uploadSpreadsheet: function (formdata) {
 
         var removeEmptyArrays = function (data) {
