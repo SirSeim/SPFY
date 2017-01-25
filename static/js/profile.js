@@ -188,12 +188,11 @@ $(function (event) {
 
     var populateInput = function (followup) {
         $('#followup-id').val(followup.id);
-        $('#edit-followup-date').val(followup.timestamp);
-        console.log(followup.timestamp);
+        $('#edit-followup-date').val(moment().format("YYYY-MM-DDTHH:mm:ss"));
         $('#edit-followup-client').val(followup.client_id);
         $('#edit-followup-location').val(followup.location);
         $('#edit-followup-note').val(followup.note);
-    }
+    };
 
     var clientDropdown = function (clients) {
         var addFollowupClientDropdown = $('#add-followup-client');
@@ -206,12 +205,6 @@ $(function (event) {
             editFollowupClientDropdown.append('<option value="' + client.id + '">' + client.firstName + ' ' + client.lastName + '</option>');
         });
     };
-
-    var formatTimestamp = function (timestamp) {
-        var formatted = "";
-
-        return formatted;
-    }
 
     var gatherInput = function (action) {
         var casemanagerID = localStorage.getItem('userID');
