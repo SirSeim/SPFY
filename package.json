@@ -99,7 +99,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.0.2",
     "mocha-istanbul": "^0.3.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "supertest": "^2.0.1"
   },
   "eslintConfig": {
     "env": {
