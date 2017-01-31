@@ -1,3 +1,5 @@
+// comment to test commenting
+
 var chai = require("chai");
 var expect = chai.expect;
 
