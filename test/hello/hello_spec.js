@@ -2,6 +2,7 @@ var chai = require("chai");
 var expect = chai.expect;
 var apiroutes = require("../../routes/api_routes.js");
 var request = require('supertest');
+var SPFY = require('../../server.js');
 
 describe("Hello", function() {
     it("tests the Testing", function(done) {
@@ -13,6 +14,14 @@ describe("Hello", function() {
 describe("Create Client", function () {
     it("creates a new client profile", function (done) {
         // request.get('/').expect(200); // if expect() gets a number, automatically thinks it's a status code
+        var options = {
+            method: "GET",
+            url: "/"
+        }
+        
+        SPFY.inject(options, function (response) {
+            expect(response.statusCode).to.eql(200);
+        });
         done();
     });
 });

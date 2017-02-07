@@ -1,9 +1,9 @@
 var Hapi = require('hapi');
-var Path = require('path');
+var Path = require('path'); // node core package, don't need to list in dependencies
 var Inert = require('inert');
 var Vision = require('vision');
 var PostgreSQL = require('pg');
-var url = require('url');
+var url = require('url'); // node core package, don't need to list in dependencies
 
 var setup = {
     host: process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",

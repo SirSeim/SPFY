@@ -9,7 +9,7 @@
   "scripts": {
     "start": "if [ -f $(npm bin)/../../config/set_env.sh ]; then DATABASE_URL=$($(npm bin)/../../config/set_env.sh) SPFY_KEY=$($(npm bin)/../../config/set_key.sh) node server.js; else node server.js; fi;",
     "nodemon": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) SPFY_KEY=$($(npm bin)/../../config/set_key.sh) nodemon -e js,json,html,css server.js",
-    "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
+    "test": "DATABASE_URL=$($(npm bin)/../../config/set_env.sh) SPFY_KEY=$($(npm bin)/../../config/set_key.sh) mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
     "lint": "eslint server.js **/*.js",
     "report": "istanbul report",
     "report-summary": "istanbul report text-summary lcov",
