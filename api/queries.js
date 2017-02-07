@@ -748,8 +748,6 @@ var queries = {
 
         queryString += 'RETURNING client_id, case_manager_id, date, note, follow_up_needed, due_date, reminder_date;';
 
-        console.log(queryString);
-
         return queryString;
     },
 
@@ -959,14 +957,12 @@ var queries = {
     },
 
     setClientFlag: function (payload) {
-        console.log(payload);
         var queryString = 'INSERT INTO flag (client_id, type, message, note, settings) VALUES (' +
                             payload.clientID + ', ' + 
                             payload.typeID + ', ' +
                             '\'' + payload.message + '\', \'' + 
                             payload.note + '\', \'' + 
                             payload.settings + '\') RETURNING id, client_id, type, message, note, settings;';
-        console.log(queryString);
         return queryString;
     },
 
